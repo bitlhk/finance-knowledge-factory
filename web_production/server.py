@@ -2,6 +2,7 @@
 import argparse
 import fcntl
 import json
+import os
 import subprocess
 import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -113,6 +114,7 @@ def main():
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         service = Production(state)
         http = ThreadingHTTPServer(('127.0.0.1', args.port), handler(service))
+        (state / 'server.pid').write_text(str(os.getpid()))
         print(f'Candidate-only preview: http://127.0.0.1:{args.port}/', flush=True)
         try:
             http.serve_forever()

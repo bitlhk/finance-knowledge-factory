@@ -142,6 +142,24 @@ The real calls happened before the final commit. Their implementation file hashe
 are preserved in the run export; do not claim they used a later commit. Final-build
 readback and rule tests are separate and do not re-run model extraction.
 
+Checked-in evidence is in `evidence/web-production-v02/INDEX.json`, including the
+unchanged initial exports, both retained-result regression rounds, the final
+export and screenshots. The final code-tested commit is `6c32fb9`.
+The first retained round exposed a UI discrepancy: input controls reset to
+defaults while showing an archived result. This was fixed; final-round tests also
+assert that the displayed facts and query match their actual receipts after reload.
+No stored attempt or candidate digest changed.
+
+Final local Python regression: **280 passed** (266 baseline + 14 new preview
+tests). Final browser regression covers all four pages at 1366/390/320 widths,
+unsupported HTML rejection, historical retrieval after server restart, retained
+input/result alignment, and zero additional model calls. Four final rule cases:
+MET and NOT_MET execute in real Flowable, INVALID_INPUT and NOT_APPLICABLE stop at
+guards. That batch has 2 primary DMN calls and 1 recovery call. Across the initial
+production smoke and both retained-result rounds, all attempts are preserved:
+5 primary DMN calls, 3 recovery calls and 4 guard-only cases. These are technical
+checks, not new independent model quality results.
+
 Commands for reproduction (the first makes two new real calls):
 
 ```bash

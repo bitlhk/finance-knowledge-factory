@@ -28,6 +28,5 @@ ws.on('message',raw=>{
          KNOWLEDGE_FLOWABLE_CLASSPATH:cp}});
   child.on('error',()=>{process.stderr.write('Preview process failed to start\n');process.exitCode=1;});
   child.unref();fs.closeSync(log);
-  fs.writeFileSync(path.join(state,'server.pid'),String(child.pid),{mode:0o600});
   process.stdout.write('Preview process requested: PID '+child.pid+'; verify http://127.0.0.1:61352/api/state\n');
 });
