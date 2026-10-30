@@ -10,3 +10,5 @@ __pycache__/
 *.key
 credentials/
 secrets/
+.m1-local/
+target/
