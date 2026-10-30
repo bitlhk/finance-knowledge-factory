@@ -13,15 +13,19 @@ def main():
     from fastembed import TextEmbedding
     ap = argparse.ArgumentParser()
     ap.add_argument("--port", type=int, default=19382)
+    ap.add_argument("--credentials", type=Path, default=Path('.m1-local/ragflow-service/local-credentials.json'))
+    ap.add_argument("--state", type=Path, default=Path('.m1-local/ragflow-service'))
+    ap.add_argument("--cache", type=Path, default=Path('.m1-local/embedding-model'))
     args = ap.parse_args()
-    root = Path(".m1-local/ragflow-service")
-    password = json.loads((root / "local-credentials.json").read_text())["password"]
+    root = args.state
+    root.mkdir(parents=True, exist_ok=True, mode=0o700)
+    password = json.loads(args.credentials.read_text())["password"]
     net = json.loads(subprocess.check_output(["docker", "--host=unix:///var/run/docker.sock", "network", "inspect", "kf-m1-ragflow_default"]))[0]
     address = net["IPAM"]["Config"][0]["Gateway"]
     model_name = "BAAI/bge-small-zh-v1.5"
-    model = TextEmbedding(model_name, cache_dir=".m1-local/embedding-model", threads=1, local_files_only=True)
-    files = {str(p.relative_to(Path('.m1-local/embedding-model'))): hashlib.sha256(p.read_bytes()).hexdigest()
-             for p in Path('.m1-local/embedding-model').rglob('*') if p.is_file()}
+    model = TextEmbedding(model_name, cache_dir=str(args.cache), threads=1, local_files_only=True)
+    files = {str(p.relative_to(args.cache)): hashlib.sha256(p.read_bytes()).hexdigest()
+             for p in args.cache.rglob('*') if p.is_file()}
     (root / "embedding-identity.json").write_text(json.dumps({"model": model_name, "fastembed": "0.7.3", "files": files}, indent=2))
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, *args):

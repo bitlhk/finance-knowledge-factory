@@ -1,0 +1,505 @@
+{
+  "schemaVersion": "m2-acceptance.v0.1",
+  "runId": "m2-0876c920433b435aa875a9a3b8778874",
+  "startedAt": "2026-10-30T10:49:53.612203+00:00",
+  "sourceDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+  "baseCommit": "784974f35b7bc2eb105d3f6137c6e5ad88330d02",
+  "workingTreeDiffDigest": "d5f3f024e8abaa284791d9a6dc8444c59a643a308ae7354b3bc1ebf80719cc86",
+  "status": "PASSED_LIMITED_AB_SERVICE_PATH",
+  "scope": "REAL_RAGFLOW_AND_CORE_ONLY",
+  "cases": [
+    {
+      "question": "合成客服服务时间是什么？",
+      "expectedClause": "第一条"
+    },
+    {
+      "question": "客户如何申请历史对账单？",
+      "expectedClause": "第二条"
+    },
+    {
+      "question": "信息缺失时如何处理？",
+      "expectedClause": "第三条"
+    }
+  ],
+  "builder": "NOT_EXECUTED",
+  "browser": "NOT_EXECUTED",
+  "modelCalls": 0,
+  "approvalAuthority": "ISOLATED_TEST_ONLY",
+  "cost": null,
+  "negativeChecks": [
+    {
+      "case": "unpublished-candidate",
+      "actual": "NOT_FOUND",
+      "expected": "NOT_FOUND",
+      "passed": true
+    },
+    {
+      "case": "approval-required",
+      "actual": "NOT_FOUND",
+      "expected": "NOT_FOUND",
+      "passed": true
+    },
+    {
+      "case": "registered-not-effective",
+      "actual": "SOURCE_NOT_EFFECTIVE",
+      "expected": "SOURCE_NOT_EFFECTIVE",
+      "passed": true
+    },
+    {
+      "case": "manifest-mismatch",
+      "actual": "MANIFEST_MISMATCH",
+      "expected": "MANIFEST_MISMATCH",
+      "passed": true
+    },
+    {
+      "case": "unauthorized-user",
+      "actual": "FORBIDDEN",
+      "expected": "FORBIDDEN",
+      "passed": true
+    },
+    {
+      "case": "missing-trusted-context",
+      "actual": "TRUSTED_CONTEXT_REQUIRED",
+      "expected": "TRUSTED_CONTEXT_REQUIRED",
+      "passed": true
+    },
+    {
+      "case": "source-revoked",
+      "actual": "FORBIDDEN",
+      "expected": "FORBIDDEN",
+      "passed": true
+    }
+  ],
+  "implementation": {
+    "m2/__init__.py": "54060f8d44e72d23b5c21cb66cfce5216ddd43c0b95afb41a453f09ed5af7bb8",
+    "m2/acceptance.py": "162107ea2893bbcc02852976d334cc09c49db918261c6e55fd8d55985dc64fdc",
+    "m2/pipeline.py": "f9063b685a8ecef4f531dd8d563c214527e0b6e12ed7706c21b14b30c8df0323",
+    "m2/ragflow.py": "d22e8efd0bf7026478713311d89fdc110d0bc60d45923b701a0db345b10be3c3",
+    "knowledge_core/__init__.py": "e134e31dc4bbaf179c8f65b1c4253ae802dc48b55a7b6afc3258896ee07a4e9c",
+    "knowledge_core/contracts.py": "04b2318785b55d97bc69bdf2e7c581afa63f8fb67ef21f11bc90cd5475c004b6",
+    "knowledge_core/core.py": "cb34d294affc783a6566510a153040940f066b27e1335bf2f21fa98801a7ee17",
+    "knowledge_core/document_contracts.py": "07c911aa7920a0106e79a596fc17d9008bc0213ac1a4a31dc039440022daa500",
+    "knowledge_core/documents.py": "0e93516e1cb99f80401e881ead7442cf00851235a967049d580b60a586d3ff87",
+    "knowledge_core/rules.py": "81fed459adcca5956a468b1bd21b5f8ab5eff7e1cbc641a4947a67ce598d16ce",
+    "probes/documents/anchor_bridge.py": "73960eaf0cb66a150c39be367af8c9e6f3da80a099d30d69fb4b7c352b52810e",
+    "probes/documents/html_evidence.py": "8980e573f84e4b52db8ca9cf00e1725c7a9b45429d17e52294577392060e1912",
+    "tests/fixtures/m2-document.html": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+  },
+  "components": [
+    {
+      "name": "/kf-m1-ragflow_api_1",
+      "imageId": "sha256:ade2f5ba71f8c7305440a9ba9ca552b854fdbc483bf5c48e2c74fe618c7fc0f6",
+      "configuredImage": "infiniflow/ragflow@sha256:141670c7d25b4421f6378152e583a0fe7e5280ed750c42f7507759192d0dad82"
+    },
+    {
+      "name": "/kf-m1-ragflow_ingestor_1",
+      "imageId": "sha256:ade2f5ba71f8c7305440a9ba9ca552b854fdbc483bf5c48e2c74fe618c7fc0f6",
+      "configuredImage": "infiniflow/ragflow@sha256:141670c7d25b4421f6378152e583a0fe7e5280ed750c42f7507759192d0dad82"
+    }
+  ],
+  "objects": {
+    "sourceDigest": "527195d806f4230f271405618e49cf804b65372131ef6d57b949455b7cbb906f",
+    "indexDigest": "36350ff08bc04505764b1a45013f1137109e4a4651cfc87e3dc8cb219f726f6f",
+    "recipeDigest": "985d7d11ff7d20adba97454456334b5cd12d8ef8b9a0531c19351079b4585e92",
+    "artifactDigest": "1dcb9c9407b3bc573928bb0465bb351f539a4800ce36ae54e39ec0472d38b9fc",
+    "coreCandidateDigest": "6af1f63ffa2a5e2fd411590e58378df8b831d234825726d3e13de7dd5746e0fd",
+    "candidateDigest": "82280ca861a82acab611064d69f3b993ca0f5d320878a2177df83b2bc915dee1"
+  },
+  "index": {
+    "bridge": {
+      "derivedSourceDigest": "527195d806f4230f271405618e49cf804b65372131ef6d57b949455b7cbb906f",
+      "lineSpace": "DERIVED_TEXT_ONLY",
+      "mappings": [
+        {
+          "anchor": {
+            "locator": {
+              "end": 27,
+              "start": 0,
+              "xpath": "/html/body/p[1]/text()[1]"
+            },
+            "locatorKind": "HTML_DOM_TEXT",
+            "mediaType": "text/html",
+            "quote": "第一条 合成客服服务时间为每日09:00至17:00。",
+            "quoteDigest": "7339dedce5da0d9dbcaeb693c95f5ef7168e4d0b2a78c4e1edb1ab2ea1301822",
+            "schemaVersion": "evidence-anchor.v0.1",
+            "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+          },
+          "anchorId": "6ca1cded08fd4ff30f0a3d710455b105c6f007fe968ae56b5aab19d02fe30007",
+          "clause": "第一条",
+          "lineEnd": 1,
+          "lineStart": 1
+        },
+        {
+          "anchor": {
+            "locator": {
+              "end": 28,
+              "start": 0,
+              "xpath": "/html/body/p[2]/text()[1]"
+            },
+            "locatorKind": "HTML_DOM_TEXT",
+            "mediaType": "text/html",
+            "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+            "quoteDigest": "37cb23640221e65a1a31f1b793003b3853575546abef75a0946aef1107ab511f",
+            "schemaVersion": "evidence-anchor.v0.1",
+            "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+          },
+          "anchorId": "c553809590d9cdce34e3e1bcc509b6018e2b8c0eb1ce65411191d062be0e98e2",
+          "clause": "第二条",
+          "lineEnd": 2,
+          "lineStart": 2
+        },
+        {
+          "anchor": {
+            "locator": {
+              "end": 27,
+              "start": 0,
+              "xpath": "/html/body/p[3]/text()[1]"
+            },
+            "locatorKind": "HTML_DOM_TEXT",
+            "mediaType": "text/html",
+            "quote": "第三条 信息缺失时，应交由人工核实，不得编造缺失信息。",
+            "quoteDigest": "b5783ab01d4db61c015afaa3b3ad0e597b6fc7004f5b1e023c89dcc7398a7e96",
+            "schemaVersion": "evidence-anchor.v0.1",
+            "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+          },
+          "anchorId": "75567771a0d7c5c24853b0248907b6913524d6f8398989cc64359c1e873f44c6",
+          "clause": "第三条",
+          "lineEnd": 3,
+          "lineStart": 3
+        }
+      ],
+      "producer": "html-dom-text-bridge-0.1",
+      "schemaVersion": "html-anchor-bridge.v0.1",
+      "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+    },
+    "bridgeDigest": "c72f8d4f3dedce2a1736b1699373a3fcc1ee23d837eb0d5e2ad27c72290a2f92",
+    "clauses": [
+      {
+        "clause": "第一条",
+        "text": "第一条 合成客服服务时间为每日09:00至17:00。"
+      },
+      {
+        "clause": "第二条",
+        "text": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。"
+      },
+      {
+        "clause": "第三条",
+        "text": "第三条 信息缺失时，应交由人工核实，不得编造缺失信息。"
+      }
+    ],
+    "index": {
+      "buildId": "37b4ac5ef45449d5867402af3c322c45",
+      "chunks": [
+        {
+          "clauses": [],
+          "id": "e4cdd58928152b1f",
+          "text": "合成客服制度，仅供隔离测试，不是银行正式制度\n",
+          "textDigest": "5b211e4414efff3b31e9c9a2947873e2e9534fddabd15b137dcfc1def228896e"
+        },
+        {
+          "clauses": [
+            "第一条"
+          ],
+          "id": "40b86261af074024",
+          "text": "第一条 合成客服服务时间为每日09:00至17:00。\n",
+          "textDigest": "a346619464ead9aaa14fd2e4f34be9ac6cbd52c13dc3d8482ea20f5a3ecda9cc"
+        },
+        {
+          "clauses": [
+            "第二条"
+          ],
+          "id": "1b1f382c9a773eae",
+          "text": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。\n",
+          "textDigest": "6f0f26095031c74a917d1aa8377185b86999f42f66c256648ff34c285d83a48e"
+        },
+        {
+          "clauses": [
+            "第三条"
+          ],
+          "id": "d314ee4f82191ca1",
+          "text": "第三条 信息缺失时，应交由人工核实，不得编造缺失信息。\n",
+          "textDigest": "f368cfd6015cdaef32eb576d75a4905ab07a06675a3c9750f421914a2542fd6d"
+        }
+      ],
+      "datasetId": "ef5711aa3ad04b5893cd043ff8aece7a",
+      "documentId": "dda24cecf14e44ca89253b653bce0e56",
+      "embeddingIdentity": "BAAI/bge-small-zh-v1.5:3d995819ca6e4f46be2adb76cd4dfe4a",
+      "engineIdentity": "infiniflow/ragflow@sha256:141670c7d25b4421f6378152e583a0fe7e5280ed750c42f7507759192d0dad82"
+    },
+    "originalDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+    "originalHtml": "<!doctype html>\n<html lang=\"zh-CN\"><head><meta charset=\"utf-8\"><title>合成客服制度</title></head>\n<body><h1>合成客服制度，仅供隔离测试，不是银行正式制度</h1>\n<p>第一条 合成客服服务时间为每日09:00至17:00。</p>\n<p>第二条 客户申请历史对账单时，应在合成客服窗口提交申请。</p>\n<p>第三条 信息缺失时，应交由人工核实，不得编造缺失信息。</p>\n</body></html>\n",
+    "schemaVersion": "document-index.v0.1",
+    "sourceDigest": "527195d806f4230f271405618e49cf804b65372131ef6d57b949455b7cbb906f"
+  },
+  "validation": {
+    "candidateDigest": "82280ca861a82acab611064d69f3b993ca0f5d320878a2177df83b2bc915dee1",
+    "coreValidationDigest": "9324f27a154dba30dca40b6c30ba1db69185af83a16b7c9de40ab03a0db0f9df",
+    "passed": true,
+    "results": [
+      {
+        "actualClauses": [
+          "第一条",
+          "第二条"
+        ],
+        "error": null,
+        "expectedClause": "第一条",
+        "passed": true,
+        "question": "合成客服服务时间是什么？"
+      },
+      {
+        "actualClauses": [
+          "第二条"
+        ],
+        "error": null,
+        "expectedClause": "第二条",
+        "passed": true,
+        "question": "客户如何申请历史对账单？"
+      },
+      {
+        "actualClauses": [
+          "第三条",
+          "第二条"
+        ],
+        "error": null,
+        "expectedClause": "第三条",
+        "passed": true,
+        "question": "信息缺失时如何处理？"
+      }
+    ],
+    "schemaVersion": "document-validation.v0.1"
+  },
+  "manifestDigest": "f8572d42fdf92d6c07ba6025444ce0c7f356f7ecfb7c5b3d12e5239ce804727c",
+  "manifest": {
+    "approvalDigest": "e64fa6ffe5d2743919f82121894d33d30828316d67702bc3ecb8052186f0ff66",
+    "candidateDigest": "82280ca861a82acab611064d69f3b993ca0f5d320878a2177df83b2bc915dee1",
+    "id": "customer-service",
+    "indexDigest": "36350ff08bc04505764b1a45013f1137109e4a4651cfc87e3dc8cb219f726f6f",
+    "mode": "M2_ISOLATED_DOCUMENT",
+    "productId": "customer-service",
+    "revision": 1,
+    "schemaVersion": "document-manifest.v0.1",
+    "sourceDigest": "527195d806f4230f271405618e49cf804b65372131ef6d57b949455b7cbb906f",
+    "validationDigest": "cdd5cf83eb53c93b7fb1182eac6cf8f3924e4140fd2279dbc3828203cdb174d3"
+  },
+  "bindingDigest": "d6c9a4c68b4c67de93e77647df60dc1f0c5833b50150e88c072c311e4e6e6a95",
+  "receipts": [
+    {
+      "receiptDigest": "8f4857c2fa6b6884705667ba004780042fd282f08a183c4b22bcb46d053fe932",
+      "schemaVersion": "document-receipt.v0.1",
+      "requestId": "request-f35adfaadb844bad92682baf61911339",
+      "traceId": "trace-m2-0876c920433b435aa875a9a3b8778874",
+      "principal": "knowledge-agent",
+      "productId": "customer-service",
+      "manifestDigest": "f8572d42fdf92d6c07ba6025444ce0c7f356f7ecfb7c5b3d12e5239ce804727c",
+      "indexDigest": "36350ff08bc04505764b1a45013f1137109e4a4651cfc87e3dc8cb219f726f6f",
+      "sourceDigest": "527195d806f4230f271405618e49cf804b65372131ef6d57b949455b7cbb906f",
+      "bindingDigest": "d6c9a4c68b4c67de93e77647df60dc1f0c5833b50150e88c072c311e4e6e6a95",
+      "policyDigest": "81f27a0cc1d9d1b453f295ba48f854409d1a8017d0176093b1065d943b8725a2",
+      "hostAuthority": "synthetic-host-not-production",
+      "businessContextSource": "frozen-synthetic-clock",
+      "question": "合成客服服务时间是什么？",
+      "host": {
+        "business_date": "2026-10-30",
+        "region": "CN-BJ",
+        "institution": "synthetic-bank",
+        "product": "customer-service",
+        "purpose": "evidence-query",
+        "timezone": "Asia/Shanghai"
+      },
+      "result": {
+        "decision": "EVIDENCE_FOUND",
+        "evidence": [
+          {
+            "clause": "第一条",
+            "quote": "第一条 合成客服服务时间为每日09:00至17:00。",
+            "originalDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+            "chunkId": "40b86261af074024",
+            "anchors": [
+              {
+                "locator": {
+                  "end": 27,
+                  "start": 0,
+                  "xpath": "/html/body/p[1]/text()[1]"
+                },
+                "locatorKind": "HTML_DOM_TEXT",
+                "mediaType": "text/html",
+                "quote": "第一条 合成客服服务时间为每日09:00至17:00。",
+                "quoteDigest": "7339dedce5da0d9dbcaeb693c95f5ef7168e4d0b2a78c4e1edb1ab2ea1301822",
+                "schemaVersion": "evidence-anchor.v0.1",
+                "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+              }
+            ]
+          },
+          {
+            "clause": "第二条",
+            "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+            "originalDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+            "chunkId": "1b1f382c9a773eae",
+            "anchors": [
+              {
+                "locator": {
+                  "end": 28,
+                  "start": 0,
+                  "xpath": "/html/body/p[2]/text()[1]"
+                },
+                "locatorKind": "HTML_DOM_TEXT",
+                "mediaType": "text/html",
+                "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+                "quoteDigest": "37cb23640221e65a1a31f1b793003b3853575546abef75a0946aef1107ab511f",
+                "schemaVersion": "evidence-anchor.v0.1",
+                "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": "2026-10-30T10:49:56.141840+00:00",
+      "mode": "M2_ISOLATED_DOCUMENT"
+    },
+    {
+      "receiptDigest": "a2186dd6b3f38e236fce85fdc9e99c8f227de79cb7c66649925fa3c4fcb78ba9",
+      "schemaVersion": "document-receipt.v0.1",
+      "requestId": "request-baad15f69f7b42bc92944f1722dcd09c",
+      "traceId": "trace-m2-0876c920433b435aa875a9a3b8778874",
+      "principal": "knowledge-agent",
+      "productId": "customer-service",
+      "manifestDigest": "f8572d42fdf92d6c07ba6025444ce0c7f356f7ecfb7c5b3d12e5239ce804727c",
+      "indexDigest": "36350ff08bc04505764b1a45013f1137109e4a4651cfc87e3dc8cb219f726f6f",
+      "sourceDigest": "527195d806f4230f271405618e49cf804b65372131ef6d57b949455b7cbb906f",
+      "bindingDigest": "d6c9a4c68b4c67de93e77647df60dc1f0c5833b50150e88c072c311e4e6e6a95",
+      "policyDigest": "81f27a0cc1d9d1b453f295ba48f854409d1a8017d0176093b1065d943b8725a2",
+      "hostAuthority": "synthetic-host-not-production",
+      "businessContextSource": "frozen-synthetic-clock",
+      "question": "客户如何申请历史对账单？",
+      "host": {
+        "business_date": "2026-10-30",
+        "region": "CN-BJ",
+        "institution": "synthetic-bank",
+        "product": "customer-service",
+        "purpose": "evidence-query",
+        "timezone": "Asia/Shanghai"
+      },
+      "result": {
+        "decision": "EVIDENCE_FOUND",
+        "evidence": [
+          {
+            "clause": "第二条",
+            "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+            "originalDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+            "chunkId": "1b1f382c9a773eae",
+            "anchors": [
+              {
+                "locator": {
+                  "end": 28,
+                  "start": 0,
+                  "xpath": "/html/body/p[2]/text()[1]"
+                },
+                "locatorKind": "HTML_DOM_TEXT",
+                "mediaType": "text/html",
+                "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+                "quoteDigest": "37cb23640221e65a1a31f1b793003b3853575546abef75a0946aef1107ab511f",
+                "schemaVersion": "evidence-anchor.v0.1",
+                "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": "2026-10-30T10:49:56.239586+00:00",
+      "mode": "M2_ISOLATED_DOCUMENT"
+    },
+    {
+      "receiptDigest": "f5c6936b8f4161c3d6f24ec0240ef6754cbf85ad74da5de942ab2b6473c82140",
+      "schemaVersion": "document-receipt.v0.1",
+      "requestId": "request-239704cf3224477e9066c8bdf0fb0772",
+      "traceId": "trace-m2-0876c920433b435aa875a9a3b8778874",
+      "principal": "knowledge-agent",
+      "productId": "customer-service",
+      "manifestDigest": "f8572d42fdf92d6c07ba6025444ce0c7f356f7ecfb7c5b3d12e5239ce804727c",
+      "indexDigest": "36350ff08bc04505764b1a45013f1137109e4a4651cfc87e3dc8cb219f726f6f",
+      "sourceDigest": "527195d806f4230f271405618e49cf804b65372131ef6d57b949455b7cbb906f",
+      "bindingDigest": "d6c9a4c68b4c67de93e77647df60dc1f0c5833b50150e88c072c311e4e6e6a95",
+      "policyDigest": "81f27a0cc1d9d1b453f295ba48f854409d1a8017d0176093b1065d943b8725a2",
+      "hostAuthority": "synthetic-host-not-production",
+      "businessContextSource": "frozen-synthetic-clock",
+      "question": "信息缺失时如何处理？",
+      "host": {
+        "business_date": "2026-10-30",
+        "region": "CN-BJ",
+        "institution": "synthetic-bank",
+        "product": "customer-service",
+        "purpose": "evidence-query",
+        "timezone": "Asia/Shanghai"
+      },
+      "result": {
+        "decision": "EVIDENCE_FOUND",
+        "evidence": [
+          {
+            "clause": "第三条",
+            "quote": "第三条 信息缺失时，应交由人工核实，不得编造缺失信息。",
+            "originalDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+            "chunkId": "d314ee4f82191ca1",
+            "anchors": [
+              {
+                "locator": {
+                  "end": 27,
+                  "start": 0,
+                  "xpath": "/html/body/p[3]/text()[1]"
+                },
+                "locatorKind": "HTML_DOM_TEXT",
+                "mediaType": "text/html",
+                "quote": "第三条 信息缺失时，应交由人工核实，不得编造缺失信息。",
+                "quoteDigest": "b5783ab01d4db61c015afaa3b3ad0e597b6fc7004f5b1e023c89dcc7398a7e96",
+                "schemaVersion": "evidence-anchor.v0.1",
+                "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+              }
+            ]
+          },
+          {
+            "clause": "第二条",
+            "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+            "originalDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+            "chunkId": "1b1f382c9a773eae",
+            "anchors": [
+              {
+                "locator": {
+                  "end": 28,
+                  "start": 0,
+                  "xpath": "/html/body/p[2]/text()[1]"
+                },
+                "locatorKind": "HTML_DOM_TEXT",
+                "mediaType": "text/html",
+                "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+                "quoteDigest": "37cb23640221e65a1a31f1b793003b3853575546abef75a0946aef1107ab511f",
+                "schemaVersion": "evidence-anchor.v0.1",
+                "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+              }
+            ]
+          }
+        ]
+      },
+      "createdAt": "2026-10-30T10:49:56.339751+00:00",
+      "mode": "M2_ISOLATED_DOCUMENT"
+    }
+  ],
+  "restartReplayEqual": true,
+  "operations": [
+    {
+      "stage": "DATASET_CREATED",
+      "buildId": "37b4ac5ef45449d5867402af3c322c45",
+      "datasetId": "ef5711aa3ad04b5893cd043ff8aece7a"
+    },
+    {
+      "stage": "DOCUMENT_UPLOADED",
+      "documentId": "dda24cecf14e44ca89253b653bce0e56",
+      "datasetId": "ef5711aa3ad04b5893cd043ff8aece7a"
+    },
+    {
+      "stage": "INDEX_READY",
+      "documentId": "dda24cecf14e44ca89253b653bce0e56",
+      "datasetId": "ef5711aa3ad04b5893cd043ff8aece7a",
+      "chunkCount": 4
+    }
+  ],
+  "finishedAt": "2026-10-30T10:49:56.350564+00:00"
+}
