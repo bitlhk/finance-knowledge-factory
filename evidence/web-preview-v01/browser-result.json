@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "widths": [
+    1366,
+    390,
+    320
+  ],
+  "errors": [],
+  "checks": [
+    "four-navigation",
+    "four-recipe-steps",
+    "source-anchor",
+    "retained-failure",
+    "separate-numeric-proof",
+    "read-only",
+    "missing-evidence",
+    "responsive"
+  ]
+}
