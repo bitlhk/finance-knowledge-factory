@@ -2,7 +2,7 @@
 const esc = x => String(x ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const raw = x => `<pre class="raw mono">${esc(typeof x === 'string' ? x : JSON.stringify(x,null,2))}</pre>`;
 const button = (label, action, value, cls='btn secondary') => `<button class="${cls}" data-action="${action}" data-value="${esc(value)}">${esc(label)}</button>`;
-let data, page='production', attempt='P43-1', stage='coverage', selectedAnchor=0, wizard=null, receipt='candidate';
+let data, page='production', attempt='P43-1', stage='coverage', selectedAnchor=0, wizard=null, receipt='candidate', missingQuote='';
 const pages = {sources:'知识原料',production:'知识生产',artifacts:'知识产物',consumption:'知识消费'};
 const stages = {source:'原文与锚点',coverage:'语义覆盖',projection:'受控转换',assessment:'冻结验证',execution:'执行回执'};
 const status = x => ({REVIEW_REQUIRED:'待复核',SEMANTIC_ERROR:'语义错误',NOT_APPLICABLE:'不适用',UNKNOWN:'未知',INVALID_INPUT:'输入无效',MET:'数值条件满足',NOT_MET:'数值条件不满足',INPUT_SCOPE_GUARD:'前置守卫'}[x] || x);
@@ -14,7 +14,7 @@ function anchors() {
 }
 function sourceView() {
  const p=bundle().parts,m=p.bridge.mappings[selectedAnchor];
- return `<div class="sources-layout"><section><h3>条款原文</h3><div class="source-quote">${esc(p.source.content)}</div>${anchors()}<h3>选中来源</h3><p class="source-quote selected-quote">${esc(m.anchor.quote)}</p>${raw(m.anchor.locator)}<p>定位空间：原始 HTML DOM；派生行号不代表页码。</p></section><section><h3>来源版本</h3>${raw({sourceBytesDigest:data.sourceSha256,anchorId:m.anchorId,quoteDigest:m.anchor.quoteDigest})}<details><summary>完整原文（纯文本）</summary><pre class="raw full-source">${esc(data.originalText)}</pre></details></section></div>`;
+ return `<div class="sources-layout"><section><h3>条款原文</h3><div class="source-quote">${esc(p.source.content)}</div>${anchors()}<h3>选中来源</h3>${m?`<p class="source-quote selected-quote">${esc(m.anchor.quote)}</p>${raw(m.anchor.locator)}`:`<div role="alert" class="risk">该模型引用未精确匹配冻结原文，不能确认来源锚点。${raw(missingQuote)}</div>`}<p>定位空间：原始 HTML DOM；派生行号不代表页码。</p></section><section><h3>来源版本</h3>${raw({sourceBytesDigest:data.sourceSha256,anchorId:m?.anchorId??null,quoteDigest:m?.anchor.quoteDigest??null})}<details><summary>完整原文（纯文本）</summary><pre class="raw full-source">${esc(data.originalText)}</pre></details></section></div>`;
 }
 function receipts() {
  if(attempt!=='P43-1')receipt='candidate';
@@ -55,7 +55,7 @@ document.addEventListener('click',e=>{
  if(action==='stage'){stage=value;page='production';}
  if(action==='anchor'){selectedAnchor=Number(value);stage='source';}
  if(action==='artifact'){attempt=value;selectedAnchor=0;page='production';stage='projection';}
- if(action==='quote'){const i=bundle().parts.bridge.mappings.findIndex(m=>m.anchor.quote.includes(value));selectedAnchor=Math.max(0,i);stage='source';}
+ if(action==='quote'){selectedAnchor=bundle().parts.bridge.mappings.findIndex(m=>m.anchor.quote.includes(value));missingQuote=value;stage='source';}
  if(action==='wizard')wizard=Number(value);
  if(action==='close')wizard=null;
  render();

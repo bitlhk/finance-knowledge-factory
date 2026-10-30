@@ -43,8 +43,17 @@ const assert = require('node:assert/strict');
  await missing.goto('http://127.0.0.1:61351/');
  await missing.getByRole('alert').waitFor();
  assert.ok(!(await missing.locator('body').innerText()).includes('数值条件满足'));
+ // Browser-only fault injection; no evidence file or historical response is changed.
+ const unmatched=await browser.newPage();
+ const synthetic=await page.evaluate(async()=>await (await fetch('/api/snapshot')).json());
+ synthetic.bundles['P43-1'].parts.coverage.units[0].quote='TEST_ONLY_UNMATCHED_QUOTE';
+ await unmatched.route('**/api/snapshot',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(synthetic)}));
+ await unmatched.goto('http://127.0.0.1:61351/');
+ await unmatched.locator('[data-action="quote"]').first().click();
+ await unmatched.getByRole('alert').waitFor();
+ assert.equal(await unmatched.locator('.selected-quote').count(),0);
  assert.deepEqual(errors,[]);
  fs.writeFileSync(path.join(dir,'browser-result.json'),JSON.stringify({passed:true,widths:[1366,390,320],errors,
-   checks:['four-navigation','four-recipe-steps','source-anchor','retained-failure','separate-numeric-proof','read-only','missing-evidence','responsive']},null,2));
+   checks:['four-navigation','four-recipe-steps','source-anchor','unmatched-quote-not-fabricated','retained-failure','separate-numeric-proof','read-only','missing-evidence','responsive']},null,2));
  await browser.close();
 })().catch(e=>{console.error(e);process.exit(1);});
