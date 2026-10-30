@@ -32,6 +32,8 @@ fs.mkdirSync(out,{recursive:true});
   await p.reload();
   await p.locator('[data-page="consume"]').click();
   await p.getByText('不适用',{exact:true}).waitFor();
+  assert.deepEqual(JSON.parse(await p.locator('#facts').inputValue()),receipts.at(-1).receipt.inputs);
+  assert.equal(await p.locator('#query').inputValue(),before.consumptionReceipts.find(r=>r.query)?.query||'');
   await p.screenshot({path:path.join(out,'consumption.png'),fullPage:true});
   await p.locator('[data-page="artifacts"]').click();
   await p.locator('[data-tab="rules"]').click();
