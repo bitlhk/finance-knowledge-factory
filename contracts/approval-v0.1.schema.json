@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "approval.v0.1"
+    },
+    "candidateDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "validationDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "scopeDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "coverageDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "actor": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "authorityRef": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "candidateDigest",
+    "validationDigest",
+    "scopeDigest",
+    "coverageDigest",
+    "actor",
+    "authorityRef"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:knowledge-core:approval:v0.1"
+}

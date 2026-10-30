@@ -1,0 +1,103 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "test-set.v0.1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "ruleCases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+          },
+          "ruleId": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+          },
+          "inputs": {
+            "type": "object"
+          },
+          "host": {
+            "type": "object"
+          },
+          "expected": {
+            "enum": [
+              "MET",
+              "NOT_MET",
+              "UNKNOWN",
+              "INVALID_INPUT",
+              "NOT_APPLICABLE",
+              "REVIEW_REQUIRED"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "ruleId",
+          "inputs",
+          "host",
+          "expected"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 100,
+      "uniqueItems": true
+    },
+    "evidenceCases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sourceDigest": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "lineStart": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "lineEnd": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "quoteDigest": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "sourceDigest",
+          "lineStart",
+          "lineEnd",
+          "quoteDigest"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 100,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "revision",
+    "ruleCases",
+    "evidenceCases"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:knowledge-core:test-set:v0.1"
+}

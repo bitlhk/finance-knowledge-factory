@@ -1,0 +1,31 @@
+{
+  "baseline": "Knowledge Core V0.1 M0 candidate",
+  "v15HtmlSha256": "a12cf30a5771b59cd9fabb00ea67d1bc84361d2a73c916c354593b1adc15eb80",
+  "harnessReadOnlyBaseline": "e911c71bdd3404f450bf775f32ebe028f90fb475",
+  "canonicalization": "UTF-8 JSON; sorted keys; compact separators; no floats; not RFC8785",
+  "files": {
+    "contracts/active-policy-v0.1.schema.json": "d9d0782c387aef7ae765429ae7a4ebb2f36b98564fec2b08bffbcba5b6a6ef59",
+    "contracts/approval-v0.1.schema.json": "b422f68069941ef4eccb62d9c6040b3fe328fc9f81e65458001afc2774a72ca2",
+    "contracts/artifact-v0.1.schema.json": "ce7c592e1ac5a5fb01c9d04fdde8b3df8242c0b28b3053a6ed583d65a12ebe22",
+    "contracts/candidate-v0.1.schema.json": "a3de958877d7be8b151342322ff0442268c97dbf2990ffe4fbcc914cefb755c4",
+    "contracts/coverage-v0.1.schema.json": "7cf9a8b8d628921a356e6b33fbb5a0490abcb158445d95756bdd81566a6b88b0",
+    "contracts/manifest-v0.1.schema.json": "f544f75d0df1872c9b22ff78cf5a87e8cf65244b738843e14e667a9e2716591b",
+    "contracts/recipe-v0.1.schema.json": "961e8277fd7e5a01d38d8f9eeca8170c97ff402e3f5ff4faddde0452acf3dca1",
+    "contracts/rule-ir-v0.1.schema.json": "822be56121e3313a8fafb41bf2673e0ad04bf2458cafeb78cedcc77ec735de5c",
+    "contracts/runtime-binding-v0.1.schema.json": "5635786a5386ae124f05b88eaebd04071eec5b24190b668e22a0a4e1a9ab307f",
+    "contracts/source-activation-v0.1.schema.json": "9cf2889da05d094edda47588c5cf30ab96b12d09c1787ba83241311d4bf8a3bd",
+    "contracts/source-revision-v0.1.schema.json": "63080a102a343473e07a0ff1799b80af2d6547651528221062cee61f852ffade",
+    "contracts/test-set-v0.1.schema.json": "0b2e19aa6a17f097cb6a9787e94b46bc8556e7f3958a9948a4668f6375ce47a4",
+    "contracts/validation-v0.1.schema.json": "a6449584cde01a28863e4b42d2482afc72625bc4c1b0820d1a71f13e5aafa934",
+    "tests/fixtures/rule-cases.json": "daa82be7524e0d1f4e221c5620ff6af662b8405abce7cd0302d947d18f060a39",
+    "tests/support.py": "5730058fc6c8042a9b8a2942a1b496b6ed531491449a87fa280237d1d8a36b26"
+  },
+  "syntheticAssets": {
+    "creditSource": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d",
+    "faqSource": "337aec41a5ee85087854f74f27a7225f9c77f5eb30573f619bcc4c5e2afb18ef",
+    "creditIR": "bdfc829cd551dac7e1ac9c6f43d0c0973c7d47e5afd79fab602a1d478ad28c29"
+  },
+  "frozenRuleAssertions": 26,
+  "retrievalGoldQuestions": 0,
+  "note": "26 M0 reference assertions do not equal the full 60 engineering cases or 30 retrieval questions."
+}

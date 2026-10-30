@@ -1,0 +1,1839 @@
+{
+  "mode": "M0_REFERENCE_ONLY",
+  "remoteCalls": 0,
+  "realIAMVerified": false,
+  "realHarnessInstalled": false,
+  "flowableExecuted": false,
+  "credit": {
+    "manifestDigest": "22faa7dfc58f1ac6a8b06b966ed40053bdc87985e6308dfd5e96ec6be6ab4fad",
+    "bindingDigest": "730118dd343c561fb9bfadf3e84bd83384fcdd2cadcc80e9f17c9752fd4180c1",
+    "receipt": {
+      "receiptDigest": "4b93445100cb8757e9a78b29b57b37e9d3c26bfd4ab4d68c81b15f408fa6e386",
+      "schemaVersion": "receipt.v0.1",
+      "mode": "M0_REFERENCE_ONLY",
+      "productId": "credit",
+      "principal": "reader",
+      "manifestDigest": "22faa7dfc58f1ac6a8b06b966ed40053bdc87985e6308dfd5e96ec6be6ab4fad",
+      "bindingDigest": "730118dd343c561fb9bfadf3e84bd83384fcdd2cadcc80e9f17c9752fd4180c1",
+      "policyDigest": "461a9546b69578e61ba67ce255e5e4c4ee79626cc375e8a033f03643083126ac",
+      "sourceDigests": [
+        "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+      ],
+      "inputs": {
+        "registration_date": "2020-01-01",
+        "industry": "ordinary"
+      },
+      "host": {
+        "business_date": "2026-11-15",
+        "region": "CN-BJ",
+        "institution": "demo-bank",
+        "product": "business-loan",
+        "purpose": "condition-check",
+        "timezone": "Asia/Shanghai"
+      },
+      "contextSource": "fixed-test-clock",
+      "result": {
+        "decision": "MET",
+        "ruleId": "age",
+        "missing": [],
+        "engine": "m0-reference-0.1.0"
+      },
+      "evidence": [
+        {
+          "reference": {
+            "lineEnd": 3,
+            "lineStart": 3,
+            "quoteDigest": "99578bcbbc2695592d57d1b8f26a654707214580063c5819a287f392d05b58c7",
+            "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+          },
+          "quote": "Business age must be at least three years; special industries require review."
+        },
+        {
+          "reference": {
+            "lineEnd": 4,
+            "lineStart": 4,
+            "quoteDigest": "4be8d00001b774770ad27df27e002a12677943a7fdc6bab174bdfd3a713c8838",
+            "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+          },
+          "quote": "Requested term must not exceed 36 months."
+        },
+        {
+          "reference": {
+            "lineEnd": 5,
+            "lineStart": 5,
+            "quoteDigest": "96c14eb7566856af899f83a8adc6582c5f2226b32fe8877eb3b4b6ea989f7ac4",
+            "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+          },
+          "quote": "A valid license is required."
+        }
+      ],
+      "createdAt": "2026-10-30T01:41:33.755406+00:00"
+    }
+  },
+  "faq": {
+    "manifestDigest": "0e8397019b7b72f671c38d39a73b795291b0098ef04040822aeb3ea1771c6a57",
+    "bindingDigest": "8b18d2e4b30d93a6cd83cc4d903665499f1800f0b0631c70dc7f5ce9958b4147",
+    "receipt": {
+      "receiptDigest": "bd56a7ce4c986791e699062d1240eb5e9f022aba0052a5321ccac25b923ced50",
+      "schemaVersion": "receipt.v0.1",
+      "mode": "M0_REFERENCE_ONLY",
+      "productId": "faq",
+      "principal": "reader",
+      "manifestDigest": "0e8397019b7b72f671c38d39a73b795291b0098ef04040822aeb3ea1771c6a57",
+      "bindingDigest": "8b18d2e4b30d93a6cd83cc4d903665499f1800f0b0631c70dc7f5ce9958b4147",
+      "policyDigest": "461a9546b69578e61ba67ce255e5e4c4ee79626cc375e8a033f03643083126ac",
+      "sourceDigests": [
+        "337aec41a5ee85087854f74f27a7225f9c77f5eb30573f619bcc4c5e2afb18ef"
+      ],
+      "inputs": {},
+      "host": {
+        "business_date": "2026-11-15",
+        "region": "CN-BJ",
+        "institution": "demo-bank",
+        "product": "business-loan",
+        "purpose": "condition-check",
+        "timezone": "Asia/Shanghai"
+      },
+      "contextSource": "fixed-test-clock",
+      "result": {
+        "decision": "EVIDENCE_ONLY"
+      },
+      "evidence": [
+        {
+          "reference": {
+            "lineEnd": 1,
+            "lineStart": 1,
+            "quoteDigest": "b0a5deb01f2e96b70a49daed0792671660d9b052214239411ce8eba28e0d520c",
+            "sourceDigest": "337aec41a5ee85087854f74f27a7225f9c77f5eb30573f619bcc4c5e2afb18ef"
+          },
+          "quote": "Service hours are 09:00 to 17:00."
+        },
+        {
+          "reference": {
+            "lineEnd": 2,
+            "lineStart": 2,
+            "quoteDigest": "7288694a52402311d848e32f37817e1b27ae88916e0683a986439ba5d08b0163",
+            "sourceDigest": "337aec41a5ee85087854f74f27a7225f9c77f5eb30573f619bcc4c5e2afb18ef"
+          },
+          "quote": "Synthetic FAQ; verify before real use."
+        }
+      ],
+      "createdAt": "2026-10-30T01:41:33.759438+00:00"
+    }
+  },
+  "checks": {
+    "draftDidNotChangePublishedService": true,
+    "registrationDidNotActivateSource": true,
+    "activationOfReplacementBlockedOldSource": "SOURCE_SUPERSEDED_OR_REVOKED",
+    "currentSourceRevocationDeniedFAQ": "FORBIDDEN",
+    "restartReplayMatchedOriginal": true,
+    "executionsAfterRestartReplay": 0
+  },
+  "objects": [
+    {
+      "digest": "33fc0ed8c7f8b4baa4638a6e57d2fd24d48ca3a1c7d407bfd0cc6a9a487601b2",
+      "kind": "active-policy",
+      "body": {
+        "grants": [
+          {
+            "actions": [
+              "consume",
+              "history"
+            ],
+            "principal": "author",
+            "resource": "product:credit"
+          },
+          {
+            "actions": [
+              "source_read"
+            ],
+            "principal": "author",
+            "resource": "source:credit-source"
+          },
+          {
+            "actions": [
+              "consume",
+              "history"
+            ],
+            "principal": "author",
+            "resource": "product:faq"
+          },
+          {
+            "actions": [
+              "source_read"
+            ],
+            "principal": "author",
+            "resource": "source:faq-source"
+          },
+          {
+            "actions": [
+              "consume",
+              "history"
+            ],
+            "principal": "reader",
+            "resource": "product:credit"
+          },
+          {
+            "actions": [
+              "consume",
+              "history"
+            ],
+            "principal": "reader",
+            "resource": "product:faq"
+          }
+        ],
+        "revision": 2,
+        "schemaVersion": "active-policy.v0.1"
+      }
+    },
+    {
+      "digest": "461a9546b69578e61ba67ce255e5e4c4ee79626cc375e8a033f03643083126ac",
+      "kind": "active-policy",
+      "body": {
+        "grants": [
+          {
+            "actions": [
+              "consume",
+              "history"
+            ],
+            "principal": "author",
+            "resource": "product:credit"
+          },
+          {
+            "actions": [
+              "source_read"
+            ],
+            "principal": "author",
+            "resource": "source:credit-source"
+          },
+          {
+            "actions": [
+              "consume",
+              "history"
+            ],
+            "principal": "author",
+            "resource": "product:faq"
+          },
+          {
+            "actions": [
+              "source_read"
+            ],
+            "principal": "author",
+            "resource": "source:faq-source"
+          },
+          {
+            "actions": [
+              "consume",
+              "history"
+            ],
+            "principal": "reader",
+            "resource": "product:credit"
+          },
+          {
+            "actions": [
+              "source_read"
+            ],
+            "principal": "reader",
+            "resource": "source:credit-source"
+          },
+          {
+            "actions": [
+              "consume",
+              "history"
+            ],
+            "principal": "reader",
+            "resource": "product:faq"
+          },
+          {
+            "actions": [
+              "source_read"
+            ],
+            "principal": "reader",
+            "resource": "source:faq-source"
+          }
+        ],
+        "revision": 1,
+        "schemaVersion": "active-policy.v0.1"
+      }
+    },
+    {
+      "digest": "10fae188097c3d09c5684e294f90102a7b2374254a088eb8d820da4b3f365c60",
+      "kind": "approval",
+      "body": {
+        "actor": "author",
+        "authorityRef": "synthetic-authority-v1",
+        "candidateDigest": "fbbc5a1d2e7e71aaba9060e04817c5ef214e52792c2f2e5a303dfe99aff61f54",
+        "coverageDigest": "c5e7b7ad305ed56b4833243ffa4ee4b485289a5b1d22ccc2e7aec7c7c05c69d0",
+        "schemaVersion": "approval.v0.1",
+        "scopeDigest": "de0f683fe5e227c0c499401e129b308ec861ef87d51e3b9145f62e196792aa0f",
+        "validationDigest": "72a87af2d7d63155a6b9056e1cfde3dd90eceb1dd4bd47497dd89046a3be439b"
+      }
+    },
+    {
+      "digest": "2d38599d8032b99881f6e7452ab496971ac58e276b0e1b79f4a1257755a572ea",
+      "kind": "artifact",
+      "body": {
+        "evidence": [
+          {
+            "lineEnd": 3,
+            "lineStart": 3,
+            "quoteDigest": "99578bcbbc2695592d57d1b8f26a654707214580063c5819a287f392d05b58c7",
+            "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+          },
+          {
+            "lineEnd": 4,
+            "lineStart": 4,
+            "quoteDigest": "4be8d00001b774770ad27df27e002a12677943a7fdc6bab174bdfd3a713c8838",
+            "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+          },
+          {
+            "lineEnd": 5,
+            "lineStart": 5,
+            "quoteDigest": "96c14eb7566856af899f83a8adc6582c5f2226b32fe8877eb3b4b6ea989f7ac4",
+            "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+          }
+        ],
+        "id": "credit-artifact",
+        "kind": "rules",
+        "revision": 1,
+        "ruleSetDigest": "bdfc829cd551dac7e1ac9c6f43d0c0973c7d47e5afd79fab602a1d478ad28c29",
+        "schemaVersion": "artifact.v0.1",
+        "scope": {
+          "institutions": [
+            "demo-bank"
+          ],
+          "products": [
+            "business-loan"
+          ],
+          "purposes": [
+            "condition-check"
+          ],
+          "regions": [
+            "CN-BJ"
+          ],
+          "timezone": "Asia/Shanghai",
+          "validFrom": "2026-01-01",
+          "validTo": null
+        },
+        "sourceDigests": [
+          "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+        ]
+      }
+    },
+    {
+      "digest": "fa361514467e1cb92af4285e830164e06f77b1070d682b0cf8d72da81a271cdf",
+      "kind": "artifact",
+      "body": {
+        "evidence": [
+          {
+            "lineEnd": 1,
+            "lineStart": 1,
+            "quoteDigest": "b0a5deb01f2e96b70a49daed0792671660d9b052214239411ce8eba28e0d520c",
+            "sourceDigest": "337aec41a5ee85087854f74f27a7225f9c77f5eb30573f619bcc4c5e2afb18ef"
+          },
+          {
+            "lineEnd": 2,
+            "lineStart": 2,
+            "quoteDigest": "7288694a52402311d848e32f37817e1b27ae88916e0683a986439ba5d08b0163",
+            "sourceDigest": "337aec41a5ee85087854f74f27a7225f9c77f5eb30573f619bcc4c5e2afb18ef"
+          }
+        ],
+        "id": "faq-artifact",
+        "kind": "evidence",
+        "revision": 1,
+        "ruleSetDigest": null,
+        "schemaVersion": "artifact.v0.1",
+        "scope": {
+          "institutions": [
+            "demo-bank"
+          ],
+          "products": [
+            "business-loan"
+          ],
+          "purposes": [
+            "condition-check"
+          ],
+          "regions": [
+            "CN-BJ"
+          ],
+          "timezone": "Asia/Shanghai",
+          "validFrom": "2026-01-01",
+          "validTo": null
+        },
+        "sourceDigests": [
+          "337aec41a5ee85087854f74f27a7225f9c77f5eb30573f619bcc4c5e2afb18ef"
+        ]
+      }
+    },
+    {
+      "digest": "565658fd7fa0b7fad74f40e2b470bd759d9804a3b7bfa87b97bf69c97d32e9d7",
+      "kind": "candidate",
+      "body": {
+        "artifactDigests": [
+          "fa361514467e1cb92af4285e830164e06f77b1070d682b0cf8d72da81a271cdf"
+        ],
+        "productId": "faq",
+        "recipeDigest": "ac789b0388eb7603725660d0262d9e95d7166af952641b72fb991f0d570a4021",
+        "schemaVersion": "candidate.v0.1",
+        "testSetDigest": "bb71d26008e2156730c1d1506f0112d3c45f76b77e4059574f1ec3c8654f7634"
+      }
+    },
+    {
+      "digest": "fbbc5a1d2e7e71aaba9060e04817c5ef214e52792c2f2e5a303dfe99aff61f54",
+      "kind": "candidate",
+      "body": {
+        "artifactDigests": [
+          "2d38599d8032b99881f6e7452ab496971ac58e276b0e1b79f4a1257755a572ea"
+        ],
+        "productId": "credit",
+        "recipeDigest": "9aa893d5470dc0ac033eecb65b5bee037b9c2b9dc1a832f29ad2156c501115fc",
+        "schemaVersion": "candidate.v0.1",
+        "testSetDigest": "22b01a61aef02e5bcd9044288306776205c33a4156eab7e47615a7964b1e79b7"
+      }
+    },
+    {
+      "digest": "c5e7b7ad305ed56b4833243ffa4ee4b485289a5b1d22ccc2e7aec7c7c05c69d0",
+      "kind": "coverage",
+      "body": {
+        "actor": "author",
+        "authorityRef": "synthetic-authority-v1",
+        "candidateDigest": "fbbc5a1d2e7e71aaba9060e04817c5ef214e52792c2f2e5a303dfe99aff61f54",
+        "entries": [
+          {
+            "disposition": "NON_NORMATIVE",
+            "lineEnd": 2,
+            "lineStart": 1,
+            "reason": "Synthetic header and blank line",
+            "ruleIds": [],
+            "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+          },
+          {
+            "disposition": "MODELED",
+            "lineEnd": 3,
+            "lineStart": 3,
+            "reason": "Manually reviewed synthetic rule and exception",
+            "ruleIds": [
+              "age"
+            ],
+            "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+          },
+          {
+            "disposition": "MODELED",
+            "lineEnd": 4,
+            "lineStart": 4,
+            "reason": "Manually reviewed synthetic rule and exception",
+            "ruleIds": [
+              "months"
+            ],
+            "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+          },
+          {
+            "disposition": "MODELED",
+            "lineEnd": 5,
+            "lineStart": 5,
+            "reason": "Manually reviewed synthetic rule and exception",
+            "ruleIds": [
+              "license"
+            ],
+            "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+          }
+        ],
+        "schemaVersion": "coverage.v0.1"
+      }
+    },
+    {
+      "digest": "0e8397019b7b72f671c38d39a73b795291b0098ef04040822aeb3ea1771c6a57",
+      "kind": "manifest",
+      "body": {
+        "approvalDigest": null,
+        "artifactDigests": [
+          "fa361514467e1cb92af4285e830164e06f77b1070d682b0cf8d72da81a271cdf"
+        ],
+        "candidateDigest": "565658fd7fa0b7fad74f40e2b470bd759d9804a3b7bfa87b97bf69c97d32e9d7",
+        "id": "faq",
+        "mode": "M0_REFERENCE_ONLY",
+        "productId": "faq",
+        "recipeDigest": "ac789b0388eb7603725660d0262d9e95d7166af952641b72fb991f0d570a4021",
+        "revision": 1,
+        "schemaVersion": "manifest.v0.1",
+        "sourceDigests": [
+          "337aec41a5ee85087854f74f27a7225f9c77f5eb30573f619bcc4c5e2afb18ef"
+        ],
+        "validationDigest": "1425171eecd297580f255d9622012807100c3d32a1d9427d0c3ded46fe1636fc"
+      }
+    },
+    {
+      "digest": "22faa7dfc58f1ac6a8b06b966ed40053bdc87985e6308dfd5e96ec6be6ab4fad",
+      "kind": "manifest",
+      "body": {
+        "approvalDigest": "10fae188097c3d09c5684e294f90102a7b2374254a088eb8d820da4b3f365c60",
+        "artifactDigests": [
+          "2d38599d8032b99881f6e7452ab496971ac58e276b0e1b79f4a1257755a572ea"
+        ],
+        "candidateDigest": "fbbc5a1d2e7e71aaba9060e04817c5ef214e52792c2f2e5a303dfe99aff61f54",
+        "id": "credit",
+        "mode": "M0_REFERENCE_ONLY",
+        "productId": "credit",
+        "recipeDigest": "9aa893d5470dc0ac033eecb65b5bee037b9c2b9dc1a832f29ad2156c501115fc",
+        "revision": 1,
+        "schemaVersion": "manifest.v0.1",
+        "sourceDigests": [
+          "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+        ],
+        "validationDigest": "72a87af2d7d63155a6b9056e1cfde3dd90eceb1dd4bd47497dd89046a3be439b"
+      }
+    },
+    {
+      "digest": "4b93445100cb8757e9a78b29b57b37e9d3c26bfd4ab4d68c81b15f408fa6e386",
+      "kind": "receipt",
+      "body": {
+        "bindingDigest": "730118dd343c561fb9bfadf3e84bd83384fcdd2cadcc80e9f17c9752fd4180c1",
+        "contextSource": "fixed-test-clock",
+        "createdAt": "2026-10-30T01:41:33.755406+00:00",
+        "evidence": [
+          {
+            "quote": "Business age must be at least three years; special industries require review.",
+            "reference": {
+              "lineEnd": 3,
+              "lineStart": 3,
+              "quoteDigest": "99578bcbbc2695592d57d1b8f26a654707214580063c5819a287f392d05b58c7",
+              "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+            }
+          },
+          {
+            "quote": "Requested term must not exceed 36 months.",
+            "reference": {
+              "lineEnd": 4,
+              "lineStart": 4,
+              "quoteDigest": "4be8d00001b774770ad27df27e002a12677943a7fdc6bab174bdfd3a713c8838",
+              "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+            }
+          },
+          {
+            "quote": "A valid license is required.",
+            "reference": {
+              "lineEnd": 5,
+              "lineStart": 5,
+              "quoteDigest": "96c14eb7566856af899f83a8adc6582c5f2226b32fe8877eb3b4b6ea989f7ac4",
+              "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+            }
+          }
+        ],
+        "host": {
+          "business_date": "2026-11-15",
+          "institution": "demo-bank",
+          "product": "business-loan",
+          "purpose": "condition-check",
+          "region": "CN-BJ",
+          "timezone": "Asia/Shanghai"
+        },
+        "inputs": {
+          "industry": "ordinary",
+          "registration_date": "2020-01-01"
+        },
+        "manifestDigest": "22faa7dfc58f1ac6a8b06b966ed40053bdc87985e6308dfd5e96ec6be6ab4fad",
+        "mode": "M0_REFERENCE_ONLY",
+        "policyDigest": "461a9546b69578e61ba67ce255e5e4c4ee79626cc375e8a033f03643083126ac",
+        "principal": "reader",
+        "productId": "credit",
+        "result": {
+          "decision": "MET",
+          "engine": "m0-reference-0.1.0",
+          "missing": [],
+          "ruleId": "age"
+        },
+        "schemaVersion": "receipt.v0.1",
+        "sourceDigests": [
+          "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+        ]
+      }
+    },
+    {
+      "digest": "6567a93f18149660e9f43d30d2f608d186d9a3d157409f57746dc71a93c8f6f8",
+      "kind": "receipt",
+      "body": {
+        "bindingDigest": "730118dd343c561fb9bfadf3e84bd83384fcdd2cadcc80e9f17c9752fd4180c1",
+        "contextSource": "fixed-test-clock",
+        "createdAt": "2026-10-30T01:41:33.769348+00:00",
+        "evidence": [
+          {
+            "quote": "Business age must be at least three years; special industries require review.",
+            "reference": {
+              "lineEnd": 3,
+              "lineStart": 3,
+              "quoteDigest": "99578bcbbc2695592d57d1b8f26a654707214580063c5819a287f392d05b58c7",
+              "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+            }
+          },
+          {
+            "quote": "Requested term must not exceed 36 months.",
+            "reference": {
+              "lineEnd": 4,
+              "lineStart": 4,
+              "quoteDigest": "4be8d00001b774770ad27df27e002a12677943a7fdc6bab174bdfd3a713c8838",
+              "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+            }
+          },
+          {
+            "quote": "A valid license is required.",
+            "reference": {
+              "lineEnd": 5,
+              "lineStart": 5,
+              "quoteDigest": "96c14eb7566856af899f83a8adc6582c5f2226b32fe8877eb3b4b6ea989f7ac4",
+              "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+            }
+          }
+        ],
+        "host": {
+          "business_date": "2026-11-15",
+          "institution": "demo-bank",
+          "product": "business-loan",
+          "purpose": "condition-check",
+          "region": "CN-BJ",
+          "timezone": "Asia/Shanghai"
+        },
+        "inputs": {
+          "industry": "ordinary",
+          "registration_date": "2020-01-01"
+        },
+        "manifestDigest": "22faa7dfc58f1ac6a8b06b966ed40053bdc87985e6308dfd5e96ec6be6ab4fad",
+        "mode": "M0_REFERENCE_ONLY",
+        "policyDigest": "461a9546b69578e61ba67ce255e5e4c4ee79626cc375e8a033f03643083126ac",
+        "principal": "reader",
+        "productId": "credit",
+        "result": {
+          "decision": "MET",
+          "engine": "m0-reference-0.1.0",
+          "missing": [],
+          "ruleId": "age"
+        },
+        "schemaVersion": "receipt.v0.1",
+        "sourceDigests": [
+          "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+        ]
+      }
+    },
+    {
+      "digest": "b55c55d5eccad6de6bd770c48ce3d15d85305178fd32ebe1f6b928a1abe17489",
+      "kind": "receipt",
+      "body": {
+        "bindingDigest": "730118dd343c561fb9bfadf3e84bd83384fcdd2cadcc80e9f17c9752fd4180c1",
+        "contextSource": "fixed-test-clock",
+        "createdAt": "2026-10-30T01:41:33.778569+00:00",
+        "evidence": [
+          {
+            "quote": "Business age must be at least three years; special industries require review.",
+            "reference": {
+              "lineEnd": 3,
+              "lineStart": 3,
+              "quoteDigest": "99578bcbbc2695592d57d1b8f26a654707214580063c5819a287f392d05b58c7",
+              "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+            }
+          },
+          {
+            "quote": "Requested term must not exceed 36 months.",
+            "reference": {
+              "lineEnd": 4,
+              "lineStart": 4,
+              "quoteDigest": "4be8d00001b774770ad27df27e002a12677943a7fdc6bab174bdfd3a713c8838",
+              "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+            }
+          },
+          {
+            "quote": "A valid license is required.",
+            "reference": {
+              "lineEnd": 5,
+              "lineStart": 5,
+              "quoteDigest": "96c14eb7566856af899f83a8adc6582c5f2226b32fe8877eb3b4b6ea989f7ac4",
+              "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+            }
+          }
+        ],
+        "host": {
+          "business_date": "2026-11-15",
+          "institution": "demo-bank",
+          "product": "business-loan",
+          "purpose": "condition-check",
+          "region": "CN-BJ",
+          "timezone": "Asia/Shanghai"
+        },
+        "inputs": {
+          "industry": "ordinary",
+          "registration_date": "2020-01-01"
+        },
+        "manifestDigest": "22faa7dfc58f1ac6a8b06b966ed40053bdc87985e6308dfd5e96ec6be6ab4fad",
+        "mode": "M0_REFERENCE_ONLY",
+        "policyDigest": "461a9546b69578e61ba67ce255e5e4c4ee79626cc375e8a033f03643083126ac",
+        "principal": "reader",
+        "productId": "credit",
+        "result": {
+          "decision": "MET",
+          "engine": "m0-reference-0.1.0",
+          "missing": [],
+          "ruleId": "age"
+        },
+        "schemaVersion": "receipt.v0.1",
+        "sourceDigests": [
+          "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+        ]
+      }
+    },
+    {
+      "digest": "bd56a7ce4c986791e699062d1240eb5e9f022aba0052a5321ccac25b923ced50",
+      "kind": "receipt",
+      "body": {
+        "bindingDigest": "8b18d2e4b30d93a6cd83cc4d903665499f1800f0b0631c70dc7f5ce9958b4147",
+        "contextSource": "fixed-test-clock",
+        "createdAt": "2026-10-30T01:41:33.759438+00:00",
+        "evidence": [
+          {
+            "quote": "Service hours are 09:00 to 17:00.",
+            "reference": {
+              "lineEnd": 1,
+              "lineStart": 1,
+              "quoteDigest": "b0a5deb01f2e96b70a49daed0792671660d9b052214239411ce8eba28e0d520c",
+              "sourceDigest": "337aec41a5ee85087854f74f27a7225f9c77f5eb30573f619bcc4c5e2afb18ef"
+            }
+          },
+          {
+            "quote": "Synthetic FAQ; verify before real use.",
+            "reference": {
+              "lineEnd": 2,
+              "lineStart": 2,
+              "quoteDigest": "7288694a52402311d848e32f37817e1b27ae88916e0683a986439ba5d08b0163",
+              "sourceDigest": "337aec41a5ee85087854f74f27a7225f9c77f5eb30573f619bcc4c5e2afb18ef"
+            }
+          }
+        ],
+        "host": {
+          "business_date": "2026-11-15",
+          "institution": "demo-bank",
+          "product": "business-loan",
+          "purpose": "condition-check",
+          "region": "CN-BJ",
+          "timezone": "Asia/Shanghai"
+        },
+        "inputs": {},
+        "manifestDigest": "0e8397019b7b72f671c38d39a73b795291b0098ef04040822aeb3ea1771c6a57",
+        "mode": "M0_REFERENCE_ONLY",
+        "policyDigest": "461a9546b69578e61ba67ce255e5e4c4ee79626cc375e8a033f03643083126ac",
+        "principal": "reader",
+        "productId": "faq",
+        "result": {
+          "decision": "EVIDENCE_ONLY"
+        },
+        "schemaVersion": "receipt.v0.1",
+        "sourceDigests": [
+          "337aec41a5ee85087854f74f27a7225f9c77f5eb30573f619bcc4c5e2afb18ef"
+        ]
+      }
+    },
+    {
+      "digest": "9aa893d5470dc0ac033eecb65b5bee037b9c2b9dc1a832f29ad2156c501115fc",
+      "kind": "recipe",
+      "body": {
+        "id": "credit-recipe",
+        "intendedConsumers": [
+          "reader"
+        ],
+        "intendedHistoryReaders": [
+          "reader"
+        ],
+        "processes": [
+          "document",
+          "rule"
+        ],
+        "productId": "credit",
+        "revision": 1,
+        "schemaVersion": "recipe.v0.1",
+        "sourceDigests": [
+          "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+        ],
+        "testSetDigest": "22b01a61aef02e5bcd9044288306776205c33a4156eab7e47615a7964b1e79b7",
+        "versionPolicy": "PINNED"
+      }
+    },
+    {
+      "digest": "a63bd2007fa01cc2520e9e7137ab6f3ab0becb3b74865daf8277cb1031c92694",
+      "kind": "recipe",
+      "body": {
+        "id": "credit-recipe",
+        "intendedConsumers": [
+          "different-user"
+        ],
+        "intendedHistoryReaders": [
+          "reader"
+        ],
+        "processes": [
+          "document",
+          "rule"
+        ],
+        "productId": "credit",
+        "revision": 2,
+        "schemaVersion": "recipe.v0.1",
+        "sourceDigests": [
+          "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+        ],
+        "testSetDigest": "22b01a61aef02e5bcd9044288306776205c33a4156eab7e47615a7964b1e79b7",
+        "versionPolicy": "PINNED"
+      }
+    },
+    {
+      "digest": "ac789b0388eb7603725660d0262d9e95d7166af952641b72fb991f0d570a4021",
+      "kind": "recipe",
+      "body": {
+        "id": "faq-recipe",
+        "intendedConsumers": [
+          "reader"
+        ],
+        "intendedHistoryReaders": [
+          "reader"
+        ],
+        "processes": [
+          "document"
+        ],
+        "productId": "faq",
+        "revision": 1,
+        "schemaVersion": "recipe.v0.1",
+        "sourceDigests": [
+          "337aec41a5ee85087854f74f27a7225f9c77f5eb30573f619bcc4c5e2afb18ef"
+        ],
+        "testSetDigest": "bb71d26008e2156730c1d1506f0112d3c45f76b77e4059574f1ec3c8654f7634",
+        "versionPolicy": "PINNED"
+      }
+    },
+    {
+      "digest": "bdfc829cd551dac7e1ac9c6f43d0c0973c7d47e5afd79fab602a1d478ad28c29",
+      "kind": "rule-ir",
+      "body": {
+        "classification": "DEMO",
+        "fields": [
+          {
+            "maximum": null,
+            "minimum": null,
+            "path": "registration_date",
+            "required": false,
+            "sourceKind": "INPUT",
+            "type": "date",
+            "values": []
+          },
+          {
+            "maximum": null,
+            "minimum": null,
+            "path": "business_date",
+            "required": false,
+            "sourceKind": "HOST",
+            "type": "date",
+            "values": []
+          },
+          {
+            "maximum": null,
+            "minimum": null,
+            "path": "industry",
+            "required": false,
+            "sourceKind": "INPUT",
+            "type": "enum",
+            "values": [
+              "ordinary",
+              "special"
+            ]
+          },
+          {
+            "maximum": 120,
+            "minimum": 1,
+            "path": "months",
+            "required": false,
+            "sourceKind": "INPUT",
+            "type": "integer",
+            "values": []
+          },
+          {
+            "maximum": null,
+            "minimum": null,
+            "path": "license_valid",
+            "required": false,
+            "sourceKind": "INPUT",
+            "type": "boolean",
+            "values": []
+          }
+        ],
+        "id": "credit-conditions",
+        "revision": 1,
+        "rules": [
+          {
+            "evidenceRefs": [
+              {
+                "lineEnd": 3,
+                "lineStart": 3,
+                "quoteDigest": "99578bcbbc2695592d57d1b8f26a654707214580063c5819a287f392d05b58c7",
+                "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+              }
+            ],
+            "exceptions": [
+              {
+                "evidenceRefs": [
+                  {
+                    "lineEnd": 3,
+                    "lineStart": 3,
+                    "quoteDigest": "99578bcbbc2695592d57d1b8f26a654707214580063c5819a287f392d05b58c7",
+                    "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+                  }
+                ],
+                "id": "special-industry",
+                "outcome": "REVIEW_REQUIRED",
+                "when": {
+                  "left": {
+                    "field": "industry"
+                  },
+                  "op": "eq",
+                  "right": {
+                    "literal": {
+                      "type": "enum",
+                      "value": "special"
+                    }
+                  }
+                }
+              }
+            ],
+            "id": "age",
+            "onMissing": "UNKNOWN",
+            "predicate": {
+              "anniversary": "FEB29_TO_FEB28",
+              "asOf": {
+                "field": "business_date"
+              },
+              "op": "years_at_least",
+              "start": {
+                "field": "registration_date"
+              },
+              "years": 3
+            },
+            "scope": {
+              "institutions": [
+                "demo-bank"
+              ],
+              "products": [
+                "business-loan"
+              ],
+              "purposes": [
+                "condition-check"
+              ],
+              "regions": [
+                "CN-BJ"
+              ],
+              "timezone": "Asia/Shanghai",
+              "validFrom": "2026-01-01",
+              "validTo": null
+            },
+            "title": "age synthetic condition",
+            "unresolved": []
+          },
+          {
+            "evidenceRefs": [
+              {
+                "lineEnd": 4,
+                "lineStart": 4,
+                "quoteDigest": "4be8d00001b774770ad27df27e002a12677943a7fdc6bab174bdfd3a713c8838",
+                "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+              }
+            ],
+            "exceptions": [],
+            "id": "months",
+            "onMissing": "UNKNOWN",
+            "predicate": {
+              "left": {
+                "field": "months"
+              },
+              "op": "lte",
+              "right": {
+                "literal": {
+                  "type": "integer",
+                  "value": 36
+                }
+              }
+            },
+            "scope": {
+              "institutions": [
+                "demo-bank"
+              ],
+              "products": [
+                "business-loan"
+              ],
+              "purposes": [
+                "condition-check"
+              ],
+              "regions": [
+                "CN-BJ"
+              ],
+              "timezone": "Asia/Shanghai",
+              "validFrom": "2026-01-01",
+              "validTo": null
+            },
+            "title": "months synthetic condition",
+            "unresolved": []
+          },
+          {
+            "evidenceRefs": [
+              {
+                "lineEnd": 5,
+                "lineStart": 5,
+                "quoteDigest": "96c14eb7566856af899f83a8adc6582c5f2226b32fe8877eb3b4b6ea989f7ac4",
+                "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+              }
+            ],
+            "exceptions": [],
+            "id": "license",
+            "onMissing": "UNKNOWN",
+            "predicate": {
+              "left": {
+                "field": "license_valid"
+              },
+              "op": "eq",
+              "right": {
+                "literal": {
+                  "type": "boolean",
+                  "value": true
+                }
+              }
+            },
+            "scope": {
+              "institutions": [
+                "demo-bank"
+              ],
+              "products": [
+                "business-loan"
+              ],
+              "purposes": [
+                "condition-check"
+              ],
+              "regions": [
+                "CN-BJ"
+              ],
+              "timezone": "Asia/Shanghai",
+              "validFrom": "2026-01-01",
+              "validTo": null
+            },
+            "title": "license synthetic condition",
+            "unresolved": []
+          }
+        ],
+        "schemaVersion": "rule-ir.v0.1"
+      }
+    },
+    {
+      "digest": "730118dd343c561fb9bfadf3e84bd83384fcdd2cadcc80e9f17c9752fd4180c1",
+      "kind": "runtime-binding",
+      "body": {
+        "manifestDigest": "22faa7dfc58f1ac6a8b06b966ed40053bdc87985e6308dfd5e96ec6be6ab4fad",
+        "productId": "credit",
+        "revision": 1,
+        "schemaVersion": "runtime-binding.v0.1",
+        "versionPolicy": "PINNED"
+      }
+    },
+    {
+      "digest": "8b18d2e4b30d93a6cd83cc4d903665499f1800f0b0631c70dc7f5ce9958b4147",
+      "kind": "runtime-binding",
+      "body": {
+        "manifestDigest": "0e8397019b7b72f671c38d39a73b795291b0098ef04040822aeb3ea1771c6a57",
+        "productId": "faq",
+        "revision": 1,
+        "schemaVersion": "runtime-binding.v0.1",
+        "versionPolicy": "PINNED"
+      }
+    },
+    {
+      "digest": "6f25c734d6b343f0b1ebdce6a0da94be02d32cda96cabb52af1d3a843ef803c2",
+      "kind": "source-activation",
+      "body": {
+        "authorityRef": "synthetic-authority-v1",
+        "effectiveFrom": "2026-01-01",
+        "schemaVersion": "source-activation.v0.1",
+        "sourceDigest": "337aec41a5ee85087854f74f27a7225f9c77f5eb30573f619bcc4c5e2afb18ef",
+        "sourceId": "faq-source",
+        "state": "ACTIVE"
+      }
+    },
+    {
+      "digest": "8f5caf480f83d6df0d201007359d5944c762c00431c5800bc8b2b4be3d79e4cf",
+      "kind": "source-activation",
+      "body": {
+        "authorityRef": "synthetic-authority-v1",
+        "effectiveFrom": "2026-01-01",
+        "schemaVersion": "source-activation.v0.1",
+        "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d",
+        "sourceId": "credit-source",
+        "state": "ACTIVE"
+      }
+    },
+    {
+      "digest": "fe31ed99cb3290918253fa01ec35006eaf7bfe8debe6911551373086e259785b",
+      "kind": "source-activation",
+      "body": {
+        "authorityRef": "synthetic-authority-v1",
+        "effectiveFrom": "2026-11-01",
+        "schemaVersion": "source-activation.v0.1",
+        "sourceDigest": "5baf998cc4902085465b57ebcccebcb5d50d1b77504900445c27870004ec472e",
+        "sourceId": "credit-source",
+        "state": "ACTIVE"
+      }
+    },
+    {
+      "digest": "337aec41a5ee85087854f74f27a7225f9c77f5eb30573f619bcc4c5e2afb18ef",
+      "kind": "source-revision",
+      "body": {
+        "content": "Service hours are 09:00 to 17:00.\nSynthetic FAQ; verify before real use.",
+        "contentDigest": "c45cb6aa812ff5855f9defd8cd0803f6e0cb6b354ab5ff9c15c74d23355cc521",
+        "id": "faq-source",
+        "mediaType": "text/plain",
+        "revision": 1,
+        "schemaVersion": "source-revision.v0.1"
+      }
+    },
+    {
+      "digest": "5baf998cc4902085465b57ebcccebcb5d50d1b77504900445c27870004ec472e",
+      "kind": "source-revision",
+      "body": {
+        "content": "Synthetic demonstration, not bank-approved policy.\n\nBusiness age must be at least three years; special industries require review.\nRequested term must not exceed 36 months.\nA valid license is required.\nNew upload: not yet authoritative.",
+        "contentDigest": "9898ca7cdb71c9319fece8ad59753be6b647243ec1a8906fa6becdb9a066958f",
+        "id": "credit-source",
+        "mediaType": "text/plain",
+        "revision": 2,
+        "schemaVersion": "source-revision.v0.1"
+      }
+    },
+    {
+      "digest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d",
+      "kind": "source-revision",
+      "body": {
+        "content": "Synthetic demonstration, not bank-approved policy.\n\nBusiness age must be at least three years; special industries require review.\nRequested term must not exceed 36 months.\nA valid license is required.",
+        "contentDigest": "312e4de3ee1a90b9baa1aa22233cccde8fbead3ded0ca61de1bde2418d882941",
+        "id": "credit-source",
+        "mediaType": "text/plain",
+        "revision": 1,
+        "schemaVersion": "source-revision.v0.1"
+      }
+    },
+    {
+      "digest": "22b01a61aef02e5bcd9044288306776205c33a4156eab7e47615a7964b1e79b7",
+      "kind": "test-set",
+      "body": {
+        "evidenceCases": [
+          {
+            "lineEnd": 3,
+            "lineStart": 3,
+            "quoteDigest": "99578bcbbc2695592d57d1b8f26a654707214580063c5819a287f392d05b58c7",
+            "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+          },
+          {
+            "lineEnd": 4,
+            "lineStart": 4,
+            "quoteDigest": "4be8d00001b774770ad27df27e002a12677943a7fdc6bab174bdfd3a713c8838",
+            "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+          },
+          {
+            "lineEnd": 5,
+            "lineStart": 5,
+            "quoteDigest": "96c14eb7566856af899f83a8adc6582c5f2226b32fe8877eb3b4b6ea989f7ac4",
+            "sourceDigest": "ab3b313f093178bacc3a4645157b40b040b4c53fd76473f5f2300375407a449d"
+          }
+        ],
+        "id": "credit-gold",
+        "revision": 1,
+        "ruleCases": [
+          {
+            "expected": "MET",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R01",
+            "inputs": {
+              "industry": "ordinary",
+              "registration_date": "2023-11-15"
+            },
+            "ruleId": "age"
+          },
+          {
+            "expected": "NOT_MET",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R02",
+            "inputs": {
+              "industry": "ordinary",
+              "registration_date": "2023-11-16"
+            },
+            "ruleId": "age"
+          },
+          {
+            "expected": "MET",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R03",
+            "inputs": {
+              "industry": "ordinary",
+              "registration_date": "2023-11-14"
+            },
+            "ruleId": "age"
+          },
+          {
+            "expected": "UNKNOWN",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R04",
+            "inputs": {
+              "industry": "ordinary"
+            },
+            "ruleId": "age"
+          },
+          {
+            "expected": "INVALID_INPUT",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R05",
+            "inputs": {
+              "industry": "ordinary",
+              "registration_date": "2023-02-30"
+            },
+            "ruleId": "age"
+          },
+          {
+            "expected": "MET",
+            "host": {
+              "business_date": "2027-02-28",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R06",
+            "inputs": {
+              "industry": "ordinary",
+              "registration_date": "2024-02-29"
+            },
+            "ruleId": "age"
+          },
+          {
+            "expected": "NOT_MET",
+            "host": {
+              "business_date": "2027-02-27",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R07",
+            "inputs": {
+              "industry": "ordinary",
+              "registration_date": "2024-02-29"
+            },
+            "ruleId": "age"
+          },
+          {
+            "expected": "UNKNOWN",
+            "host": {
+              "business_date": null,
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R08",
+            "inputs": {
+              "industry": "ordinary",
+              "registration_date": "2023-11-15"
+            },
+            "ruleId": "age"
+          },
+          {
+            "expected": "MET",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R09",
+            "inputs": {
+              "months": 36
+            },
+            "ruleId": "months"
+          },
+          {
+            "expected": "NOT_MET",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R10",
+            "inputs": {
+              "months": 37
+            },
+            "ruleId": "months"
+          },
+          {
+            "expected": "INVALID_INPUT",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R11-false",
+            "inputs": {
+              "months": false
+            },
+            "ruleId": "months"
+          },
+          {
+            "expected": "INVALID_INPUT",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R11-true",
+            "inputs": {
+              "months": true
+            },
+            "ruleId": "months"
+          },
+          {
+            "expected": "INVALID_INPUT",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R12",
+            "inputs": {
+              "months": " "
+            },
+            "ruleId": "months"
+          },
+          {
+            "expected": "UNKNOWN",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R13",
+            "inputs": {
+              "months": null
+            },
+            "ruleId": "months"
+          },
+          {
+            "expected": "INVALID_INPUT",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R14-negative",
+            "inputs": {
+              "months": -1
+            },
+            "ruleId": "months"
+          },
+          {
+            "expected": "INVALID_INPUT",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R14-decimal",
+            "inputs": {
+              "months": "1.5"
+            },
+            "ruleId": "months"
+          },
+          {
+            "expected": "MET",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R15",
+            "inputs": {
+              "license_valid": true
+            },
+            "ruleId": "license"
+          },
+          {
+            "expected": "NOT_MET",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R16",
+            "inputs": {
+              "license_valid": false
+            },
+            "ruleId": "license"
+          },
+          {
+            "expected": "INVALID_INPUT",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R17",
+            "inputs": {
+              "license_valid": "true"
+            },
+            "ruleId": "license"
+          },
+          {
+            "expected": "REVIEW_REQUIRED",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R18-evaluation-only",
+            "inputs": {
+              "industry": "special",
+              "registration_date": "2020-01-01"
+            },
+            "ruleId": "age"
+          },
+          {
+            "expected": "NOT_APPLICABLE",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-SH",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R19",
+            "inputs": {
+              "industry": "ordinary",
+              "registration_date": "2020-01-01"
+            },
+            "ruleId": "age"
+          },
+          {
+            "expected": "UNKNOWN",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R20",
+            "inputs": {
+              "registration_date": "2020-01-01"
+            },
+            "ruleId": "age"
+          },
+          {
+            "expected": "NOT_APPLICABLE",
+            "host": {
+              "business_date": "2025-12-31",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "R21",
+            "inputs": {
+              "industry": "ordinary",
+              "registration_date": "2020-01-01"
+            },
+            "ruleId": "age"
+          },
+          {
+            "expected": "INVALID_INPUT",
+            "host": {
+              "business_date": "2026-02-30",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "invalid-host-date",
+            "inputs": {
+              "industry": "ordinary",
+              "registration_date": "2020-01-01"
+            },
+            "ruleId": "age"
+          },
+          {
+            "expected": "INVALID_INPUT",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "host-override",
+            "inputs": {
+              "business_date": "2028-01-01",
+              "industry": "ordinary",
+              "registration_date": "2020-01-01"
+            },
+            "ruleId": "age"
+          },
+          {
+            "expected": "INVALID_INPUT",
+            "host": {
+              "business_date": "2026-11-15",
+              "institution": "demo-bank",
+              "product": "business-loan",
+              "purpose": "condition-check",
+              "region": "CN-BJ",
+              "timezone": "Asia/Shanghai"
+            },
+            "id": "unknown-enum",
+            "inputs": {
+              "industry": "unclassified",
+              "registration_date": "2020-01-01"
+            },
+            "ruleId": "age"
+          }
+        ],
+        "schemaVersion": "test-set.v0.1"
+      }
+    },
+    {
+      "digest": "bb71d26008e2156730c1d1506f0112d3c45f76b77e4059574f1ec3c8654f7634",
+      "kind": "test-set",
+      "body": {
+        "evidenceCases": [
+          {
+            "lineEnd": 1,
+            "lineStart": 1,
+            "quoteDigest": "b0a5deb01f2e96b70a49daed0792671660d9b052214239411ce8eba28e0d520c",
+            "sourceDigest": "337aec41a5ee85087854f74f27a7225f9c77f5eb30573f619bcc4c5e2afb18ef"
+          },
+          {
+            "lineEnd": 2,
+            "lineStart": 2,
+            "quoteDigest": "7288694a52402311d848e32f37817e1b27ae88916e0683a986439ba5d08b0163",
+            "sourceDigest": "337aec41a5ee85087854f74f27a7225f9c77f5eb30573f619bcc4c5e2afb18ef"
+          }
+        ],
+        "id": "faq-gold",
+        "revision": 1,
+        "ruleCases": [],
+        "schemaVersion": "test-set.v0.1"
+      }
+    },
+    {
+      "digest": "1425171eecd297580f255d9622012807100c3d32a1d9427d0c3ded46fe1636fc",
+      "kind": "validation",
+      "body": {
+        "candidateDigest": "565658fd7fa0b7fad74f40e2b470bd759d9804a3b7bfa87b97bf69c97d32e9d7",
+        "engine": "m0-reference-0.1.0",
+        "passed": true,
+        "results": [
+          {
+            "actual": "[]",
+            "expected": "[]",
+            "id": "rule-coverage",
+            "passed": true
+          },
+          {
+            "actual": "[\"41689bbe232efad596848df6421fb6538a59bce956a4168c5252f1934e851b42\",\"ef5f079a8d73c8ea33b1cf9d69fd722cac7cdae55f01c068ca0cfac22cd9dce5\"]",
+            "expected": "[\"41689bbe232efad596848df6421fb6538a59bce956a4168c5252f1934e851b42\",\"ef5f079a8d73c8ea33b1cf9d69fd722cac7cdae55f01c068ca0cfac22cd9dce5\"]",
+            "id": "evidence-coverage",
+            "passed": true
+          },
+          {
+            "actual": "MATCH",
+            "expected": "MATCH",
+            "id": "evidence-0",
+            "passed": true
+          },
+          {
+            "actual": "MATCH",
+            "expected": "MATCH",
+            "id": "evidence-1",
+            "passed": true
+          }
+        ],
+        "schemaVersion": "validation.v0.1",
+        "testSetDigest": "bb71d26008e2156730c1d1506f0112d3c45f76b77e4059574f1ec3c8654f7634"
+      }
+    },
+    {
+      "digest": "72a87af2d7d63155a6b9056e1cfde3dd90eceb1dd4bd47497dd89046a3be439b",
+      "kind": "validation",
+      "body": {
+        "candidateDigest": "fbbc5a1d2e7e71aaba9060e04817c5ef214e52792c2f2e5a303dfe99aff61f54",
+        "engine": "m0-reference-0.1.0",
+        "passed": true,
+        "results": [
+          {
+            "actual": "[\"age\",\"license\",\"months\"]",
+            "expected": "[\"age\",\"license\",\"months\"]",
+            "id": "rule-coverage",
+            "passed": true
+          },
+          {
+            "actual": "[\"33ac0a04e39d382bf3265d0caa085fa5d2e2dae18073b7308b78f2a47079aedc\",\"5eb04b6877b16528cc979fa2eb298d5ad4f504d626c974e06dc89dac42a2ce65\",\"a876f0eb817b61d7e051a6cf35e6eb9412e2cb9359e2b07b774aee11e2dd1f4d\"]",
+            "expected": "[\"33ac0a04e39d382bf3265d0caa085fa5d2e2dae18073b7308b78f2a47079aedc\",\"5eb04b6877b16528cc979fa2eb298d5ad4f504d626c974e06dc89dac42a2ce65\",\"a876f0eb817b61d7e051a6cf35e6eb9412e2cb9359e2b07b774aee11e2dd1f4d\"]",
+            "id": "evidence-coverage",
+            "passed": true
+          },
+          {
+            "actual": "MET",
+            "expected": "MET",
+            "id": "R01",
+            "passed": true
+          },
+          {
+            "actual": "NOT_MET",
+            "expected": "NOT_MET",
+            "id": "R02",
+            "passed": true
+          },
+          {
+            "actual": "MET",
+            "expected": "MET",
+            "id": "R03",
+            "passed": true
+          },
+          {
+            "actual": "UNKNOWN",
+            "expected": "UNKNOWN",
+            "id": "R04",
+            "passed": true
+          },
+          {
+            "actual": "INVALID_INPUT",
+            "expected": "INVALID_INPUT",
+            "id": "R05",
+            "passed": true
+          },
+          {
+            "actual": "MET",
+            "expected": "MET",
+            "id": "R06",
+            "passed": true
+          },
+          {
+            "actual": "NOT_MET",
+            "expected": "NOT_MET",
+            "id": "R07",
+            "passed": true
+          },
+          {
+            "actual": "UNKNOWN",
+            "expected": "UNKNOWN",
+            "id": "R08",
+            "passed": true
+          },
+          {
+            "actual": "MET",
+            "expected": "MET",
+            "id": "R09",
+            "passed": true
+          },
+          {
+            "actual": "NOT_MET",
+            "expected": "NOT_MET",
+            "id": "R10",
+            "passed": true
+          },
+          {
+            "actual": "INVALID_INPUT",
+            "expected": "INVALID_INPUT",
+            "id": "R11-false",
+            "passed": true
+          },
+          {
+            "actual": "INVALID_INPUT",
+            "expected": "INVALID_INPUT",
+            "id": "R11-true",
+            "passed": true
+          },
+          {
+            "actual": "INVALID_INPUT",
+            "expected": "INVALID_INPUT",
+            "id": "R12",
+            "passed": true
+          },
+          {
+            "actual": "UNKNOWN",
+            "expected": "UNKNOWN",
+            "id": "R13",
+            "passed": true
+          },
+          {
+            "actual": "INVALID_INPUT",
+            "expected": "INVALID_INPUT",
+            "id": "R14-negative",
+            "passed": true
+          },
+          {
+            "actual": "INVALID_INPUT",
+            "expected": "INVALID_INPUT",
+            "id": "R14-decimal",
+            "passed": true
+          },
+          {
+            "actual": "MET",
+            "expected": "MET",
+            "id": "R15",
+            "passed": true
+          },
+          {
+            "actual": "NOT_MET",
+            "expected": "NOT_MET",
+            "id": "R16",
+            "passed": true
+          },
+          {
+            "actual": "INVALID_INPUT",
+            "expected": "INVALID_INPUT",
+            "id": "R17",
+            "passed": true
+          },
+          {
+            "actual": "REVIEW_REQUIRED",
+            "expected": "REVIEW_REQUIRED",
+            "id": "R18-evaluation-only",
+            "passed": true
+          },
+          {
+            "actual": "NOT_APPLICABLE",
+            "expected": "NOT_APPLICABLE",
+            "id": "R19",
+            "passed": true
+          },
+          {
+            "actual": "UNKNOWN",
+            "expected": "UNKNOWN",
+            "id": "R20",
+            "passed": true
+          },
+          {
+            "actual": "NOT_APPLICABLE",
+            "expected": "NOT_APPLICABLE",
+            "id": "R21",
+            "passed": true
+          },
+          {
+            "actual": "INVALID_INPUT",
+            "expected": "INVALID_INPUT",
+            "id": "invalid-host-date",
+            "passed": true
+          },
+          {
+            "actual": "INVALID_INPUT",
+            "expected": "INVALID_INPUT",
+            "id": "host-override",
+            "passed": true
+          },
+          {
+            "actual": "INVALID_INPUT",
+            "expected": "INVALID_INPUT",
+            "id": "unknown-enum",
+            "passed": true
+          },
+          {
+            "actual": "MATCH",
+            "expected": "MATCH",
+            "id": "evidence-0",
+            "passed": true
+          },
+          {
+            "actual": "MATCH",
+            "expected": "MATCH",
+            "id": "evidence-1",
+            "passed": true
+          },
+          {
+            "actual": "MATCH",
+            "expected": "MATCH",
+            "id": "evidence-2",
+            "passed": true
+          }
+        ],
+        "schemaVersion": "validation.v0.1",
+        "testSetDigest": "22b01a61aef02e5bcd9044288306776205c33a4156eab7e47615a7964b1e79b7"
+      }
+    }
+  ]
+}

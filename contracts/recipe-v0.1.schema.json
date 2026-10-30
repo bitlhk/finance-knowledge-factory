@@ -1,0 +1,86 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "recipe.v0.1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "productId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "sourceDigests": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-f0-9]{64}$"
+      },
+      "minItems": 1,
+      "maxItems": 100,
+      "uniqueItems": true
+    },
+    "processes": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "document",
+          "rule"
+        ]
+      },
+      "minItems": 1,
+      "maxItems": 2,
+      "uniqueItems": true
+    },
+    "testSetDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "intendedConsumers": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+      },
+      "minItems": 0,
+      "maxItems": 100,
+      "uniqueItems": true
+    },
+    "intendedHistoryReaders": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+      },
+      "minItems": 0,
+      "maxItems": 100,
+      "uniqueItems": true
+    },
+    "versionPolicy": {
+      "enum": [
+        "PINNED"
+      ]
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "revision",
+    "productId",
+    "sourceDigests",
+    "processes",
+    "testSetDigest",
+    "intendedConsumers",
+    "intendedHistoryReaders",
+    "versionPolicy"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:knowledge-core:recipe:v0.1"
+}

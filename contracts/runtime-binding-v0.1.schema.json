@@ -1,0 +1,35 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "runtime-binding.v0.1"
+    },
+    "productId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "manifestDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "versionPolicy": {
+      "enum": [
+        "PINNED"
+      ]
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "productId",
+    "revision",
+    "manifestDigest",
+    "versionPolicy"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:knowledge-core:runtime-binding:v0.1"
+}

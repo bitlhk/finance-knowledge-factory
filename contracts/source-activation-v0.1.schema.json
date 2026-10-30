@@ -1,0 +1,42 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "source-activation.v0.1"
+    },
+    "sourceId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "sourceDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "effectiveFrom": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "state": {
+      "enum": [
+        "ACTIVE",
+        "REVOKED"
+      ]
+    },
+    "authorityRef": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "sourceId",
+    "sourceDigest",
+    "effectiveFrom",
+    "state",
+    "authorityRef"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:knowledge-core:source-activation:v0.1"
+}

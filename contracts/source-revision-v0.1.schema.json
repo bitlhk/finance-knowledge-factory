@@ -1,0 +1,40 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "source-revision.v0.1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "mediaType": {
+      "enum": [
+        "text/plain"
+      ]
+    },
+    "content": {
+      "type": "string",
+      "maxLength": 1000000
+    },
+    "contentDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "id",
+    "revision",
+    "mediaType",
+    "content",
+    "contentDigest"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:knowledge-core:source-revision:v0.1"
+}

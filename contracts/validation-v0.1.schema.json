@@ -1,0 +1,71 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "validation.v0.1"
+    },
+    "candidateDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "testSetDigest": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "engine": {
+      "enum": [
+        "m0-reference-0.1.0"
+      ]
+    },
+    "passed": {
+      "type": "boolean"
+    },
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "expected": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "actual": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "passed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "expected",
+          "actual",
+          "passed"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1,
+      "maxItems": 1000,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "candidateDigest",
+    "testSetDigest",
+    "engine",
+    "passed",
+    "results"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:knowledge-core:validation:v0.1"
+}

@@ -1,0 +1,58 @@
+{
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "const": "active-policy.v0.1"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "grants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "principal": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+          },
+          "resource": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "consume",
+                "history",
+                "source_read"
+              ]
+            },
+            "minItems": 1,
+            "maxItems": 100,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "principal",
+          "resource",
+          "actions"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0,
+      "maxItems": 1000,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "revision",
+    "grants"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:knowledge-core:active-policy:v0.1"
+}
