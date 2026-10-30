@@ -1,0 +1,47 @@
+{
+  "frozenDigest": "eb9180e2960882fa1eddc3d07f132140bb2d5207dc58838988e5ae553e939440",
+  "cost": null,
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "content": "---\ntitle: 客服资料补正说明\ntype: concept\ntags: 受理时间,申请渠道,资料补正,服务边界\n---\n\n# 客服资料补正说明\n\n## 概述\n本页面说明客服资料补正服务的受理时间、申请渠道、补正流程及服务边界，帮助客户了解如何提交资料补正申请以及客服在服务过程中的职责范围。\n\n## 详细内容\n\n### 受理时间\n- 客服受理时间为工作日 09:00 至 17:00。（来源：[[source:S1]]）\n\n### 申请渠道\n- 客户可通过服务柜台提交资料补正申请。（来源：[[source:S2]]）\n\n### 资料补正流程\n- 当客户提交的材料不完整时，客服人员会一次性告知所需补充的材料，避免客户多次往返。（来源：[[source:S3]]）\n\n### 服务边界\n- 客服在服务过程中不作出授信、放款或投资收益保证。（来源：[[source:S4]]）\n- 客户应知悉，客服仅提供资料补正相关的说明与协助，不涉及任何授信、放款或投资收益的承诺。\n\n## 相关页面\n- 无（当前知识库中暂无其他相关页面）\n\n## 原文出处\n- [[raw/客服资料补正说明]] — 受理时间、申请渠道、资料补正流程、服务边界\n  - [[source:S1]] — 受理时间\n  - [[source:S2]] — 申请渠道\n  - [[source:S3]] — 资料补正流程\n  - [[source:S4]] — 服务边界\n```",
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1793343407,
+    "id": "0217933434039928ef713df31ebdaaf7227ee8017ed309b1b2447",
+    "model": "deepseek-v4-flash-ga-260731",
+    "service_tier": "default",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 341,
+      "prompt_tokens": 455,
+      "total_tokens": 796,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    }
+  },
+  "assessment": {
+    "structuralPassed": true,
+    "errors": [],
+    "sourceCoverage": [
+      "S1",
+      "S2",
+      "S3",
+      "S4"
+    ],
+    "semanticQuality": "REVIEW_REQUIRED",
+    "publicationAllowed": false
+  },
+  "modelCall": "COMPLETED",
+  "elapsedMilliseconds": 4039
+}

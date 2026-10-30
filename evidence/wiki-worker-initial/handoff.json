@@ -1,0 +1,13 @@
+{
+  "candidateDigest": "decf80fd1ecc2e9952bedd0f80479163df1d6ff2910d7c3d7443393bcd52eacb",
+  "adapterVersion": "wiki-handoff-check.v0.1",
+  "errors": [
+    "UNRESOLVED_PAGE_REFERENCE",
+    "UNBALANCED_CODE_FENCE"
+  ],
+  "unresolvedPages": [
+    "raw/客服资料补正说明"
+  ],
+  "candidateAdmission": "BLOCKED",
+  "publicationAllowed": false
+}
