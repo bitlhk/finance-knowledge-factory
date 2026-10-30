@@ -20,6 +20,8 @@ installed-Agent joint run remain pending; this is not a claim of mutual acceptan
 `knowledge-runtime-v0.1.schema.json` supplies executable request/response checks.
 Its byte SHA-256 is returned in private process readiness/stop records. Both sides
 should record that hash and their exact implementation commits before joint testing.
+This delivery freezes schema SHA-256
+`ae9fa3dbf053829144983f3d23892eeef93d43e1a755f0306ccd0a01a209c4fa`.
 
 ## POST /session
 
