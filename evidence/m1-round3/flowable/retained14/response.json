@@ -1,0 +1,125 @@
+{
+  "engine" : "org.flowable:flowable-dmn-engine:8.0.0",
+  "engineCalls" : 8,
+  "results" : [ {
+    "id" : "E01-0",
+    "actual" : "MET",
+    "executor" : "FLOWABLE_DMN_8.0.0",
+    "definitionId" : "15c16223-d416-11f1-a8f9-6aff75352aa8",
+    "deploymentId" : "15b57b41-d416-11f1-a8f9-6aff75352aa8",
+    "parentDeploymentId" : "e577653ccf5fc21bb48c9c5a7a3f3cd6c76c94181c7115f9f31830b11bc62ffe",
+    "expected" : "MET",
+    "passed" : true
+  }, {
+    "id" : "E01-1",
+    "actual" : "NOT_MET",
+    "executor" : "FLOWABLE_DMN_8.0.0",
+    "definitionId" : "15c16223-d416-11f1-a8f9-6aff75352aa8",
+    "deploymentId" : "15b57b41-d416-11f1-a8f9-6aff75352aa8",
+    "parentDeploymentId" : "e577653ccf5fc21bb48c9c5a7a3f3cd6c76c94181c7115f9f31830b11bc62ffe",
+    "expected" : "NOT_MET",
+    "passed" : true
+  }, {
+    "id" : "E02-0",
+    "actual" : "MET",
+    "executor" : "FLOWABLE_DMN_8.0.0",
+    "definitionId" : "15c49676-d416-11f1-a8f9-6aff75352aa8",
+    "deploymentId" : "15c2e8c4-d416-11f1-a8f9-6aff75352aa8",
+    "parentDeploymentId" : "aebd25c8d6ab339a1e5afa238ccf3aabc22a5cb5c5aca205a319fc3b590937e8",
+    "expected" : "MET",
+    "passed" : true
+  }, {
+    "id" : "E02-1",
+    "actual" : "NOT_MET",
+    "executor" : "FLOWABLE_DMN_8.0.0",
+    "definitionId" : "15c49676-d416-11f1-a8f9-6aff75352aa8",
+    "deploymentId" : "15c2e8c4-d416-11f1-a8f9-6aff75352aa8",
+    "parentDeploymentId" : "aebd25c8d6ab339a1e5afa238ccf3aabc22a5cb5c5aca205a319fc3b590937e8",
+    "expected" : "NOT_MET",
+    "passed" : true
+  }, {
+    "id" : "E02-2",
+    "actual" : "NOT_APPLICABLE",
+    "executor" : "FLOWABLE_DMN_8.0.0",
+    "definitionId" : "15c49676-d416-11f1-a8f9-6aff75352aa8",
+    "deploymentId" : "15c2e8c4-d416-11f1-a8f9-6aff75352aa8",
+    "parentDeploymentId" : "aebd25c8d6ab339a1e5afa238ccf3aabc22a5cb5c5aca205a319fc3b590937e8",
+    "expected" : "NOT_APPLICABLE",
+    "passed" : true
+  }, {
+    "id" : "E02-3",
+    "actual" : "MET",
+    "executor" : "FLOWABLE_DMN_8.0.0",
+    "definitionId" : "15c6b959-d416-11f1-a8f9-6aff75352aa8",
+    "deploymentId" : "15c559c7-d416-11f1-a8f9-6aff75352aa8",
+    "parentDeploymentId" : "2bbf21a67580e0bf91071c672d9d2538c8fb26e088dc85b2a2deb66881e3dd76",
+    "expected" : "MET",
+    "passed" : true
+  }, {
+    "id" : "E02-4",
+    "actual" : "NOT_MET",
+    "executor" : "FLOWABLE_DMN_8.0.0",
+    "definitionId" : "15c6b959-d416-11f1-a8f9-6aff75352aa8",
+    "deploymentId" : "15c559c7-d416-11f1-a8f9-6aff75352aa8",
+    "parentDeploymentId" : "2bbf21a67580e0bf91071c672d9d2538c8fb26e088dc85b2a2deb66881e3dd76",
+    "expected" : "NOT_MET",
+    "passed" : true
+  }, {
+    "id" : "E02-5",
+    "actual" : "NOT_APPLICABLE",
+    "executor" : "FLOWABLE_DMN_8.0.0",
+    "definitionId" : "15c6b959-d416-11f1-a8f9-6aff75352aa8",
+    "deploymentId" : "15c559c7-d416-11f1-a8f9-6aff75352aa8",
+    "parentDeploymentId" : "2bbf21a67580e0bf91071c672d9d2538c8fb26e088dc85b2a2deb66881e3dd76",
+    "expected" : "NOT_APPLICABLE",
+    "passed" : true
+  }, {
+    "id" : "E03-0",
+    "actual" : "REVIEW_REQUIRED",
+    "executor" : "INPUT_SCOPE_GUARD",
+    "expected" : "REVIEW_REQUIRED",
+    "passed" : true
+  }, {
+    "id" : "E03-1",
+    "actual" : "REVIEW_REQUIRED",
+    "executor" : "INPUT_SCOPE_GUARD",
+    "expected" : "REVIEW_REQUIRED",
+    "passed" : true
+  }, {
+    "id" : "E03-2",
+    "actual" : "REVIEW_REQUIRED",
+    "executor" : "INPUT_SCOPE_GUARD",
+    "expected" : "REVIEW_REQUIRED",
+    "passed" : true
+  }, {
+    "id" : "E03-3",
+    "actual" : "REVIEW_REQUIRED",
+    "executor" : "INPUT_SCOPE_GUARD",
+    "expected" : "REVIEW_REQUIRED",
+    "passed" : true
+  }, {
+    "id" : "E04-0",
+    "actual" : "REVIEW_REQUIRED",
+    "executor" : "INPUT_SCOPE_GUARD",
+    "expected" : "REVIEW_REQUIRED",
+    "passed" : true
+  }, {
+    "id" : "E04-1",
+    "actual" : "REVIEW_REQUIRED",
+    "executor" : "INPUT_SCOPE_GUARD",
+    "expected" : "REVIEW_REQUIRED",
+    "passed" : true
+  } ],
+  "referenceFallback" : false,
+  "faultResults" : [ {
+    "id" : "missing-pinned-version",
+    "rejected" : true,
+    "error" : "Pinned definition changed"
+  }, {
+    "id" : "tampered-artifact",
+    "rejected" : true,
+    "error" : "COMPILED_DIGEST_MISMATCH"
+  } ],
+  "sameEngineRecovery" : true,
+  "recoveryStatus" : "EXECUTED"
+}

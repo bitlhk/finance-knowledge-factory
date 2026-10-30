@@ -1,0 +1,210 @@
+[
+  {
+    "id": "P43-NARROW",
+    "execution": "COMPLETED",
+    "format": "JSON",
+    "usage": {
+      "completion_tokens": 268,
+      "prompt_tokens": 2370,
+      "total_tokens": 2638,
+      "prompt_tokens_details": {
+        "cached_tokens": 2048
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "responseModel": "deepseek-v4-flash-ga-260731",
+    "assessment": {
+      "passed": false,
+      "errors": [
+        "GOLD_DECISION_MISMATCH",
+        "GOLD_DECISION_MISMATCH",
+        "GOLD_DECISION_MISMATCH",
+        "GOLD_DECISION_MISMATCH",
+        "GOLD_DECISION_MISMATCH"
+      ],
+      "checks": [
+        {
+          "id": "P43-NARROW-rule-extension-cap-within-one-year-0",
+          "ruleId": "rule-extension-cap-within-one-year",
+          "inputs": {
+            "original_months": 12,
+            "extension_months": 12
+          },
+          "host": {
+            "region": "CN",
+            "institution": "poc-bank",
+            "product": "ordinary-personal-loan",
+            "purpose": "component-probe",
+            "business_date": "2024-07-02",
+            "timezone": "Asia/Shanghai"
+          },
+          "expected": "MET",
+          "actual": "UNKNOWN"
+        },
+        {
+          "id": "P43-NARROW-rule-extension-cap-within-one-year-1",
+          "ruleId": "rule-extension-cap-within-one-year",
+          "inputs": {
+            "original_months": 12,
+            "extension_months": 13
+          },
+          "host": {
+            "region": "CN",
+            "institution": "poc-bank",
+            "product": "ordinary-personal-loan",
+            "purpose": "component-probe",
+            "business_date": "2024-07-02",
+            "timezone": "Asia/Shanghai"
+          },
+          "expected": "NOT_MET",
+          "actual": "UNKNOWN"
+        },
+        {
+          "id": "P43-NARROW-rule-extension-cap-within-one-year-2",
+          "ruleId": "rule-extension-cap-within-one-year",
+          "inputs": {
+            "original_months": 6,
+            "extension_months": 6
+          },
+          "host": {
+            "region": "CN",
+            "institution": "poc-bank",
+            "product": "ordinary-personal-loan",
+            "purpose": "component-probe",
+            "business_date": "2024-07-02",
+            "timezone": "Asia/Shanghai"
+          },
+          "expected": "MET",
+          "actual": "UNKNOWN"
+        },
+        {
+          "id": "P43-NARROW-rule-extension-cap-within-one-year-3",
+          "ruleId": "rule-extension-cap-within-one-year",
+          "inputs": {
+            "original_months": 6,
+            "extension_months": 7
+          },
+          "host": {
+            "region": "CN",
+            "institution": "poc-bank",
+            "product": "ordinary-personal-loan",
+            "purpose": "component-probe",
+            "business_date": "2024-07-02",
+            "timezone": "Asia/Shanghai"
+          },
+          "expected": "NOT_MET",
+          "actual": "UNKNOWN"
+        },
+        {
+          "id": "P43-NARROW-rule-extension-cap-within-one-year-4",
+          "ruleId": "rule-extension-cap-within-one-year",
+          "inputs": {
+            "original_months": 13,
+            "extension_months": 1
+          },
+          "host": {
+            "region": "CN",
+            "institution": "poc-bank",
+            "product": "ordinary-personal-loan",
+            "purpose": "component-probe",
+            "business_date": "2024-07-02",
+            "timezone": "Asia/Shanghai"
+          },
+          "expected": "NOT_APPLICABLE",
+          "actual": "UNKNOWN"
+        },
+        {
+          "id": "P43-NARROW-rule-extension-cap-within-one-year-5",
+          "ruleId": "rule-extension-cap-within-one-year",
+          "inputs": {
+            "original_months": 6
+          },
+          "host": {
+            "region": "CN",
+            "institution": "poc-bank",
+            "product": "ordinary-personal-loan",
+            "purpose": "component-probe",
+            "business_date": "2024-07-02",
+            "timezone": "Asia/Shanghai"
+          },
+          "expected": "UNKNOWN",
+          "actual": "UNKNOWN"
+        },
+        {
+          "id": "P43-NARROW-rule-extension-cap-within-one-year-6",
+          "ruleId": "rule-extension-cap-within-one-year",
+          "inputs": {
+            "original_months": true,
+            "extension_months": 1
+          },
+          "host": {
+            "region": "CN",
+            "institution": "poc-bank",
+            "product": "ordinary-personal-loan",
+            "purpose": "component-probe",
+            "business_date": "2024-07-02",
+            "timezone": "Asia/Shanghai"
+          },
+          "expected": "INVALID_INPUT",
+          "actual": "INVALID_INPUT"
+        },
+        {
+          "id": "P43-NARROW-rule-extension-cap-within-one-year-7",
+          "ruleId": "rule-extension-cap-within-one-year",
+          "inputs": {
+            "original_months": 6,
+            "extension_months": 1
+          },
+          "host": {
+            "region": "CN",
+            "institution": "poc-bank",
+            "product": "ordinary-personal-loan",
+            "purpose": "component-probe",
+            "business_date": "2024-06-30",
+            "timezone": "Asia/Shanghai"
+          },
+          "expected": "NOT_APPLICABLE",
+          "actual": "NOT_APPLICABLE"
+        },
+        {
+          "id": "P43-NARROW-rule-extension-cap-within-one-year-8",
+          "ruleId": "rule-extension-cap-within-one-year",
+          "inputs": {
+            "original_months": 6,
+            "extension_months": 1
+          },
+          "host": {
+            "region": "CN",
+            "institution": "poc-bank",
+            "product": "ordinary-personal-loan",
+            "purpose": "component-probe",
+            "business_date": "2024-02-30",
+            "timezone": "Asia/Shanghai"
+          },
+          "expected": "INVALID_INPUT",
+          "actual": "INVALID_INPUT"
+        },
+        {
+          "id": "P43-NARROW-rule-extension-cap-within-one-year-9",
+          "ruleId": "rule-extension-cap-within-one-year",
+          "inputs": {
+            "original_months": 6,
+            "extension_months": 1
+          },
+          "host": {
+            "region": "CN",
+            "institution": "poc-bank",
+            "product": "credit-card",
+            "purpose": "component-probe",
+            "business_date": "2024-07-02",
+            "timezone": "Asia/Shanghai"
+          },
+          "expected": "NOT_APPLICABLE",
+          "actual": "NOT_APPLICABLE"
+        }
+      ]
+    }
+  }
+]

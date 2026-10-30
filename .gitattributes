@@ -1,0 +1,3 @@
+# Preserve original source/log bytes; do not format retained evidence.
+evidence/m1-round3/sources/regulation.html -text -whitespace
+evidence/m1-round3/flowable/**/build.log -text -whitespace

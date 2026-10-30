@@ -1,0 +1,335 @@
+{
+  "models": [
+    {
+      "key": "condition_d28651dfbe71",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_d28651dfbe71\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>((!(v0 &lt;= v1)))</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v2 &lt;= v3)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "bb255303ed3d39d221aec580992eb7732a47f4c03c6c12e2272377630c3853e2",
+      "irDigest": "1ecea32c3fd84e2175203b9d4201de80cd51c7abc7207b3a31dfced05d7cb6d6",
+      "ruleId": "rule_extension_cap_within_one_year",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "original_months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        },
+        {
+          "name": "v2",
+          "field": "extension_months"
+        },
+        {
+          "name": "v3",
+          "field": "original_months"
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "56f2f48ebec74bcf586848a26bfaed02d6368953021fdd8d10189c131dc4724e"
+    },
+    {
+      "key": "condition_a19a4acf91cf",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_a19a4acf91cf\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>((!(v0 == v1)))</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v2 &lt;= v3)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "acdad2155af19e17d2392d93c816e65f0c0100efcada190e7de958d50d5ed0fd",
+      "irDigest": "1c33c550fbdbcb649804e4c4edf7ff101b9562c6be0853f3401b9c44a5dd68db",
+      "ruleId": "rule-personal-consumption-term",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "purpose_kind"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "enum",
+            "value": "CONSUMPTION"
+          }
+        },
+        {
+          "name": "v2",
+          "field": "months"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "integer",
+            "value": 60
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "e14852edcc1c49a918c7b88c2e179f52e5800214731fd38ba5602bd5fbd66f89"
+    },
+    {
+      "key": "condition_9310e3551b57",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_9310e3551b57\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>((v0 &gt; v1))</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>((!(v2 == v3)))</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v4 &lt;= v5)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "3c69bfe15e9208994fe316709237540a555dd3a0c9fb8c32722479d12876eca0",
+      "irDigest": "1c33c550fbdbcb649804e4c4edf7ff101b9562c6be0853f3401b9c44a5dd68db",
+      "ruleId": "rule-business-general-term",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 60
+          }
+        },
+        {
+          "name": "v2",
+          "field": "purpose_kind"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "enum",
+            "value": "BUSINESS"
+          }
+        },
+        {
+          "name": "v4",
+          "field": "months"
+        },
+        {
+          "name": "v5",
+          "literal": {
+            "type": "integer",
+            "value": 60
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "06b5d4607b1d48d8c08ed27d97e71a6737ae41d816665d7cb54aa83610a5b835"
+    },
+    {
+      "key": "condition_b56fb683f901",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_b56fb683f901\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>((!((v0 == v1) &amp;&amp; (v2 &gt; v3))))</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v4 &lt;= v5)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "b78a16d5b1c3e699071d963d6169fc21491626a09058a3dc79cf02e93ca3e3da",
+      "irDigest": "1c33c550fbdbcb649804e4c4edf7ff101b9562c6be0853f3401b9c44a5dd68db",
+      "ruleId": "rule-business-extended-term",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "purpose_kind"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "enum",
+            "value": "BUSINESS"
+          }
+        },
+        {
+          "name": "v2",
+          "field": "months"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "integer",
+            "value": 60
+          }
+        },
+        {
+          "name": "v4",
+          "field": "months"
+        },
+        {
+          "name": "v5",
+          "literal": {
+            "type": "integer",
+            "value": 120
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "f8f1856fa69787490236669d675505eb38c7537f1756ae3b87068e2683f2a1d9"
+    },
+    {
+      "key": "condition_1af1883b891d",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_1af1883b891d\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>((v0 == v1))</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v2 == v3)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "2134ae5a38caa819202c21ab99573016a2f38b4f59028059f77a98b2ad6ef95c",
+      "irDigest": "db01c7ae67438049696ae346b4976f79cc331d590a83c1bdf84db351a271d7a0",
+      "ruleId": "rule_art33_trustee_payment_requirement",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "payment_mode"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "enum",
+            "value": "SELF"
+          }
+        },
+        {
+          "name": "v2",
+          "field": "payment_mode"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "enum",
+            "value": "TRUSTEE"
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "0175fb78e79aacd7a20ccee2f296f13f7953d4b6c0695ef776e727263ac0fc51"
+    }
+  ],
+  "cases": [
+    {
+      "id": "P43-rule_extension_cap_within_one_year-0",
+      "expected": "MET",
+      "compiledDigest": "56f2f48ebec74bcf586848a26bfaed02d6368953021fdd8d10189c131dc4724e",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P43-rule_extension_cap_within_one_year-1",
+      "expected": "NOT_MET",
+      "compiledDigest": "56f2f48ebec74bcf586848a26bfaed02d6368953021fdd8d10189c131dc4724e",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P43-rule_extension_cap_within_one_year-2",
+      "expected": "MET",
+      "compiledDigest": "56f2f48ebec74bcf586848a26bfaed02d6368953021fdd8d10189c131dc4724e",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P43-rule_extension_cap_within_one_year-3",
+      "expected": "NOT_MET",
+      "compiledDigest": "56f2f48ebec74bcf586848a26bfaed02d6368953021fdd8d10189c131dc4724e",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P43-rule_extension_cap_within_one_year-4",
+      "expected": "NOT_APPLICABLE",
+      "compiledDigest": "56f2f48ebec74bcf586848a26bfaed02d6368953021fdd8d10189c131dc4724e",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P43-rule_extension_cap_within_one_year-5",
+      "expected": "UNKNOWN",
+      "compiledDigest": "56f2f48ebec74bcf586848a26bfaed02d6368953021fdd8d10189c131dc4724e",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P43-rule_extension_cap_within_one_year-6",
+      "expected": "INVALID_INPUT",
+      "compiledDigest": "56f2f48ebec74bcf586848a26bfaed02d6368953021fdd8d10189c131dc4724e",
+      "guard": "INVALID_INPUT"
+    },
+    {
+      "id": "P43-rule_extension_cap_within_one_year-7",
+      "expected": "NOT_APPLICABLE",
+      "compiledDigest": "56f2f48ebec74bcf586848a26bfaed02d6368953021fdd8d10189c131dc4724e",
+      "guard": "NOT_APPLICABLE"
+    },
+    {
+      "id": "P43-rule_extension_cap_within_one_year-8",
+      "expected": "INVALID_INPUT",
+      "compiledDigest": "56f2f48ebec74bcf586848a26bfaed02d6368953021fdd8d10189c131dc4724e",
+      "guard": "INVALID_INPUT"
+    },
+    {
+      "id": "P43-rule_extension_cap_within_one_year-9",
+      "expected": "NOT_APPLICABLE",
+      "compiledDigest": "56f2f48ebec74bcf586848a26bfaed02d6368953021fdd8d10189c131dc4724e",
+      "guard": "NOT_APPLICABLE"
+    },
+    {
+      "id": "P08-rule-personal-consumption-term-0",
+      "expected": "REVIEW_REQUIRED",
+      "compiledDigest": "e14852edcc1c49a918c7b88c2e179f52e5800214731fd38ba5602bd5fbd66f89",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-rule-personal-consumption-term-1",
+      "expected": "REVIEW_REQUIRED",
+      "compiledDigest": "e14852edcc1c49a918c7b88c2e179f52e5800214731fd38ba5602bd5fbd66f89",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-rule-personal-consumption-term-2",
+      "expected": "REVIEW_REQUIRED",
+      "compiledDigest": "e14852edcc1c49a918c7b88c2e179f52e5800214731fd38ba5602bd5fbd66f89",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-rule-personal-consumption-term-3",
+      "expected": "REVIEW_REQUIRED",
+      "compiledDigest": "e14852edcc1c49a918c7b88c2e179f52e5800214731fd38ba5602bd5fbd66f89",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-rule-business-general-term-0",
+      "expected": "REVIEW_REQUIRED",
+      "compiledDigest": "06b5d4607b1d48d8c08ed27d97e71a6737ae41d816665d7cb54aa83610a5b835",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-rule-business-general-term-1",
+      "expected": "REVIEW_REQUIRED",
+      "compiledDigest": "06b5d4607b1d48d8c08ed27d97e71a6737ae41d816665d7cb54aa83610a5b835",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-rule-business-general-term-2",
+      "expected": "REVIEW_REQUIRED",
+      "compiledDigest": "06b5d4607b1d48d8c08ed27d97e71a6737ae41d816665d7cb54aa83610a5b835",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-rule-business-general-term-3",
+      "expected": "REVIEW_REQUIRED",
+      "compiledDigest": "06b5d4607b1d48d8c08ed27d97e71a6737ae41d816665d7cb54aa83610a5b835",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-rule-business-extended-term-0",
+      "expected": "REVIEW_REQUIRED",
+      "compiledDigest": "f8f1856fa69787490236669d675505eb38c7537f1756ae3b87068e2683f2a1d9",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-rule-business-extended-term-1",
+      "expected": "REVIEW_REQUIRED",
+      "compiledDigest": "f8f1856fa69787490236669d675505eb38c7537f1756ae3b87068e2683f2a1d9",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-rule-business-extended-term-2",
+      "expected": "REVIEW_REQUIRED",
+      "compiledDigest": "f8f1856fa69787490236669d675505eb38c7537f1756ae3b87068e2683f2a1d9",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-rule-business-extended-term-3",
+      "expected": "REVIEW_REQUIRED",
+      "compiledDigest": "f8f1856fa69787490236669d675505eb38c7537f1756ae3b87068e2683f2a1d9",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P33-rule_art33_trustee_payment_requirement-0",
+      "expected": "REVIEW_REQUIRED",
+      "compiledDigest": "0175fb78e79aacd7a20ccee2f296f13f7953d4b6c0695ef776e727263ac0fc51",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P33-rule_art33_trustee_payment_requirement-1",
+      "expected": "REVIEW_REQUIRED",
+      "compiledDigest": "0175fb78e79aacd7a20ccee2f296f13f7953d4b6c0695ef776e727263ac0fc51",
+      "guard": "REVIEW_REQUIRED"
+    }
+  ],
+  "faults": []
+}

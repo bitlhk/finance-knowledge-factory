@@ -140,11 +140,17 @@ public final class FlowableProbe {
                 faultResults.add(Map.of("id", "tampered-artifact", "rejected", true, "error", error.getMessage()));
             }
             Map<String, Object> recovery = ((List<Map<String, Object>>) input.get("cases")).stream()
-                    .filter(row -> !row.containsKey("guard") && "MET".equals(row.get("expected"))).findFirst().orElseThrow();
-            String restored = (String) execute(engine, installed.get(recovery.get("compiledDigest")),
-                    (Map<String, Object>) recovery.get("variables")).get("decision");
+                    .filter(row -> !row.containsKey("guard") && "MET".equals(row.get("expected"))).findFirst().orElse(null);
             report.put("faultResults", faultResults);
-            report.put("sameEngineRecovery", "MET".equals(restored));
+            if (recovery == null) {
+                report.put("sameEngineRecovery", null);
+                report.put("recoveryStatus", "NOT_EXECUTED_NO_ELIGIBLE_CASE");
+            } else {
+                String restored = (String) execute(engine, installed.get(recovery.get("compiledDigest")),
+                        (Map<String, Object>) recovery.get("variables")).get("decision");
+                report.put("sameEngineRecovery", "MET".equals(restored));
+                report.put("recoveryStatus", "EXECUTED");
+            }
         } finally {
             engine.close();
         }
@@ -153,7 +159,7 @@ public final class FlowableProbe {
             throw new IllegalStateException("Probe has failures; inspect saved results");
         }
         if (((List<Map<String, Object>>) report.get("faultResults")).stream().anyMatch(row -> !Boolean.TRUE.equals(row.get("rejected")))
-                || !Boolean.TRUE.equals(report.get("sameEngineRecovery"))) {
+                || Boolean.FALSE.equals(report.get("sameEngineRecovery"))) {
             throw new IllegalStateException("Fault/recovery checks failed");
         }
     }

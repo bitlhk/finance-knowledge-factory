@@ -24,6 +24,10 @@ jobs:
         run: python -m probes.flowable.run
       - name: Retained model output to actual DMN (no model calls)
         run: python -m probes.flowable.run --request evidence/m1-round2/linked-engine-request.json
+      - name: Real-source bounded condition (retained output, no model calls)
+        run: python -m probes.flowable.run --request evidence/m1-round3/policy/bounded-fields/engine-request.json
+      - name: Failed extraction preserves report when every case is guarded
+        run: python -m probes.flowable.replay_guarded
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
