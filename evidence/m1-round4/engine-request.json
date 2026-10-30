@@ -1,0 +1,412 @@
+{
+  "models": [
+    {
+      "key": "condition_893483b95920",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_893483b95920\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>((!(v0 == v1)))</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v2 &lt;= v3)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "b9413bd93398c281161885ed12659b3e9f4f8de1f81f7435e0b9d4d430043086",
+      "irDigest": "fe831b9a29e431d632f5d8cefa6047de4cbe643f5c4b2eaaf3287e8c48c77ba5",
+      "ruleId": "clause-8-2",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "purpose_kind"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "enum",
+            "value": "CONSUMPTION"
+          }
+        },
+        {
+          "name": "v2",
+          "field": "months"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "integer",
+            "value": 60
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "361aad31180019a3a1d4ef5979375ace421798b503f50059858853adab111e38"
+    },
+    {
+      "key": "condition_45b3d2e36fa2",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_45b3d2e36fa2\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>((!(v0 == v1)))</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v2 &lt;= v3)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "88f9adef904ff40336e51d0a76348a9e8d1388cb4a49664da56f3b58214c1731",
+      "irDigest": "fe831b9a29e431d632f5d8cefa6047de4cbe643f5c4b2eaaf3287e8c48c77ba5",
+      "ruleId": "clause-8-3",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "purpose_kind"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "enum",
+            "value": "BUSINESS"
+          }
+        },
+        {
+          "name": "v2",
+          "field": "months"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "integer",
+            "value": 60
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "50536dc84be277e4b0b09077f996b3deec8c7fb4600b204809babb163f75e180"
+    },
+    {
+      "key": "condition_3249a2dd58d4",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_3249a2dd58d4\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>((!(v0 &lt;= v1)))</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v2 &lt;= v3)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "ccb9d5fd7cbbf0734a34e11c4f20662c97814f5304fb501b7312b9853b094e20",
+      "irDigest": "f173064a2bc4f0d4cef910a4c1d96a0399b05864aea4d427e157b52f192c3280",
+      "ruleId": "clause-43-6",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "original_months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        },
+        {
+          "name": "v2",
+          "field": "extension_months"
+        },
+        {
+          "name": "v3",
+          "field": "original_months"
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "90f86182fbf4e8cf14f060c97c82517f4d2c81ff5c73607eda5eb3ffb367f5d4"
+    },
+    {
+      "key": "condition_bd5aa1fdf2ec",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_bd5aa1fdf2ec\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>((!(v0 == v1)))</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v2 &lt;= v3)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "e376cd84962373ad8c9972506284354068263650a007899757f65973f38cd967",
+      "irDigest": "6581339ea524de2e94b28c399c60334093e56b804ea05bdcc5bb040f94491400",
+      "ruleId": "clause8-cond-consumption-max-5y",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "purpose_kind"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "enum",
+            "value": "CONSUMPTION"
+          }
+        },
+        {
+          "name": "v2",
+          "field": "months"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "integer",
+            "value": 60
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "d1aaa47a13d8c59e46242bef587cfa5385a8362e74a56835f7dbdb0818de7192"
+    },
+    {
+      "key": "condition_60f43da51dbc",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_60f43da51dbc\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>((!(v0 == v1)))</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v2 &lt;= v3)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "2847907a2f67843d895bb1c1120d0c48d0e5cbddf9439ab0fb1edf6469b30c00",
+      "irDigest": "6581339ea524de2e94b28c399c60334093e56b804ea05bdcc5bb040f94491400",
+      "ruleId": "clause8-cond-business-general-max-5y",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "purpose_kind"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "enum",
+            "value": "BUSINESS"
+          }
+        },
+        {
+          "name": "v2",
+          "field": "months"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "integer",
+            "value": 60
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "2f924af793c2996e4130a599dd1080d6539a7aebaf617e1814a145a7c0015907"
+    },
+    {
+      "key": "condition_2101ee82e74d",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_2101ee82e74d\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>((!(v0 == v1)))</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v2 &lt;= v3)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "f274153fd242de39095fe174bfd26b6b18d86c5a8a9e6fc00e00c8942e169bab",
+      "irDigest": "6581339ea524de2e94b28c399c60334093e56b804ea05bdcc5bb040f94491400",
+      "ruleId": "clause8-cond-business-extended-max-10y",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "purpose_kind"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "enum",
+            "value": "BUSINESS"
+          }
+        },
+        {
+          "name": "v2",
+          "field": "months"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "integer",
+            "value": 120
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "42fa1fc9859deaf82d7381626cc165d4c4eddc910117b159dc50ed6b94f40723"
+    }
+  ],
+  "cases": [
+    {
+      "id": "P08-1-consumption-0",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "361aad31180019a3a1d4ef5979375ace421798b503f50059858853adab111e38",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-1-consumption-1",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "361aad31180019a3a1d4ef5979375ace421798b503f50059858853adab111e38",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-1-consumption-2",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "361aad31180019a3a1d4ef5979375ace421798b503f50059858853adab111e38",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-1-consumption-3",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "361aad31180019a3a1d4ef5979375ace421798b503f50059858853adab111e38",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-1-business-0",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "50536dc84be277e4b0b09077f996b3deec8c7fb4600b204809babb163f75e180",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-1-business-1",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "50536dc84be277e4b0b09077f996b3deec8c7fb4600b204809babb163f75e180",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-1-business-2",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "50536dc84be277e4b0b09077f996b3deec8c7fb4600b204809babb163f75e180",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-1-business-3",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "50536dc84be277e4b0b09077f996b3deec8c7fb4600b204809babb163f75e180",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P43-2-short-0",
+      "expected": "MET",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "90f86182fbf4e8cf14f060c97c82517f4d2c81ff5c73607eda5eb3ffb367f5d4",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P43-2-short-1",
+      "expected": "NOT_MET",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "90f86182fbf4e8cf14f060c97c82517f4d2c81ff5c73607eda5eb3ffb367f5d4",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P43-2-short-2",
+      "expected": "MET",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "90f86182fbf4e8cf14f060c97c82517f4d2c81ff5c73607eda5eb3ffb367f5d4",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P43-2-short-3",
+      "expected": "NOT_MET",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "90f86182fbf4e8cf14f060c97c82517f4d2c81ff5c73607eda5eb3ffb367f5d4",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P43-2-short-4",
+      "expected": "NOT_APPLICABLE",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "90f86182fbf4e8cf14f060c97c82517f4d2c81ff5c73607eda5eb3ffb367f5d4",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P43-2-short-5",
+      "expected": "UNKNOWN",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "90f86182fbf4e8cf14f060c97c82517f4d2c81ff5c73607eda5eb3ffb367f5d4",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P43-2-short-6",
+      "expected": "INVALID_INPUT",
+      "reference": "INVALID_INPUT",
+      "compiledDigest": "90f86182fbf4e8cf14f060c97c82517f4d2c81ff5c73607eda5eb3ffb367f5d4",
+      "guard": "INVALID_INPUT"
+    },
+    {
+      "id": "P43-2-short-7",
+      "expected": "NOT_APPLICABLE",
+      "reference": "NOT_APPLICABLE",
+      "compiledDigest": "90f86182fbf4e8cf14f060c97c82517f4d2c81ff5c73607eda5eb3ffb367f5d4",
+      "guard": "NOT_APPLICABLE"
+    },
+    {
+      "id": "P43-2-short-8",
+      "expected": "INVALID_INPUT",
+      "reference": "INVALID_INPUT",
+      "compiledDigest": "90f86182fbf4e8cf14f060c97c82517f4d2c81ff5c73607eda5eb3ffb367f5d4",
+      "guard": "INVALID_INPUT"
+    },
+    {
+      "id": "P43-2-short-9",
+      "expected": "NOT_APPLICABLE",
+      "reference": "NOT_APPLICABLE",
+      "compiledDigest": "90f86182fbf4e8cf14f060c97c82517f4d2c81ff5c73607eda5eb3ffb367f5d4",
+      "guard": "NOT_APPLICABLE"
+    },
+    {
+      "id": "P08-2-consumption-0",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "d1aaa47a13d8c59e46242bef587cfa5385a8362e74a56835f7dbdb0818de7192",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-2-consumption-1",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "d1aaa47a13d8c59e46242bef587cfa5385a8362e74a56835f7dbdb0818de7192",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-2-consumption-2",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "d1aaa47a13d8c59e46242bef587cfa5385a8362e74a56835f7dbdb0818de7192",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-2-consumption-3",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "d1aaa47a13d8c59e46242bef587cfa5385a8362e74a56835f7dbdb0818de7192",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-2-business-0",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "2f924af793c2996e4130a599dd1080d6539a7aebaf617e1814a145a7c0015907",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-2-business-1",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "2f924af793c2996e4130a599dd1080d6539a7aebaf617e1814a145a7c0015907",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-2-business-2",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "2f924af793c2996e4130a599dd1080d6539a7aebaf617e1814a145a7c0015907",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-2-business-3",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "2f924af793c2996e4130a599dd1080d6539a7aebaf617e1814a145a7c0015907",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-2-ceiling-0",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "42fa1fc9859deaf82d7381626cc165d4c4eddc910117b159dc50ed6b94f40723",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-2-ceiling-1",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "42fa1fc9859deaf82d7381626cc165d4c4eddc910117b159dc50ed6b94f40723",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-2-ceiling-2",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "42fa1fc9859deaf82d7381626cc165d4c4eddc910117b159dc50ed6b94f40723",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-2-ceiling-3",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "42fa1fc9859deaf82d7381626cc165d4c4eddc910117b159dc50ed6b94f40723",
+      "guard": "REVIEW_REQUIRED"
+    }
+  ],
+  "faults": []
+}

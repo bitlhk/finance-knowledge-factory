@@ -1,6 +1,8 @@
 # M1 component probes: initial evidence, not acceptance
 
-Latest follow-up: [M1 third probe round](M1-ROUND3.md).
+Latest follow-up: [M1 fourth probe round](M1-ROUND4.md): clause coverage and
+evidence closure implemented; semantic acceptance NOT passed; PR remains Draft.
+Previous follow-up: [M1 third probe round](M1-ROUND3.md).
 Previous follow-up: [M1 second probe round](M1-ROUND2.md). The measurements below
 remain the original first-round record, not the current aggregate.
 
