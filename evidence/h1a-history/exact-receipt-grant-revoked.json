@@ -1,0 +1,34 @@
+{
+  "name": "exact-receipt-grant-revoked",
+  "passed": true,
+  "httpStatus": 403,
+  "expectedStatus": 403,
+  "request": {
+    "schemaVersion": "knowledge-history.v0.1",
+    "requestId": "history-1",
+    "traceId": "history-trace-1",
+    "coreReceiptDigest": "6bfafa7dbce44296561fad0b99feea70a7e07f5b6baae012eaa9f4e271ae068e",
+    "expected": {
+      "productId": "run-39d069d400924257a857cfa7ec64917b",
+      "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+      "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54",
+      "sourceRevision": 1,
+      "originalRequestId": "fh-request-eddedb70-8bff-4870-9821-a637851a2bcf",
+      "originalTraceId": "fh-trace-eddedb70-8bff-4870-9821-a637851a2bcf"
+    }
+  },
+  "response": {
+    "code": 403,
+    "error": "HISTORY_FORBIDDEN"
+  },
+  "before": {
+    "stateDigest": "dcf8680852ac548f66e1a093acb608bf3bedd63888d85493c6c91fcc0c164325",
+    "receiptDigest": "90f6a3bab2ac32672d228f4058a3d26fe1ccff560f45e15a5b7dd998cb32c7b8",
+    "receiptCount": 18
+  },
+  "after": {
+    "stateDigest": "dcf8680852ac548f66e1a093acb608bf3bedd63888d85493c6c91fcc0c164325",
+    "receiptDigest": "90f6a3bab2ac32672d228f4058a3d26fe1ccff560f45e15a5b7dd998cb32c7b8",
+    "receiptCount": 18
+  }
+}

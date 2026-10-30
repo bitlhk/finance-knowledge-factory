@@ -1,0 +1,147 @@
+{
+  "scope": "ACTUAL_SAVED_CORE_EVIDENCE_HTTP_WITH_SYNTHETIC_HOST_ON_DATABASE_COPY_NOT_HARNESS_UI_ACCEPTANCE",
+  "codeIdentity": {
+    "commit": "e4b45e4ad6796253f07a8d7feb8e878162a469fa",
+    "dirty": false
+  },
+  "serviceIdentity": {
+    "state": "LISTENING_HOST_AUTH_REQUIRED",
+    "host": "127.0.0.1",
+    "port": 45909,
+    "pid": 1791053,
+    "schemaSha256": "114397ec532e40b84975e5884457ed1de63b45c71a05652c7e8ed5c3f1f3c3c6",
+    "outboundDisabled": true,
+    "binding": {
+      "productId": "run-39d069d400924257a857cfa7ec64917b",
+      "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3"
+    },
+    "codeIdentity": {
+      "commit": "e4b45e4ad6796253f07a8d7feb8e878162a469fa",
+      "dirty": false
+    },
+    "implementation": {
+      "history_service.py": "f1fdc880881c41d01115144dd1006db82f051607cc0d5be46cbb3f27e75237a0",
+      "history_runtime.py": "21f95b38016ce91b90a941d71c171f2e099c775520e3560b7ae1c8f3f2b6a928"
+    }
+  },
+  "schemaSha256": "114397ec532e40b84975e5884457ed1de63b45c71a05652c7e8ed5c3f1f3c3c6",
+  "agent": "agent-60b8171a34ef479c",
+  "instance": "4553dde6-4b96-4828-a934-0c1eb8ea3ce2",
+  "installationLockSha256": "2968aec67089c36591986e6ba8ac18e4c59e42ef15f14969f1347d3a3468ef5f",
+  "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+  "coreReceiptDigest": "6bfafa7dbce44296561fad0b99feea70a7e07f5b6baae012eaa9f4e271ae068e",
+  "originalHarnessEvidenceSha256": "a71ad6b0ea4a5e635c2a38e1bc56a5e7e73c5a1d56fd81cda81dcd6f4d507896",
+  "queryProjectionComparedToSavedHarnessToolResult": true,
+  "results": [
+    {
+      "name": "saved-stopped-instance",
+      "passed": true,
+      "httpStatus": 200
+    },
+    {
+      "name": "repeat-no-reexecution",
+      "passed": true,
+      "httpStatus": 200
+    },
+    {
+      "name": "forged-bearer",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "host-receipt-denied",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "manifest-mismatch",
+      "passed": true,
+      "httpStatus": 409
+    },
+    {
+      "name": "expired-history-lease",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "run-lease-wrong-type",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "forged-history-lease",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "source-revoked",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "product-history-revoked",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "cross-principal-no-exact-grant",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "cross-principal-exact-host-and-core-grant",
+      "passed": true,
+      "httpStatus": 200
+    },
+    {
+      "name": "exact-receipt-grant-revoked",
+      "passed": true,
+      "httpStatus": 403
+    },
+    {
+      "name": "authorization-restored",
+      "passed": true,
+      "httpStatus": 200
+    },
+    {
+      "name": "oversized-complete-response",
+      "passed": true,
+      "httpStatus": 413
+    },
+    {
+      "name": "old-manifest-inactive-source-historical-read",
+      "passed": true,
+      "httpStatus": 200
+    }
+  ],
+  "sourceBefore": {
+    "stateDigest": "d0d75f422c065f221256fa2f768995fb2e2add52b55d8bef1e9b76575111b4f7",
+    "receiptDigest": "90f6a3bab2ac32672d228f4058a3d26fe1ccff560f45e15a5b7dd998cb32c7b8",
+    "receiptCount": 18
+  },
+  "sourceAfter": {
+    "stateDigest": "d0d75f422c065f221256fa2f768995fb2e2add52b55d8bef1e9b76575111b4f7",
+    "receiptDigest": "90f6a3bab2ac32672d228f4058a3d26fe1ccff560f45e15a5b7dd998cb32c7b8",
+    "receiptCount": 18
+  },
+  "copyInitial": {
+    "stateDigest": "d0d75f422c065f221256fa2f768995fb2e2add52b55d8bef1e9b76575111b4f7",
+    "receiptDigest": "90f6a3bab2ac32672d228f4058a3d26fe1ccff560f45e15a5b7dd998cb32c7b8",
+    "receiptCount": 18
+  },
+  "copyFinal": {
+    "stateDigest": "3f25d6448ae2c426380bf08cdb09df95675e999cb497b27d30855b8d4ddf91ed",
+    "receiptDigest": "fc33fe9a44a40aebad5e59a76f293a6761efd4ead6e33d9dd098a299bda5fac8",
+    "receiptCount": 19
+  },
+  "testSetupNewSyntheticOversizeReceipts": 1,
+  "historyGeneratedQueryReceipts": 0,
+  "sourceInactivityCheckBusinessDate": "2099-01-02",
+  "zeroExecutionProof": "Each HTTP attempt has identical full Core state before/after; only explicit test setup mutates copy.",
+  "outboundConnectionAttempts": 0,
+  "ragflowCalls": 0,
+  "modelCalls": 0,
+  "outageMethod": "History process has no upstream configuration and rejects every socket.connect/getaddrinfo; shared RAGFlow not stopped.",
+  "exitCode": 0,
+  "passed": true
+}
