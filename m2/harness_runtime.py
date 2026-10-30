@@ -12,6 +12,7 @@ import re
 from knowledge_core.core import Actor, BusinessContext
 from knowledge_core.documents import DocumentCore
 from knowledge_core.contracts import Rejected
+from m2.runtime_protocol import validate_wire
 
 
 @dataclass(frozen=True)
@@ -33,10 +34,11 @@ class Lease:
 
 
 class Runtime:
-    def __init__(self, database, resolve_lease, client_factory):
+    def __init__(self, database, resolve_lease, client_factory, *, binding=None):
         self.database = database
         self.resolve_lease = resolve_lease
         self.client_factory = client_factory
+        self.binding = None if binding is None else (binding['productId'], binding['manifest'])
 
     def lease(self, credential):
         if not isinstance(credential, str) or len(credential) < 32:
@@ -45,6 +47,8 @@ class Runtime:
         if not isinstance(lease, Lease):
             raise Rejected('KNOWLEDGE_AUTH_REQUIRED')
         lease.check()
+        if self.binding is not None and (lease.product, lease.manifest) != self.binding:
+            raise Rejected('KNOWLEDGE_BINDING_MISMATCH')
         return lease
 
     def query(self, credential, body):
@@ -61,6 +65,7 @@ class Runtime:
             raise Rejected('KNOWLEDGE_QUERY_INVALID')
         if any(body[key] != value for key, value in expected.items()):
             raise Rejected('KNOWLEDGE_CONTEXT_MISMATCH')
+        validate_wire('queryRequest', body)
         arguments = body['arguments']
         if not isinstance(arguments, dict) or set(arguments) != {'question'}:
             raise Rejected('KNOWLEDGE_QUERY_INVALID')
@@ -78,7 +83,7 @@ class Runtime:
             core._query_binding(lease.actor, lease.product, lease.manifest, lease.context)
             source = core._get(lease.actor, result['sourceDigest'], 'source-revision')
             evidence = [{**item, 'sourceDigest': result['sourceDigest']} for item in result['result']['evidence']]
-            return {'code': 0, 'decision': 'EVIDENCE_FOUND' if evidence else 'UNKNOWN', 'evidence': evidence,
+            response = {'code': 0, 'decision': 'EVIDENCE_FOUND' if evidence else 'UNKNOWN', 'evidence': evidence,
                 'receipt': {'schemaVersion': 'knowledge-receipt.v0.1',
                     'receiptId': 'kr-' + result['receiptDigest'], 'coreReceiptDigest': result['receiptDigest'],
                     'productId': lease.product, 'manifest': lease.manifest,
@@ -87,6 +92,8 @@ class Runtime:
                     'sourceId': source['id'], 'sourceRevision': source['revision'],
                     'indexDigest': result['indexDigest'], 'bindingDigest': result['bindingDigest'],
                     'policyDigest': result['policyDigest'], 'mode': 'M2_ISOLATED_DOCUMENT'}}
+            validate_wire('queryResponse', response)
+            return response
         finally:
             core.close()
             if client is not None and hasattr(client, 'close'):
@@ -96,6 +103,7 @@ class Runtime:
         """Recheck current consumption authority without retrieving or granting."""
         if body != {}:
             raise Rejected('KNOWLEDGE_QUERY_INVALID')
+        validate_wire('sessionRequest', body)
         lease = self.lease(credential)
         core = DocumentCore(self.database)
         try:
@@ -103,8 +111,10 @@ class Runtime:
             if self.lease(credential) != lease:
                 raise Rejected('KNOWLEDGE_SESSION_CHANGED')
             core._query_binding(lease.actor, lease.product, lease.manifest, lease.context)
-            return {'code': 0, 'schemaVersion': 'knowledge-session-check.v0.1',
+            result = {'code': 0, 'schemaVersion': 'knowledge-session-check.v0.1',
                 'sessionRef': lease.session, 'productId': lease.product, 'manifest': lease.manifest}
+            validate_wire('sessionResponse', result)
+            return result
         finally:
             core.close()
 
@@ -125,12 +135,17 @@ def handler(runtime):
 
         def respond(self, status, value):
             raw = json.dumps(value, ensure_ascii=False).encode()
+            if len(raw) > 262144:
+                status, raw = 503, b'{"code":503,"error":"KNOWLEDGE_RESPONSE_LIMIT"}'
             self.send_response(status)
             self.send_header('Content-Type', 'application/json')
             self.send_header('Content-Length', str(len(raw)))
             self.send_header('Cache-Control', 'no-store')
             self.end_headers()
             self.wfile.write(raw)
+
+        def do_GET(self):
+            self.respond(404, {'code': 404, 'error': 'NOT_FOUND'})
 
         def do_POST(self):
             if self.path not in ('/query', '/session'):
