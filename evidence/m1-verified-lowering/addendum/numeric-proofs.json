@@ -1,0 +1,348 @@
+{
+  "proofs": [
+    {
+      "id": "P43-1-numeric-proof",
+      "originalBundleDigest": "6e0a43a0adaad974bed9803ce17e3924ee9ada52d00b74222f3a20221f1cbab6",
+      "sourceBytesDigest": "d091d80052322f3c933f846dab94078bc7fb25b08565c4fa20530e68e37cb5fa",
+      "source": {
+        "schemaVersion": "source-revision.v0.1",
+        "id": "lowering-P43",
+        "revision": 1,
+        "mediaType": "text/plain",
+        "content": "第四十三条  借款人申请贷款展期的，贷款人应审慎评估展期原因和后续还款安排的可行性。同意展期的，应根据还款来源等情况，合理确定展期期限，并加强对贷款的后续管理，按照实质风险状况进行风险分类。\n期限一年以内的贷款展期期限累计不得超过原贷款期限；期限超过一年的贷款展期期限累计不得超过原贷款期限的一半。",
+        "contentDigest": "28d3bb79ff509f405ee071967718818acaa72d50775ac134fb484cc7ef532e62"
+      },
+      "bridge": {
+        "schemaVersion": "html-anchor-bridge.v0.1",
+        "sourceBytesDigest": "d091d80052322f3c933f846dab94078bc7fb25b08565c4fa20530e68e37cb5fa",
+        "derivedSourceDigest": "910396091a6116f0a2b42355482248d1a49502deda7b290e71e4b67712d2c960",
+        "lineSpace": "DERIVED_TEXT_ONLY",
+        "producer": "html-dom-text-bridge-0.1",
+        "mappings": [
+          {
+            "anchorId": "6947ec139de76b68fe3b34bf8834e41e870cabbfeeb988fca5a1df5e100fa802",
+            "anchor": {
+              "schemaVersion": "evidence-anchor.v0.1",
+              "sourceBytesDigest": "d091d80052322f3c933f846dab94078bc7fb25b08565c4fa20530e68e37cb5fa",
+              "mediaType": "text/html",
+              "locatorKind": "HTML_DOM_TEXT",
+              "locator": {
+                "xpath": "/html/body/div[1]/div[4]/div/br[82]/following-sibling::text()[1]",
+                "start": 2,
+                "end": 97
+              },
+              "quote": "第四十三条  借款人申请贷款展期的，贷款人应审慎评估展期原因和后续还款安排的可行性。同意展期的，应根据还款来源等情况，合理确定展期期限，并加强对贷款的后续管理，按照实质风险状况进行风险分类。",
+              "quoteDigest": "5f58ea6feecdf7dd56cc63e74a164fca133f1a887966dc0ddddff49837215ebd"
+            },
+            "clause": "第四十三条",
+            "lineStart": 1,
+            "lineEnd": 1
+          },
+          {
+            "anchorId": "c5b09c97d87d2b4f927ddabc1de5d0d76f42b2eeab4d9384de3657223d5be5ba",
+            "anchor": {
+              "schemaVersion": "evidence-anchor.v0.1",
+              "sourceBytesDigest": "d091d80052322f3c933f846dab94078bc7fb25b08565c4fa20530e68e37cb5fa",
+              "mediaType": "text/html",
+              "locatorKind": "HTML_DOM_TEXT",
+              "locator": {
+                "xpath": "/html/body/div[1]/div[4]/div/br[83]/following-sibling::text()[1]",
+                "start": 2,
+                "end": 55
+              },
+              "quote": "期限一年以内的贷款展期期限累计不得超过原贷款期限；期限超过一年的贷款展期期限累计不得超过原贷款期限的一半。",
+              "quoteDigest": "a5f07e77cb4725d568ed090d25f2a7569b82d932effca2776864c57b64cc1ab2"
+            },
+            "clause": "第四十三条",
+            "lineStart": 2,
+            "lineEnd": 2
+          }
+        ]
+      },
+      "unitId": "u4",
+      "templateProof": {
+        "status": "VERIFIED_NUMERIC",
+        "template": "bounded-field-comparison",
+        "predicate": {
+          "op": "lte",
+          "left": {
+            "field": "extension_months"
+          },
+          "right": {
+            "field": "original_months"
+          }
+        },
+        "appliesWhen": {
+          "op": "lte",
+          "left": {
+            "field": "original_months"
+          },
+          "right": {
+            "literal": {
+              "type": "integer",
+              "value": 12
+            }
+          }
+        },
+        "unresolvedQuotes": [],
+        "operands": {
+          "n": "一",
+          "left": "展期期限累计",
+          "right": "原贷款期限"
+        },
+        "unit": "complete_month"
+      },
+      "ir": {
+        "schemaVersion": "rule-ir.v0.1",
+        "id": "lowering-P43-rules-numeric-proof",
+        "revision": 1,
+        "classification": "DEMO",
+        "fields": [
+          {
+            "path": "original_months",
+            "type": "integer",
+            "sourceKind": "INPUT",
+            "required": false,
+            "values": [],
+            "minimum": 1,
+            "maximum": 1200
+          },
+          {
+            "path": "extension_months",
+            "type": "integer",
+            "sourceKind": "INPUT",
+            "required": false,
+            "values": [],
+            "minimum": 1,
+            "maximum": 1200
+          },
+          {
+            "path": "months",
+            "type": "integer",
+            "sourceKind": "INPUT",
+            "required": false,
+            "values": [],
+            "minimum": 1,
+            "maximum": 1200
+          },
+          {
+            "path": "purpose_kind",
+            "type": "enum",
+            "sourceKind": "INPUT",
+            "required": false,
+            "values": [
+              "CONSUMPTION",
+              "BUSINESS"
+            ],
+            "minimum": null,
+            "maximum": null
+          }
+        ],
+        "rules": [
+          {
+            "id": "numeric-proof",
+            "title": "Template numeric proof only",
+            "scope": {
+              "regions": [
+                "CN"
+              ],
+              "institutions": [
+                "poc-bank"
+              ],
+              "products": [
+                "ordinary-personal-loan"
+              ],
+              "purposes": [
+                "component-probe"
+              ],
+              "validFrom": "2024-07-01",
+              "validTo": null,
+              "timezone": "Asia/Shanghai"
+            },
+            "predicate": {
+              "op": "lte",
+              "left": {
+                "field": "extension_months"
+              },
+              "right": {
+                "field": "original_months"
+              }
+            },
+            "evidenceRefs": [
+              {
+                "sourceDigest": "910396091a6116f0a2b42355482248d1a49502deda7b290e71e4b67712d2c960",
+                "lineStart": 2,
+                "lineEnd": 2,
+                "quoteDigest": "a5f07e77cb4725d568ed090d25f2a7569b82d932effca2776864c57b64cc1ab2"
+              }
+            ],
+            "exceptions": [
+              {
+                "id": "applicability",
+                "when": {
+                  "op": "not",
+                  "arg": {
+                    "op": "lte",
+                    "left": {
+                      "field": "original_months"
+                    },
+                    "right": {
+                      "literal": {
+                        "type": "integer",
+                        "value": 12
+                      }
+                    }
+                  }
+                },
+                "outcome": "NOT_APPLICABLE",
+                "evidenceRefs": [
+                  {
+                    "sourceDigest": "910396091a6116f0a2b42355482248d1a49502deda7b290e71e4b67712d2c960",
+                    "lineStart": 2,
+                    "lineEnd": 2,
+                    "quoteDigest": "a5f07e77cb4725d568ed090d25f2a7569b82d932effca2776864c57b64cc1ab2"
+                  }
+                ]
+              }
+            ],
+            "unresolved": [],
+            "onMissing": "UNKNOWN"
+          }
+        ]
+      },
+      "compiled": {
+        "key": "condition_adf53421906f",
+        "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_adf53421906f\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>((!(v0 &lt;= v1)))</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v2 &lt;= v3)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+        "dmnDigest": "f5942be953479e968a0d73bb9caa859575fd474ce4f3a45376cc25aa376d4262",
+        "irDigest": "5b8593bded767d07c22aecae6686a75bb8932fbc31515c69f7523c239f081605",
+        "ruleId": "numeric-proof",
+        "slots": [
+          {
+            "name": "v0",
+            "field": "original_months"
+          },
+          {
+            "name": "v1",
+            "literal": {
+              "type": "integer",
+              "value": 12
+            }
+          },
+          {
+            "name": "v2",
+            "field": "extension_months"
+          },
+          {
+            "name": "v3",
+            "field": "original_months"
+          }
+        ],
+        "compiler": "m1-probe-0.1",
+        "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30"
+      },
+      "cases": [
+        {
+          "id": "P43-1-numeric-proof-0",
+          "expected": "MET",
+          "reference": "MET",
+          "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+          "variables": {
+            "v0": 12,
+            "v1": 12,
+            "v2": 12,
+            "v3": 12
+          }
+        },
+        {
+          "id": "P43-1-numeric-proof-1",
+          "expected": "NOT_MET",
+          "reference": "NOT_MET",
+          "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+          "variables": {
+            "v0": 12,
+            "v1": 12,
+            "v2": 13,
+            "v3": 12
+          }
+        },
+        {
+          "id": "P43-1-numeric-proof-2",
+          "expected": "MET",
+          "reference": "MET",
+          "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+          "variables": {
+            "v0": 6,
+            "v1": 12,
+            "v2": 6,
+            "v3": 6
+          }
+        },
+        {
+          "id": "P43-1-numeric-proof-3",
+          "expected": "NOT_MET",
+          "reference": "NOT_MET",
+          "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+          "variables": {
+            "v0": 6,
+            "v1": 12,
+            "v2": 7,
+            "v3": 6
+          }
+        },
+        {
+          "id": "P43-1-numeric-proof-4",
+          "expected": "NOT_APPLICABLE",
+          "reference": "NOT_APPLICABLE",
+          "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+          "variables": {
+            "v0": 13,
+            "v1": 12,
+            "v2": 1,
+            "v3": 13
+          }
+        },
+        {
+          "id": "P43-1-numeric-proof-5",
+          "expected": "UNKNOWN",
+          "reference": "UNKNOWN",
+          "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+          "guard": "UNKNOWN"
+        },
+        {
+          "id": "P43-1-numeric-proof-6",
+          "expected": "INVALID_INPUT",
+          "reference": "INVALID_INPUT",
+          "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+          "guard": "INVALID_INPUT"
+        },
+        {
+          "id": "P43-1-numeric-proof-7",
+          "expected": "NOT_APPLICABLE",
+          "reference": "NOT_APPLICABLE",
+          "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+          "guard": "NOT_APPLICABLE"
+        },
+        {
+          "id": "P43-1-numeric-proof-8",
+          "expected": "INVALID_INPUT",
+          "reference": "INVALID_INPUT",
+          "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+          "guard": "INVALID_INPUT"
+        },
+        {
+          "id": "P43-1-numeric-proof-9",
+          "expected": "NOT_APPLICABLE",
+          "reference": "NOT_APPLICABLE",
+          "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+          "guard": "NOT_APPLICABLE"
+        }
+      ],
+      "originalGovernedProjectionDigest": "c65ebf56ae009fa1f5cca23d19f6a8cd25bf24b69db13cc55ac1ae1b56c904a4",
+      "originalDependenciesUnchanged": true,
+      "purpose": "TEMPLATE_NUMERIC_SEMANTICS_ONLY",
+      "wholeClauseDecision": "REVIEW_REQUIRED",
+      "publicationAllowed": false
+    }
+  ],
+  "notGovernedCandidateAcceptance": true
+}

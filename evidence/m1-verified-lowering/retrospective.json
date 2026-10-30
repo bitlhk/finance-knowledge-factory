@@ -1,0 +1,989 @@
+{
+  "rows": [
+    {
+      "id": "P43-1",
+      "sourceRecordSha256": "c933b3b439a4f9779121f00983faad56204e139f76fe02074cca2c68a612bde4",
+      "originalAssessment": null,
+      "originalError": "EXECUTABLE_CONDITION_REQUIRED",
+      "v2CoverageReview": {
+        "version": "coverage-gold.v0.2",
+        "goldDigest": "76de12a7494ecb97e918908c2ae56e1203702788a77482c612b512ab1a3e069e",
+        "semanticDigest": "7eb2efc8243b1652bbe7203d50ed2b2f976e793d03a1cfed4a324a065732d7cf",
+        "status": "SEMANTIC_ERROR",
+        "findings": [
+          {
+            "category": "SEMANTIC_ERROR",
+            "key": "trigger",
+            "reason": "PROCESS_OR_REFERENCE_IS_NOT_NUMERIC"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "assessment",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "consent",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "SEMANTIC_ERROR",
+            "key": "consent",
+            "reason": "PROCESS_OR_REFERENCE_IS_NOT_NUMERIC"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "reasonable_term",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "SEMANTIC_ERROR",
+            "key": "long",
+            "reason": "UNSUPPORTED_SEMANTICS_PROPOSED_AS_NUMERIC"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "consent:business_prerequisite:assessment",
+            "reason": "RELATION_TYPE_REQUIRES_REVIEW"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "reasonable_term:business_prerequisite:consent",
+            "reason": "RELATION_TYPE_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "short:business_prerequisite:reasonable_term",
+            "reason": "REQUIRED_RELATION_NOT_PROVEN"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "long:business_prerequisite:reasonable_term",
+            "reason": "REQUIRED_RELATION_NOT_PROVEN"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "short:alternative_to:long",
+            "reason": "REQUIRED_RELATION_NOT_PROVEN"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "reasonable_term:followed_by:management",
+            "reason": "REQUIRED_RELATION_NOT_PROVEN"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "reasonable_term:followed_by:classification",
+            "reason": "REQUIRED_RELATION_NOT_PROVEN"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "assessment:business_prerequisite:trigger",
+            "reason": "RELATION_TYPE_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "clause-43-5:followed_by:clause-43-3",
+            "reason": "EXTRA_RELATION_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "clause-43-6:followed_by:clause-43-3",
+            "reason": "EXTRA_RELATION_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "clause-43-7:requires:clause-43-3",
+            "reason": "EXTRA_RELATION_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "clause-43-8:requires:clause-43-3",
+            "reason": "EXTRA_RELATION_REQUIRES_REVIEW"
+          }
+        ],
+        "mapping": {
+          "trigger": "clause-43-1",
+          "assessment": "clause-43-2",
+          "consent": "clause-43-3",
+          "reasonable_term": "clause-43-4",
+          "management": "clause-43-5",
+          "classification": "clause-43-6",
+          "short": "clause-43-7",
+          "long": "clause-43-8"
+        },
+        "atomicEvidenceCount": 8,
+        "expectedAtomicCount": 8,
+        "businessOwnerApproved": false,
+        "publicationAllowed": false
+      },
+      "legacyFormulaChecks": [
+        {
+          "unitId": "clause-43-1",
+          "status": "NO_FORMULA",
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause-43-2",
+          "status": "NO_FORMULA",
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause-43-3",
+          "status": "NO_FORMULA",
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause-43-4",
+          "status": "NO_FORMULA",
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause-43-5",
+          "status": "NO_FORMULA",
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause-43-6",
+          "status": "NO_FORMULA",
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause-43-7",
+          "status": "REJECTED_FORMULA",
+          "proof": {
+            "status": "VERIFIED_NUMERIC",
+            "template": "bounded-field-comparison",
+            "predicate": {
+              "op": "lte",
+              "left": {
+                "field": "extension_months"
+              },
+              "right": {
+                "field": "original_months"
+              }
+            },
+            "appliesWhen": {
+              "op": "lte",
+              "left": {
+                "field": "original_months"
+              },
+              "right": {
+                "literal": {
+                  "type": "integer",
+                  "value": 12
+                }
+              }
+            },
+            "unresolvedQuotes": [],
+            "operands": {
+              "n": "一",
+              "left": "展期期限累计",
+              "right": "原贷款期限"
+            },
+            "unit": "complete_month"
+          },
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause-43-8",
+          "status": "REJECTED_FORMULA",
+          "proof": {
+            "status": "UNSUPPORTED",
+            "reason": "ARITHMETIC_NOT_IN_IR"
+          },
+          "publicationAllowed": false
+        }
+      ],
+      "adapterLimit": "Branch quotes absent in v1; not inferred. Not a new model experiment."
+    },
+    {
+      "id": "P43-2",
+      "sourceRecordSha256": "7f692d8b7c9816532215ed5b35a8f153b83a58a21721a8f056232e6bed18f45c",
+      "originalAssessment": {
+        "evaluatorVersion": "clause-coverage-gold.v0.1",
+        "goldDigest": "d3f26a58ed7ae7ef4016f945c00477cb16be240488829688d39f80443448ad65",
+        "coverageDigest": "2d57515c28cb4de4ffef0ecf13ff582260b7d3bb4d0cbe1b8b2144e6cb154511",
+        "checks": [
+          {
+            "semanticKey": "assessment",
+            "passed": false,
+            "errors": [
+              "SEMANTIC_KIND_MISMATCH"
+            ]
+          },
+          {
+            "semanticKey": "consent",
+            "passed": false,
+            "errors": [
+              "SEMANTIC_KIND_MISMATCH",
+              "SEMANTIC_STATE_MISMATCH",
+              "SEMANTIC_PREDICATE_MISMATCH"
+            ]
+          },
+          {
+            "semanticKey": "reasonable_term",
+            "passed": false,
+            "errors": [
+              "SEMANTIC_KIND_MISMATCH"
+            ]
+          },
+          {
+            "semanticKey": "management",
+            "passed": true,
+            "errors": []
+          },
+          {
+            "semanticKey": "classification",
+            "passed": true,
+            "errors": []
+          },
+          {
+            "semanticKey": "short",
+            "passed": true,
+            "errors": []
+          },
+          {
+            "semanticKey": "long",
+            "passed": false,
+            "errors": [
+              "SEMANTIC_STATE_MISMATCH",
+              "SEMANTIC_PREDICATE_MISMATCH"
+            ]
+          },
+          {
+            "passed": false,
+            "errors": [
+              "CONFLATED_SEMANTIC_UNITS"
+            ]
+          },
+          {
+            "passed": false,
+            "errors": [
+              "UNASSESSED_UNITS"
+            ],
+            "units": [
+              "clause-43-1"
+            ]
+          }
+        ],
+        "mapping": {
+          "assessment": "clause-43-2",
+          "consent": "clause-43-3",
+          "reasonable_term": "clause-43-4",
+          "management": "clause-43-5",
+          "classification": "clause-43-5",
+          "short": "clause-43-6",
+          "long": "clause-43-7"
+        },
+        "relationErrors": [
+          "MISSING_SEMANTIC_RELATION",
+          "EXTRA_OR_MISBOUND_RELATION"
+        ],
+        "passed": false,
+        "businessOwnerApproved": false
+      },
+      "originalError": null,
+      "v2CoverageReview": {
+        "version": "coverage-gold.v0.2",
+        "goldDigest": "76de12a7494ecb97e918908c2ae56e1203702788a77482c612b512ab1a3e069e",
+        "semanticDigest": "b72e19e2666d785485581296298232aeb44f196aafcf1e1248aebf2f32314555",
+        "status": "SEMANTIC_ERROR",
+        "findings": [
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "assessment",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "consent",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "SEMANTIC_ERROR",
+            "key": "consent",
+            "reason": "PROCESS_OR_REFERENCE_IS_NOT_NUMERIC"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "reasonable_term",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "SEMANTIC_ERROR",
+            "key": "long",
+            "reason": "UNSUPPORTED_SEMANTICS_PROPOSED_AS_NUMERIC"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "consent:business_prerequisite:assessment",
+            "reason": "RELATION_TYPE_REQUIRES_REVIEW"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "reasonable_term:business_prerequisite:consent",
+            "reason": "RELATION_TYPE_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "short:business_prerequisite:reasonable_term",
+            "reason": "REQUIRED_RELATION_NOT_PROVEN"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "long:business_prerequisite:reasonable_term",
+            "reason": "REQUIRED_RELATION_NOT_PROVEN"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "short:alternative_to:long",
+            "reason": "REQUIRED_RELATION_NOT_PROVEN"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "reasonable_term:followed_by:management",
+            "reason": "REQUIRED_RELATION_NOT_PROVEN"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "reasonable_term:followed_by:classification",
+            "reason": "REQUIRED_RELATION_NOT_PROVEN"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "clause-43-5:followed_by:clause-43-4",
+            "reason": "EXTRA_RELATION_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "clause-43-6:requires:clause-43-3",
+            "reason": "EXTRA_RELATION_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "clause-43-7:alternative_to:clause-43-6",
+            "reason": "EXTRA_RELATION_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "clause-43-7:requires:clause-43-3",
+            "reason": "EXTRA_RELATION_REQUIRES_REVIEW"
+          }
+        ],
+        "mapping": {
+          "trigger": "clause-43-1",
+          "assessment": "clause-43-2",
+          "consent": "clause-43-3",
+          "reasonable_term": "clause-43-4",
+          "management": "clause-43-5",
+          "classification": "clause-43-5",
+          "short": "clause-43-6",
+          "long": "clause-43-7"
+        },
+        "atomicEvidenceCount": 8,
+        "expectedAtomicCount": 8,
+        "businessOwnerApproved": false,
+        "publicationAllowed": false
+      },
+      "legacyFormulaChecks": [
+        {
+          "unitId": "clause-43-1",
+          "status": "NO_FORMULA",
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause-43-2",
+          "status": "NO_FORMULA",
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause-43-3",
+          "status": "REJECTED_FORMULA",
+          "proof": {
+            "status": "UNVERIFIABLE",
+            "reason": "NO_COMPLETE_SUPPORTED_TEMPLATE"
+          },
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause-43-4",
+          "status": "NO_FORMULA",
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause-43-5",
+          "status": "NO_FORMULA",
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause-43-6",
+          "status": "TEMPLATE_MATCH_ONLY",
+          "proof": {
+            "status": "VERIFIED_NUMERIC",
+            "template": "bounded-field-comparison",
+            "predicate": {
+              "op": "lte",
+              "left": {
+                "field": "extension_months"
+              },
+              "right": {
+                "field": "original_months"
+              }
+            },
+            "appliesWhen": {
+              "op": "lte",
+              "left": {
+                "field": "original_months"
+              },
+              "right": {
+                "literal": {
+                  "type": "integer",
+                  "value": 12
+                }
+              }
+            },
+            "unresolvedQuotes": [],
+            "operands": {
+              "n": "一",
+              "left": "展期期限累计",
+              "right": "原贷款期限"
+            },
+            "unit": "complete_month"
+          },
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause-43-7",
+          "status": "REJECTED_FORMULA",
+          "proof": {
+            "status": "UNSUPPORTED",
+            "reason": "ARITHMETIC_NOT_IN_IR"
+          },
+          "publicationAllowed": false
+        }
+      ],
+      "adapterLimit": "Branch quotes absent in v1; not inferred. Not a new model experiment."
+    },
+    {
+      "id": "P08-1",
+      "sourceRecordSha256": "bd17b3ef7dbde9cbae3c9fb1f0a3d6b759e1a04d01276d73af579fcf57d0618a",
+      "originalAssessment": {
+        "evaluatorVersion": "clause-coverage-gold.v0.1",
+        "goldDigest": "f58e49046112613e70c0eacc25a41b03f6c4a5f5916d83e13e8191ba4183eb79",
+        "coverageDigest": "429b901cbcc4474a870442b6951fc212c273d1b1dadba13f7fdb4ba111c0f9f0",
+        "checks": [
+          {
+            "semanticKey": "national",
+            "passed": false,
+            "errors": [
+              "SEMANTIC_KIND_MISMATCH"
+            ]
+          },
+          {
+            "semanticKey": "consumption",
+            "passed": true,
+            "errors": []
+          },
+          {
+            "semanticKey": "general",
+            "passed": false,
+            "errors": [
+              "SEMANTIC_KIND_MISMATCH",
+              "SEMANTIC_STATE_MISMATCH",
+              "SEMANTIC_PREDICATE_MISMATCH",
+              "SEMANTIC_APPLIESWHEN_MISMATCH"
+            ]
+          },
+          {
+            "semanticKey": "business",
+            "passed": true,
+            "errors": []
+          },
+          {
+            "semanticKey": "cashflow",
+            "passed": false,
+            "errors": [
+              "SEMANTIC_APPLIESWHEN_MISMATCH"
+            ]
+          },
+          {
+            "semanticKey": "extension",
+            "passed": false,
+            "errors": [
+              "SEMANTIC_APPLIESWHEN_MISMATCH"
+            ]
+          },
+          {
+            "semanticKey": "ceiling",
+            "passed": false,
+            "errors": [
+              "SEMANTIC_KIND_MISMATCH",
+              "SEMANTIC_STATE_MISMATCH",
+              "SEMANTIC_PREDICATE_MISMATCH"
+            ]
+          },
+          {
+            "passed": false,
+            "errors": [
+              "CONFLATED_SEMANTIC_UNITS"
+            ]
+          }
+        ],
+        "mapping": {
+          "national": "clause-8-1",
+          "consumption": "clause-8-2",
+          "general": "clause-8-3",
+          "business": "clause-8-3",
+          "cashflow": "clause-8-4",
+          "extension": "clause-8-4",
+          "ceiling": "clause-8-4"
+        },
+        "relationErrors": [
+          "MISSING_SEMANTIC_RELATION"
+        ],
+        "passed": false,
+        "businessOwnerApproved": false
+      },
+      "originalError": null,
+      "v2CoverageReview": {
+        "version": "coverage-gold.v0.2",
+        "goldDigest": "33a3854911c4800a8dc809985b42ddb862643924e1f523b6c587f68fd16076ca",
+        "semanticDigest": "4ed8700cf2ddda522ab8df91c68f6bdf0976307e90d364229c2eb64b13a11f0a",
+        "status": "REVIEW_REQUIRED",
+        "findings": [
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "national",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "consumption",
+            "reason": "BRANCH_NOT_EXPLICIT"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "general",
+            "reason": "BRANCH_NOT_EXPLICIT"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "general",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "business",
+            "reason": "BRANCH_NOT_EXPLICIT"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "cashflow",
+            "reason": "BRANCH_NOT_EXPLICIT"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "extension",
+            "reason": "BRANCH_NOT_EXPLICIT"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "ceiling",
+            "reason": "BRANCH_NOT_EXPLICIT"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "ceiling",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "ceiling:requires:national",
+            "reason": "REQUIRED_RELATION_NOT_PROVEN"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "extension:exception_to:business",
+            "reason": "RELATION_TYPE_REQUIRES_REVIEW"
+          }
+        ],
+        "mapping": {
+          "national": "clause-8-1",
+          "consumption": "clause-8-2",
+          "general": "clause-8-3",
+          "business": "clause-8-3",
+          "cashflow": "clause-8-4",
+          "extension": "clause-8-4",
+          "ceiling": "clause-8-4"
+        },
+        "atomicEvidenceCount": 7,
+        "expectedAtomicCount": 7,
+        "businessOwnerApproved": false,
+        "publicationAllowed": false
+      },
+      "legacyFormulaChecks": [
+        {
+          "unitId": "clause-8-1",
+          "status": "NO_FORMULA",
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause-8-2",
+          "status": "TEMPLATE_MATCH_ONLY",
+          "proof": {
+            "status": "VERIFIED_NUMERIC",
+            "template": "purpose-duration-bound",
+            "predicate": {
+              "op": "lte",
+              "left": {
+                "field": "months"
+              },
+              "right": {
+                "literal": {
+                  "type": "integer",
+                  "value": 60
+                }
+              }
+            },
+            "appliesWhen": {
+              "op": "eq",
+              "left": {
+                "field": "purpose_kind"
+              },
+              "right": {
+                "literal": {
+                  "type": "enum",
+                  "value": "CONSUMPTION"
+                }
+              }
+            },
+            "unresolvedQuotes": [
+              "个人贷款的期限应符合国家相关规定"
+            ],
+            "operands": {
+              "purpose": "个人消费",
+              "left": "贷款期限",
+              "general": null,
+              "n": "五"
+            },
+            "unit": "complete_month"
+          },
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause-8-3",
+          "status": "TEMPLATE_MATCH_ONLY",
+          "proof": {
+            "status": "VERIFIED_NUMERIC",
+            "template": "purpose-duration-bound",
+            "predicate": {
+              "op": "lte",
+              "left": {
+                "field": "months"
+              },
+              "right": {
+                "literal": {
+                  "type": "integer",
+                  "value": 60
+                }
+              }
+            },
+            "appliesWhen": {
+              "op": "eq",
+              "left": {
+                "field": "purpose_kind"
+              },
+              "right": {
+                "literal": {
+                  "type": "enum",
+                  "value": "BUSINESS"
+                }
+              }
+            },
+            "unresolvedQuotes": [
+              "用于生产经营的贷款期限一般不超过五年",
+              "个人贷款的期限应符合国家相关规定"
+            ],
+            "operands": {
+              "purpose": "生产经营",
+              "left": "贷款期限",
+              "general": "一般",
+              "n": "五"
+            },
+            "unit": "complete_month"
+          },
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause-8-4",
+          "status": "NO_FORMULA",
+          "publicationAllowed": false
+        }
+      ],
+      "adapterLimit": "Branch quotes absent in v1; not inferred. Not a new model experiment."
+    },
+    {
+      "id": "P08-2",
+      "sourceRecordSha256": "d0d36c8b9f7a89d80fe13ff5de922fa7313830b6c8ac4bd56c4b686e2d81e5e0",
+      "originalAssessment": {
+        "evaluatorVersion": "clause-coverage-gold.v0.1",
+        "goldDigest": "f58e49046112613e70c0eacc25a41b03f6c4a5f5916d83e13e8191ba4183eb79",
+        "coverageDigest": "0b6ad1841b2e77b20997a8d28860fd0842a9c777543f6148136bed70abd3d2a3",
+        "checks": [
+          {
+            "semanticKey": "national",
+            "passed": false,
+            "errors": [
+              "SEMANTIC_KIND_MISMATCH"
+            ]
+          },
+          {
+            "semanticKey": "consumption",
+            "passed": true,
+            "errors": []
+          },
+          {
+            "semanticKey": "general",
+            "passed": false,
+            "errors": [
+              "SEMANTIC_KIND_MISMATCH",
+              "SEMANTIC_STATE_MISMATCH",
+              "SEMANTIC_PREDICATE_MISMATCH",
+              "SEMANTIC_APPLIESWHEN_MISMATCH"
+            ]
+          },
+          {
+            "semanticKey": "business",
+            "passed": true,
+            "errors": []
+          },
+          {
+            "semanticKey": "cashflow",
+            "passed": false,
+            "errors": [
+              "SEMANTIC_APPLIESWHEN_MISMATCH"
+            ]
+          },
+          {
+            "semanticKey": "extension",
+            "passed": false,
+            "errors": [
+              "SEMANTIC_APPLIESWHEN_MISMATCH"
+            ]
+          },
+          {
+            "semanticKey": "ceiling",
+            "passed": true,
+            "errors": []
+          },
+          {
+            "passed": false,
+            "errors": [
+              "CONFLATED_SEMANTIC_UNITS"
+            ]
+          }
+        ],
+        "mapping": {
+          "national": "clause8-prereq-national-rules",
+          "consumption": "clause8-cond-consumption-max-5y",
+          "general": "clause8-cond-business-general-max-5y",
+          "business": "clause8-cond-business-general-max-5y",
+          "cashflow": "clause8-qualifier-business-longer-recovery",
+          "extension": "clause8-qualifier-business-longer-recovery",
+          "ceiling": "clause8-cond-business-extended-max-10y"
+        },
+        "relationErrors": [
+          "MISSING_SEMANTIC_RELATION"
+        ],
+        "passed": false,
+        "businessOwnerApproved": false
+      },
+      "originalError": null,
+      "v2CoverageReview": {
+        "version": "coverage-gold.v0.2",
+        "goldDigest": "33a3854911c4800a8dc809985b42ddb862643924e1f523b6c587f68fd16076ca",
+        "semanticDigest": "8da9af855b00842722070a75f8e1d05b25a2e7668ffea2a37105a81d13494d18",
+        "status": "REVIEW_REQUIRED",
+        "findings": [
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "national",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "consumption",
+            "reason": "BRANCH_NOT_EXPLICIT"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "general",
+            "reason": "BRANCH_NOT_EXPLICIT"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "general",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "business",
+            "reason": "BRANCH_NOT_EXPLICIT"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "cashflow",
+            "reason": "BRANCH_NOT_EXPLICIT"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "extension",
+            "reason": "BRANCH_NOT_EXPLICIT"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "ceiling",
+            "reason": "BRANCH_NOT_EXPLICIT"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "extension:exception_to:business",
+            "reason": "REQUIRED_RELATION_NOT_PROVEN"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "clause8-cond-business-general-max-5y:alternative_to:clause8-cond-business-extended-max-10y",
+            "reason": "EXTRA_RELATION_REQUIRES_REVIEW"
+          }
+        ],
+        "mapping": {
+          "national": "clause8-prereq-national-rules",
+          "consumption": "clause8-cond-consumption-max-5y",
+          "general": "clause8-cond-business-general-max-5y",
+          "business": "clause8-cond-business-general-max-5y",
+          "cashflow": "clause8-qualifier-business-longer-recovery",
+          "extension": "clause8-qualifier-business-longer-recovery",
+          "ceiling": "clause8-cond-business-extended-max-10y"
+        },
+        "atomicEvidenceCount": 7,
+        "expectedAtomicCount": 7,
+        "businessOwnerApproved": false,
+        "publicationAllowed": false
+      },
+      "legacyFormulaChecks": [
+        {
+          "unitId": "clause8-prereq-national-rules",
+          "status": "NO_FORMULA",
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause8-cond-consumption-max-5y",
+          "status": "TEMPLATE_MATCH_ONLY",
+          "proof": {
+            "status": "VERIFIED_NUMERIC",
+            "template": "purpose-duration-bound",
+            "predicate": {
+              "op": "lte",
+              "left": {
+                "field": "months"
+              },
+              "right": {
+                "literal": {
+                  "type": "integer",
+                  "value": 60
+                }
+              }
+            },
+            "appliesWhen": {
+              "op": "eq",
+              "left": {
+                "field": "purpose_kind"
+              },
+              "right": {
+                "literal": {
+                  "type": "enum",
+                  "value": "CONSUMPTION"
+                }
+              }
+            },
+            "unresolvedQuotes": [
+              "个人贷款的期限应符合国家相关规定"
+            ],
+            "operands": {
+              "purpose": "个人消费",
+              "left": "贷款期限",
+              "general": null,
+              "n": "五"
+            },
+            "unit": "complete_month"
+          },
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause8-cond-business-general-max-5y",
+          "status": "TEMPLATE_MATCH_ONLY",
+          "proof": {
+            "status": "VERIFIED_NUMERIC",
+            "template": "purpose-duration-bound",
+            "predicate": {
+              "op": "lte",
+              "left": {
+                "field": "months"
+              },
+              "right": {
+                "literal": {
+                  "type": "integer",
+                  "value": 60
+                }
+              }
+            },
+            "appliesWhen": {
+              "op": "eq",
+              "left": {
+                "field": "purpose_kind"
+              },
+              "right": {
+                "literal": {
+                  "type": "enum",
+                  "value": "BUSINESS"
+                }
+              }
+            },
+            "unresolvedQuotes": [
+              "用于生产经营的贷款期限一般不超过五年",
+              "个人贷款的期限应符合国家相关规定"
+            ],
+            "operands": {
+              "purpose": "生产经营",
+              "left": "贷款期限",
+              "general": "一般",
+              "n": "五"
+            },
+            "unit": "complete_month"
+          },
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause8-qualifier-business-longer-recovery",
+          "status": "NO_FORMULA",
+          "publicationAllowed": false
+        },
+        {
+          "unitId": "clause8-cond-business-extended-max-10y",
+          "status": "REJECTED_FORMULA",
+          "proof": {
+            "status": "UNVERIFIABLE",
+            "reason": "NO_COMPLETE_SUPPORTED_TEMPLATE"
+          },
+          "publicationAllowed": false
+        }
+      ],
+      "adapterLimit": "Branch quotes absent in v1; not inferred. Not a new model experiment."
+    }
+  ],
+  "rescoreOfOldResults": false,
+  "originalScoresUnchanged": true,
+  "newModelCalls": 0,
+  "publicationAllowed": false
+}

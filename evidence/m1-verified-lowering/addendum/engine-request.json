@@ -1,0 +1,132 @@
+{
+  "models": [
+    {
+      "key": "condition_adf53421906f",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_adf53421906f\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>((!(v0 &lt;= v1)))</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v2 &lt;= v3)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "f5942be953479e968a0d73bb9caa859575fd474ce4f3a45376cc25aa376d4262",
+      "irDigest": "5b8593bded767d07c22aecae6686a75bb8932fbc31515c69f7523c239f081605",
+      "ruleId": "numeric-proof",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "original_months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        },
+        {
+          "name": "v2",
+          "field": "extension_months"
+        },
+        {
+          "name": "v3",
+          "field": "original_months"
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30"
+    }
+  ],
+  "cases": [
+    {
+      "id": "P43-1-numeric-proof-0",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+      "variables": {
+        "v0": 12,
+        "v1": 12,
+        "v2": 12,
+        "v3": 12
+      }
+    },
+    {
+      "id": "P43-1-numeric-proof-1",
+      "expected": "NOT_MET",
+      "reference": "NOT_MET",
+      "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+      "variables": {
+        "v0": 12,
+        "v1": 12,
+        "v2": 13,
+        "v3": 12
+      }
+    },
+    {
+      "id": "P43-1-numeric-proof-2",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+      "variables": {
+        "v0": 6,
+        "v1": 12,
+        "v2": 6,
+        "v3": 6
+      }
+    },
+    {
+      "id": "P43-1-numeric-proof-3",
+      "expected": "NOT_MET",
+      "reference": "NOT_MET",
+      "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+      "variables": {
+        "v0": 6,
+        "v1": 12,
+        "v2": 7,
+        "v3": 6
+      }
+    },
+    {
+      "id": "P43-1-numeric-proof-4",
+      "expected": "NOT_APPLICABLE",
+      "reference": "NOT_APPLICABLE",
+      "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+      "variables": {
+        "v0": 13,
+        "v1": 12,
+        "v2": 1,
+        "v3": 13
+      }
+    },
+    {
+      "id": "P43-1-numeric-proof-5",
+      "expected": "UNKNOWN",
+      "reference": "UNKNOWN",
+      "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+      "guard": "UNKNOWN"
+    },
+    {
+      "id": "P43-1-numeric-proof-6",
+      "expected": "INVALID_INPUT",
+      "reference": "INVALID_INPUT",
+      "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+      "guard": "INVALID_INPUT"
+    },
+    {
+      "id": "P43-1-numeric-proof-7",
+      "expected": "NOT_APPLICABLE",
+      "reference": "NOT_APPLICABLE",
+      "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+      "guard": "NOT_APPLICABLE"
+    },
+    {
+      "id": "P43-1-numeric-proof-8",
+      "expected": "INVALID_INPUT",
+      "reference": "INVALID_INPUT",
+      "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+      "guard": "INVALID_INPUT"
+    },
+    {
+      "id": "P43-1-numeric-proof-9",
+      "expected": "NOT_APPLICABLE",
+      "reference": "NOT_APPLICABLE",
+      "compiledDigest": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+      "guard": "NOT_APPLICABLE"
+    }
+  ],
+  "faults": []
+}

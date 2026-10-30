@@ -1,6 +1,12 @@
 # M1 component probes: initial evidence, not acceptance
 
-Latest follow-up: [M1 fourth probe round](M1-ROUND4.md): clause coverage and
+Latest follow-up: [M1 verified lowering](M1-VERIFIED-LOWERING.md): versioned gold,
+semantic-only extraction and deterministic templates; four frozen calls retained.
+M1 acceptance NOT passed; original candidate and diagnostic numeric proof are
+separate. PR remains Draft. The 45 tests in the engineering review were existing
+targeted regressions, not newly added tests.
+
+Previous follow-up: [M1 fourth probe round](M1-ROUND4.md): clause coverage and
 evidence closure implemented; semantic acceptance NOT passed; PR remains Draft.
 Previous follow-up: [M1 third probe round](M1-ROUND3.md).
 Previous follow-up: [M1 second probe round](M1-ROUND2.md). The measurements below

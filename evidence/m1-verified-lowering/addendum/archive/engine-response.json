@@ -1,0 +1,106 @@
+{
+  "engine": "org.flowable:flowable-dmn-engine:8.0.0",
+  "engineCalls": 5,
+  "results": [
+    {
+      "id": "P43-1-numeric-proof-0",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "bebe7014-d436-11f1-8b06-6aff75352aa8",
+      "deploymentId": "beb23b12-d436-11f1-8b06-6aff75352aa8",
+      "parentDeploymentId": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "P43-1-numeric-proof-1",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "bebe7014-d436-11f1-8b06-6aff75352aa8",
+      "deploymentId": "beb23b12-d436-11f1-8b06-6aff75352aa8",
+      "parentDeploymentId": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "P43-1-numeric-proof-2",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "bebe7014-d436-11f1-8b06-6aff75352aa8",
+      "deploymentId": "beb23b12-d436-11f1-8b06-6aff75352aa8",
+      "parentDeploymentId": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "P43-1-numeric-proof-3",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "bebe7014-d436-11f1-8b06-6aff75352aa8",
+      "deploymentId": "beb23b12-d436-11f1-8b06-6aff75352aa8",
+      "parentDeploymentId": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "P43-1-numeric-proof-4",
+      "actual": "NOT_APPLICABLE",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "bebe7014-d436-11f1-8b06-6aff75352aa8",
+      "deploymentId": "beb23b12-d436-11f1-8b06-6aff75352aa8",
+      "parentDeploymentId": "b728ce906687ec76d7d616d0507f931247320e339c3bb4b1cbad2c4f6f72fc30",
+      "expected": "NOT_APPLICABLE",
+      "passed": true
+    },
+    {
+      "id": "P43-1-numeric-proof-5",
+      "actual": "UNKNOWN",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "UNKNOWN",
+      "passed": true
+    },
+    {
+      "id": "P43-1-numeric-proof-6",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "P43-1-numeric-proof-7",
+      "actual": "NOT_APPLICABLE",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "NOT_APPLICABLE",
+      "passed": true
+    },
+    {
+      "id": "P43-1-numeric-proof-8",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "P43-1-numeric-proof-9",
+      "actual": "NOT_APPLICABLE",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "NOT_APPLICABLE",
+      "passed": true
+    }
+  ],
+  "referenceFallback": false,
+  "faultResults": [
+    {
+      "error": "Pinned definition changed",
+      "rejected": true,
+      "id": "missing-pinned-version"
+    },
+    {
+      "error": "COMPILED_DIGEST_MISMATCH",
+      "rejected": true,
+      "id": "tampered-artifact"
+    }
+  ],
+  "sameEngineRecovery": true,
+  "recoveryStatus": "EXECUTED"
+}
