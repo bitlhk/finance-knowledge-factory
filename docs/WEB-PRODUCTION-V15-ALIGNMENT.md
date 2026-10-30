@@ -60,6 +60,19 @@ HTTP tests also verify that served CSS begins with the original baseline CSS and
 the workshop script is available. Core, model prompts, gold sets, execution,
 provider and installation contracts are unchanged.
 
+The committed `5944988` build was restarted and the layout script passed again:
+`run-41345cccbccb43fca28f43812d1cc2cf`, two clauses, 1/1 user retrieval check.
+This second document-only pass also made zero model/engine calls. Including the
+separate rule-test receipts, the old complete export before/after this final
+pass remained `52419b38716a30deffb8e6b502c1aeb01e053314d79830deadd71d585afe88c1`.
+There were two completed document-only alignment passes in total; neither is a
+new model-quality experiment. Both attempts remain in the preview state.
+
+Checked-in screenshots, final document run, regression receipts and SHA-256 file
+index: `evidence/web-v15-alignment/INDEX.json`. Original V0.2 and M1 evidence
+directories remain unchanged. Screenshots distinguish their tested commit from
+the later documentation/evidence commit.
+
 ## Preview and walkthrough
 
 Development host only: `http://127.0.0.1:61352/`.
