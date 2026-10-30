@@ -94,7 +94,10 @@ def handler(root=ROOT):
             self.send_header("X-Content-Type-Options", "nosniff")
             self.send_header("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'")
             self.end_headers()
-            self.wfile.write(data)
+            if self.command != "HEAD":
+                self.wfile.write(data)
+
+        do_HEAD = do_GET
 
         def do_POST(self):
             self.send_error(405, "Read-only preview")
