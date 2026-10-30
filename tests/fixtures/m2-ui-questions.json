@@ -1,0 +1,5 @@
+[
+  {"question":"合成客服的服务时间是什么？","expectedClause":"第一条"},
+  {"question":"申请历史对账单应该怎么办？","expectedClause":"第二条"},
+  {"question":"信息缺失时如何处理？","expectedClause":"第三条"}
+]

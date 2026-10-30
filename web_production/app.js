@@ -11,6 +11,7 @@ const labels = {QUEUED:'排队中', RUNNING:'加工中', COMPLETED:'加工结束
   VERIFIED_NUMERIC:'受控转换已完成', UNSUPPORTED:'当前工艺不支持', UNVERIFIABLE:'待确认转换依据',
   MANUAL:'需人工确认', EXTERNAL:'缺少外部依据', PROPOSED_NUMERIC:'数值条件候选'};
 const label = x => labels[x] || x;
+const m2Mode = () => Boolean(state?.m2);
 const errors = {MODEL_CONNECTION_UNAVAILABLE:'模型连接未配置，条款产物已保留。',
   NO_VERIFIABLE_NUMBERED_CLAUSES:'未找到可定位的编号条款。本轮支持 UTF-8 HTML 的“第…条”制度正文。',
   RULE_SELECTION_LIMIT_TWO:'每次最多抽取两条完整条款，其余条款仍会生成文档知识。',
@@ -46,6 +47,7 @@ function recipeSummary() {
   return '尚未配置配方';
 }
 function sandboxView() {
+  if (m2Mode()) return window.m2.sandbox();
   const options = (run?.artifact?.rules||[]).flatMap(i=>(i.projection.ir?.rules||[]).map(r=>({clause:i.clause,id:r.id,quote:i.projection.decisions.find(d=>d.unitId===r.id)?.quote})));
   return `<div class="pagehead"><div><h1>候选隔离测试</h1><p class="muted">${escapeHtml(run?.title||'尚无候选')} · 隔离候选测试</p></div></div><div class="notice">未接入正式知识服务或 Harness。检索返回本次原文片段，不生成无出处的答案；规则测试只判断受限数值子条件。</div>
   <div class="consume-grid"><section><h2>查询条款知识</h2><form id="search-form"><div class="field"><label for="query">问题或条款编号</label><input id="query" name="query" maxlength="300" value="${escapeHtml(queryResult?.query||'')}" placeholder="贷款展期有哪些期限要求？" required></div><button class="btn primary" ${!run?.artifactDigest?'disabled':''}>检索本次产物</button></form><div id="search-result">${queryResult?`<p class="muted">原文关键词检索 · ${queryResult.hits.length} 条候选证据 · 非生成式回答</p>${queryResult.hits.map(c=>`<article class="asset-row"><h3>${escapeHtml(c.clause)}</h3><div class="quote">${escapeHtml(c.text)}</div>${detail('查看引用来源',c.anchors)}</article>`).join('')}${detail('查询回执',queryResult)}`:''}</div></section>
@@ -53,15 +55,19 @@ function sandboxView() {
   ${testResult?`<div class="notice"><strong>${escapeHtml(label(testResult.decision))}</strong><br>整条制度：待人工复核<br>真实引擎调用：${testResult.engineCalls??'未知'} 次</div>${detail('查看本次测试回执',testResult)}`:''}</section></div>`;
 }
 function bindTests() {
-  if ($('#search-form')) $('#search-form').onsubmit=e=>{e.preventDefault();const q=$('#query').value;action(async()=>{queryResult=await api('/api/search',{runId:run.id,query:q});run=await api('/api/runs/'+run.id);showSandbox()})};
+  if ($('#search-form')) $('#search-form').onsubmit=e=>{e.preventDefault();const q=$('#query').value;action(async()=>{if(m2Mode())queryResult=null;try{queryResult=await api('/api/search',{runId:run.id,query:q});run=await api('/api/runs/'+run.id);}finally{showSandbox()}})};
   if ($('#rule-form')) $('#rule-form').onsubmit=e=>{e.preventDefault();const facts=$('#facts').value, index=Number($('#rule').value);action(async()=>{const options=(run.artifact.rules||[]).flatMap(i=>(i.projection.ir?.rules||[]).map(r=>({clause:i.clause,ruleId:r.id})));testResult=await api('/api/rule-test',{runId:run.id,...options[index],inputs:JSON.parse(facts)});run=await api('/api/runs/'+run.id);showSandbox()})};
 }
-function showSandbox(){dialog('候选知识隔离测试',sandboxView());bindTests();}
+function showSandbox(){dialog(m2Mode()?'隔离知识服务查询':'候选知识隔离测试',sandboxView());bindTests();}
 function render() {
   if (!state) return;
   const pages=[['sources','知识原料'],['production','知识生产'],['artifacts','知识产物'],['consume','知识消费']];
   $('#root').innerHTML=`<div class="app"><aside class="sidebar"><div class="brand"><div class="brand-logo">知</div><div><div class="brand-title">金融可信知识工厂</div><div class="brand-sub">KNOWLEDGE FACTORY · V1.5</div></div></div><div class="navlabel">知识全生命周期</div><nav class="nav">${pages.map(([p,title],i)=>`<button data-page="${p}" class="${page===p?'active':''}"><span class="navno">0${i+1}</span>${title}</button>`).join('')}</nav><div class="sidebottom">隔离知识生产 · 无发布权限<br>Web Preview V0.2<br>${E(state.commit.slice(0,12))}${state.dirty?' + 未提交改动':''}</div></aside><main class="page"><header class="topbar"><div class="crumb">金融 AI / 知识工程 / <b>${pages.find(p=>p[0]===page)?.[1]}</b></div><div class="topcontrols"><span class="small textmuted">当前试产产品</span><select class="selector" id="product-select" aria-label="当前知识产品">${state.sources.length?state.sources.map(s=>`<option value="${s.id}" ${s.id===sourceId?'selected':''}>${E(s.title)}</option>`).join(''):'<option>尚无产品</option>'}</select><span class="versiontag">真实加工 · 未发布</span></div></header><div class="content">${errorText?`<div role="alert" class="error-strip">${E(errorText)}</div>`:''}${({sources:sourceView,production:workView,artifacts:artifactsView,consume:consumeView}[page])()}</div></main></div>`;
   document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>{page=b.dataset.page;if(page==='production')workshopOpen=false;render()});
+  if(m2Mode()){
+    $('.sidebottom').textContent='隔离测试工作区 · M2 文档知识 · '+state.commit.slice(0,12)+(state.dirty?' + 未提交改动':'');
+    $('.versiontag').textContent=run?.release?.state==='ISOLATED_PUBLISHED'?'隔离快照已绑定':'真实加工 · 候选';
+  }
   document.querySelectorAll('[data-source]').forEach(b=>b.onclick=()=>action(()=>openProduct(b.dataset.source)));
   document.querySelectorAll('[data-do]').forEach(b=>b.onclick=()=>dispatch(b.dataset.do));
   if($('#run-select'))$('#run-select').onchange=e=>action(async()=>{if(e.target.value)await openProduct(sourceId,e.target.value);else{run=null;recipe=null;queryResult=testResult=null;localStorage.removeItem('production-run');}});
@@ -72,6 +78,7 @@ function dialog(title, body) {
   $('.icon-button').onclick=()=>$('#modal-root').replaceChildren();
 }
 function dispatch(command) {
+  if(m2Mode()&&['approve-document','publish-document'].includes(command))return window.m2.release(command);
   if(command==='catalog'){workshopOpen=false;page='production';render();return;}
   if(command==='workshop'){workshopOpen=true;page='production';render();return;}
   if(command==='checks'){$('#production-checks')?.scrollIntoView({behavior:'smooth'});return;}
@@ -104,10 +111,11 @@ function showWizard() {
     `<div class="wizardgrid"><div class="field"><label>交付用途</label><select disabled><option>本地隔离候选验证</option></select></div><div class="field"><label>版本策略</label><select disabled><option>固定本次来源与配方，不发布</option></select></div><div class="field"><label>允许消费的角色</label><input disabled value="未接入业务 IAM"></div><div class="field"><label>历史回放的角色</label><input disabled value="未接入业务 IAM"></div></div><div class="hint">权限设置未开放；候选不能供正式服务或生产 Harness 使用。</div>${d.rules?`<label class="checkbox"><input id="consent" type="checkbox" ${d.modelConsent?'checked':''}>确认所选条款为公开或已授权材料，允许发送到已配置的火山引擎 DeepSeek。</label>`:''}<p>${d.rules?'将调用模型 '+d.clauses.length+' 次，不自动重试；费用未知。':'本次不调用模型。'}</p>${detail('执行参数',d.rules?state.parameters:{modelCalls:0})}`
   ];
   dialog('配置知识生产配方',`<div class="wizardsteps">${['目标与来源','工艺与组件','验证与测试集','交付与权限'].map((t,i)=>`<div class="wstep ${i===wizard?'on':''}">${i+1}. ${t}</div>`).join('')}</div><div id="wizard-error" role="alert"></div>${contents[wizard]}<div class="modalfoot"><button class="btn secondary" id="previous" ${wizard===0?'disabled':''}>上一步</button><button class="btn" id="next">${wizard===3?'保存配方':'下一步'}</button></div>`);
+  if(m2Mode())window.m2.wizard(wizard);
   function readTests(){document.querySelectorAll('[data-question]').forEach(el=>d.tests[Number(el.dataset.question)].question=el.value);document.querySelectorAll('[data-expected]').forEach(el=>d.tests[Number(el.dataset.expected)].expectedClause=el.value);}
   function collect(validate=true){
     if(wizard===1){d.rules=$('#rules-check').checked;d.clauses=d.rules?[...document.querySelectorAll('[data-pick]:checked')].map(el=>el.dataset.pick):[];if(validate&&d.rules&&(!d.clauses.length||d.clauses.length>2))throw Error('请选择 1 至 2 条完整条款');}
-    if(wizard===2){readTests();if(validate&&d.tests.some(t=>!t.question.trim()||!s.clauses.some(c=>c.clause===t.expectedClause)))throw Error('每题需要问题和当前来源中的期望条款');}
+    if(wizard===2){readTests();if(validate&&m2Mode()&&!d.tests.length)throw Error('隔离发布至少需要一条检索测试题');if(validate&&d.tests.some(t=>!t.question.trim()||!s.clauses.some(c=>c.clause===t.expectedClause)))throw Error('每题需要问题和当前来源中的期望条款');}
     if(wizard===3){d.modelConsent=d.rules?$('#consent').checked:false;if(validate&&d.rules&&!d.modelConsent)throw Error('请先确认模型调用范围');}
   }
   $('#next').onclick=()=>{try{collect();if(wizard<3){wizard++;showWizard();}else{recipe=structuredClone(d);recipe.sourceId=sourceId;run=null;queryResult=testResult=null;localStorage.removeItem('production-run');workshopOpen=true;$('#modal-root').replaceChildren();page='production';render();}}catch(e){$('#wizard-error').textContent=e.message;}};

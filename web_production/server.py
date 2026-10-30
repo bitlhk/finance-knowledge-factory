@@ -20,6 +20,10 @@ def handler(service):
              '/app.js': ('text/javascript; charset=utf-8', (ROOT / 'web_production/app.js').read_bytes()),
              '/workshop.js': ('text/javascript; charset=utf-8', (ROOT / 'web_production/workshop.js').read_bytes()),
              '/style.css': ('text/css; charset=utf-8', css + (ROOT / 'web_production/style.css').read_bytes())}
+    if getattr(service, 'm2', False):
+        files['/'] = (files['/'][0], files['/'][1].replace(b'</body>', b'<script src="/m2.js"></script></body>'))
+        files['/workshop.js'] = (files['/workshop.js'][0], files['/workshop.js'][1].removesuffix(b'init();\n'))
+        files['/m2.js'] = ('text/javascript; charset=utf-8', (ROOT / 'm2/web.js').read_bytes())
     version = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     dirty = bool(subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True))
     test_lock = threading.Lock()
@@ -53,7 +57,7 @@ def handler(service):
                     return self.respond(200, body, mime)
                 if path == '/api/state':
                     return self.respond(200, {**service.snapshot(), 'commit': version, 'dirty': dirty,
-                        'prototypeSha256': BASELINE_SHA, 'version': 'Web Preview V0.2'})
+                        'prototypeSha256': BASELINE_SHA, 'version': 'M2 Isolated Documents' if getattr(service,'m2',False) else 'Web Preview V0.2'})
                 if path.startswith('/api/runs/'):
                     return self.respond(200, service.get(path.removeprefix('/api/runs/')))
                 return self.respond(404, {'error': 'NOT_FOUND'})
@@ -84,6 +88,8 @@ def handler(service):
                     result = service.submit(data)
                 elif path == '/api/search' and set(data) == {'runId', 'query'}:
                     result = service.search(data['runId'], data['query'])
+                elif path in {'/api/document-approve','/api/document-publish'} and getattr(service,'m2',False):
+                    result = service.release_action(path, data)
                 elif path == '/api/rule-test' and set(data) == {'runId', 'clause', 'ruleId', 'inputs'}:
                     if not test_lock.acquire(blocking=False):
                         raise Rejected('RULE_TEST_BUSY')

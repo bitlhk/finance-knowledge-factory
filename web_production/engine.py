@@ -79,6 +79,9 @@ def model_call(payload):
 
 
 class Production:
+    def recipe_metadata(self, data):
+        return {}
+
     def __init__(self, state, caller=model_call, executor=None):
         self.state = Path(state)
         self.state.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -199,6 +202,7 @@ class Production:
                       'selectedClauses': data['clauses'], 'tests': tests,
                       'parameters': PARAMETERS if data['rules'] else None,
                       'delivery': 'LOCAL_UNPUBLISHED_CANDIDATE', 'publicationAllowed': False}
+            recipe.update(self.recipe_metadata(data))
             job = dict(id='run-' + uuid.uuid4().hex, requestId=data['requestId'],
                        submissionDigest=frozen_digest, sourceId=src['id'], title=src['title'],
                        recipe=recipe, recipeDigest=digest(recipe), createdAt=now(), status='QUEUED',
