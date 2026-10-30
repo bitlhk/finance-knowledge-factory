@@ -29,6 +29,7 @@ pygments==2.21.0
 python-dateutil==3.0.0
 python-dotenv==1.2.4
 pyyaml==6.0.3
+rank-bm25==0.2.2
 referencing==0.37.0
 requests==2.34.2
 rich==15.0.0

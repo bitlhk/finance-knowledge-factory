@@ -1,0 +1,6 @@
+[
+ {"id":"E01","text":"合成测试条款：申请期限不得超过36个月。","gold":[{"category":null,"months":36}],"review":false},
+ {"id":"E02","text":"合成测试条款：甲类申请期限不得超过12个月，乙类申请期限不得超过36个月。甲类代码为A，乙类代码为B，申请的类别由可信登记数据提供。","gold":[{"category":"A","months":12},{"category":"B","months":36}],"review":false},
+ {"id":"E03","text":"合成测试条款：甲类申请期限不得超过12个月，乙类申请期限不得超过36个月。类别以有效分类表为准，分类表未提供。","gold":[{"category":"A","months":12},{"category":"B","months":36}],"review":true,"requiredQuote":"分类表未提供"},
+ {"id":"E04","text":"合成测试条款：申请期限原则上不得超过36个月，特殊行业除外，具体例外见第十二条，第十二条正文未提供。","gold":[{"category":null,"months":36}],"review":true,"requiredQuote":"正文未提供"}
+]
