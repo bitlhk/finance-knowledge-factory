@@ -1,5 +1,8 @@
 # H1a integration progress: not accepted
 
+Historical checkpoint. For subsequent Host implementation and remaining
+installation blockers see [H1A-HOST-CANDIDATE.md](H1A-HOST-CANDIDATE.md).
+
 Checked 2026-10-30. This is a partial implementation report, not an H1a completion
 or deployment claim. PR 6 and Harness PR 96 remain Draft. No UI redesign, M0
 rewrite, H1b implementation, branch rebase, or production deployment was performed.

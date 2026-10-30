@@ -92,6 +92,22 @@ class Runtime:
             if client is not None and hasattr(client, 'close'):
                 client.close()
 
+    def session(self, credential, body):
+        """Recheck current consumption authority without retrieving or granting."""
+        if body != {}:
+            raise Rejected('KNOWLEDGE_QUERY_INVALID')
+        lease = self.lease(credential)
+        core = DocumentCore(self.database)
+        try:
+            core._query_binding(lease.actor, lease.product, lease.manifest, lease.context)
+            if self.lease(credential) != lease:
+                raise Rejected('KNOWLEDGE_SESSION_CHANGED')
+            core._query_binding(lease.actor, lease.product, lease.manifest, lease.context)
+            return {'code': 0, 'schemaVersion': 'knowledge-session-check.v0.1',
+                'sessionRef': lease.session, 'productId': lease.product, 'manifest': lease.manifest}
+        finally:
+            core.close()
+
 
 def _unique(pairs):
     result = {}
@@ -117,7 +133,7 @@ def handler(runtime):
             self.wfile.write(raw)
 
         def do_POST(self):
-            if self.path != '/query':
+            if self.path not in ('/query', '/session'):
                 return self.respond(404, {'code': 404, 'error': 'NOT_FOUND'})
             try:
                 if len(self.headers.get_all('Authorization', [])) != 1:
@@ -139,7 +155,8 @@ def handler(runtime):
                     raise ValueError('INVALID_BODY')
                 body = json.loads(raw, object_pairs_hook=_unique,
                     parse_constant=lambda _: (_ for _ in ()).throw(ValueError('INVALID_NUMBER')))
-                self.respond(200, runtime.query(auth[7:], body))
+                operation = runtime.query if self.path == '/query' else runtime.session
+                self.respond(200, operation(auth[7:], body))
             except Rejected as exc:
                 self.respond(403, {'code': 403, 'error': exc.code})
             except (ValueError, TypeError, UnicodeError):

@@ -101,6 +101,34 @@ def test_runtime_rejects_late_session_revocation(ready):
         runtime.query(TOKEN, body)
 
 
+def test_current_session_rechecks_source_without_retrieval(ready):
+    runtime, body, _, service, client = ready
+    before = client.calls
+    checked = runtime.session(TOKEN, {})
+    assert checked['manifest'] == body['manifest']
+    assert checked['sessionRef'] == body['sessionRef']
+    assert client.calls == before
+    core = service.core()
+    revision, sha = core._head(AUTHOR, 'policy', 'current')
+    policy = core._get(AUTHOR, sha, 'active-policy')
+    policy['grants'] = [g for g in policy['grants'] if not (
+        g['principal'] == READER.principal and g['resource'].startswith('source:'))]
+    policy['revision'] = revision + 1
+    core.set_policy(AUTHOR, policy, revision)
+    core.close()
+    with pytest.raises(Rejected):
+        runtime.session(TOKEN, {})
+    assert client.calls == before
+
+
+def test_session_check_cannot_accept_browser_authority(ready):
+    runtime, _, _, _, _ = ready
+    with pytest.raises(Rejected):
+        runtime.session(TOKEN, {'principalId': 'other'})
+    with pytest.raises(Rejected):
+        runtime.session('bad-token', {})
+
+
 def test_runtime_upstream_business_error_never_becomes_success(ready):
     runtime, body, _, _, client = ready
     client.error = 'RAGFLOW_BUSINESS_ERROR'
@@ -133,6 +161,8 @@ def test_http_auth_strict_body_and_no_release_routes(ready):
         assert post()[0] == 200
         assert post(token='wrong')[0] == 403
         assert post(path='/publish')[0] == 404
+        assert post(path='/session', raw='{}')[0] == 200
+        assert post(path='/session', raw='{}', token='wrong')[0] == 403
         assert post(raw='{"schemaVersion":1,"schemaVersion":2}')[0] == 400
         assert post(raw='{"arguments":NaN}')[0] == 400
         assert post(raw=json.dumps({**body, 'actor': 'admin'}))[0] == 403
