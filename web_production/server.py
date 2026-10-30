@@ -9,14 +9,16 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import urlsplit
 
 from knowledge_core.contracts import Rejected
-from web_preview.server import assets as preview_assets, BASELINE_SHA
+from web_preview.server import checked, BASELINE_SHA
 from web_production.engine import Production, ROOT, SAMPLE
 
 
 def handler(service):
-    css = preview_assets()['/style.css'][1]
+    original = checked(ROOT / 'web_preview/baseline/v1.5.html', BASELINE_SHA).decode()
+    css = original.split('<style>', 1)[1].split('</style>', 1)[0].encode()
     files = {'/': ('text/html; charset=utf-8', (ROOT / 'web_production/index.html').read_bytes()),
              '/app.js': ('text/javascript; charset=utf-8', (ROOT / 'web_production/app.js').read_bytes()),
+             '/workshop.js': ('text/javascript; charset=utf-8', (ROOT / 'web_production/workshop.js').read_bytes()),
              '/style.css': ('text/css; charset=utf-8', css + (ROOT / 'web_production/style.css').read_bytes())}
     version = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     dirty = bool(subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True))

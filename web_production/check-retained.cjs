@@ -10,11 +10,12 @@ fs.mkdirSync(out,{recursive:true});
  p.on('pageerror',e=>errors.push(e.message));
  try{
   await p.goto('http://127.0.0.1:61352/');
-  await p.locator('#run-select').selectOption(runId);
-  await p.locator('[data-clause="第四十三条"]').click();
   const before=await p.evaluate(async id=>(await fetch('/api/runs/'+id)).json(),runId);
+  await p.locator('[data-product="'+before.sourceId+'"]').click();
+  await p.locator('#run-select').selectOption(runId);
+  await p.locator('#clause-select').selectOption('第四十三条');
   await p.screenshot({path:path.join(out,'production-desktop.png'),fullPage:true});
-  await p.locator('[data-page="consume"]').click();
+  await p.locator('[data-do="sandbox"]').click();
   const receipts=[];
   for(const [name,facts] of [
    ['met',{original_months:12,extension_months:6}],
@@ -30,15 +31,15 @@ fs.mkdirSync(out,{recursive:true});
   assert.deepEqual(receipts.map(r=>r.receipt.decision),['MET','NOT_MET','INVALID_INPUT','NOT_APPLICABLE']);
   assert.deepEqual(receipts.map(r=>r.receipt.engineCalls),[2,1,0,0]);
   await p.reload();
-  await p.locator('[data-page="consume"]').click();
+  await p.locator('[data-do="sandbox"]').click();
   await p.getByText('不适用',{exact:true}).waitFor();
   assert.deepEqual(JSON.parse(await p.locator('#facts').inputValue()),receipts.at(-1).receipt.inputs);
   assert.equal(await p.locator('#query').inputValue(),before.consumptionReceipts.find(r=>r.query)?.query||'');
   await p.screenshot({path:path.join(out,'consumption.png'),fullPage:true});
-  await p.locator('[data-page="artifacts"]').click();
-  await p.locator('[data-tab="rules"]').click();
+  await p.getByRole('button',{name:'关闭',exact:true}).click();
+  await p.locator('.workstep[data-step="semantic"]').click();
   await p.screenshot({path:path.join(out,'rules.png'),fullPage:true});
-  await p.locator('[data-tab="quality"]').click();
+  await p.locator('.workstep[data-step="validation"]').click();
   await p.screenshot({path:path.join(out,'quality.png'),fullPage:true});
   for(const width of [1366,390,320]){
    await p.setViewportSize({width,height:844});

@@ -195,6 +195,14 @@ def test_http_origin_host_methods_and_script_text(tmp_path):
     base=f'http://127.0.0.1:{http.server_port}'
     try:
         assert json.load(request.urlopen(base+'/api/state'))['publicationAllowed'] is False
+        from web_preview.server import checked, BASELINE_SHA
+        from web_production.engine import ROOT
+        original = checked(ROOT / 'web_preview/baseline/v1.5.html', BASELINE_SHA).decode()
+        css = request.urlopen(base+'/style.css').read().decode()
+        assert css.startswith(original.split('<style>', 1)[1].split('</style>', 1)[0])
+        assert 'preview.css' not in css
+        assert b'/workshop.js' in request.urlopen(base+'/').read()
+        assert b'function productionHome()' in request.urlopen(base+'/workshop.js').read()
         for headers in ({},{'Origin':'http://evil.invalid'},{'Origin':base,'Host':'evil.invalid'}):
             req=request.Request(base+'/api/sample',data=b'{}',headers={'Content-Type':'application/json',**headers})
             with pytest.raises(error.HTTPError) as exc: request.urlopen(req)
@@ -207,3 +215,13 @@ def test_http_origin_host_methods_and_script_text(tmp_path):
         assert exc.value.code==404
     finally:
         http.shutdown();http.server_close();t.join();p.close()
+
+
+def test_changed_ui_baseline_refused(tmp_path, monkeypatch):
+    import web_production.server as server
+    baseline = tmp_path / 'web_preview/baseline/v1.5.html'
+    baseline.parent.mkdir(parents=True)
+    baseline.write_text('<html><style>changed</style></html>')
+    monkeypatch.setattr(server, 'ROOT', tmp_path)
+    with pytest.raises(ValueError, match='EVIDENCE_DIGEST_MISMATCH'):
+        server.handler(None)

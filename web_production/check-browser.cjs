@@ -10,6 +10,7 @@ fs.mkdirSync(out,{recursive:true});
  const errors=[];page.on('pageerror',e=>errors.push(e.message));
  try{
   await page.goto('http://127.0.0.1:61352/');
+  await page.locator('[data-page="sources"]').click();
   await page.getByRole('button',{name:'导入公开制度样例'}).click();
   await page.getByRole('button',{name:'配置配方'}).click();
   await page.getByRole('button',{name:'下一步',exact:true}).click();
@@ -17,7 +18,11 @@ fs.mkdirSync(out,{recursive:true});
   await page.locator('[data-pick="第八条"]').check();
   await page.locator('[data-pick="第四十三条"]').check();
   await page.getByRole('button',{name:'下一步',exact:true}).click();
-  await page.locator('#tests').fill(JSON.stringify([{question:'第四十三条',expectedClause:'第四十三条'},{question:'第八条',expectedClause:'第八条'}]));
+  for (const [i,clause] of ['第四十三条','第八条'].entries()) {
+   await page.locator('#add-test').click();
+   await page.locator('[data-question="'+i+'"]').fill(clause);
+   await page.locator('[data-expected="'+i+'"]').selectOption(clause);
+  }
   await page.getByRole('button',{name:'下一步',exact:true}).click();
   await page.locator('#consent').check();
   await page.getByRole('button',{name:'保存配方'}).click();
@@ -40,12 +45,11 @@ fs.mkdirSync(out,{recursive:true});
   assert.equal(final.publicationAllowed,false);
   fs.writeFileSync(path.join(out,'real-production.json'),JSON.stringify(final,null,2));
   await page.waitForTimeout(1800);
-  await page.locator('[data-clause="第四十三条"]').click();
+  await page.locator('#clause-select').selectOption('第四十三条');
   await page.screenshot({path:path.join(out,'production-desktop.png'),fullPage:true});
-  await page.getByRole('button',{name:'查看知识产物'}).click();
-  await page.locator('[data-tab="rules"]').click();
+  await page.locator('.workstep[data-step="semantic"]').click();
   await page.screenshot({path:path.join(out,'rules.png'),fullPage:true});
-  await page.getByRole('button',{name:'测试候选知识'}).click();
+  await page.locator('[data-do="sandbox"]').click();
   await page.locator('#query').fill('第四十三条');
   await page.getByRole('button',{name:'检索本次产物'}).click();
   await page.getByText('原文关键词检索',{exact:false}).waitFor();
@@ -55,7 +59,7 @@ fs.mkdirSync(out,{recursive:true});
   }
   await page.screenshot({path:path.join(out,'consumption.png'),fullPage:true});
   await page.reload();
-  await page.getByRole('heading',{name:'知识生产车间'}).waitFor();
+  await page.locator('.workbench').waitFor();
   assert.equal(await page.locator('#run-select').inputValue(),job.id);
   for(const width of [390,320]){
    await page.setViewportSize({width,height:844});
@@ -68,7 +72,7 @@ fs.mkdirSync(out,{recursive:true});
   await page.locator('#title').fill('上传样例 · 客服制度');
   await page.locator('#file').setInputFiles({name:'customer-policy.html',mimeType:'text/html',buffer:Buffer.from('<html><body><p>第一条 客户咨询应引用已公布的服务条款。</p><p>第二条 无法确认的信息交由人工核实。</p><script>window.XSS=1</script></body></html>')});
   await page.getByRole('button',{name:'导入原料',exact:true}).click();
-  await page.getByRole('heading',{name:'知识生产车间'}).waitFor();
+  await page.getByRole('heading',{name:'上传样例 · 客服制度'}).waitFor();
   await page.getByRole('button',{name:'配置配方'}).click();
   for(let i=0;i<3;i++)await page.getByRole('button',{name:'下一步',exact:true}).click();
   await page.getByRole('button',{name:'保存配方'}).click();

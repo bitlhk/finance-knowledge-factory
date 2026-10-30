@@ -6,8 +6,10 @@ This is a single-operator, loopback-only production preview, not a production
 release, multi-tenant service, new Knowledge Core, or a Harness installation.
 V1.5 remains the product baseline. Its HTML SHA-256 remains
 `a12cf30a5771b59cd9fabb00ea67d1bc84361d2a73c916c354593b1adc15eb80`.
-The four navigation entries, three-column workshop and four-step recipe are
-retained. The V0.1 evidence viewer is unchanged and can run on port 61351.
+The initial V0.2 retained the navigation but simplified the original workshop
+too far. The V1.5 alignment correction restores its actual layout and interaction
+structure; see `WEB-PRODUCTION-V15-ALIGNMENT.md`. The V0.1 evidence viewer is
+unchanged and can run on port 61351.
 V0.2 runs separately on 61352. No changes to M0, M1 gold, old experiment results,
 Harness, Builder, live proxies, or shared Maven artifacts.
 
@@ -114,8 +116,10 @@ Do not stop V0.1, the employee-agent service, Harness or any other Codex process
    These are user checks, not an independent benchmark or model-generated truth.
 4. Confirm the model scope; save recipe; click Start Production. Observe real
    processing states, then inspect the new candidate outputs and quality report.
-5. Consumption: search this run's clauses; choose a generated numeric candidate
-   and submit synthetic facts. Inspect the guard or actual engine receipt.
+5. Production workshop / candidate validation: open isolated candidate testing,
+   search this run's clauses, or submit synthetic facts to a numeric candidate.
+   Inspect the guard or actual engine receipt. Formal artifacts and consumption
+   stay empty/unavailable because this preview has no formal publication.
 6. Refresh or choose an earlier run. Original attempts and candidate digests remain
    unchanged; no model/Provider is invoked merely by reading history.
 
@@ -168,6 +172,12 @@ node web_production/check-retained.cjs /absolute/readback-evidence-directory \
   run-9ef0409f1bea4129903e58342dd4e3e8
 .venv/bin/python -m pytest -q
 ```
+
+For the V1.5 layout correction use `node web_production/check-v15.cjs
+/absolute/new-evidence-directory`. It uploads synthetic HTML and runs document
+production only, with no new model or rule-engine calls. The real-model smoke
+script's selectors have been updated, but its model calls were not repeated for
+this UI-only correction. Existing model evidence remains historical evidence.
 
 Remaining gates: full semantic quality, RAGFlow service integration and
 retrieval-quality benchmark, production IAM/publishing, PDF/Word support and
