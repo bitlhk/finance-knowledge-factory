@@ -13,10 +13,10 @@ def main():
     ap=argparse.ArgumentParser()
     ap.add_argument('action',choices=['start','stop'])
     ap.add_argument('--state',type=Path,required=True)
-    ap.add_argument('--python',type=Path,required=True)
-    ap.add_argument('--embedding-python',type=Path,required=True)
-    ap.add_argument('--private-config',type=Path,required=True)
-    ap.add_argument('--embedding-cache',type=Path,required=True)
+    ap.add_argument('--python',type=Path)
+    ap.add_argument('--embedding-python',type=Path)
+    ap.add_argument('--private-config',type=Path)
+    ap.add_argument('--embedding-cache',type=Path)
     args=ap.parse_args()
     root=Path(__file__).resolve().parents[1]
     args.state.mkdir(parents=True,exist_ok=True,mode=0o700)
@@ -39,6 +39,8 @@ def main():
         else:raise SystemExit('OWNED_PROCESS_STILL_STOPPING')
         print('Only recorded preview/embedding processes signalled; containers and other services unchanged.')
         return
+    if not all([args.python,args.embedding_python,args.private_config,args.embedding_cache]):
+        raise SystemExit('START_REQUIRES_PYTHON_EMBEDDING_PYTHON_PRIVATE_CONFIG_AND_CACHE')
     with socket.socket() as s:
         s.bind(('127.0.0.1',61353))
     if journal.exists():
