@@ -1,0 +1,114 @@
+{
+  "httpStatus": 200,
+  "body": {
+    "schemaVersion": "finance-knowledge-history-view.v0.1",
+    "requestId": "05885ed2-1ae1-4f76-be49-43c169ce945c",
+    "buildId": "agent-eac6d78a03054c1f",
+    "instanceId": "09a8b578-67ff-42e7-8c9d-ca71c0b6ce37",
+    "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+    "installationLock": "b43434035b135a04ce7f252bac61597bb9e580d17cb471cd2b32881dbc92de51",
+    "answer": "已完成文档检索，请核对下方原文依据。此回答由受控模型生成，不代表真实模型质量验收。",
+    "evidence": [
+      {
+        "code": 0,
+        "decision": "EVIDENCE_FOUND",
+        "evidence": [
+          {
+            "clause": "第一条",
+            "quote": "第一条 合成客服服务时间为每日09:00至17:00。",
+            "originalDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+            "chunkId": "7be299f43bd553c4",
+            "anchors": [
+              {
+                "locator": {
+                  "end": 27,
+                  "start": 0,
+                  "xpath": "/html/body/p[1]/text()[1]"
+                },
+                "locatorKind": "HTML_DOM_TEXT",
+                "mediaType": "text/html",
+                "quote": "第一条 合成客服服务时间为每日09:00至17:00。",
+                "quoteDigest": "7339dedce5da0d9dbcaeb693c95f5ef7168e4d0b2a78c4e1edb1ab2ea1301822",
+                "schemaVersion": "evidence-anchor.v0.1",
+                "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+              }
+            ],
+            "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54"
+          },
+          {
+            "clause": "第二条",
+            "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+            "originalDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+            "chunkId": "3906856fd9890225",
+            "anchors": [
+              {
+                "locator": {
+                  "end": 28,
+                  "start": 0,
+                  "xpath": "/html/body/p[2]/text()[1]"
+                },
+                "locatorKind": "HTML_DOM_TEXT",
+                "mediaType": "text/html",
+                "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+                "quoteDigest": "37cb23640221e65a1a31f1b793003b3853575546abef75a0946aef1107ab511f",
+                "schemaVersion": "evidence-anchor.v0.1",
+                "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+              }
+            ],
+            "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54"
+          }
+        ],
+        "receipt": {
+          "schemaVersion": "knowledge-receipt.v0.1",
+          "receiptId": "kr-c6522f66313ad42e7c4116f6db8dcc43db3109779c669ab4240613ef695a97ce",
+          "coreReceiptDigest": "c6522f66313ad42e7c4116f6db8dcc43db3109779c669ab4240613ef695a97ce",
+          "productId": "run-39d069d400924257a857cfa7ec64917b",
+          "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+          "businessDate": "2026-10-30",
+          "requestId": "fh-request-79199b7a-96b9-4ecf-90b7-7916044179b8",
+          "traceId": "fh-trace-79199b7a-96b9-4ecf-90b7-7916044179b8",
+          "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54",
+          "sourceId": "run-39d069d400924257a857cfa7ec64917b-source",
+          "sourceRevision": 1,
+          "indexDigest": "12e80b6669fb76413ef99ef4f60acafd1cf291cd7daea0d8d7029d1baa50c52d",
+          "bindingDigest": "f36da08f214957e0d777457f39d455ae38c518447d2e6bb9fd444460ad0a4f12",
+          "policyDigest": "fdab6ce6b50d4ed625d99c932dca8f4a8c7ab6bf3e63a11b8d27817f98cc8021",
+          "mode": "M2_ISOLATED_DOCUMENT"
+        }
+      }
+    ],
+    "historyReceipt": {
+      "schemaVersion": "finance-knowledge-history-read.v0.1",
+      "readId": "823a32a4-d00f-4824-a513-4bfaa404d04f",
+      "requestId": "05885ed2-1ae1-4f76-be49-43c169ce945c",
+      "viewerRef": "b8299f40adc413ec2cfbb5977838b62c2ce61737b6006136eca291f2f2bb38f8",
+      "viewerSessionRef": "4bec088dda56a15b00a095977f169b126da9738f8df1a81600ddbe973108e8a1",
+      "at": "2026-10-31T01:46:50.312100+00:00",
+      "factoryReads": [
+        {
+          "requestId": "3f782446-73ec-4bcb-8ce9-b35c45a9d91f",
+          "traceId": "823a32a4-d00f-4824-a513-4bfaa404d04f",
+          "coreReceiptDigest": "c6522f66313ad42e7c4116f6db8dcc43db3109779c669ab4240613ef695a97ce"
+        }
+      ],
+      "runtimeLeaseReused": false,
+      "instanceId": "09a8b578-67ff-42e7-8c9d-ca71c0b6ce37",
+      "buildId": "agent-eac6d78a03054c1f",
+      "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+      "installationLock": "b43434035b135a04ce7f252bac61597bb9e580d17cb471cd2b32881dbc92de51",
+      "serviceLock": "c466c13eeed18becc596ec27f08d3245ea3cb3c95b85a36c8c90fa44f18ffe16",
+      "answerDigest": "960fd1e98a2c8b74fb6112cf537af5c14e1e7a169266087e272b67bd8338ecbc",
+      "coreReceiptDigests": [
+        "c6522f66313ad42e7c4116f6db8dcc43db3109779c669ab4240613ef695a97ce"
+      ],
+      "authorization": {
+        "policyDigest": "b0fac2d44a821d265ec51801682fb121df6e01bc7439713b099c537a97ad9d35",
+        "leaseDigest": "032a26ee9ed1777351874399251e4239972a07e18ec3b8c6bdcc407d1025e56f",
+        "purpose": "knowledge.history.read",
+        "expiresAt": "2026-10-31T01:47:50.315360+00:00"
+      },
+      "state": "AUTHORIZED",
+      "leasesReclaimed": true
+    }
+  }
+}

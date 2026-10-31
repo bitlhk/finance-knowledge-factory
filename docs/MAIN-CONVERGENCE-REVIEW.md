@@ -1,5 +1,9 @@
 # Mainline preparation review
 
+Update: [pre-merge gates](PREMERGE-GATES.md) records new native and cross-repository
+checks and the explicitly separate D usability delta. The original preparation
+results below remain historical; A-C now has its own main-based review branch.
+
 Status: **review candidate only; no merge, deployment, or H1b work**.
 Frozen input: `160aaf51b2a54664434d5c17bc3aa95a1b75b693`.
 Stable main: `bd725263e4c7d28b14fba9e665d9d180e68e84c8`.

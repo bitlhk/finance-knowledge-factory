@@ -1,0 +1,19 @@
+{
+  "agentId": "agent-eac6d78a03054c1f",
+  "instanceId": "09a8b578-67ff-42e7-8c9d-ca71c0b6ce37",
+  "installationLock": "b43434035b135a04ce7f252bac61597bb9e580d17cb471cd2b32881dbc92de51",
+  "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+  "coreReceiptDigest": "c6522f66313ad42e7c4116f6db8dcc43db3109779c669ab4240613ef695a97ce",
+  "hostRequestId": "05885ed2-1ae1-4f76-be49-43c169ce945c",
+  "historyReads": [
+    "823a32a4-d00f-4824-a513-4bfaa404d04f",
+    "418947e1-630e-4bb7-9a73-4ddcefcf65aa"
+  ],
+  "authentication": "REAL_CREATOR_LOCAL_WORKBENCH_SESSION_NOT_SSO",
+  "model": "CONTROLLED_FIXTURE",
+  "source": "REAL_FACTORY_QUERY_AND_HISTORY_HTTP",
+  "queryServiceStoppedBeforeHistory": true,
+  "modelCallsDuringHistory": 0,
+  "newQueryReceiptsDuringHistory": 0,
+  "historyOutboundAttempts": 0
+}

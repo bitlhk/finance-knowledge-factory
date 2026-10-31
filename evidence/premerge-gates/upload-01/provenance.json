@@ -1,0 +1,14 @@
+{
+  "code": {
+    "commit": "d67d366f8aeabee15365c661055e93b8ef558e54",
+    "dirty": true
+  },
+  "upstream": "CONTROLLED",
+  "guided": false,
+  "files": {
+    "m2/web.js": "3a01af5572c187a932430c66a9e9c0a50096d8a8a1f57a5de40baaf83144a6cc",
+    "web_production/app.js": "f7e7e6eba98c3717d2f25606d140a94a24ebca797e03be56d5baf26445ba5ed7",
+    "tests/run_merge_browser.py": "82673081064e51565b7fb9a30d861d4a1195306676275dddacc8a2b2127cfddf",
+    "tests/merge_browser.cjs": "dc54e737f53300db007ffc3afe4b660e14f7f0db5237479d3f6a09a6b3ff67d4"
+  }
+}

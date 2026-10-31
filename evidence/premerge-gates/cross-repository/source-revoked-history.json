@@ -1,0 +1,12 @@
+{
+  "httpStatus": 403,
+  "body": {
+    "schemaVersion": "finance-workbench-api.v0.2",
+    "error": {
+      "code": "HISTORY_FORBIDDEN",
+      "message": "历史查看未获准或证据核验未通过，未披露答案。",
+      "retryable": false
+    },
+    "clearConversation": false
+  }
+}
