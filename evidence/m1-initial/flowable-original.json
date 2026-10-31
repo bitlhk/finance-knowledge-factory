@@ -1,0 +1,219 @@
+{
+  "engine": "org.flowable:flowable-dmn-engine:8.0.0",
+  "engineCalls": 10,
+  "results": [
+    {
+      "id": "R01",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "1d378272-d408-11f1-93bd-6aff75352aa8",
+      "deploymentId": "1d25a820-d408-11f1-93bd-6aff75352aa8",
+      "parentDeploymentId": "2d196a91ba2b36d39ebe7d364979656d7a74b3082276348352e18f5525a00bba",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "R02",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "1d378272-d408-11f1-93bd-6aff75352aa8",
+      "deploymentId": "1d25a820-d408-11f1-93bd-6aff75352aa8",
+      "parentDeploymentId": "2d196a91ba2b36d39ebe7d364979656d7a74b3082276348352e18f5525a00bba",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "R03",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "1d378272-d408-11f1-93bd-6aff75352aa8",
+      "deploymentId": "1d25a820-d408-11f1-93bd-6aff75352aa8",
+      "parentDeploymentId": "2d196a91ba2b36d39ebe7d364979656d7a74b3082276348352e18f5525a00bba",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "R04",
+      "actual": "UNKNOWN",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "UNKNOWN",
+      "passed": true
+    },
+    {
+      "id": "R05",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "R06",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "1d378272-d408-11f1-93bd-6aff75352aa8",
+      "deploymentId": "1d25a820-d408-11f1-93bd-6aff75352aa8",
+      "parentDeploymentId": "2d196a91ba2b36d39ebe7d364979656d7a74b3082276348352e18f5525a00bba",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "R07",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "1d378272-d408-11f1-93bd-6aff75352aa8",
+      "deploymentId": "1d25a820-d408-11f1-93bd-6aff75352aa8",
+      "parentDeploymentId": "2d196a91ba2b36d39ebe7d364979656d7a74b3082276348352e18f5525a00bba",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "R08",
+      "actual": "UNKNOWN",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "UNKNOWN",
+      "passed": true
+    },
+    {
+      "id": "R09",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "1d3c1655-d408-11f1-93bd-6aff75352aa8",
+      "deploymentId": "1d38baf3-d408-11f1-93bd-6aff75352aa8",
+      "parentDeploymentId": "04251ba77560673b0216429f242ac63104a332aec4f059f2f371ed05ebd35a7c",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "R10",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "1d3c1655-d408-11f1-93bd-6aff75352aa8",
+      "deploymentId": "1d38baf3-d408-11f1-93bd-6aff75352aa8",
+      "parentDeploymentId": "04251ba77560673b0216429f242ac63104a332aec4f059f2f371ed05ebd35a7c",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "R11-false",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "R11-true",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "R12",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "R13",
+      "actual": "UNKNOWN",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "UNKNOWN",
+      "passed": true
+    },
+    {
+      "id": "R14-negative",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "R14-decimal",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "R15",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "1d3deb18-d408-11f1-93bd-6aff75352aa8",
+      "deploymentId": "1d3c6476-d408-11f1-93bd-6aff75352aa8",
+      "parentDeploymentId": "c400f42fd0ada4e031b0108a7c13d43293377fa67c565ac70be1e5d98eb8df84",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "R16",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "1d3deb18-d408-11f1-93bd-6aff75352aa8",
+      "deploymentId": "1d3c6476-d408-11f1-93bd-6aff75352aa8",
+      "parentDeploymentId": "c400f42fd0ada4e031b0108a7c13d43293377fa67c565ac70be1e5d98eb8df84",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "R17",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "R18-evaluation-only",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "1d378272-d408-11f1-93bd-6aff75352aa8",
+      "deploymentId": "1d25a820-d408-11f1-93bd-6aff75352aa8",
+      "parentDeploymentId": "2d196a91ba2b36d39ebe7d364979656d7a74b3082276348352e18f5525a00bba",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "R19",
+      "actual": "NOT_APPLICABLE",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "NOT_APPLICABLE",
+      "passed": true
+    },
+    {
+      "id": "R20",
+      "actual": "UNKNOWN",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "UNKNOWN",
+      "passed": true
+    },
+    {
+      "id": "R21",
+      "actual": "NOT_APPLICABLE",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "NOT_APPLICABLE",
+      "passed": true
+    },
+    {
+      "id": "invalid-host-date",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "host-override",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "unknown-enum",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    }
+  ],
+  "referenceFallback": false
+}

@@ -1,0 +1,9 @@
+Exception in thread "main" io.github.bitlhk.finance.harness.core.observation.ObservationAssessmentV01$UnmetRequirements: OBSERVATION_REQUIREMENTS_UNMET
+	at io.github.bitlhk.finance.harness.core.observation.ObservationAssessmentV01.requireReady(ObservationAssessmentV01.java:50)
+	at io.github.bitlhk.finance.builder.local.HostObservationAdmission.check(HostObservationAdmission.java:65)
+	at io.github.bitlhk.finance.builder.local.HostObservationAdmission.check(HostObservationAdmission.java:15)
+	at io.github.bitlhk.finance.builder.local.ObservationAdmission.check(ObservationAdmission.java:106)
+	at io.github.bitlhk.finance.builder.local.ObservationAdmission.trustedCollectors(ObservationAdmission.java:80)
+	at io.github.bitlhk.finance.builder.local.ObservationAdmission.prepare(ObservationAdmission.java:71)
+	at io.github.bitlhk.finance.builder.local.NativeRuntime.plan(NativeRuntime.java:15)
+	at io.github.bitlhk.finance.builder.local.ComponentAdmission.main(ComponentAdmission.java:141)

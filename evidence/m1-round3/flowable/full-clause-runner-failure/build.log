@@ -1,0 +1,18 @@
+[WARNING] 
+java.util.NoSuchElementException: No value present
+    at java.util.Optional.orElseThrow (Optional.java:377)
+    at probe.FlowableProbe.main (FlowableProbe.java:143)
+    at jdk.internal.reflect.DirectMethodHandleAccessor.invoke (DirectMethodHandleAccessor.java:103)
+    at java.lang.reflect.Method.invoke (Method.java:580)
+    at org.codehaus.mojo.exec.AbstractExecJavaBase.executeMainMethod (AbstractExecJavaBase.java:402)
+    at org.codehaus.mojo.exec.ExecJavaMojo.executeMainMethod (ExecJavaMojo.java:142)
+    at org.codehaus.mojo.exec.AbstractExecJavaBase.doExecClassLoader (AbstractExecJavaBase.java:377)
+    at org.codehaus.mojo.exec.AbstractExecJavaBase.lambda$execute$0 (AbstractExecJavaBase.java:287)
+    at java.lang.Thread.run (Thread.java:1583)
+[ERROR] Failed to execute goal org.codehaus.mojo:exec-maven-plugin:3.6.3:java (default-cli) on project flowable-probe: An exception occurred while executing the Java class. No value present -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

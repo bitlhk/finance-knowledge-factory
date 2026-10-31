@@ -1,0 +1,10 @@
+{
+  "sourceDigest": "ebd65f48a2fda08a871fdf57610d478c99e2970f52a7159adc98c6b260b31bba",
+  "name": "regulation.doc",
+  "parserVersion": "2.145.0",
+  "derivedConversion": false,
+  "execution": "FAILED",
+  "errorType": "ImportError",
+  "error": "The 'python-docx' package is required to process Word files. Install it with `pip install 'docling-slim[format-docx]'`.",
+  "elapsedSeconds": 0.19
+}

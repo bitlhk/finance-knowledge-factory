@@ -1,0 +1,24 @@
+{
+  "schema": "web-production-evidence.v0.2",
+  "finalCodeCommit": "6c32fb9",
+  "newModelCalls": 2,
+  "primaryDmnCallsAcrossAllBatches": 5,
+  "recoveryDmnCallsAcrossAllBatches": 3,
+  "guardOnlyCasesAcrossAllBatches": 4,
+  "cost": null,
+  "publicationAllowed": false,
+  "m1SemanticAcceptance": false,
+  "files": {
+    "initial-real-production.json": "bca09af6c91f93734ed9389f6fc6351cf51e690a2284480d160c27bf694c1e37",
+    "initial-browser-result.json": "4eb09639ad29be4344f2cfb659d1186449c2b4ad8b878078931d2b3ede7f423c",
+    "uploaded-document-production.json": "ea7487dc5059e387a152bb78d98b27bd98e342d751834bbec8e8cfbcfb0c89bc",
+    "retained-r1-result.json": "ccbf803ac3377e6f05c027fc59b40a0a945e899a85b3ecb8f488c5183571e8a6",
+    "retained-r1-rule-tests.json": "5446c3dfa399f5006088b2c315475819e5610e9fd4b69eba7bf098817a0a44e0",
+    "retained-r2-result.json": "ccbf803ac3377e6f05c027fc59b40a0a945e899a85b3ecb8f488c5183571e8a6",
+    "retained-r2-rule-tests.json": "06c9cbf1c101b6cab99750bb8bc93ca0167c63146239a91a7533b6bdc4e2555a",
+    "final-run-export.json": "0b96a662ebf7e4aac2ed7c5533ece9475e011580f54625ea1049362b73004321",
+    "production-desktop.png": "2294fe673c38c503223c3f940fe2f206406495620c5cc5f1b2d58651f77e98c1",
+    "production-390.png": "78f41e75793a8a10dc8d078af3fc4e9dcc8d62b0936b0aa61c1d150bf52fc1ae",
+    "consumption.png": "39bbfad776fe0def0284f9a3db33b765e841c8e4e5230d9d6a1b87b8a5b3b078"
+  }
+}

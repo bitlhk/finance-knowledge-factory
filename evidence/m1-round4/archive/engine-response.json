@@ -1,0 +1,231 @@
+{
+  "engine": "org.flowable:flowable-dmn-engine:8.0.0",
+  "engineCalls": 0,
+  "results": [
+    {
+      "id": "P08-1-consumption-0",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P08-1-consumption-1",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P08-1-consumption-2",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P08-1-consumption-3",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P08-1-business-0",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P08-1-business-1",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P08-1-business-2",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P08-1-business-3",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P43-2-short-0",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "MET",
+      "passed": false
+    },
+    {
+      "id": "P43-2-short-1",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "NOT_MET",
+      "passed": false
+    },
+    {
+      "id": "P43-2-short-2",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "MET",
+      "passed": false
+    },
+    {
+      "id": "P43-2-short-3",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "NOT_MET",
+      "passed": false
+    },
+    {
+      "id": "P43-2-short-4",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "NOT_APPLICABLE",
+      "passed": false
+    },
+    {
+      "id": "P43-2-short-5",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "UNKNOWN",
+      "passed": false
+    },
+    {
+      "id": "P43-2-short-6",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "P43-2-short-7",
+      "actual": "NOT_APPLICABLE",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "NOT_APPLICABLE",
+      "passed": true
+    },
+    {
+      "id": "P43-2-short-8",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "P43-2-short-9",
+      "actual": "NOT_APPLICABLE",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "NOT_APPLICABLE",
+      "passed": true
+    },
+    {
+      "id": "P08-2-consumption-0",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P08-2-consumption-1",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P08-2-consumption-2",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P08-2-consumption-3",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P08-2-business-0",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P08-2-business-1",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P08-2-business-2",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P08-2-business-3",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P08-2-ceiling-0",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P08-2-ceiling-1",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P08-2-ceiling-2",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "P08-2-ceiling-3",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    }
+  ],
+  "referenceFallback": false,
+  "faultResults": [
+    {
+      "id": "missing-pinned-version",
+      "rejected": true,
+      "error": "Pinned definition changed"
+    },
+    {
+      "id": "tampered-artifact",
+      "rejected": true,
+      "error": "COMPILED_DIGEST_MISMATCH"
+    }
+  ],
+  "sameEngineRecovery": null,
+  "recoveryStatus": "NOT_EXECUTED_NO_ELIGIBLE_CASE"
+}

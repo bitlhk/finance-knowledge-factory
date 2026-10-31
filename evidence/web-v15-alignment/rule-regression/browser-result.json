@@ -1,0 +1,20 @@
+{
+  "runId": "run-9ef0409f1bea4129903e58342dd4e3e8",
+  "newModelCalls": 0,
+  "readbackAfterServerRestart": true,
+  "refresh": true,
+  "originalAttemptsUnchanged": true,
+  "artifactDigestUnchanged": true,
+  "unsupportedHtmlRejected": true,
+  "viewports": [
+    1366,
+    390,
+    320
+  ],
+  "pages": 4,
+  "pageErrors": [],
+  "primaryDmnCalls": 2,
+  "recoveryDmnCalls": 1,
+  "guardOnlyCases": 2,
+  "publicationAllowed": false
+}

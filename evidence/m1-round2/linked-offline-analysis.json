@@ -1,0 +1,768 @@
+{
+  "mode": "OFFLINE_FORMAT_ADAPTER_AND_IR_REPLAY",
+  "modelCalls": 0,
+  "publicationAllowed": false,
+  "originalGoldDigest": "5a719e596f782d2a7fac854a7ad889bc49f7a4c3a33253e25817e79dbceb56db",
+  "records": [
+    {
+      "id": "E01",
+      "originalAttemptDigest": "0f1f295cce975cec833b5764476cb7979cea61eff23ba3ba61d21a8cd7eb4656",
+      "originalExecution": "COMPLETED",
+      "format": "JSON",
+      "strictJsonCompliant": true,
+      "responseModel": "deepseek-v4-flash-ga-260731",
+      "usage": {
+        "completion_tokens": 202,
+        "prompt_tokens": 2191,
+        "total_tokens": 2393,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "assessment": {
+        "failures": [],
+        "unnecessaryReviewRules": 0,
+        "evaluations": [
+          {
+            "ruleId": "rule-001",
+            "inputs": {
+              "months": 36
+            },
+            "expected": "MET",
+            "actual": "MET"
+          },
+          {
+            "ruleId": "rule-001",
+            "inputs": {
+              "months": 37
+            },
+            "expected": "NOT_MET",
+            "actual": "NOT_MET"
+          }
+        ],
+        "passed": true,
+        "publicationAllowed": false
+      },
+      "ir": {
+        "schemaVersion": "rule-ir.v0.1",
+        "id": "E01-rules",
+        "revision": 1,
+        "classification": "DEMO",
+        "fields": [
+          {
+            "path": "months",
+            "type": "integer",
+            "sourceKind": "INPUT",
+            "required": false,
+            "values": [],
+            "minimum": 1,
+            "maximum": 120
+          },
+          {
+            "path": "category",
+            "type": "enum",
+            "sourceKind": "INPUT",
+            "required": false,
+            "values": [
+              "A",
+              "B"
+            ],
+            "minimum": null,
+            "maximum": null
+          }
+        ],
+        "rules": [
+          {
+            "id": "rule-001",
+            "title": "申请期限不得超过36个月",
+            "scope": {
+              "regions": [
+                "CN-BJ"
+              ],
+              "institutions": [
+                "demo-bank"
+              ],
+              "products": [
+                "business-loan"
+              ],
+              "purposes": [
+                "condition-check"
+              ],
+              "validFrom": "2026-01-01",
+              "validTo": null,
+              "timezone": "Asia/Shanghai"
+            },
+            "predicate": {
+              "op": "lte",
+              "left": {
+                "field": "months"
+              },
+              "right": {
+                "literal": {
+                  "type": "integer",
+                  "value": 36
+                }
+              }
+            },
+            "evidenceRefs": [
+              {
+                "sourceDigest": "272860c9002803a5df5c21e7d62016875192bd7d4a697111f7a8a7b0afa39915",
+                "lineStart": 1,
+                "lineEnd": 1,
+                "quoteDigest": "742b5a9584c19a202daac275880f41537c427f5868a95ac038b667b52ac1b7ba"
+              }
+            ],
+            "exceptions": [],
+            "unresolved": [],
+            "onMissing": "UNKNOWN"
+          }
+        ]
+      }
+    },
+    {
+      "id": "E02",
+      "originalAttemptDigest": "d161a7572c674c44af846c3b4778526828068574ae3f565f8f32d1e51e2753c4",
+      "originalExecution": "FAILED",
+      "format": "SINGLE_JSON_FENCE",
+      "strictJsonCompliant": false,
+      "responseModel": "deepseek-v4-flash-ga-260731",
+      "usage": {
+        "completion_tokens": 523,
+        "prompt_tokens": 2221,
+        "total_tokens": 2744,
+        "prompt_tokens_details": {
+          "cached_tokens": 2048
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "assessment": {
+        "failures": [],
+        "unnecessaryReviewRules": 0,
+        "evaluations": [
+          {
+            "ruleId": "rule-A-max-12-months",
+            "inputs": {
+              "months": 12,
+              "category": "A"
+            },
+            "expected": "MET",
+            "actual": "MET"
+          },
+          {
+            "ruleId": "rule-A-max-12-months",
+            "inputs": {
+              "months": 13,
+              "category": "A"
+            },
+            "expected": "NOT_MET",
+            "actual": "NOT_MET"
+          },
+          {
+            "ruleId": "rule-A-max-12-months",
+            "inputs": {
+              "months": 6,
+              "category": "B"
+            },
+            "expected": "NOT_APPLICABLE",
+            "actual": "NOT_APPLICABLE"
+          },
+          {
+            "ruleId": "rule-B-max-36-months",
+            "inputs": {
+              "months": 36,
+              "category": "B"
+            },
+            "expected": "MET",
+            "actual": "MET"
+          },
+          {
+            "ruleId": "rule-B-max-36-months",
+            "inputs": {
+              "months": 37,
+              "category": "B"
+            },
+            "expected": "NOT_MET",
+            "actual": "NOT_MET"
+          },
+          {
+            "ruleId": "rule-B-max-36-months",
+            "inputs": {
+              "months": 6,
+              "category": "A"
+            },
+            "expected": "NOT_APPLICABLE",
+            "actual": "NOT_APPLICABLE"
+          }
+        ],
+        "passed": true,
+        "publicationAllowed": false
+      },
+      "ir": {
+        "schemaVersion": "rule-ir.v0.1",
+        "id": "E02-rules",
+        "revision": 1,
+        "classification": "DEMO",
+        "fields": [
+          {
+            "path": "months",
+            "type": "integer",
+            "sourceKind": "INPUT",
+            "required": false,
+            "values": [],
+            "minimum": 1,
+            "maximum": 120
+          },
+          {
+            "path": "category",
+            "type": "enum",
+            "sourceKind": "INPUT",
+            "required": false,
+            "values": [
+              "A",
+              "B"
+            ],
+            "minimum": null,
+            "maximum": null
+          }
+        ],
+        "rules": [
+          {
+            "id": "rule-A-max-12-months",
+            "title": "甲类申请期限不得超过12个月",
+            "scope": {
+              "regions": [
+                "CN-BJ"
+              ],
+              "institutions": [
+                "demo-bank"
+              ],
+              "products": [
+                "business-loan"
+              ],
+              "purposes": [
+                "condition-check"
+              ],
+              "validFrom": "2026-01-01",
+              "validTo": null,
+              "timezone": "Asia/Shanghai"
+            },
+            "predicate": {
+              "op": "lte",
+              "left": {
+                "field": "months"
+              },
+              "right": {
+                "literal": {
+                  "type": "integer",
+                  "value": 12
+                }
+              }
+            },
+            "evidenceRefs": [
+              {
+                "sourceDigest": "261ed932ef48adadfa816706e7bb59ba5592b07bb6743841b4c079f75d4c24a1",
+                "lineStart": 1,
+                "lineEnd": 1,
+                "quoteDigest": "0129c0f8c4eb2c0673e98f590132a8ef95e51c83efded9b3e3156b5bfecc2357"
+              }
+            ],
+            "exceptions": [
+              {
+                "id": "applicability",
+                "when": {
+                  "op": "not",
+                  "arg": {
+                    "op": "eq",
+                    "left": {
+                      "field": "category"
+                    },
+                    "right": {
+                      "literal": {
+                        "type": "enum",
+                        "value": "A"
+                      }
+                    }
+                  }
+                },
+                "outcome": "NOT_APPLICABLE",
+                "evidenceRefs": [
+                  {
+                    "sourceDigest": "261ed932ef48adadfa816706e7bb59ba5592b07bb6743841b4c079f75d4c24a1",
+                    "lineStart": 1,
+                    "lineEnd": 1,
+                    "quoteDigest": "0129c0f8c4eb2c0673e98f590132a8ef95e51c83efded9b3e3156b5bfecc2357"
+                  }
+                ]
+              }
+            ],
+            "unresolved": [],
+            "onMissing": "UNKNOWN"
+          },
+          {
+            "id": "rule-B-max-36-months",
+            "title": "乙类申请期限不得超过36个月",
+            "scope": {
+              "regions": [
+                "CN-BJ"
+              ],
+              "institutions": [
+                "demo-bank"
+              ],
+              "products": [
+                "business-loan"
+              ],
+              "purposes": [
+                "condition-check"
+              ],
+              "validFrom": "2026-01-01",
+              "validTo": null,
+              "timezone": "Asia/Shanghai"
+            },
+            "predicate": {
+              "op": "lte",
+              "left": {
+                "field": "months"
+              },
+              "right": {
+                "literal": {
+                  "type": "integer",
+                  "value": 36
+                }
+              }
+            },
+            "evidenceRefs": [
+              {
+                "sourceDigest": "261ed932ef48adadfa816706e7bb59ba5592b07bb6743841b4c079f75d4c24a1",
+                "lineStart": 1,
+                "lineEnd": 1,
+                "quoteDigest": "0129c0f8c4eb2c0673e98f590132a8ef95e51c83efded9b3e3156b5bfecc2357"
+              }
+            ],
+            "exceptions": [
+              {
+                "id": "applicability",
+                "when": {
+                  "op": "not",
+                  "arg": {
+                    "op": "eq",
+                    "left": {
+                      "field": "category"
+                    },
+                    "right": {
+                      "literal": {
+                        "type": "enum",
+                        "value": "B"
+                      }
+                    }
+                  }
+                },
+                "outcome": "NOT_APPLICABLE",
+                "evidenceRefs": [
+                  {
+                    "sourceDigest": "261ed932ef48adadfa816706e7bb59ba5592b07bb6743841b4c079f75d4c24a1",
+                    "lineStart": 1,
+                    "lineEnd": 1,
+                    "quoteDigest": "0129c0f8c4eb2c0673e98f590132a8ef95e51c83efded9b3e3156b5bfecc2357"
+                  }
+                ]
+              }
+            ],
+            "unresolved": [],
+            "onMissing": "UNKNOWN"
+          }
+        ]
+      }
+    },
+    {
+      "id": "E03",
+      "originalAttemptDigest": "8533f5b66c06f3ce4921f24ae49bcef36c0007308bcd27e982e8a5221c2a7a3e",
+      "originalExecution": "FAILED",
+      "format": "SINGLE_JSON_FENCE",
+      "strictJsonCompliant": false,
+      "responseModel": "deepseek-v4-flash-0731",
+      "usage": {
+        "prompt_tokens": 2213,
+        "completion_tokens": 555,
+        "total_tokens": 2768,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "assessment": {
+        "failures": [],
+        "unnecessaryReviewRules": 0,
+        "evaluations": [
+          {
+            "ruleId": "rule-A-max-12-months",
+            "inputs": {
+              "months": 12,
+              "category": "A"
+            },
+            "expected": "REVIEW_REQUIRED",
+            "actual": "REVIEW_REQUIRED"
+          },
+          {
+            "ruleId": "rule-A-max-12-months",
+            "inputs": {
+              "months": 13,
+              "category": "A"
+            },
+            "expected": "REVIEW_REQUIRED",
+            "actual": "REVIEW_REQUIRED"
+          },
+          {
+            "ruleId": "rule-B-max-36-months",
+            "inputs": {
+              "months": 36,
+              "category": "B"
+            },
+            "expected": "REVIEW_REQUIRED",
+            "actual": "REVIEW_REQUIRED"
+          },
+          {
+            "ruleId": "rule-B-max-36-months",
+            "inputs": {
+              "months": 37,
+              "category": "B"
+            },
+            "expected": "REVIEW_REQUIRED",
+            "actual": "REVIEW_REQUIRED"
+          }
+        ],
+        "passed": true,
+        "publicationAllowed": false
+      },
+      "ir": {
+        "schemaVersion": "rule-ir.v0.1",
+        "id": "E03-rules",
+        "revision": 1,
+        "classification": "DEMO",
+        "fields": [
+          {
+            "path": "months",
+            "type": "integer",
+            "sourceKind": "INPUT",
+            "required": false,
+            "values": [],
+            "minimum": 1,
+            "maximum": 120
+          },
+          {
+            "path": "category",
+            "type": "enum",
+            "sourceKind": "INPUT",
+            "required": false,
+            "values": [
+              "A",
+              "B"
+            ],
+            "minimum": null,
+            "maximum": null
+          }
+        ],
+        "rules": [
+          {
+            "id": "rule-A-max-12-months",
+            "title": "甲类申请期限不得超过12个月",
+            "scope": {
+              "regions": [
+                "CN-BJ"
+              ],
+              "institutions": [
+                "demo-bank"
+              ],
+              "products": [
+                "business-loan"
+              ],
+              "purposes": [
+                "condition-check"
+              ],
+              "validFrom": "2026-01-01",
+              "validTo": null,
+              "timezone": "Asia/Shanghai"
+            },
+            "predicate": {
+              "op": "lte",
+              "left": {
+                "field": "months"
+              },
+              "right": {
+                "literal": {
+                  "type": "integer",
+                  "value": 12
+                }
+              }
+            },
+            "evidenceRefs": [
+              {
+                "sourceDigest": "fef1eabfc82ede85c5993c79bdeae53e36deee0af227e036ca3c44b00da935d6",
+                "lineStart": 1,
+                "lineEnd": 1,
+                "quoteDigest": "fcb8aac6dc709eb03f47baee38c75fcacde223dfd10a1e67396ad19ac3da88a3"
+              }
+            ],
+            "exceptions": [
+              {
+                "id": "applicability",
+                "when": {
+                  "op": "not",
+                  "arg": {
+                    "op": "eq",
+                    "left": {
+                      "field": "category"
+                    },
+                    "right": {
+                      "literal": {
+                        "type": "enum",
+                        "value": "A"
+                      }
+                    }
+                  }
+                },
+                "outcome": "NOT_APPLICABLE",
+                "evidenceRefs": [
+                  {
+                    "sourceDigest": "fef1eabfc82ede85c5993c79bdeae53e36deee0af227e036ca3c44b00da935d6",
+                    "lineStart": 1,
+                    "lineEnd": 1,
+                    "quoteDigest": "fcb8aac6dc709eb03f47baee38c75fcacde223dfd10a1e67396ad19ac3da88a3"
+                  }
+                ]
+              }
+            ],
+            "unresolved": [
+              {
+                "reason": "类别以有效分类表为准，分类表未提供",
+                "evidenceRef": {
+                  "sourceDigest": "fef1eabfc82ede85c5993c79bdeae53e36deee0af227e036ca3c44b00da935d6",
+                  "lineStart": 1,
+                  "lineEnd": 1,
+                  "quoteDigest": "fcb8aac6dc709eb03f47baee38c75fcacde223dfd10a1e67396ad19ac3da88a3"
+                }
+              }
+            ],
+            "onMissing": "UNKNOWN"
+          },
+          {
+            "id": "rule-B-max-36-months",
+            "title": "乙类申请期限不得超过36个月",
+            "scope": {
+              "regions": [
+                "CN-BJ"
+              ],
+              "institutions": [
+                "demo-bank"
+              ],
+              "products": [
+                "business-loan"
+              ],
+              "purposes": [
+                "condition-check"
+              ],
+              "validFrom": "2026-01-01",
+              "validTo": null,
+              "timezone": "Asia/Shanghai"
+            },
+            "predicate": {
+              "op": "lte",
+              "left": {
+                "field": "months"
+              },
+              "right": {
+                "literal": {
+                  "type": "integer",
+                  "value": 36
+                }
+              }
+            },
+            "evidenceRefs": [
+              {
+                "sourceDigest": "fef1eabfc82ede85c5993c79bdeae53e36deee0af227e036ca3c44b00da935d6",
+                "lineStart": 1,
+                "lineEnd": 1,
+                "quoteDigest": "fcb8aac6dc709eb03f47baee38c75fcacde223dfd10a1e67396ad19ac3da88a3"
+              }
+            ],
+            "exceptions": [
+              {
+                "id": "applicability",
+                "when": {
+                  "op": "not",
+                  "arg": {
+                    "op": "eq",
+                    "left": {
+                      "field": "category"
+                    },
+                    "right": {
+                      "literal": {
+                        "type": "enum",
+                        "value": "B"
+                      }
+                    }
+                  }
+                },
+                "outcome": "NOT_APPLICABLE",
+                "evidenceRefs": [
+                  {
+                    "sourceDigest": "fef1eabfc82ede85c5993c79bdeae53e36deee0af227e036ca3c44b00da935d6",
+                    "lineStart": 1,
+                    "lineEnd": 1,
+                    "quoteDigest": "fcb8aac6dc709eb03f47baee38c75fcacde223dfd10a1e67396ad19ac3da88a3"
+                  }
+                ]
+              }
+            ],
+            "unresolved": [
+              {
+                "reason": "类别以有效分类表为准，分类表未提供",
+                "evidenceRef": {
+                  "sourceDigest": "fef1eabfc82ede85c5993c79bdeae53e36deee0af227e036ca3c44b00da935d6",
+                  "lineStart": 1,
+                  "lineEnd": 1,
+                  "quoteDigest": "fcb8aac6dc709eb03f47baee38c75fcacde223dfd10a1e67396ad19ac3da88a3"
+                }
+              }
+            ],
+            "onMissing": "UNKNOWN"
+          }
+        ]
+      }
+    },
+    {
+      "id": "E04",
+      "originalAttemptDigest": "df8c5b57aad444d29fda8e5707f9c8c1c0b85591fb21f5d27d803b9de90f35b9",
+      "originalExecution": "FAILED",
+      "format": "SINGLE_JSON_FENCE",
+      "strictJsonCompliant": false,
+      "responseModel": "deepseek-v4-flash-0731",
+      "usage": {
+        "prompt_tokens": 2208,
+        "completion_tokens": 236,
+        "total_tokens": 2444,
+        "prompt_tokens_details": {
+          "cached_tokens": 2048
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "assessment": {
+        "failures": [],
+        "unnecessaryReviewRules": 0,
+        "evaluations": [
+          {
+            "ruleId": "rule_loan_term_limit_36m",
+            "inputs": {
+              "months": 36
+            },
+            "expected": "REVIEW_REQUIRED",
+            "actual": "REVIEW_REQUIRED"
+          },
+          {
+            "ruleId": "rule_loan_term_limit_36m",
+            "inputs": {
+              "months": 37
+            },
+            "expected": "REVIEW_REQUIRED",
+            "actual": "REVIEW_REQUIRED"
+          }
+        ],
+        "passed": true,
+        "publicationAllowed": false
+      },
+      "ir": {
+        "schemaVersion": "rule-ir.v0.1",
+        "id": "E04-rules",
+        "revision": 1,
+        "classification": "DEMO",
+        "fields": [
+          {
+            "path": "months",
+            "type": "integer",
+            "sourceKind": "INPUT",
+            "required": false,
+            "values": [],
+            "minimum": 1,
+            "maximum": 120
+          },
+          {
+            "path": "category",
+            "type": "enum",
+            "sourceKind": "INPUT",
+            "required": false,
+            "values": [
+              "A",
+              "B"
+            ],
+            "minimum": null,
+            "maximum": null
+          }
+        ],
+        "rules": [
+          {
+            "id": "rule_loan_term_limit_36m",
+            "title": "申请期限不得超过36个月",
+            "scope": {
+              "regions": [
+                "CN-BJ"
+              ],
+              "institutions": [
+                "demo-bank"
+              ],
+              "products": [
+                "business-loan"
+              ],
+              "purposes": [
+                "condition-check"
+              ],
+              "validFrom": "2026-01-01",
+              "validTo": null,
+              "timezone": "Asia/Shanghai"
+            },
+            "predicate": {
+              "op": "lte",
+              "left": {
+                "field": "months"
+              },
+              "right": {
+                "literal": {
+                  "type": "integer",
+                  "value": 36
+                }
+              }
+            },
+            "evidenceRefs": [
+              {
+                "sourceDigest": "c29df89f04499c9187c89919451272247b19ad2d834f74de0d02b9a72ca60572",
+                "lineStart": 1,
+                "lineEnd": 1,
+                "quoteDigest": "1e281374dae61acc0f3721ce33b6d4770faab546d446c306c62df61aeacd695f"
+              }
+            ],
+            "exceptions": [],
+            "unresolved": [
+              {
+                "reason": "特殊行业除外，具体例外见第十二条，第十二条正文未提供",
+                "evidenceRef": {
+                  "sourceDigest": "c29df89f04499c9187c89919451272247b19ad2d834f74de0d02b9a72ca60572",
+                  "lineStart": 1,
+                  "lineEnd": 1,
+                  "quoteDigest": "1e281374dae61acc0f3721ce33b6d4770faab546d446c306c62df61aeacd695f"
+                }
+              }
+            ],
+            "onMissing": "UNKNOWN"
+          }
+        ]
+      }
+    }
+  ]
+}

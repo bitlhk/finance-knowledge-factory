@@ -1,0 +1,2553 @@
+{
+  "mode": "RAGFLOW_HTTP_NATIVE_HYBRID",
+  "goldDigest": "55b8028a9e8e18612e5258e427563b8e3e72d658665033fed2ad8df3ddf31dbf",
+  "records": [
+    {
+      "id": "Q01",
+      "expected": "第三条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第五章 支付管理\n　　第三十二条 贷款人应按照借款合同约定，通过贷款人受托支付或借款人自主支付的方式对贷款资金的支付进行管理与控制。贷款人应健全贷款资金支付管控体系，加强金融科技应用，有效监督贷款资金按约定用途使用。\n　　贷款人受托支付是指贷款人根据借款人的提款申请和支付委托，将贷款资金支付给符合合同约定用途的借款人交易对象。\n　　借款人自主支付是指贷款人根据借款人的提款申请将贷款资金直接发放至借款人账户，并由借款人自主支付给符合合同约定用途的借款人交易对象。\n",
+            "content_ltks": "第五章 支付 管理 第三十二条 贷款人 应 按照 借款 合同 约定 通过 贷款人 受托 支付 或 借款人 自主 支付 的 方式 对 贷款 资金 的 支付 进行 管理 与 控制 贷款人 应 健全 贷款 资金 支付 管控 体系 加强 金融 科技 应用 有效 监督 贷款 资金 按 约定 用途 使用 贷款人 受托 支付 是 指 贷款人 根据 借款人 的 提款 申请 和 支付 委托 将 贷款 资金 支付 给 符合 合同 约定 用途 的 借款人 交易 对象 借款人 自主 支付 是 指 贷款人 根据 借款人 的 提款 申请 将 贷款 资金 直接 发放 至 借款人 账户 并 由 借款人 自主 支付 给 符合 合同 约定 用途 的 借款人 交易 对象",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "c4f4853b05d078c2",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4546624694311406,
+            "tag_kwd": [],
+            "term_similarity": 0.28524148490162937,
+            "vector_similarity": 0.8499781
+          },
+          {
+            "content": "　　第二章 受理与调查\n　　第十二条 个人贷款申请应具备以下条件：\n　　（一）借款人为具有完全民事行为能力的中华人民共和国公民或符合国家有关规定的境外自然人；\n　　（二）借款用途明确合法；\n　　（三）贷款申请数额、期限和币种合理；\n　　（四）借款人具备还款意愿和还款能力；\n　　（五）借款人信用状况良好；\n　　（六）贷款人要求的其他条件。\n",
+            "content_ltks": "第二章 受理 与 调查 第十二条 个人 贷款 申请 应 具备 以下 条件 一 借款人 为 具有 完全 民事行为 能力 的 中华人民共和国 公民 或 符合 国家有关 规定 的 境外 自然人 二 借款 用途 明确 合法 三 贷款 申请 数额 期限 和 币种 合理 四 借款人 具备 还款 意愿 和 还款 能力 五 借款人 信用 状况良好 六 贷款人 要求 的 其他 条件",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "595354e44c5bbcb9",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4537603825907734,
+            "tag_kwd": [],
+            "term_similarity": 0.2834883465582477,
+            "vector_similarity": 0.8510618
+          },
+          {
+            "content": "　　第五章 支付管理\n　　第三十六条 有下列情形之一的个人贷款，经贷款人同意可以采取借款人自主支付方式：\n　　（一）借款人无法事先确定具体交易对象且单次提款金额不超过三十万元人民币的；\n　　（二）借款人交易对象不具备条件有效使用非现金结算方式的；\n　　（三）贷款资金用于生产经营且单次提款金额不超过五十万元人民币的；\n　　（四）法律法规规定的其他情形的。\n",
+            "content_ltks": "第五章 支付 管理 第三十六条 有 下列 情形 之一 的 个人 贷款 经 贷款人 同意 可以 采取 借款人 自主 支付 方式 一 借款人 无法 事先 确定 具体 交易 对象 且 单 次 提款 金额 不 超过 三十万元 人民币 的 二 借款人 交易 对象 不 具备 条件 有效 使用 非 现金结算 方式 的 三 贷款 资金 用于 生产 经营 且 单 次 提款 金额 不 超过 五十万元 人民币 的 四 法律法规 规定 的 其他 情形 的",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "98048d877dd0fa34",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4517862905154308,
+            "tag_kwd": [],
+            "term_similarity": 0.2799087564506154,
+            "vector_similarity": 0.85283387
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 52,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 52
+      },
+      "clauseLabels": [
+        [
+          "第三十二条"
+        ],
+        [
+          "第十二条"
+        ],
+        [
+          "第三十六条"
+        ]
+      ],
+      "top1Correct": false,
+      "top3Correct": false,
+      "elapsedSeconds": 0.601
+    },
+    {
+      "id": "Q02",
+      "expected": "第四条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第一章 总则\n　　第四条 贷款人开展个人贷款业务，应当遵循依法合规、审慎经营、平等自愿、公平诚信的原则。\n",
+            "content_ltks": "第一章 总则 第四条 贷款人 开展 个人 贷款 业务 应当 遵循 依法 合规 审慎 经营 平等 自愿 公平 诚信 的 原则",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "12801e129eb971c4",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.510661805279828,
+            "tag_kwd": [],
+            "term_similarity": 0.33192727611403994,
+            "vector_similarity": 0.92770904
+          },
+          {
+            "content": "　　第八章 附则\n　　第四十七条 国家金融监督管理总局及其派出机构可以根据贷款人的经营管理情况、风险水平和个人贷款业务开展情况等，对贷款人个人贷款管理提出相关审慎监管要求。\n",
+            "content_ltks": "第八章 附则 第四十七条 国家 金融 监督管理 总局 及其 派出机构 可以 根据 贷款人 的 经营 管理 情况 风险 水平 和 个人 贷款 业务 开展 情况 等 对 贷款人 个人 贷款 管理 提出 相关 审慎 监管 要求",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "8efdc22a2fd59b28",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4314320103686824,
+            "tag_kwd": [],
+            "term_similarity": 0.23683601195526047,
+            "vector_similarity": 0.88548934
+          },
+          {
+            "content": "　　第七章 法律责任\n　　第四十五条 贷款人违反本办法规定办理个人贷款业务的，国家金融监督管理总局及其派出机构应当责令其限期改正。贷款人有下列情形之一的，国家金融监督管理总局及其派出机构可根据《中华人民共和国银行业监督管理法》采取相关监管措施：\n　　（一）贷款调查、审查、贷后管理未尽职的；\n　　（二）未按规定建立、执行贷款面谈、借款合同面签制度的；\n　　（三）借款合同采用格式条款未公示的；\n　　（四）违反本办法第三十条规定的；\n　　（五）支付管理不符合本办法要求的。\n",
+            "content_ltks": "第七章 法律责任 第四十五 条 贷款人 违反 本 办法 规定 办理 个人 贷款 业务 的 国家 金融 监督管理 总局 及其 派出机构 应当 责令 其 限期 改正 贷款人 有 下列 情形 之一 的 国家 金融 监督管理 总局 及其 派出机构 可 根据 中华人民共和国 银行业 监督管理 法 采取 相关 监管 措施 一 贷款 调查 审查 贷 后 管理 未 尽职 的 二 未 按规定 建立 执行 贷款 面谈 借款 合同 面 签 制度 的 三 借款 合同 采用 格式 条款 未 公示 的 四 违反 本 办法 第三十条 规定 的 五 支付 管理 不 符合 本 办法 要求 的",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "bdb4e15e2825c27b",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4234869783686824,
+            "tag_kwd": [],
+            "term_similarity": 0.23683601195526047,
+            "vector_similarity": 0.8590059
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 37,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 37
+      },
+      "clauseLabels": [
+        [
+          "第四条"
+        ],
+        [
+          "第四十七条"
+        ],
+        [
+          "第四十五条",
+          "第三十条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.221
+    },
+    {
+      "id": "Q03",
+      "expected": "第七条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第一章 总则\n　　第七条 个人贷款用途应符合法律法规规定和国家有关政策，贷款人不得发放无指定用途的个人贷款。\n　　贷款人应加强贷款资金支付管理，有效防范个人贷款业务风险。\n",
+            "content_ltks": "第一章 总则 第七条 个人 贷款 用途 应 符合 法律法规 规定 和 国家有关 政策 贷款人 不得 发放 无 指定 用途 的 个人 贷款 贷款人 应 加强 贷款 资金 支付 管理 有效 防范 个人 贷款 业务 风险",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "00202677bd21a69a",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.48102141243189667,
+            "tag_kwd": [],
+            "term_similarity": 0.3065406034741381,
+            "vector_similarity": 0.8881433
+          },
+          {
+            "content": "　　第一章 总则\n　　第三条 本办法所称个人贷款，是指贷款人向符合条件的自然人发放的用于个人消费、生产经营等用途的本外币贷款。\n",
+            "content_ltks": "第一章 总则 第三条 本 办法 所称 个人 贷款 是 指 贷款人 向 符合条件 的 自然人 发放 的 用于 个人消费 生产 经营 等 用途 的 本外币 贷款",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "9298704fbdc68cfb",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4487409923028386,
+            "tag_kwd": [],
+            "term_similarity": 0.2758320204326265,
+            "vector_similarity": 0.85219526
+          },
+          {
+            "content": "　　第一章 总则\n　　第八条 个人贷款的期限应符合国家相关规定。用于个人消费的贷款期限不得超过五年；用于生产经营的贷款期限一般不超过五年，对于贷款用途对应的经营现金流回收周期较长的，可适当延长贷款期限，最长不超过十年。\n",
+            "content_ltks": "第一章 总则 第八条 个人 贷款 的 期限 应 符合国家 相关 规定 用于 个人消费 的 贷款 期限 不得 超过 五年 用于 生产 经营 的 贷款 期限 一般 不 超过 五年 对于 贷款 用途 对应 的 经营 现金流 回收 周期 较 长 的 可 适当 延长 贷款 期限 最长 不 超过 十年",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "09f8b1316c196edb",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4219062748675888,
+            "tag_kwd": [],
+            "term_similarity": 0.2445435212394125,
+            "vector_similarity": 0.8357527
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 52,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 52
+      },
+      "clauseLabels": [
+        [
+          "第七条"
+        ],
+        [
+          "第三条"
+        ],
+        [
+          "第八条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.268
+    },
+    {
+      "id": "Q04",
+      "expected": "第八条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第一章 总则\n　　第八条 个人贷款的期限应符合国家相关规定。用于个人消费的贷款期限不得超过五年；用于生产经营的贷款期限一般不超过五年，对于贷款用途对应的经营现金流回收周期较长的，可适当延长贷款期限，最长不超过十年。\n",
+            "content_ltks": "第一章 总则 第八条 个人 贷款 的 期限 应 符合国家 相关 规定 用于 个人消费 的 贷款 期限 不得 超过 五年 用于 生产 经营 的 贷款 期限 一般 不 超过 五年 对于 贷款 用途 对应 的 经营 现金流 回收 周期 较 长 的 可 适当 延长 贷款 期限 最长 不 超过 十年",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "09f8b1316c196edb",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.5305590147127985,
+            "tag_kwd": [],
+            "term_similarity": 0.3702133195897121,
+            "vector_similarity": 0.90469897
+          },
+          {
+            "content": "　　第一章 总则\n　　第三条 本办法所称个人贷款，是指贷款人向符合条件的自然人发放的用于个人消费、生产经营等用途的本外币贷款。\n",
+            "content_ltks": "第一章 总则 第三条 本 办法 所称 个人 贷款 是 指 贷款人 向 符合条件 的 自然人 发放 的 用于 个人消费 生产 经营 等 用途 的 本外币 贷款",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "9298704fbdc68cfb",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4635439227497432,
+            "tag_kwd": [],
+            "term_similarity": 0.3077513182139189,
+            "vector_similarity": 0.82706
+          },
+          {
+            "content": "　　第三章 风险评价与审批\n　　第二十条 贷款人应建立和完善风险评价机制，落实风险评价的责任部门和岗位。贷款风险评价应全面分析借款人的信用状况和还款能力，关注其收入与支出情况、偿债情况等，用于生产经营的还应对借款人经营情况和风险情况进行分析，采取定量和定性分析方法，全面、动态、审慎地进行贷款风险评价。对于提供担保的贷款，贷款人应当以全面评价借款人的偿债能力为前提，不得直接通过担保方式确定贷款金额和期限等要素。\n　　贷款人应建立和完善借款人信用风险评价体系，关注借款人各类融资情况，建立健全个人客户统一授信管理体系，并根据业务发展情况和风险控制需要，适时予以调整。\n",
+            "content_ltks": "第三章 风险 评价 与 审批 第二十条 贷款人 应 建立 和 完善 风险 评价 机制 落实 风险 评价 的 责任 部门 和 岗位 贷款风险 评价 应 全面 分析 借款人 的 信用 状况 和 还款 能力 关注 其 收入 与 支出 情况 偿债 情况 等 用于 生产 经营 的 还 应对 借款人 经营 情况 和 风险 情况 进行 分析 采取 定量 和 定性 分析方法 全面 动态 审慎 地 进行 贷款风险 评价 对于 提供 担保 的 贷款 贷款人 应当 以 全面 评价 借款人 的 偿债 能力 为 前提 不得 直接 通过 担保 方式 确定 贷款 金额 和 期限 等 要素 贷款人 应 建立 和 完善 借款人 信用风险 评价 体系 关注 借款人 各类 融资 情况 建立健全 个人 客户 统一 授信 管理体系 并 根据 业务 发展 情况 和 风险 控制 需要 适时 予以 调整",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "d5ca67de4c179056",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.3826121020521377,
+            "tag_kwd": [],
+            "term_similarity": 0.21286678864591088,
+            "vector_similarity": 0.7786845
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 52,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 52
+      },
+      "clauseLabels": [
+        [
+          "第八条"
+        ],
+        [
+          "第三条"
+        ],
+        [
+          "第二十条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.222
+    },
+    {
+      "id": "Q05",
+      "expected": "第八条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第一章 总则\n　　第八条 个人贷款的期限应符合国家相关规定。用于个人消费的贷款期限不得超过五年；用于生产经营的贷款期限一般不超过五年，对于贷款用途对应的经营现金流回收周期较长的，可适当延长贷款期限，最长不超过十年。\n",
+            "content_ltks": "第一章 总则 第八条 个人 贷款 的 期限 应 符合国家 相关 规定 用于 个人消费 的 贷款 期限 不得 超过 五年 用于 生产 经营 的 贷款 期限 一般 不 超过 五年 对于 贷款 用途 对应 的 经营 现金流 回收 周期 较 长 的 可 适当 延长 贷款 期限 最长 不 超过 十年",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "09f8b1316c196edb",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.45534550657129413,
+            "tag_kwd": [],
+            "term_similarity": 0.2790047208161344,
+            "vector_similarity": 0.86680734
+          },
+          {
+            "content": "　　第三章 风险评价与审批\n　　第二十条 贷款人应建立和完善风险评价机制，落实风险评价的责任部门和岗位。贷款风险评价应全面分析借款人的信用状况和还款能力，关注其收入与支出情况、偿债情况等，用于生产经营的还应对借款人经营情况和风险情况进行分析，采取定量和定性分析方法，全面、动态、审慎地进行贷款风险评价。对于提供担保的贷款，贷款人应当以全面评价借款人的偿债能力为前提，不得直接通过担保方式确定贷款金额和期限等要素。\n　　贷款人应建立和完善借款人信用风险评价体系，关注借款人各类融资情况，建立健全个人客户统一授信管理体系，并根据业务发展情况和风险控制需要，适时予以调整。\n",
+            "content_ltks": "第三章 风险 评价 与 审批 第二十条 贷款人 应 建立 和 完善 风险 评价 机制 落实 风险 评价 的 责任 部门 和 岗位 贷款风险 评价 应 全面 分析 借款人 的 信用 状况 和 还款 能力 关注 其 收入 与 支出 情况 偿债 情况 等 用于 生产 经营 的 还 应对 借款人 经营 情况 和 风险 情况 进行 分析 采取 定量 和 定性 分析方法 全面 动态 审慎 地 进行 贷款风险 评价 对于 提供 担保 的 贷款 贷款人 应当 以 全面 评价 借款人 的 偿债 能力 为 前提 不得 直接 通过 担保 方式 确定 贷款 金额 和 期限 等 要素 贷款人 应 建立 和 完善 借款人 信用风险 评价 体系 关注 借款人 各类 融资 情况 建立健全 个人 客户 统一 授信 管理体系 并 根据 业务 发展 情况 和 风险 控制 需要 适时 予以 调整",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "d5ca67de4c179056",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.3374209147842238,
+            "tag_kwd": [],
+            "term_similarity": 0.1607529782631769,
+            "vector_similarity": 0.7496461
+          },
+          {
+            "content": "　　第五章 支付管理\n　　第三十四条 采用贷款人受托支付的，贷款人应要求借款人在使用贷款时提出支付申请，并授权贷款人按合同约定方式支付贷款资金。\n　　贷款人应在贷款资金发放前审核借款人相关交易资料和凭证是否符合合同约定条件，支付后做好有关细节的认定记录。\n　　对于贷款资金使用记录良好的借款人，在合同约定的生产经营贷款用途范围内，出现合理的紧急用款需求，贷款人经评估认为风险可控的，可适当简化借款人需提供的受托支付事前证明材料和流程，于放款完成后及时完成事后审核。\n",
+            "content_ltks": "第五章 支付 管理 第三十四条 采用 贷款人 受托 支付 的 贷款人 应 要求 借款人 在 使用 贷款 时 提出 支付 申请 并 授权 贷款人 按 合同 约定 方式 支付 贷款 资金 贷款人 应 在 贷款 资金 发放 前 审核 借款人 相关 交易 资料 和 凭证 是否 符合 合同 约定 条件 支付 后 做好 有关 细节 的 认定 记录 对于 贷款 资金 使用 记录 良好 的 借款人 在 合同 约定 的 生产 经营 贷款 用途 范围 内 出现 合理 的 紧急 用款 需求 贷款人 经 评估 认为 风险 可控 的 可 适当 简化 借款人 需 提供 的 受托 支付 事前 证明 材料 和 流程 于 放款 完成 后 及时 完成 事后 审核",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "14cbd285a7e30e0b",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.31872925117181894,
+            "tag_kwd": [],
+            "term_similarity": 0.11482587310259847,
+            "vector_similarity": 0.7945038
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 6,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 6
+      },
+      "clauseLabels": [
+        [
+          "第八条"
+        ],
+        [
+          "第二十条"
+        ],
+        [
+          "第三十四条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.097
+    },
+    {
+      "id": "Q06",
+      "expected": "第九条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第一章 总则\n　　第九条 个人贷款利率应当遵循利率市场化原则，由借贷双方在遵守国家有关规定的前提下协商确定。\n",
+            "content_ltks": "第一章 总则 第九条 个人 贷款 利率 应当 遵循 利率 市场化 原则 由 借贷 双方 在 遵守 国家有关 规定 的 前提 下 协商 确定",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "91285477c1d17d30",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.5170550958984328,
+            "tag_kwd": [],
+            "term_similarity": 0.3577967941406182,
+            "vector_similarity": 0.8886578
+          },
+          {
+            "content": "　　第五章 支付管理\n　　第三十六条 有下列情形之一的个人贷款，经贷款人同意可以采取借款人自主支付方式：\n　　（一）借款人无法事先确定具体交易对象且单次提款金额不超过三十万元人民币的；\n　　（二）借款人交易对象不具备条件有效使用非现金结算方式的；\n　　（三）贷款资金用于生产经营且单次提款金额不超过五十万元人民币的；\n　　（四）法律法规规定的其他情形的。\n",
+            "content_ltks": "第五章 支付 管理 第三十六条 有 下列 情形 之一 的 个人 贷款 经 贷款人 同意 可以 采取 借款人 自主 支付 方式 一 借款人 无法 事先 确定 具体 交易 对象 且 单 次 提款 金额 不 超过 三十万元 人民币 的 二 借款人 交易 对象 不 具备 条件 有效 使用 非 现金结算 方式 的 三 贷款 资金 用于 生产 经营 且 单 次 提款 金额 不 超过 五十万元 人民币 的 四 法律法规 规定 的 其他 情形 的",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "98048d877dd0fa34",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.39154307588471016,
+            "tag_kwd": [],
+            "term_similarity": 0.19628017983530022,
+            "vector_similarity": 0.8471565
+          },
+          {
+            "content": "　　第三章 风险评价与审批\n　　第二十条 贷款人应建立和完善风险评价机制，落实风险评价的责任部门和岗位。贷款风险评价应全面分析借款人的信用状况和还款能力，关注其收入与支出情况、偿债情况等，用于生产经营的还应对借款人经营情况和风险情况进行分析，采取定量和定性分析方法，全面、动态、审慎地进行贷款风险评价。对于提供担保的贷款，贷款人应当以全面评价借款人的偿债能力为前提，不得直接通过担保方式确定贷款金额和期限等要素。\n　　贷款人应建立和完善借款人信用风险评价体系，关注借款人各类融资情况，建立健全个人客户统一授信管理体系，并根据业务发展情况和风险控制需要，适时予以调整。\n",
+            "content_ltks": "第三章 风险 评价 与 审批 第二十条 贷款人 应 建立 和 完善 风险 评价 机制 落实 风险 评价 的 责任 部门 和 岗位 贷款风险 评价 应 全面 分析 借款人 的 信用 状况 和 还款 能力 关注 其 收入 与 支出 情况 偿债 情况 等 用于 生产 经营 的 还 应对 借款人 经营 情况 和 风险 情况 进行 分析 采取 定量 和 定性 分析方法 全面 动态 审慎 地 进行 贷款风险 评价 对于 提供 担保 的 贷款 贷款人 应当 以 全面 评价 借款人 的 偿债 能力 为 前提 不得 直接 通过 担保 方式 确定 贷款 金额 和 期限 等 要素 贷款人 应 建立 和 完善 借款人 信用风险 评价 体系 关注 借款人 各类 融资 情况 建立健全 个人 客户 统一 授信 管理体系 并 根据 业务 发展 情况 和 风险 控制 需要 适时 予以 调整",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "d5ca67de4c179056",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.38953024688471016,
+            "tag_kwd": [],
+            "term_similarity": 0.19628017983530022,
+            "vector_similarity": 0.84044707
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 52,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 52
+      },
+      "clauseLabels": [
+        [
+          "第九条"
+        ],
+        [
+          "第三十六条"
+        ],
+        [
+          "第二十条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.21
+    },
+    {
+      "id": "Q07",
+      "expected": "第十条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第一章 总则\n　　第十条 贷款人应建立借款人合理的收入偿债比例控制机制，结合借款人收入、负债、支出、贷款用途、担保情况等因素，合理确定贷款金额和期限，控制借款人每期还款额不超过其还款能力。\n",
+            "content_ltks": "第一章 总则 第十条 贷款人 应 建立 借款人 合理 的 收入 偿债 比例控制 机制 结合 借款人 收入 负债 支出 贷款 用途 担保 情况 等 因素 合理 确定 贷款 金额 和 期限 控制 借款人 每期 还款额 不 超过 其 还款 能力",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "bf110f26bd85fad7",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4546744683271756,
+            "tag_kwd": [],
+            "term_similarity": 0.2599710433245366,
+            "vector_similarity": 0.90898246
+          },
+          {
+            "content": "　　第三章 风险评价与审批\n　　第二十条 贷款人应建立和完善风险评价机制，落实风险评价的责任部门和岗位。贷款风险评价应全面分析借款人的信用状况和还款能力，关注其收入与支出情况、偿债情况等，用于生产经营的还应对借款人经营情况和风险情况进行分析，采取定量和定性分析方法，全面、动态、审慎地进行贷款风险评价。对于提供担保的贷款，贷款人应当以全面评价借款人的偿债能力为前提，不得直接通过担保方式确定贷款金额和期限等要素。\n　　贷款人应建立和完善借款人信用风险评价体系，关注借款人各类融资情况，建立健全个人客户统一授信管理体系，并根据业务发展情况和风险控制需要，适时予以调整。\n",
+            "content_ltks": "第三章 风险 评价 与 审批 第二十条 贷款人 应 建立 和 完善 风险 评价 机制 落实 风险 评价 的 责任 部门 和 岗位 贷款风险 评价 应 全面 分析 借款人 的 信用 状况 和 还款 能力 关注 其 收入 与 支出 情况 偿债 情况 等 用于 生产 经营 的 还 应对 借款人 经营 情况 和 风险 情况 进行 分析 采取 定量 和 定性 分析方法 全面 动态 审慎 地 进行 贷款风险 评价 对于 提供 担保 的 贷款 贷款人 应当 以 全面 评价 借款人 的 偿债 能力 为 前提 不得 直接 通过 担保 方式 确定 贷款 金额 和 期限 等 要素 贷款人 应 建立 和 完善 借款人 信用风险 评价 体系 关注 借款人 各类 融资 情况 建立健全 个人 客户 统一 授信 管理体系 并 根据 业务 发展 情况 和 风险 控制 需要 适时 予以 调整",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "d5ca67de4c179056",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4280800953271756,
+            "tag_kwd": [],
+            "term_similarity": 0.2599710433245366,
+            "vector_similarity": 0.82033455
+          },
+          {
+            "content": "　　第六章 贷后管理\n　　第四十条 贷款人应区分个人贷款的品种、对象、金额等，确定贷款检查的相应方式、内容和频度。对于简化或不再进行现场实地调查的业务，应当按照适当比例实施贷后实地检查。贷款人内部审计等部门应对贷款检查职能部门的工作质量进行抽查和评价。\n",
+            "content_ltks": "第六章 贷 后 管理 第四十条 贷款人 应 区分 个人 贷款 的 品种 对象 金额 等 确定 贷款 检查 的 相应 方式 内容 和 频度 对于 简化 或 不再 进行 现场 实地调查 的 业务 应当 按照 适当 比例 实施 贷 后 实地 检查 贷款人 内部 审计 等 部门 应对 贷款 检查 职能部门 的 工作 质量 进行 抽查 和 评价",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "f4fb928232f58b6c",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.3811677523158559,
+            "tag_kwd": [],
+            "term_similarity": 0.19750584616550843,
+            "vector_similarity": 0.8097122
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 15,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 15
+      },
+      "clauseLabels": [
+        [
+          "第十条"
+        ],
+        [
+          "第二十条"
+        ],
+        [
+          "第四十条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.093
+    },
+    {
+      "id": "Q08",
+      "expected": "第十二条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第二章 受理与调查\n　　第十二条 个人贷款申请应具备以下条件：\n　　（一）借款人为具有完全民事行为能力的中华人民共和国公民或符合国家有关规定的境外自然人；\n　　（二）借款用途明确合法；\n　　（三）贷款申请数额、期限和币种合理；\n　　（四）借款人具备还款意愿和还款能力；\n　　（五）借款人信用状况良好；\n　　（六）贷款人要求的其他条件。\n",
+            "content_ltks": "第二章 受理 与 调查 第十二条 个人 贷款 申请 应 具备 以下 条件 一 借款人 为 具有 完全 民事行为 能力 的 中华人民共和国 公民 或 符合 国家有关 规定 的 境外 自然人 二 借款 用途 明确 合法 三 贷款 申请 数额 期限 和 币种 合理 四 借款人 具备 还款 意愿 和 还款 能力 五 借款人 信用 状况良好 六 贷款人 要求 的 其他 条件",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "595354e44c5bbcb9",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4355529783655082,
+            "tag_kwd": [],
+            "term_similarity": 0.23742965195072596,
+            "vector_similarity": 0.89784074
+          },
+          {
+            "content": "　　第二章 受理与调查\n　　第十三条 贷款人应要求借款人以书面形式提出个人贷款申请，并要求借款人提供能够证明其符合贷款条件的相关资料。\n",
+            "content_ltks": "第二章 受理 与 调查 第十三条 贷款人 应 要求 借款人 以 书面形式 提出 个人 贷款 申请 并 要求 借款 人 提供 能够 证明 其 符合 贷款 条件 的 相关 资料",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "7a59115066ecc8df",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4292056563655082,
+            "tag_kwd": [],
+            "term_similarity": 0.23742965195072596,
+            "vector_similarity": 0.876683
+          },
+          {
+            "content": "　　第四章 协议与发放\n　　第三十条 贷款人应加强对贷款的发放管理，遵循审贷与放贷分离的原则，设立独立的放款管理部门或岗位，负责落实放款条件、发放满足约定条件的个人贷款。\n",
+            "content_ltks": "第四章 协议 与 发放 第三十条 贷款人 应 加强 对 贷款 的 发放 管理 遵循 审 贷 与 放贷 分离 的 原则 设立 独立 的 放款 管理部 门 或 岗位 负责 落实 放款 条件 发放 满足 约定 条件 的 个人 贷款",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "8cbe20458b41160f",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4206855120084474,
+            "tag_kwd": [],
+            "term_similarity": 0.23677934572635329,
+            "vector_similarity": 0.8497999
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 52,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 52
+      },
+      "clauseLabels": [
+        [
+          "第十二条"
+        ],
+        [
+          "第十三条"
+        ],
+        [
+          "第三十条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.197
+    },
+    {
+      "id": "Q09",
+      "expected": "第十三条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第二章 受理与调查\n　　第十三条 贷款人应要求借款人以书面形式提出个人贷款申请，并要求借款人提供能够证明其符合贷款条件的相关资料。\n",
+            "content_ltks": "第二章 受理 与 调查 第十三条 贷款人 应 要求 借款人 以 书面形式 提出 个人 贷款 申请 并 要求 借款 人 提供 能够 证明 其 符合 贷款 条件 的 相关 资料",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "7a59115066ecc8df",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4540602423975835,
+            "tag_kwd": [],
+            "term_similarity": 0.263771589139405,
+            "vector_similarity": 0.8980671
+          },
+          {
+            "content": "　　第二章 受理与调查\n　　第十二条 个人贷款申请应具备以下条件：\n　　（一）借款人为具有完全民事行为能力的中华人民共和国公民或符合国家有关规定的境外自然人；\n　　（二）借款用途明确合法；\n　　（三）贷款申请数额、期限和币种合理；\n　　（四）借款人具备还款意愿和还款能力；\n　　（五）借款人信用状况良好；\n　　（六）贷款人要求的其他条件。\n",
+            "content_ltks": "第二章 受理 与 调查 第十二条 个人 贷款 申请 应 具备 以下 条件 一 借款人 为 具有 完全 民事行为 能力 的 中华人民共和国 公民 或 符合 国家有关 规定 的 境外 自然人 二 借款 用途 明确 合法 三 贷款 申请 数额 期限 和 币种 合理 四 借款人 具备 还款 意愿 和 还款 能力 五 借款人 信用 状况良好 六 贷款人 要求 的 其他 条件",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "595354e44c5bbcb9",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.42090352420766086,
+            "tag_kwd": [],
+            "term_similarity": 0.23261873458237262,
+            "vector_similarity": 0.8602347
+          },
+          {
+            "content": "　　第五章 支付管理\n　　第三十二条 贷款人应按照借款合同约定，通过贷款人受托支付或借款人自主支付的方式对贷款资金的支付进行管理与控制。贷款人应健全贷款资金支付管控体系，加强金融科技应用，有效监督贷款资金按约定用途使用。\n　　贷款人受托支付是指贷款人根据借款人的提款申请和支付委托，将贷款资金支付给符合合同约定用途的借款人交易对象。\n　　借款人自主支付是指贷款人根据借款人的提款申请将贷款资金直接发放至借款人账户，并由借款人自主支付给符合合同约定用途的借款人交易对象。\n",
+            "content_ltks": "第五章 支付 管理 第三十二条 贷款人 应 按照 借款 合同 约定 通过 贷款人 受托 支付 或 借款人 自主 支付 的 方式 对 贷款 资金 的 支付 进行 管理 与 控制 贷款人 应 健全 贷款 资金 支付 管控 体系 加强 金融 科技 应用 有效 监督 贷款 资金 按 约定 用途 使用 贷款人 受托 支付 是 指 贷款人 根据 借款人 的 提款 申请 和 支付 委托 将 贷款 资金 支付 给 符合 合同 约定 用途 的 借款人 交易 对象 借款人 自主 支付 是 指 贷款人 根据 借款人 的 提款 申请 将 贷款 资金 直接 发放 至 借款人 账户 并 由 借款人 自主 支付 给 符合 合同 约定 用途 的 借款人 交易 对象",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "c4f4853b05d078c2",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.41624071420766084,
+            "tag_kwd": [],
+            "term_similarity": 0.23261873458237262,
+            "vector_similarity": 0.844692
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 30,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 30
+      },
+      "clauseLabels": [
+        [
+          "第十三条"
+        ],
+        [
+          "第十二条"
+        ],
+        [
+          "第三十二条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.172
+    },
+    {
+      "id": "Q10",
+      "expected": "第十四条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第二章 受理与调查\n　　第十四条 贷款人受理借款人贷款申请后，应履行尽职调查职责，对个人贷款申请内容和相关情况的真实性、准确性、完整性进行调查核实，形成调查评价意见。\n",
+            "content_ltks": "第二章 受理 与 调查 第十四条 贷款人 受理 借款人 贷款 申请 后 应 履行 尽职 调查 职责 对 个人 贷款 申请 内容 和 相关 情况 的 真实性 准确性 完整性 进行 调查核实 形成 调查 评价 意见",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "df4dc22932302673",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.5248825122201752,
+            "tag_kwd": [],
+            "term_similarity": 0.3576523817431073,
+            "vector_similarity": 0.91508615
+          },
+          {
+            "content": "　　第二章 受理与调查\n　　第十三条 贷款人应要求借款人以书面形式提出个人贷款申请，并要求借款人提供能够证明其符合贷款条件的相关资料。\n",
+            "content_ltks": "第二章 受理 与 调查 第十三条 贷款人 应 要求 借款人 以 书面形式 提出 个人 贷款 申请 并 要求 借款 人 提供 能够 证明 其 符合 贷款 条件 的 相关 资料",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "7a59115066ecc8df",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4006446929107309,
+            "tag_kwd": [],
+            "term_similarity": 0.19764991701532983,
+            "vector_similarity": 0.87429917
+          },
+          {
+            "content": "　　第二章 受理与调查\n　　第十二条 个人贷款申请应具备以下条件：\n　　（一）借款人为具有完全民事行为能力的中华人民共和国公民或符合国家有关规定的境外自然人；\n　　（二）借款用途明确合法；\n　　（三）贷款申请数额、期限和币种合理；\n　　（四）借款人具备还款意愿和还款能力；\n　　（五）借款人信用状况良好；\n　　（六）贷款人要求的其他条件。\n",
+            "content_ltks": "第二章 受理 与 调查 第十二条 个人 贷款 申请 应 具备 以下 条件 一 借款人 为 具有 完全 民事行为 能力 的 中华人民共和国 公民 或 符合 国家有关 规定 的 境外 自然人 二 借款 用途 明确 合法 三 贷款 申请 数额 期限 和 币种 合理 四 借款人 具备 还款 意愿 和 还款 能力 五 借款人 信用 状况良好 六 贷款人 要求 的 其他 条件",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "595354e44c5bbcb9",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.3967582439107309,
+            "tag_kwd": [],
+            "term_similarity": 0.19764991701532983,
+            "vector_similarity": 0.86134434
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 17,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 17
+      },
+      "clauseLabels": [
+        [
+          "第十四条"
+        ],
+        [
+          "第十三条"
+        ],
+        [
+          "第十二条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.104
+    },
+    {
+      "id": "Q11",
+      "expected": "第十五条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第二章 受理与调查\n　　第十五条 贷款调查包括但不限于以下内容：\n　　（一）借款人基本情况；\n　　（二）借款人收入情况；\n　　（三）借款用途，用于生产经营的还应调查借款人经营情况；\n　　（四）借款人还款来源、还款能力及还款方式；\n　　（五）保证人担保意愿、担保能力或抵（质）押物权属、价值及变现能力。\n",
+            "content_ltks": "第二章 受理 与 调查 第十五条 贷款 调查 包括 但 不 限于 以下内容 一 借款人 基本 情况 二 借款人 收入 情况 三 借款 用途 用于 生产 经营 的 还 应 调查 借款人 经营 情况 四 借款人 还款 来源 还款 能力 及 还款 方式 五 保证 人 担保 意愿 担保 能力 或 抵 质 押 物权 属 价值 及 变现 能力",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "66694c0601755dc6",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4997910440018307,
+            "tag_kwd": [],
+            "term_similarity": 0.33003412143118677,
+            "vector_similarity": 0.89589053
+          },
+          {
+            "content": "　　第五章 支付管理\n　　第三十七条 采用借款人自主支付的，贷款人应与借款人在借款合同中事先约定，要求借款人定期报告或告知贷款人贷款资金支付情况。\n　　贷款人应当通过账户分析、凭证查验或现场调查等方式，核查贷款支付是否符合约定用途，以及是否存在以化整为零方式规避受托支付的情形。\n",
+            "content_ltks": "第五章 支付 管理 第三十七条 采用 借款人 自主 支付 的 贷款人 应 与 借款人 在 借款 合同 中 事先 约定 要求 借款人 定期 报告 或 告知 贷款人 贷款 资金 支付 情况 贷款人 应当 通过 账户 分析 凭证 查验 或 现场 调查 等 方式 核查 贷款 支付 是否 符合 约定 用途 以及 是否 存在 以 化整为零 方式 规避 受托 支付 的 情形",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "36a2d6f0df1b76ac",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4654815521819754,
+            "tag_kwd": [],
+            "term_similarity": 0.2983334031171076,
+            "vector_similarity": 0.8554939
+          },
+          {
+            "content": "　　第二章 受理与调查\n　　第十七条 贷款人应建立健全贷款调查机制，明确对各类事项调查的途径和方式方法，确保贷款调查的真实性和有效性。\n　　贷款人将贷款调查中的部分特定事项委托第三方代为办理的，不得损害借款人合法权益，并确保相关风险可控。贷款人应明确第三方的资质条件，建立名单制管理制度，并定期对名单进行审查更新。\n　　贷款人不得将贷款调查中涉及借款人真实意思表示、收入水平、债务情况、自有资金来源及外部评估机构准入等风险控制的核心事项委托第三方完成。\n",
+            "content_ltks": "第二章 受理 与 调查 第十七条 贷款人 应 建立健全 贷款 调查 机制 明确 对 各类 事项 调查 的 途径 和 方式 方法 确保 贷款 调查 的 真实性 和 有效性 贷款人 将 贷款 调查 中的 部分 特定 事项 委托 第三方 代为 办理 的 不得 损害 借款人 合法权益 并 确保 相关 风险 可控 贷款人 应 明确 第三方 的 资质 条件 建立 名单 制 管理制度 并 定期 对 名单 进行 审查 更新 贷款人 不得 将 贷款 调查 中 涉及 借款人 真实 意思 表示 收入水平 债务 情况 自有 资金来源 及 外部 评估 机构 准入 等 风险 控制 的 核心 事项 委托 第三方 完成",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "db7c7087cd8657ed",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4305422157823057,
+            "tag_kwd": [],
+            "term_similarity": 0.23123844826043669,
+            "vector_similarity": 0.89558434
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 34,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 34
+      },
+      "clauseLabels": [
+        [
+          "第十五条"
+        ],
+        [
+          "第三十七条"
+        ],
+        [
+          "第十七条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.123
+    },
+    {
+      "id": "Q12",
+      "expected": "第十六条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第六章 贷后管理\n　　第四十条 贷款人应区分个人贷款的品种、对象、金额等，确定贷款检查的相应方式、内容和频度。对于简化或不再进行现场实地调查的业务，应当按照适当比例实施贷后实地检查。贷款人内部审计等部门应对贷款检查职能部门的工作质量进行抽查和评价。\n",
+            "content_ltks": "第六章 贷 后 管理 第四十条 贷款人 应 区分 个人 贷款 的 品种 对象 金额 等 确定 贷款 检查 的 相应 方式 内容 和 频度 对于 简化 或 不再 进行 现场 实地调查 的 业务 应当 按照 适当 比例 实施 贷 后 实地 检查 贷款人 内部 审计 等 部门 应对 贷款 检查 职能部门 的 工作 质量 进行 抽查 和 评价",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "f4fb928232f58b6c",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.5496627657429237,
+            "tag_kwd": [],
+            "term_similarity": 0.4460562082041768,
+            "vector_similarity": 0.7914114
+          },
+          {
+            "content": "　　第二章 受理与调查\n　　第十六条 贷款调查应以现场实地调查与非现场间接调查相结合的形式开展，采取现场核实、电话查问、信息咨询以及其他数字化电子调查等途径和方法。\n　　对于金额不超过二十万元人民币的贷款，贷款人通过非现场间接调查手段可有效核实相关信息真实性，并可据此对借款人作出风险评价的，可简化或不再进行现场实地调查（不含用于个人住房用途的贷款）。\n",
+            "content_ltks": "第二章 受理 与 调查 第十六条 贷款 调查 应以 现场 实地调查 与非 现场 间接 调查 相结合 的 形式 开展 采取 现场 核实 电话 查问 信息 咨询 以及 其他 数字化 电子 调查 等 途径 和 方法 对于 金额 不 超过 二十万元 人民币 的 贷款 贷款人 通过 非 现场 间接 调查 手段 可 有效 核实 相关 信息 真实性 并 可 据此 对 借款人 作出 风险 评价 的 可简化 或 不再 进行 现场 实地调查 不含 用于 个人住房 用途 的 贷款",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "b6025c15c49ca1b7",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.5155185333997209,
+            "tag_kwd": [],
+            "term_similarity": 0.38023607628531547,
+            "vector_similarity": 0.8311776
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 2,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 2
+      },
+      "clauseLabels": [
+        [
+          "第四十条"
+        ],
+        [
+          "第十六条"
+        ]
+      ],
+      "top1Correct": false,
+      "top3Correct": true,
+      "elapsedSeconds": 0.079
+    },
+    {
+      "id": "Q13",
+      "expected": "第十七条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第七章 法律责任\n　　第四十六条 贷款人有下列情形之一的，国家金融监督管理总局及其派出机构可根据《中华人民共和国银行业监督管理法》对其采取相关监管措施或进行处罚：\n　　（一）发放不符合条件的个人贷款的；\n　　（二）签订的借款合同不符合本办法规定的；\n　　（三）违反本办法第七条规定的；\n　　（四）将贷款调查的风险控制核心事项委托第三方完成的；\n　　（五）超越或变相超越贷款权限审批贷款的；\n　　（六）授意借款人虚构情节获得贷款的；\n　　（七）对借款人严重违约行为未采取有效措施的；\n　　（八）严重违反本办法规定的审慎经营规则的其他情形的。\n",
+            "content_ltks": "第七章 法律责任 第四十六 条 贷款人 有 下列 情形 之一 的 国家 金融 监督管理 总局 及其 派出机构 可 根据 中华人民共和国 银行业 监督管理 法 对 其 采取 相关 监管 措施 或 进行 处罚 一 发放 不 符合条件 的 个人 贷款 的 二 签订 的 借款 合同 不 符合 本 办法 规定 的 三 违反 本 办法 第七条 规定 的 四 将 贷款 调查 的 风险 控制 核心 事项 委托 第三方 完成 的 五 超越 或 变相 超越 贷款 权限 审批 贷款 的 六 授意 借款人 虚构情节 获得 贷款 的 七 对 借款人 严重 违约 行为 未 采取有效 措施 的 八 严重 违反 本 办法 规定 的 审慎 经营 规则 的 其他 情形 的",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "0c5ff297e32762ea",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.5321934595397617,
+            "tag_kwd": [],
+            "term_similarity": 0.39930245934251674,
+            "vector_similarity": 0.84227246
+          },
+          {
+            "content": "　　第二章 受理与调查\n　　第十七条 贷款人应建立健全贷款调查机制，明确对各类事项调查的途径和方式方法，确保贷款调查的真实性和有效性。\n　　贷款人将贷款调查中的部分特定事项委托第三方代为办理的，不得损害借款人合法权益，并确保相关风险可控。贷款人应明确第三方的资质条件，建立名单制管理制度，并定期对名单进行审查更新。\n　　贷款人不得将贷款调查中涉及借款人真实意思表示、收入水平、债务情况、自有资金来源及外部评估机构准入等风险控制的核心事项委托第三方完成。\n",
+            "content_ltks": "第二章 受理 与 调查 第十七条 贷款人 应 建立健全 贷款 调查 机制 明确 对 各类 事项 调查 的 途径 和 方式 方法 确保 贷款 调查 的 真实性 和 有效性 贷款人 将 贷款 调查 中的 部分 特定 事项 委托 第三方 代为 办理 的 不得 损害 借款人 合法权益 并 确保 相关 风险 可控 贷款人 应 明确 第三方 的 资质 条件 建立 名单 制 管理制度 并 定期 对 名单 进行 审查 更新 贷款人 不得 将 贷款 调查 中 涉及 借款人 真实 意思 表示 收入水平 债务 情况 自有 资金来源 及 外部 评估 机构 准入 等 风险 控制 的 核心 事项 委托 第三方 完成",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "db7c7087cd8657ed",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.5010502020265653,
+            "tag_kwd": [],
+            "term_similarity": 0.3372972171808074,
+            "vector_similarity": 0.8831405
+          },
+          {
+            "content": "　　第五章 支付管理\n　　第三十二条 贷款人应按照借款合同约定，通过贷款人受托支付或借款人自主支付的方式对贷款资金的支付进行管理与控制。贷款人应健全贷款资金支付管控体系，加强金融科技应用，有效监督贷款资金按约定用途使用。\n　　贷款人受托支付是指贷款人根据借款人的提款申请和支付委托，将贷款资金支付给符合合同约定用途的借款人交易对象。\n　　借款人自主支付是指贷款人根据借款人的提款申请将贷款资金直接发放至借款人账户，并由借款人自主支付给符合合同约定用途的借款人交易对象。\n",
+            "content_ltks": "第五章 支付 管理 第三十二条 贷款人 应 按照 借款 合同 约定 通过 贷款人 受托 支付 或 借款人 自主 支付 的 方式 对 贷款 资金 的 支付 进行 管理 与 控制 贷款人 应 健全 贷款 资金 支付 管控 体系 加强 金融 科技 应用 有效 监督 贷款 资金 按 约定 用途 使用 贷款人 受托 支付 是 指 贷款人 根据 借款人 的 提款 申请 和 支付 委托 将 贷款 资金 支付 给 符合 合同 约定 用途 的 借款人 交易 对象 借款人 自主 支付 是 指 贷款人 根据 借款人 的 提款 申请 将 贷款 资金 直接 发放 至 借款人 账户 并 由 借款人 自主 支付 给 符合 合同 约定 用途 的 借款人 交易 对象",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "c4f4853b05d078c2",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.3269106706590863,
+            "tag_kwd": [],
+            "term_similarity": 0.12285777237012328,
+            "vector_similarity": 0.8030341
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 26,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 26
+      },
+      "clauseLabels": [
+        [
+          "第四十六条",
+          "第七条"
+        ],
+        [
+          "第十七条"
+        ],
+        [
+          "第三十二条"
+        ]
+      ],
+      "top1Correct": false,
+      "top3Correct": true,
+      "elapsedSeconds": 0.114
+    },
+    {
+      "id": "Q14",
+      "expected": "第十八条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第二章 受理与调查\n　　第十八条 贷款人应建立并执行贷款面谈制度。\n　　贷款人可根据业务需要通过视频形式与借款人面谈（不含用于个人住房用途的贷款）。视频面谈应当在贷款人自有平台上进行，记录并保存影像。贷款人应当采取有效措施确定并核实借款人真实身份及所涉及信息真实性。\n",
+            "content_ltks": "第二章 受理 与 调查 第十八条 贷款人 应 建立 并 执行 贷款 面谈 制度 贷款人 可 根据 业务 需要 通过 视频 形式 与 借款人 面谈 不含 用于 个人住房 用途 的 贷款 视频 面谈 应当 在 贷款人 自有 平台 上 进行 记录 并 保存 影像 贷款人 应当 采取有效 措施 确定 并 核实 借款人 真实 身份 及 所 涉及 信息 真实性",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "1fc7fac961ffca19",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.5151144361397069,
+            "tag_kwd": [],
+            "term_similarity": 0.35502673734243845,
+            "vector_similarity": 0.8886524
+          },
+          {
+            "content": "　　第四章 协议与发放\n　　第二十六条 贷款人应与借款人签订书面借款合同，需担保的应同时签订担保合同或条款。贷款人应要求借款人当面签订借款合同及其他相关文件。对于金额不超过二十万元人民币的贷款，可通过电子银行渠道签订有关合同和文件（不含用于个人住房用途的贷款）。\n　　当面签约的，贷款人应当对签约过程进行录音录像并妥善保存相关影像。\n",
+            "content_ltks": "第四章 协议 与 发放 第二十六条 贷款人 应 与 借款人 签订 书面 借款 合同 需 担保 的 应 同时 签订 担保 合同 或 条款 贷款人 应 要求 借款人 当面 签订 借款 合同 及其 他 相关 文件 对于 金额 不 超过 二十万元 人民币 的 贷款 可 通过 电子 银行 渠道 签订 有关 合同 和 文件 不含 用于 个人住房 用途 的 贷款 当面 签约 的 贷款人 应当 对 签约 过程 进行 录音 录像 并 妥善 保存 相关 影像",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "99ed6bf8a017266e",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.3482983035523939,
+            "tag_kwd": [],
+            "term_similarity": 0.15283004793199126,
+            "vector_similarity": 0.8043909
+          },
+          {
+            "content": "　　第六章 贷后管理\n　　第四十条 贷款人应区分个人贷款的品种、对象、金额等，确定贷款检查的相应方式、内容和频度。对于简化或不再进行现场实地调查的业务，应当按照适当比例实施贷后实地检查。贷款人内部审计等部门应对贷款检查职能部门的工作质量进行抽查和评价。\n",
+            "content_ltks": "第六章 贷 后 管理 第四十条 贷款人 应 区分 个人 贷款 的 品种 对象 金额 等 确定 贷款 检查 的 相应 方式 内容 和 频度 对于 简化 或 不再 进行 现场 实地调查 的 业务 应当 按照 适当 比例 实施 贷 后 实地 检查 贷款人 内部 审计 等 部门 应对 贷款 检查 职能部门 的 工作 质量 进行 抽查 和 评价",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "f4fb928232f58b6c",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.3469478235523939,
+            "tag_kwd": [],
+            "term_similarity": 0.15283004793199126,
+            "vector_similarity": 0.7998893
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 37,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 37
+      },
+      "clauseLabels": [
+        [
+          "第十八条"
+        ],
+        [
+          "第二十六条"
+        ],
+        [
+          "第四十条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.103
+    },
+    {
+      "id": "Q15",
+      "expected": "第十九条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第三章 风险评价与审批\n　　第十九条 贷款审查应对贷款调查内容的合法性、合理性、准确性进行全面审查，重点关注调查人的尽职情况和借款人的偿还能力、信用状况、担保情况、抵（质）押比率、风险程度等。\n",
+            "content_ltks": "第三章 风险 评价 与 审批 第十九条 贷款 审查 应对 贷款 调查 内容 的 合法性 合理性 准确性 进行 全面 审查 重点 关注 调查 人 的 尽职 情况 和 借款人 的 偿还 能力 信用 状况 担保 情况 抵 质 押 比率 风险 程度 等",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "7e42dc8ffebf1b8b",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4624706536678278,
+            "tag_kwd": [],
+            "term_similarity": 0.2893746195254683,
+            "vector_similarity": 0.8663614
+          },
+          {
+            "content": "　　第三章 风险评价与审批\n　　第二十条 贷款人应建立和完善风险评价机制，落实风险评价的责任部门和岗位。贷款风险评价应全面分析借款人的信用状况和还款能力，关注其收入与支出情况、偿债情况等，用于生产经营的还应对借款人经营情况和风险情况进行分析，采取定量和定性分析方法，全面、动态、审慎地进行贷款风险评价。对于提供担保的贷款，贷款人应当以全面评价借款人的偿债能力为前提，不得直接通过担保方式确定贷款金额和期限等要素。\n　　贷款人应建立和完善借款人信用风险评价体系，关注借款人各类融资情况，建立健全个人客户统一授信管理体系，并根据业务发展情况和风险控制需要，适时予以调整。\n",
+            "content_ltks": "第三章 风险 评价 与 审批 第二十条 贷款人 应 建立 和 完善 风险 评价 机制 落实 风险 评价 的 责任 部门 和 岗位 贷款风险 评价 应 全面 分析 借款人 的 信用 状况 和 还款 能力 关注 其 收入 与 支出 情况 偿债 情况 等 用于 生产 经营 的 还 应对 借款人 经营 情况 和 风险 情况 进行 分析 采取 定量 和 定性 分析方法 全面 动态 审慎 地 进行 贷款风险 评价 对于 提供 担保 的 贷款 贷款人 应当 以 全面 评价 借款人 的 偿债 能力 为 前提 不得 直接 通过 担保 方式 确定 贷款 金额 和 期限 等 要素 贷款人 应 建立 和 完善 借款人 信用风险 评价 体系 关注 借款人 各类 融资 情况 建立健全 个人 客户 统一 授信 管理体系 并 根据 业务 发展 情况 和 风险 控制 需要 适时 予以 调整",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "d5ca67de4c179056",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.45522018540278886,
+            "tag_kwd": [],
+            "term_similarity": 0.29209782343255547,
+            "vector_similarity": 0.83583903
+          },
+          {
+            "content": "　　第二章 受理与调查\n　　第十七条 贷款人应建立健全贷款调查机制，明确对各类事项调查的途径和方式方法，确保贷款调查的真实性和有效性。\n　　贷款人将贷款调查中的部分特定事项委托第三方代为办理的，不得损害借款人合法权益，并确保相关风险可控。贷款人应明确第三方的资质条件，建立名单制管理制度，并定期对名单进行审查更新。\n　　贷款人不得将贷款调查中涉及借款人真实意思表示、收入水平、债务情况、自有资金来源及外部评估机构准入等风险控制的核心事项委托第三方完成。\n",
+            "content_ltks": "第二章 受理 与 调查 第十七条 贷款人 应 建立健全 贷款 调查 机制 明确 对 各类 事项 调查 的 途径 和 方式 方法 确保 贷款 调查 的 真实性 和 有效性 贷款人 将 贷款 调查 中的 部分 特定 事项 委托 第三方 代为 办理 的 不得 损害 借款人 合法权益 并 确保 相关 风险 可控 贷款人 应 明确 第三方 的 资质 条件 建立 名单 制 管理制度 并 定期 对 名单 进行 审查 更新 贷款人 不得 将 贷款 调查 中 涉及 借款人 真实 意思 表示 收入水平 债务 情况 自有 资金来源 及 外部 评估 机构 准入 等 风险 控制 的 核心 事项 委托 第三方 完成",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "db7c7087cd8657ed",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.3792554467381105,
+            "tag_kwd": [],
+            "term_similarity": 0.18299036676872932,
+            "vector_similarity": 0.8372073
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 20,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 20
+      },
+      "clauseLabels": [
+        [
+          "第十九条"
+        ],
+        [
+          "第二十条"
+        ],
+        [
+          "第十七条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.093
+    },
+    {
+      "id": "Q16",
+      "expected": "第二十条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第三章 风险评价与审批\n　　第二十条 贷款人应建立和完善风险评价机制，落实风险评价的责任部门和岗位。贷款风险评价应全面分析借款人的信用状况和还款能力，关注其收入与支出情况、偿债情况等，用于生产经营的还应对借款人经营情况和风险情况进行分析，采取定量和定性分析方法，全面、动态、审慎地进行贷款风险评价。对于提供担保的贷款，贷款人应当以全面评价借款人的偿债能力为前提，不得直接通过担保方式确定贷款金额和期限等要素。\n　　贷款人应建立和完善借款人信用风险评价体系，关注借款人各类融资情况，建立健全个人客户统一授信管理体系，并根据业务发展情况和风险控制需要，适时予以调整。\n",
+            "content_ltks": "第三章 风险 评价 与 审批 第二十条 贷款人 应 建立 和 完善 风险 评价 机制 落实 风险 评价 的 责任 部门 和 岗位 贷款风险 评价 应 全面 分析 借款人 的 信用 状况 和 还款 能力 关注 其 收入 与 支出 情况 偿债 情况 等 用于 生产 经营 的 还 应对 借款人 经营 情况 和 风险 情况 进行 分析 采取 定量 和 定性 分析方法 全面 动态 审慎 地 进行 贷款风险 评价 对于 提供 担保 的 贷款 贷款人 应当 以 全面 评价 借款人 的 偿债 能力 为 前提 不得 直接 通过 担保 方式 确定 贷款 金额 和 期限 等 要素 贷款人 应 建立 和 完善 借款人 信用风险 评价 体系 关注 借款人 各类 融资 情况 建立健全 个人 客户 统一 授信 管理体系 并 根据 业务 发展 情况 和 风险 控制 需要 适时 予以 调整",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "d5ca67de4c179056",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4761885323501596,
+            "tag_kwd": [],
+            "term_similarity": 0.32497401764308514,
+            "vector_similarity": 0.8290224
+          },
+          {
+            "content": "　　第一章 总则\n　　第十条 贷款人应建立借款人合理的收入偿债比例控制机制，结合借款人收入、负债、支出、贷款用途、担保情况等因素，合理确定贷款金额和期限，控制借款人每期还款额不超过其还款能力。\n",
+            "content_ltks": "第一章 总则 第十条 贷款人 应 建立 借款人 合理 的 收入 偿债 比例控制 机制 结合 借款人 收入 负债 支出 贷款 用途 担保 情况 等 因素 合理 确定 贷款 金额 和 期限 控制 借款人 每期 还款额 不 超过 其 还款 能力",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "bf110f26bd85fad7",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4454700108351981,
+            "tag_kwd": [],
+            "term_similarity": 0.29911428690742586,
+            "vector_similarity": 0.7869667
+          },
+          {
+            "content": "　　第四章 协议与发放\n　　第二十六条 贷款人应与借款人签订书面借款合同，需担保的应同时签订担保合同或条款。贷款人应要求借款人当面签订借款合同及其他相关文件。对于金额不超过二十万元人民币的贷款，可通过电子银行渠道签订有关合同和文件（不含用于个人住房用途的贷款）。\n　　当面签约的，贷款人应当对签约过程进行录音录像并妥善保存相关影像。\n",
+            "content_ltks": "第四章 协议 与 发放 第二十六条 贷款人 应 与 借款人 签订 书面 借款 合同 需 担保 的 应 同时 签订 担保 合同 或 条款 贷款人 应 要求 借款人 当面 签订 借款 合同 及其 他 相关 文件 对于 金额 不 超过 二十万元 人民币 的 贷款 可 通过 电子 银行 渠道 签订 有关 合同 和 文件 不含 用于 个人住房 用途 的 贷款 当面 签约 的 贷款人 应当 对 签约 过程 进行 录音 录像 并 妥善 保存 相关 影像",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "99ed6bf8a017266e",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.40763352980758727,
+            "tag_kwd": [],
+            "term_similarity": 0.2219859568679818,
+            "vector_similarity": 0.8408112
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 12,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 12
+      },
+      "clauseLabels": [
+        [
+          "第二十条"
+        ],
+        [
+          "第十条"
+        ],
+        [
+          "第二十六条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.086
+    },
+    {
+      "id": "Q17",
+      "expected": "第二十一条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第三章 风险评价与审批\n　　第二十一条 贷款人应根据审慎性原则，完善授权管理制度，规范审批操作流程，明确贷款审批权限，实行审贷分离和授权审批，确保贷款审批按照授权独立审批贷款。\n　　贷款人通过线上方式进行自动化审批的，应当建立人工复审机制，作为对自动化审批的补充，并设定人工复审的触发条件。对贷后管理中发现自动化审批不能有效识别风险的，贷款人应当停止自动化审批流程。\n",
+            "content_ltks": "第三章 风险 评价 与 审批 第二十一条 贷款人 应 根据 审慎 性 原则 完善 授权 管理制度 规范 审批 操作 流程 明确 贷款 审批 权限 实行 审 贷 分离 和 授权 审批 确保 贷款 审批 按照 授权 独立 审批 贷款 贷款人 通过 线上 方式 进行 自动化 审批 的 应当 建立 人工 复审 机制 作为 对 自动化 审批 的 补充 并 设定 人工 复审 的 触发 条件 对 贷 后 管理 中 发现 自动化 审批 不能 有效 识别 风险 的 贷款人 应当 停止 自动化 审批 流程",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "66804badad80ca12",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.45283476518154253,
+            "tag_kwd": [],
+            "term_similarity": 0.29092418025934647,
+            "vector_similarity": 0.83062613
+          },
+          {
+            "content": "　　第三章 风险评价与审批\n　　第二十条 贷款人应建立和完善风险评价机制，落实风险评价的责任部门和岗位。贷款风险评价应全面分析借款人的信用状况和还款能力，关注其收入与支出情况、偿债情况等，用于生产经营的还应对借款人经营情况和风险情况进行分析，采取定量和定性分析方法，全面、动态、审慎地进行贷款风险评价。对于提供担保的贷款，贷款人应当以全面评价借款人的偿债能力为前提，不得直接通过担保方式确定贷款金额和期限等要素。\n　　贷款人应建立和完善借款人信用风险评价体系，关注借款人各类融资情况，建立健全个人客户统一授信管理体系，并根据业务发展情况和风险控制需要，适时予以调整。\n",
+            "content_ltks": "第三章 风险 评价 与 审批 第二十条 贷款人 应 建立 和 完善 风险 评价 机制 落实 风险 评价 的 责任 部门 和 岗位 贷款风险 评价 应 全面 分析 借款人 的 信用 状况 和 还款 能力 关注 其 收入 与 支出 情况 偿债 情况 等 用于 生产 经营 的 还 应对 借款人 经营 情况 和 风险 情况 进行 分析 采取 定量 和 定性 分析方法 全面 动态 审慎 地 进行 贷款风险 评价 对于 提供 担保 的 贷款 贷款人 应当 以 全面 评价 借款人 的 偿债 能力 为 前提 不得 直接 通过 担保 方式 确定 贷款 金额 和 期限 等 要素 贷款人 应 建立 和 完善 借款人 信用风险 评价 体系 关注 借款人 各类 融资 情况 建立健全 个人 客户 统一 授信 管理体系 并 根据 业务 发展 情况 和 风险 控制 需要 适时 予以 调整",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "d5ca67de4c179056",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.31442300911377863,
+            "tag_kwd": [],
+            "term_similarity": 0.14126456873396942,
+            "vector_similarity": 0.71845937
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 2,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 2
+      },
+      "clauseLabels": [
+        [
+          "第二十一条"
+        ],
+        [
+          "第二十条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.036
+    },
+    {
+      "id": "Q18",
+      "expected": "第二十三条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第三章 风险评价与审批\n　　第二十三条 对未获批准的个人贷款申请，贷款人应告知借款人。\n",
+            "content_ltks": "第三章 风险 评价 与 审批 第二十三条 对 未获 批准 的 个人 贷款 申请 贷款人 应 告知 借款人",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "b41a85b6a39a9267",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.5192665773955704,
+            "tag_kwd": [],
+            "term_similarity": 0.3574196105651005,
+            "vector_similarity": 0.8969095
+          },
+          {
+            "content": "　　第二章 受理与调查\n　　第十三条 贷款人应要求借款人以书面形式提出个人贷款申请，并要求借款人提供能够证明其符合贷款条件的相关资料。\n",
+            "content_ltks": "第二章 受理 与 调查 第十三条 贷款人 应 要求 借款人 以 书面形式 提出 个人 贷款 申请 并 要求 借款 人 提供 能够 证明 其 符合 贷款 条件 的 相关 资料",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "7a59115066ecc8df",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4165983987035068,
+            "tag_kwd": [],
+            "term_similarity": 0.2340417124335811,
+            "vector_similarity": 0.842564
+          },
+          {
+            "content": "　　第二章 受理与调查\n　　第十二条 个人贷款申请应具备以下条件：\n　　（一）借款人为具有完全民事行为能力的中华人民共和国公民或符合国家有关规定的境外自然人；\n　　（二）借款用途明确合法；\n　　（三）贷款申请数额、期限和币种合理；\n　　（四）借款人具备还款意愿和还款能力；\n　　（五）借款人信用状况良好；\n　　（六）贷款人要求的其他条件。\n",
+            "content_ltks": "第二章 受理 与 调查 第十二条 个人 贷款 申请 应 具备 以下 条件 一 借款人 为 具有 完全 民事行为 能力 的 中华人民共和国 公民 或 符合 国家有关 规定 的 境外 自然人 二 借款 用途 明确 合法 三 贷款 申请 数额 期限 和 币种 合理 四 借款人 具备 还款 意愿 和 还款 能力 五 借款人 信用 状况良好 六 贷款人 要求 的 其他 条件",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "595354e44c5bbcb9",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4144560987035068,
+            "tag_kwd": [],
+            "term_similarity": 0.2340417124335811,
+            "vector_similarity": 0.835423
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 48,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 48
+      },
+      "clauseLabels": [
+        [
+          "第二十三条"
+        ],
+        [
+          "第十三条"
+        ],
+        [
+          "第十二条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.164
+    },
+    {
+      "id": "Q19",
+      "expected": "第二十五条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第三章 风险评价与审批\n　　第二十五条 贷款人为股东等关联方办理个人贷款的，应严格执行关联交易管理的相关监管规定，发放贷款条件不得优于一般借款人，并在风险评价报告中进行说明。\n",
+            "content_ltks": "第三章 风险 评价 与 审批 第二十五条 贷款人 为 股东 等 关联方 办理 个人 贷款 的 应 严格执行 关联 交易 管理 的 相关 监管 规定 发放贷款 条件 不得 优于 一般 借款人 并 在 风险 评价 报告 中 进行 说明",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "273c79ab4be389da",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4612353416118485,
+            "tag_kwd": [],
+            "term_similarity": 0.27318385230264064,
+            "vector_similarity": 0.90002215
+          },
+          {
+            "content": "　　第四章 协议与发放\n　　第三十条 贷款人应加强对贷款的发放管理，遵循审贷与放贷分离的原则，设立独立的放款管理部门或岗位，负责落实放款条件、发放满足约定条件的个人贷款。\n",
+            "content_ltks": "第四章 协议 与 发放 第三十条 贷款人 应 加强 对 贷款 的 发放 管理 遵循 审 贷 与 放贷 分离 的 原则 设立 独立 的 放款 管理部 门 或 岗位 负责 落实 放款 条件 发放 满足 约定 条件 的 个人 贷款",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "8cbe20458b41160f",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.34973129266068453,
+            "tag_kwd": [],
+            "term_similarity": 0.14454811094383496,
+            "vector_similarity": 0.82849205
+          },
+          {
+            "content": "　　第五章 支付管理\n　　第三十六条 有下列情形之一的个人贷款，经贷款人同意可以采取借款人自主支付方式：\n　　（一）借款人无法事先确定具体交易对象且单次提款金额不超过三十万元人民币的；\n　　（二）借款人交易对象不具备条件有效使用非现金结算方式的；\n　　（三）贷款资金用于生产经营且单次提款金额不超过五十万元人民币的；\n　　（四）法律法规规定的其他情形的。\n",
+            "content_ltks": "第五章 支付 管理 第三十六条 有 下列 情形 之一 的 个人 贷款 经 贷款人 同意 可以 采取 借款人 自主 支付 方式 一 借款人 无法 事先 确定 具体 交易 对象 且 单 次 提款 金额 不 超过 三十万元 人民币 的 二 借款人 交易 对象 不 具备 条件 有效 使用 非 现金结算 方式 的 三 贷款 资金 用于 生产 经营 且 单 次 提款 金额 不 超过 五十万元 人民币 的 四 法律法规 规定 的 其他 情形 的",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "98048d877dd0fa34",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.3369321530424434,
+            "tag_kwd": [],
+            "term_similarity": 0.12311050148920477,
+            "vector_similarity": 0.83584934
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 40,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 40
+      },
+      "clauseLabels": [
+        [
+          "第二十五条"
+        ],
+        [
+          "第三十条"
+        ],
+        [
+          "第三十六条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.128
+    },
+    {
+      "id": "Q20",
+      "expected": "第二十六条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第四章 协议与发放\n　　第二十六条 贷款人应与借款人签订书面借款合同，需担保的应同时签订担保合同或条款。贷款人应要求借款人当面签订借款合同及其他相关文件。对于金额不超过二十万元人民币的贷款，可通过电子银行渠道签订有关合同和文件（不含用于个人住房用途的贷款）。\n　　当面签约的，贷款人应当对签约过程进行录音录像并妥善保存相关影像。\n",
+            "content_ltks": "第四章 协议 与 发放 第二十六条 贷款人 应 与 借款人 签订 书面 借款 合同 需 担保 的 应 同时 签订 担保 合同 或 条款 贷款人 应 要求 借款人 当面 签订 借款 合同 及其 他 相关 文件 对于 金额 不 超过 二十万元 人民币 的 贷款 可 通过 电子 银行 渠道 签订 有关 合同 和 文件 不含 用于 个人住房 用途 的 贷款 当面 签约 的 贷款人 应当 对 签约 过程 进行 录音 录像 并 妥善 保存 相关 影像",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "99ed6bf8a017266e",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4784581886465881,
+            "tag_kwd": [],
+            "term_similarity": 0.3185461837808402,
+            "vector_similarity": 0.8515862
+          },
+          {
+            "content": "　　第七章 法律责任\n　　第四十六条 贷款人有下列情形之一的，国家金融监督管理总局及其派出机构可根据《中华人民共和国银行业监督管理法》对其采取相关监管措施或进行处罚：\n　　（一）发放不符合条件的个人贷款的；\n　　（二）签订的借款合同不符合本办法规定的；\n　　（三）违反本办法第七条规定的；\n　　（四）将贷款调查的风险控制核心事项委托第三方完成的；\n　　（五）超越或变相超越贷款权限审批贷款的；\n　　（六）授意借款人虚构情节获得贷款的；\n　　（七）对借款人严重违约行为未采取有效措施的；\n　　（八）严重违反本办法规定的审慎经营规则的其他情形的。\n",
+            "content_ltks": "第七章 法律责任 第四十六 条 贷款人 有 下列 情形 之一 的 国家 金融 监督管理 总局 及其 派出机构 可 根据 中华人民共和国 银行业 监督管理 法 对 其 采取 相关 监管 措施 或 进行 处罚 一 发放 不 符合条件 的 个人 贷款 的 二 签订 的 借款 合同 不 符合 本 办法 规定 的 三 违反 本 办法 第七条 规定 的 四 将 贷款 调查 的 风险 控制 核心 事项 委托 第三方 完成 的 五 超越 或 变相 超越 贷款 权限 审批 贷款 的 六 授意 借款人 虚构情节 获得 贷款 的 七 对 借款人 严重 违约 行为 未 采取有效 措施 的 八 严重 违反 本 办法 规定 的 审慎 经营 规则 的 其他 情形 的",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "0c5ff297e32762ea",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.34219649037911776,
+            "tag_kwd": [],
+            "term_similarity": 0.1566815862558825,
+            "vector_similarity": 0.7750646
+          },
+          {
+            "content": "　　第二章 受理与调查\n　　第十八条 贷款人应建立并执行贷款面谈制度。\n　　贷款人可根据业务需要通过视频形式与借款人面谈（不含用于个人住房用途的贷款）。视频面谈应当在贷款人自有平台上进行，记录并保存影像。贷款人应当采取有效措施确定并核实借款人真实身份及所涉及信息真实性。\n",
+            "content_ltks": "第二章 受理 与 调查 第十八条 贷款人 应 建立 并 执行 贷款 面谈 制度 贷款人 可 根据 业务 需要 通过 视频 形式 与 借款人 面谈 不含 用于 个人住房 用途 的 贷款 视频 面谈 应当 在 贷款人 自有 平台 上 进行 记录 并 保存 影像 贷款人 应当 采取有效 措施 确定 并 核实 借款人 真实 身份 及 所 涉及 信息 真实性",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "1fc7fac961ffca19",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.32641437073812685,
+            "tag_kwd": [],
+            "term_similarity": 0.11605388676875253,
+            "vector_similarity": 0.8172555
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 18,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 18
+      },
+      "clauseLabels": [
+        [
+          "第二十六条"
+        ],
+        [
+          "第四十六条",
+          "第七条"
+        ],
+        [
+          "第十八条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.082
+    },
+    {
+      "id": "Q21",
+      "expected": "第二十七条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第五章 支付管理\n　　第三十七条 采用借款人自主支付的，贷款人应与借款人在借款合同中事先约定，要求借款人定期报告或告知贷款人贷款资金支付情况。\n　　贷款人应当通过账户分析、凭证查验或现场调查等方式，核查贷款支付是否符合约定用途，以及是否存在以化整为零方式规避受托支付的情形。\n",
+            "content_ltks": "第五章 支付 管理 第三十七条 采用 借款人 自主 支付 的 贷款人 应 与 借款人 在 借款 合同 中 事先 约定 要求 借款人 定期 报告 或 告知 贷款人 贷款 资金 支付 情况 贷款人 应当 通过 账户 分析 凭证 查验 或 现场 调查 等 方式 核查 贷款 支付 是否 符合 约定 用途 以及 是否 存在 以 化整为零 方式 规避 受托 支付 的 情形",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "36a2d6f0df1b76ac",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4148316048252374,
+            "tag_kwd": [],
+            "term_similarity": 0.22194330689319627,
+            "vector_similarity": 0.8649043
+          },
+          {
+            "content": "　　第四章 协议与发放\n　　第二十七条 借款合同应符合《中华人民共和国民法典》等法律规定，明确约定各方当事人的诚信承诺和贷款资金的用途、支付对象（范围）、支付金额、支付条件、支付方式等。\n　　贷款人应在合同中与借款人约定，借款人不履行合同或怠于履行合同时应承担的违约责任，以及贷款人可采取的提前收回贷款、调整贷款支付方式、调整贷款利率、收取罚息、压降授信额度、停止或中止贷款发放等措施，并追究相应法律责任。\n",
+            "content_ltks": "第四章 协议 与 发放 第二十七条 借款 合同 应 符合 中华人民共和国 民法典 等 法律 规定 明确 约定 各方 当事人 的 诚信 承诺 和 贷款 资金 的 用途 支付 对象 范围 支付 金额 支付 条件 支付 方式 等 贷款人 应 在 合同 中 与 借款人 约定 借款人 不 履行合同 或 怠于 履行 合 同时 应 承担 的 违约责任 以及 贷款人 可 采取 的 提前 收回 贷款 调整 贷款 支付 方式 调整 贷款 利率 收取 罚息 压 降 授信额度 停止 或 中止 贷款 发放 等 措施 并 追究 相应 法律责任",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "fe5aa77a45c2dc00",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4135846398252374,
+            "tag_kwd": [],
+            "term_similarity": 0.22194330689319627,
+            "vector_similarity": 0.86074775
+          },
+          {
+            "content": "　　第五章 支付管理\n　　第三十二条 贷款人应按照借款合同约定，通过贷款人受托支付或借款人自主支付的方式对贷款资金的支付进行管理与控制。贷款人应健全贷款资金支付管控体系，加强金融科技应用，有效监督贷款资金按约定用途使用。\n　　贷款人受托支付是指贷款人根据借款人的提款申请和支付委托，将贷款资金支付给符合合同约定用途的借款人交易对象。\n　　借款人自主支付是指贷款人根据借款人的提款申请将贷款资金直接发放至借款人账户，并由借款人自主支付给符合合同约定用途的借款人交易对象。\n",
+            "content_ltks": "第五章 支付 管理 第三十二条 贷款人 应 按照 借款 合同 约定 通过 贷款人 受托 支付 或 借款人 自主 支付 的 方式 对 贷款 资金 的 支付 进行 管理 与 控制 贷款人 应 健全 贷款 资金 支付 管控 体系 加强 金融 科技 应用 有效 监督 贷款 资金 按 约定 用途 使用 贷款人 受托 支付 是 指 贷款人 根据 借款人 的 提款 申请 和 支付 委托 将 贷款 资金 支付 给 符合 合同 约定 用途 的 借款人 交易 对象 借款人 自主 支付 是 指 贷款人 根据 借款人 的 提款 申请 将 贷款 资金 直接 发放 至 借款人 账户 并 由 借款人 自主 支付 给 符合 合同 约定 用途 的 借款人 交易 对象",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "c4f4853b05d078c2",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4100259228252374,
+            "tag_kwd": [],
+            "term_similarity": 0.22194330689319627,
+            "vector_similarity": 0.84888536
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 19,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 19
+      },
+      "clauseLabels": [
+        [
+          "第三十七条"
+        ],
+        [
+          "第二十七条"
+        ],
+        [
+          "第三十二条"
+        ]
+      ],
+      "top1Correct": false,
+      "top3Correct": true,
+      "elapsedSeconds": 0.087
+    },
+    {
+      "id": "Q22",
+      "expected": "第二十八条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第四章 协议与发放\n　　第二十八条 贷款人应建立健全合同管理制度，有效防范个人贷款法律风险。\n　　借款合同采用格式条款的，应当维护借款人的合法权益，并予以公示。\n",
+            "content_ltks": "第四章 协议 与 发放 第二十八条 贷款人 应 建立健全 合同 管理制度 有效 防范 个人 贷款 法律 风险 借款 合同 采用 格式 条款 的 应当 维护 借款人 的 合法权益 并 予以 公示",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "5e8410ef3b7be8cb",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.5051046347776499,
+            "tag_kwd": [],
+            "term_similarity": 0.3419797782537855,
+            "vector_similarity": 0.8857293
+          },
+          {
+            "content": "　　第七章 法律责任\n　　第四十五条 贷款人违反本办法规定办理个人贷款业务的，国家金融监督管理总局及其派出机构应当责令其限期改正。贷款人有下列情形之一的，国家金融监督管理总局及其派出机构可根据《中华人民共和国银行业监督管理法》采取相关监管措施：\n　　（一）贷款调查、审查、贷后管理未尽职的；\n　　（二）未按规定建立、执行贷款面谈、借款合同面签制度的；\n　　（三）借款合同采用格式条款未公示的；\n　　（四）违反本办法第三十条规定的；\n　　（五）支付管理不符合本办法要求的。\n",
+            "content_ltks": "第七章 法律责任 第四十五 条 贷款人 违反 本 办法 规定 办理 个人 贷款 业务 的 国家 金融 监督管理 总局 及其 派出机构 应当 责令 其 限期 改正 贷款人 有 下列 情形 之一 的 国家 金融 监督管理 总局 及其 派出机构 可 根据 中华人民共和国 银行业 监督管理 法 采取 相关 监管 措施 一 贷款 调查 审查 贷 后 管理 未 尽职 的 二 未 按规定 建立 执行 贷款 面谈 借款 合同 面 签 制度 的 三 借款 合同 采用 格式 条款 未 公示 的 四 违反 本 办法 第三十条 规定 的 五 支付 管理 不 符合 本 办法 要求 的",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "bdb4e15e2825c27b",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4931426297776499,
+            "tag_kwd": [],
+            "term_similarity": 0.3419797782537855,
+            "vector_similarity": 0.84585595
+          },
+          {
+            "content": "　　第四章 协议与发放\n　　第二十六条 贷款人应与借款人签订书面借款合同，需担保的应同时签订担保合同或条款。贷款人应要求借款人当面签订借款合同及其他相关文件。对于金额不超过二十万元人民币的贷款，可通过电子银行渠道签订有关合同和文件（不含用于个人住房用途的贷款）。\n　　当面签约的，贷款人应当对签约过程进行录音录像并妥善保存相关影像。\n",
+            "content_ltks": "第四章 协议 与 发放 第二十六条 贷款人 应 与 借款人 签订 书面 借款 合同 需 担保 的 应 同时 签订 担保 合同 或 条款 贷款人 应 要求 借款人 当面 签订 借款 合同 及其 他 相关 文件 对于 金额 不 超过 二十万元 人民币 的 贷款 可 通过 电子 银行 渠道 签订 有关 合同 和 文件 不含 用于 个人住房 用途 的 贷款 当面 签约 的 贷款人 应当 对 签约 过程 进行 录音 录像 并 妥善 保存 相关 影像",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "99ed6bf8a017266e",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.37952741494746994,
+            "tag_kwd": [],
+            "term_similarity": 0.17098360421067127,
+            "vector_similarity": 0.86612964
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 18,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 18
+      },
+      "clauseLabels": [
+        [
+          "第二十八条"
+        ],
+        [
+          "第四十五条",
+          "第三十条"
+        ],
+        [
+          "第二十六条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.06
+    },
+    {
+      "id": "Q23",
+      "expected": "第二十九条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第四章 协议与发放\n　　第二十九条 贷款人应依照《中华人民共和国民法典》等法律法规的相关规定，规范担保流程与操作。\n　　按合同约定办理抵（质）押物登记的，贷款人应当参与。贷款人委托第三方办理的，应对抵（质）押物登记情况予以核实。\n",
+            "content_ltks": "第四章 协议 与 发放 第二十九条 贷款人 应 依照 中华人民共和国 民法典 等 法律法规 的 相关 规定 规范 担保 流程 与 操作 按 合同 约定 办理 抵 质 押 物 登记 的 贷款人 应当 参与 贷款人 委托 第三方 办理 的 应对 抵 质 押 物 登记 情况 予以 核实",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "9fa9891e545d92b7",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4001750979774359,
+            "tag_kwd": [],
+            "term_similarity": 0.21567161282490843,
+            "vector_similarity": 0.83068323
+          },
+          {
+            "content": "　　第二章 受理与调查\n　　第十七条 贷款人应建立健全贷款调查机制，明确对各类事项调查的途径和方式方法，确保贷款调查的真实性和有效性。\n　　贷款人将贷款调查中的部分特定事项委托第三方代为办理的，不得损害借款人合法权益，并确保相关风险可控。贷款人应明确第三方的资质条件，建立名单制管理制度，并定期对名单进行审查更新。\n　　贷款人不得将贷款调查中涉及借款人真实意思表示、收入水平、债务情况、自有资金来源及外部评估机构准入等风险控制的核心事项委托第三方完成。\n",
+            "content_ltks": "第二章 受理 与 调查 第十七条 贷款人 应 建立健全 贷款 调查 机制 明确 对 各类 事项 调查 的 途径 和 方式 方法 确保 贷款 调查 的 真实性 和 有效性 贷款人 将 贷款 调查 中的 部分 特定 事项 委托 第三方 代为 办理 的 不得 损害 借款人 合法权益 并 确保 相关 风险 可控 贷款人 应 明确 第三方 的 资质 条件 建立 名单 制 管理制度 并 定期 对 名单 进行 审查 更新 贷款人 不得 将 贷款 调查 中 涉及 借款人 真实 意思 表示 收入水平 债务 情况 自有 资金来源 及 外部 评估 机构 准入 等 风险 控制 的 核心 事项 委托 第三方 完成",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "db7c7087cd8657ed",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.3455281922260641,
+            "tag_kwd": [],
+            "term_similarity": 0.1533134574658059,
+            "vector_similarity": 0.79402924
+          },
+          {
+            "content": "　　第七章 法律责任\n　　第四十六条 贷款人有下列情形之一的，国家金融监督管理总局及其派出机构可根据《中华人民共和国银行业监督管理法》对其采取相关监管措施或进行处罚：\n　　（一）发放不符合条件的个人贷款的；\n　　（二）签订的借款合同不符合本办法规定的；\n　　（三）违反本办法第七条规定的；\n　　（四）将贷款调查的风险控制核心事项委托第三方完成的；\n　　（五）超越或变相超越贷款权限审批贷款的；\n　　（六）授意借款人虚构情节获得贷款的；\n　　（七）对借款人严重违约行为未采取有效措施的；\n　　（八）严重违反本办法规定的审慎经营规则的其他情形的。\n",
+            "content_ltks": "第七章 法律责任 第四十六 条 贷款人 有 下列 情形 之一 的 国家 金融 监督管理 总局 及其 派出机构 可 根据 中华人民共和国 银行业 监督管理 法 对 其 采取 相关 监管 措施 或 进行 处罚 一 发放 不 符合条件 的 个人 贷款 的 二 签订 的 借款 合同 不 符合 本 办法 规定 的 三 违反 本 办法 第七条 规定 的 四 将 贷款 调查 的 风险 控制 核心 事项 委托 第三方 完成 的 五 超越 或 变相 超越 贷款 权限 审批 贷款 的 六 授意 借款人 虚构情节 获得 贷款 的 七 对 借款人 严重 违约 行为 未 采取有效 措施 的 八 严重 违反 本 办法 规定 的 审慎 经营 规则 的 其他 情形 的",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "0c5ff297e32762ea",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.2918869850436396,
+            "tag_kwd": [],
+            "term_similarity": 0.09267659006234218,
+            "vector_similarity": 0.75671124
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 11,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 11
+      },
+      "clauseLabels": [
+        [
+          "第二十九条"
+        ],
+        [
+          "第十七条"
+        ],
+        [
+          "第四十六条",
+          "第七条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.064
+    },
+    {
+      "id": "Q24",
+      "expected": "第三十条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第四章 协议与发放\n　　第三十条 贷款人应加强对贷款的发放管理，遵循审贷与放贷分离的原则，设立独立的放款管理部门或岗位，负责落实放款条件、发放满足约定条件的个人贷款。\n",
+            "content_ltks": "第四章 协议 与 发放 第三十条 贷款人 应 加强 对 贷款 的 发放 管理 遵循 审 贷 与 放贷 分离 的 原则 设立 独立 的 放款 管理部 门 或 岗位 负责 落实 放款 条件 发放 满足 约定 条件 的 个人 贷款",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "8cbe20458b41160f",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.40394793521680294,
+            "tag_kwd": [],
+            "term_similarity": 0.20718112173828984,
+            "vector_similarity": 0.8630705
+          },
+          {
+            "content": "　　第四章 协议与发放\n　　第二十六条 贷款人应与借款人签订书面借款合同，需担保的应同时签订担保合同或条款。贷款人应要求借款人当面签订借款合同及其他相关文件。对于金额不超过二十万元人民币的贷款，可通过电子银行渠道签订有关合同和文件（不含用于个人住房用途的贷款）。\n　　当面签约的，贷款人应当对签约过程进行录音录像并妥善保存相关影像。\n",
+            "content_ltks": "第四章 协议 与 发放 第二十六条 贷款人 应 与 借款人 签订 书面 借款 合同 需 担保 的 应 同时 签订 担保 合同 或 条款 贷款人 应 要求 借款人 当面 签订 借款 合同 及其 他 相关 文件 对于 金额 不 超过 二十万元 人民币 的 贷款 可 通过 电子 银行 渠道 签订 有关 合同 和 文件 不含 用于 个人住房 用途 的 贷款 当面 签约 的 贷款人 应当 对 签约 过程 进行 录音 录像 并 妥善 保存 相关 影像",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "99ed6bf8a017266e",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.40127915146253657,
+            "tag_kwd": [],
+            "term_similarity": 0.22039957351790931,
+            "vector_similarity": 0.8233315
+          },
+          {
+            "content": "　　第三章 风险评价与审批\n　　第二十一条 贷款人应根据审慎性原则，完善授权管理制度，规范审批操作流程，明确贷款审批权限，实行审贷分离和授权审批，确保贷款审批按照授权独立审批贷款。\n　　贷款人通过线上方式进行自动化审批的，应当建立人工复审机制，作为对自动化审批的补充，并设定人工复审的触发条件。对贷后管理中发现自动化审批不能有效识别风险的，贷款人应当停止自动化审批流程。\n",
+            "content_ltks": "第三章 风险 评价 与 审批 第二十一条 贷款人 应 根据 审慎 性 原则 完善 授权 管理制度 规范 审批 操作 流程 明确 贷款 审批 权限 实行 审 贷 分离 和 授权 审批 确保 贷款 审批 按照 授权 独立 审批 贷款 贷款人 通过 线上 方式 进行 自动化 审批 的 应当 建立 人工 复审 机制 作为 对 自动化 审批 的 补充 并 设定 人工 复审 的 触发 条件 对 贷 后 管理 中 发现 自动化 审批 不能 有效 识别 风险 的 贷款人 应当 停止 自动化 审批 流程",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "66804badad80ca12",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.3962758792991836,
+            "tag_kwd": [],
+            "term_similarity": 0.21942604185597664,
+            "vector_similarity": 0.8089255
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 37,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 37
+      },
+      "clauseLabels": [
+        [
+          "第三十条"
+        ],
+        [
+          "第二十六条"
+        ],
+        [
+          "第二十一条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.176
+    },
+    {
+      "id": "Q25",
+      "expected": "第三十二条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第五章 支付管理\n　　第三十六条 有下列情形之一的个人贷款，经贷款人同意可以采取借款人自主支付方式：\n　　（一）借款人无法事先确定具体交易对象且单次提款金额不超过三十万元人民币的；\n　　（二）借款人交易对象不具备条件有效使用非现金结算方式的；\n　　（三）贷款资金用于生产经营且单次提款金额不超过五十万元人民币的；\n　　（四）法律法规规定的其他情形的。\n",
+            "content_ltks": "第五章 支付 管理 第三十六条 有 下列 情形 之一 的 个人 贷款 经 贷款人 同意 可以 采取 借款人 自主 支付 方式 一 借款人 无法 事先 确定 具体 交易 对象 且 单 次 提款 金额 不 超过 三十万元 人民币 的 二 借款人 交易 对象 不 具备 条件 有效 使用 非 现金结算 方式 的 三 贷款 资金 用于 生产 经营 且 单 次 提款 金额 不 超过 五十万元 人民币 的 四 法律法规 规定 的 其他 情形 的",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "98048d877dd0fa34",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4730396926742133,
+            "tag_kwd": [],
+            "term_similarity": 0.30817254667744753,
+            "vector_similarity": 0.8577297
+          },
+          {
+            "content": "　　第五章 支付管理\n　　第三十三条 个人贷款资金应当采用贷款人受托支付方式向借款人交易对象支付，但本办法第三十六条规定的情形除外。\n",
+            "content_ltks": "第五章 支付 管理 第三十三条 个人 贷款 资金 应当 采用 贷款人 受托 支付 方式 向 借款人 交易 对象 支付 但 本 办法 第三十六条 规定 的 情形 除外",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "c4a7778e5f88481b",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.47163881267421326,
+            "tag_kwd": [],
+            "term_similarity": 0.30817254667744753,
+            "vector_similarity": 0.8530601
+          },
+          {
+            "content": "　　第六章 贷后管理\n　　第三十九条 个人贷款支付后，贷款人应采取有效方式对贷款资金使用、借款人的信用及担保情况变化等进行跟踪检查和监控分析，确保贷款资产安全。\n　　贷款人应加强对借款人资金挪用行为的监控，发现借款人挪用贷款资金的，应按照合同约定采取要求借款人整改、提前归还贷款或下调贷款风险分类等相应措施进行管控。\n",
+            "content_ltks": "第六章 贷 后 管理 第三十九条 个人 贷款 支付 后 贷款人 应 采取有效 方式 对 贷款 资金 使用 借款人 的 信用 及 担保 情况 变化 等 进行 跟踪 检查和 监控 分析 确保 贷款 资产 安全 贷款人 应 加强 对 借款人 资金 挪用 行为 的 监控 发现 借款人 挪用 贷款 资金 的 应 按照 合同 约定 采取 要求 借款人 整改 提前 归还 贷款 或 下调 贷款风险 分类 等 相应措施 进行 管控",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "533604ba394a2e0a",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4600346176742133,
+            "tag_kwd": [],
+            "term_similarity": 0.30817254667744753,
+            "vector_similarity": 0.81437945
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 52,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 52
+      },
+      "clauseLabels": [
+        [
+          "第三十六条"
+        ],
+        [
+          "第三十三条",
+          "第三十六条"
+        ],
+        [
+          "第三十九条"
+        ]
+      ],
+      "top1Correct": false,
+      "top3Correct": false,
+      "elapsedSeconds": 0.136
+    },
+    {
+      "id": "Q26",
+      "expected": "第三十三条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第五章 支付管理\n　　第三十三条 个人贷款资金应当采用贷款人受托支付方式向借款人交易对象支付，但本办法第三十六条规定的情形除外。\n",
+            "content_ltks": "第五章 支付 管理 第三十三条 个人 贷款 资金 应当 采用 贷款人 受托 支付 方式 向 借款人 交易 对象 支付 但 本 办法 第三十六条 规定 的 情形 除外",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "c4a7778e5f88481b",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.39559427806151526,
+            "tag_kwd": [],
+            "term_similarity": 0.179327097230736,
+            "vector_similarity": 0.9002177
+          },
+          {
+            "content": "　　第一章 总则\n　　第四条 贷款人开展个人贷款业务，应当遵循依法合规、审慎经营、平等自愿、公平诚信的原则。\n",
+            "content_ltks": "第一章 总则 第四条 贷款人 开展 个人 贷款 业务 应当 遵循 依法 合规 审慎 经营 平等 自愿 公平 诚信 的 原则",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "12801e129eb971c4",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.3589793368803595,
+            "tag_kwd": [],
+            "term_similarity": 0.15161872697194215,
+            "vector_similarity": 0.84282076
+          },
+          {
+            "content": "　　第五章 支付管理\n　　第三十四条 采用贷款人受托支付的，贷款人应要求借款人在使用贷款时提出支付申请，并授权贷款人按合同约定方式支付贷款资金。\n　　贷款人应在贷款资金发放前审核借款人相关交易资料和凭证是否符合合同约定条件，支付后做好有关细节的认定记录。\n　　对于贷款资金使用记录良好的借款人，在合同约定的生产经营贷款用途范围内，出现合理的紧急用款需求，贷款人经评估认为风险可控的，可适当简化借款人需提供的受托支付事前证明材料和流程，于放款完成后及时完成事后审核。\n",
+            "content_ltks": "第五章 支付 管理 第三十四条 采用 贷款人 受托 支付 的 贷款人 应 要求 借款人 在 使用 贷款 时 提出 支付 申请 并 授权 贷款人 按 合同 约定 方式 支付 贷款 资金 贷款人 应 在 贷款 资金 发放 前 审核 借款人 相关 交易 资料 和 凭证 是否 符合 合同 约定 条件 支付 后 做好 有关 细节 的 认定 记录 对于 贷款 资金 使用 记录 良好 的 借款人 在 合同 约定 的 生产 经营 贷款 用途 范围 内 出现 合理 的 紧急 用款 需求 贷款人 经 评估 认为 风险 可控 的 可 适当 简化 借款人 需 提供 的 受托 支付 事前 证明 材料 和 流程 于 放款 完成 后 及时 完成 事后 审核",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "14cbd285a7e30e0b",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.3585598835004491,
+            "tag_kwd": [],
+            "term_similarity": 0.12974274071492728,
+            "vector_similarity": 0.89246655
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 53,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 53
+      },
+      "clauseLabels": [
+        [
+          "第三十三条",
+          "第三十六条"
+        ],
+        [
+          "第四条"
+        ],
+        [
+          "第三十四条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.164
+    },
+    {
+      "id": "Q27",
+      "expected": "第三十六条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第五章 支付管理\n　　第三十六条 有下列情形之一的个人贷款，经贷款人同意可以采取借款人自主支付方式：\n　　（一）借款人无法事先确定具体交易对象且单次提款金额不超过三十万元人民币的；\n　　（二）借款人交易对象不具备条件有效使用非现金结算方式的；\n　　（三）贷款资金用于生产经营且单次提款金额不超过五十万元人民币的；\n　　（四）法律法规规定的其他情形的。\n",
+            "content_ltks": "第五章 支付 管理 第三十六条 有 下列 情形 之一 的 个人 贷款 经 贷款人 同意 可以 采取 借款人 自主 支付 方式 一 借款人 无法 事先 确定 具体 交易 对象 且 单 次 提款 金额 不 超过 三十万元 人民币 的 二 借款人 交易 对象 不 具备 条件 有效 使用 非 现金结算 方式 的 三 贷款 资金 用于 生产 经营 且 单 次 提款 金额 不 超过 五十万元 人民币 的 四 法律法规 规定 的 其他 情形 的",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "98048d877dd0fa34",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.45298035374211876,
+            "tag_kwd": [],
+            "term_similarity": 0.27820033391731247,
+            "vector_similarity": 0.8608004
+          },
+          {
+            "content": "　　第五章 支付管理\n　　第三十四条 采用贷款人受托支付的，贷款人应要求借款人在使用贷款时提出支付申请，并授权贷款人按合同约定方式支付贷款资金。\n　　贷款人应在贷款资金发放前审核借款人相关交易资料和凭证是否符合合同约定条件，支付后做好有关细节的认定记录。\n　　对于贷款资金使用记录良好的借款人，在合同约定的生产经营贷款用途范围内，出现合理的紧急用款需求，贷款人经评估认为风险可控的，可适当简化借款人需提供的受托支付事前证明材料和流程，于放款完成后及时完成事后审核。\n",
+            "content_ltks": "第五章 支付 管理 第三十四条 采用 贷款人 受托 支付 的 贷款人 应 要求 借款人 在 使用 贷款 时 提出 支付 申请 并 授权 贷款人 按 合同 约定 方式 支付 贷款 资金 贷款人 应 在 贷款 资金 发放 前 审核 借款人 相关 交易 资料 和 凭证 是否 符合 合同 约定 条件 支付 后 做好 有关 细节 的 认定 记录 对于 贷款 资金 使用 记录 良好 的 借款人 在 合同 约定 的 生产 经营 贷款 用途 范围 内 出现 合理 的 紧急 用款 需求 贷款人 经 评估 认为 风险 可控 的 可 适当 简化 借款人 需 提供 的 受托 支付 事前 证明 材料 和 流程 于 放款 完成 后 及时 完成 事后 审核",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "14cbd285a7e30e0b",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.3947349803949112,
+            "tag_kwd": [],
+            "term_similarity": 0.21085098342130162,
+            "vector_similarity": 0.82379764
+          },
+          {
+            "content": "　　第五章 支付管理\n　　第三十二条 贷款人应按照借款合同约定，通过贷款人受托支付或借款人自主支付的方式对贷款资金的支付进行管理与控制。贷款人应健全贷款资金支付管控体系，加强金融科技应用，有效监督贷款资金按约定用途使用。\n　　贷款人受托支付是指贷款人根据借款人的提款申请和支付委托，将贷款资金支付给符合合同约定用途的借款人交易对象。\n　　借款人自主支付是指贷款人根据借款人的提款申请将贷款资金直接发放至借款人账户，并由借款人自主支付给符合合同约定用途的借款人交易对象。\n",
+            "content_ltks": "第五章 支付 管理 第三十二条 贷款人 应 按照 借款 合同 约定 通过 贷款人 受托 支付 或 借款人 自主 支付 的 方式 对 贷款 资金 的 支付 进行 管理 与 控制 贷款人 应 健全 贷款 资金 支付 管控 体系 加强 金融 科技 应用 有效 监督 贷款 资金 按 约定 用途 使用 贷款人 受托 支付 是 指 贷款人 根据 借款人 的 提款 申请 和 支付 委托 将 贷款 资金 支付 给 符合 合同 约定 用途 的 借款人 交易 对象 借款人 自主 支付 是 指 贷款人 根据 借款人 的 提款 申请 将 贷款 资金 直接 发放 至 借款人 账户 并 由 借款人 自主 支付 给 符合 合同 约定 用途 的 借款人 交易 对象",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "c4f4853b05d078c2",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.35294876213496085,
+            "tag_kwd": [],
+            "term_similarity": 0.15220691733565828,
+            "vector_similarity": 0.8213464
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 10,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 10
+      },
+      "clauseLabels": [
+        [
+          "第三十六条"
+        ],
+        [
+          "第三十四条"
+        ],
+        [
+          "第三十二条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.044
+    },
+    {
+      "id": "Q28",
+      "expected": "第三十八条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第五章 支付管理\n　　第三十七条 采用借款人自主支付的，贷款人应与借款人在借款合同中事先约定，要求借款人定期报告或告知贷款人贷款资金支付情况。\n　　贷款人应当通过账户分析、凭证查验或现场调查等方式，核查贷款支付是否符合约定用途，以及是否存在以化整为零方式规避受托支付的情形。\n",
+            "content_ltks": "第五章 支付 管理 第三十七条 采用 借款人 自主 支付 的 贷款人 应 与 借款人 在 借款 合同 中 事先 约定 要求 借款人 定期 报告 或 告知 贷款人 贷款 资金 支付 情况 贷款人 应当 通过 账户 分析 凭证 查验 或 现场 调查 等 方式 核查 贷款 支付 是否 符合 约定 用途 以及 是否 存在 以 化整为零 方式 规避 受托 支付 的 情形",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "36a2d6f0df1b76ac",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4744044710855645,
+            "tag_kwd": [],
+            "term_similarity": 0.30965195869366346,
+            "vector_similarity": 0.858827
+          },
+          {
+            "content": "　　第五章 支付管理\n　　第三十八条 贷款支付过程中，借款人信用状况下降、贷款资金使用出现异常或违反合同约定以化整为零方式规避受托支付的，贷款人应与借款人协商补充贷款发放和支付条件，或根据合同约定变更贷款支付方式、停止或中止贷款资金的发放和支付。\n",
+            "content_ltks": "第五章 支付 管理 第三十八条 贷款 支付 过程 中 借款人 信用 状况 下降 贷款 资金 使用 出现异常 或 违反 合同 约定 以 化整为零 方式 规避 受托 支付 的 贷款人 应 与 借款人 协商 补充 贷款 发放 和 支付 条件 或 根据 合同 约定 变更 贷款 支付 方式 停止 或 中止 贷款 资金 的 发放 和 支付",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "451c88f8668bd021",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4246377572340687,
+            "tag_kwd": [],
+            "term_similarity": 0.22876235176295528,
+            "vector_similarity": 0.88168037
+          },
+          {
+            "content": "　　第五章 支付管理\n　　第三十二条 贷款人应按照借款合同约定，通过贷款人受托支付或借款人自主支付的方式对贷款资金的支付进行管理与控制。贷款人应健全贷款资金支付管控体系，加强金融科技应用，有效监督贷款资金按约定用途使用。\n　　贷款人受托支付是指贷款人根据借款人的提款申请和支付委托，将贷款资金支付给符合合同约定用途的借款人交易对象。\n　　借款人自主支付是指贷款人根据借款人的提款申请将贷款资金直接发放至借款人账户，并由借款人自主支付给符合合同约定用途的借款人交易对象。\n",
+            "content_ltks": "第五章 支付 管理 第三十二条 贷款人 应 按照 借款 合同 约定 通过 贷款人 受托 支付 或 借款人 自主 支付 的 方式 对 贷款 资金 的 支付 进行 管理 与 控制 贷款人 应 健全 贷款 资金 支付 管控 体系 加强 金融 科技 应用 有效 监督 贷款 资金 按 约定 用途 使用 贷款人 受托 支付 是 指 贷款人 根据 借款人 的 提款 申请 和 支付 委托 将 贷款 资金 支付 给 符合 合同 约定 用途 的 借款人 交易 对象 借款人 自主 支付 是 指 贷款人 根据 借款人 的 提款 申请 将 贷款 资金 直接 发放 至 借款人 账户 并 由 借款人 自主 支付 给 符合 合同 约定 用途 的 借款人 交易 对象",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "c4f4853b05d078c2",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.4070925601589376,
+            "tag_kwd": [],
+            "term_similarity": 0.22162714308419657,
+            "vector_similarity": 0.8398452
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 30,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 30
+      },
+      "clauseLabels": [
+        [
+          "第三十七条"
+        ],
+        [
+          "第三十八条"
+        ],
+        [
+          "第三十二条"
+        ]
+      ],
+      "top1Correct": false,
+      "top3Correct": true,
+      "elapsedSeconds": 0.094
+    },
+    {
+      "id": "Q29",
+      "expected": "第四十三条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "　　第六章 贷后管理\n　　第四十三条 借款人申请贷款展期的，贷款人应审慎评估展期原因和后续还款安排的可行性。同意展期的，应根据还款来源等情况，合理确定展期期限，并加强对贷款的后续管理，按照实质风险状况进行风险分类。\n　　期限一年以内的贷款展期期限累计不得超过原贷款期限；期限超过一年的贷款展期期限累计不得超过原贷款期限的一半。\n",
+            "content_ltks": "第六章 贷 后 管理 第四十三条 借款人 申请 贷款 展期 的 贷款人 应 审慎 评估 展期 原因 和 后续 还款 安排 的 可行性 同意 展期 的 应 根据 还款 来源 等 情况 合理 确定 展期 期限 并 加强 对 贷款 的 后续 管理 按照 实质 风险 状况 进行 风险 分类 期限 一年 以内 的 贷款 展期 期限 累计 不得 超过 原 贷款 期限 期限 超过 一年 的 贷款 展期 期限 累计 不得 超过 原 贷款 期限 的 一半",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "894dad3eea56c0a1",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.5452568086117442,
+            "tag_kwd": [],
+            "term_similarity": 0.3985028551596344,
+            "vector_similarity": 0.8876827
+          },
+          {
+            "content": "　　第一章 总则\n　　第八条 个人贷款的期限应符合国家相关规定。用于个人消费的贷款期限不得超过五年；用于生产经营的贷款期限一般不超过五年，对于贷款用途对应的经营现金流回收周期较长的，可适当延长贷款期限，最长不超过十年。\n",
+            "content_ltks": "第一章 总则 第八条 个人 贷款 的 期限 应 符合国家 相关 规定 用于 个人消费 的 贷款 期限 不得 超过 五年 用于 生产 经营 的 贷款 期限 一般 不 超过 五年 对于 贷款 用途 对应 的 经营 现金流 回收 周期 较 长 的 可 适当 延长 贷款 期限 最长 不 超过 十年",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "09f8b1316c196edb",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.3684754820434757,
+            "tag_kwd": [],
+            "term_similarity": 0.15909801720496525,
+            "vector_similarity": 0.8570229
+          },
+          {
+            "content": "　　第一章 总则\n　　第十条 贷款人应建立借款人合理的收入偿债比例控制机制，结合借款人收入、负债、支出、贷款用途、担保情况等因素，合理确定贷款金额和期限，控制借款人每期还款额不超过其还款能力。\n",
+            "content_ltks": "第一章 总则 第十条 贷款人 应 建立 借款人 合理 的 收入 偿债 比例控制 机制 结合 借款人 收入 负债 支出 贷款 用途 担保 情况 等 因素 合理 确定 贷款 金额 和 期限 控制 借款人 每期 还款额 不 超过 其 还款 能力",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "bf110f26bd85fad7",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.3527649200434757,
+            "tag_kwd": [],
+            "term_similarity": 0.15909801720496525,
+            "vector_similarity": 0.80465436
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 5,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 5
+      },
+      "clauseLabels": [
+        [
+          "第四十三条"
+        ],
+        [
+          "第八条"
+        ],
+        [
+          "第十条"
+        ]
+      ],
+      "top1Correct": true,
+      "top3Correct": true,
+      "elapsedSeconds": 0.07
+    },
+    {
+      "id": "Q30",
+      "expected": "第五十二条",
+      "execution": "COMPLETED",
+      "response": {
+        "chunks": [
+          {
+            "content": "信用信息查询\n行政许可和行政处罚\n搜 索\n搜 索\n《个人贷款管理办法》\n来源：国家金融监督管理总局 2024-02-05 00:00:00 【字号 大 中 小 】 【我要打印】\n分享\n　　个人贷款管理办法\n　　(2024年2月2日国家金融监督管理总局令2024年第3号公布 自2024年7月1日起施行)\n",
+            "content_ltks": "信用 信息 查询 行政许可 和 行政处罚 搜 索 搜 索 个人 贷款 管理 办法 来源 国家 金融 监督管理 总局 2024 02 05 00 00 00 字号 大 中 小 我 要打印 分享 个人 贷款 管理 办法 2024 年 2 月 2 日 国家 金融 监督管理 总局 令 2024 年 第 3 号 公布 自 2024 年 7 月 1 日 起 施行",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "f5b98f2bcf882f7f",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.5194209978829573,
+            "tag_kwd": [],
+            "term_similarity": 0.35583986840422455,
+            "vector_similarity": 0.9011103
+          },
+          {
+            "content": "　　第八章 附则\n　　第五十二条 本办法自2024年7月1日起施行，《个人贷款管理暂行办法》（中国银行业监督管理委员会令2010年第2号）同时废止。\n　　政策文件：https://www.cbirc.gov.cn/cn/view/pages/ItemDetail.html?docId=1151064&itemId=861\n　　政策解读：https://www.cbirc.gov.cn/cn/view/pages/ItemDetail.html?docId=1151057&itemId=917\n网站地图 | 网站建设 | 免责声明 | 联系我们 | 相关链接 主办单位:交通运输部政策研究室 开发单位:交通运输部科学研究院 京ICP备05046837号-1 京公网安备 11040102700014号 政府网站标识码：BM19000004\n网站地图 | 网站建设 | 免责声明 | 联系我们 | 相关链接\n政府网站标识码：BM19000004 主办单位:交通运输部政策研究室 开发单位:交通运输部科学研究院 京ICP备05046837号-1 京公网安备 11040102700014号\n信用交通\n微信公众号\n",
+            "content_ltks": "第八章 附则 第五十二 条 本 办法 自 2024 年 7 月 1 日 起 施行 个人 贷款 管理 暂行办法 中国 银行业 监督管理 委员会 令 2010 年 第 2号 同时 废止 政策 文件 http www cbirc gov cn cn view page itemdetail html docid 1151064 itemid 861 政策 解读 http www cbirc gov cn cn view page itemdetail html docid 1151057 itemid 917 网站 地图 网站 建设 免责 声明 联系 我们 相关 链接 主办单位 交通运输 部 政策 研究室 开发 单位 交通运输 部 科学 研究院 京 icp 备 05046837 号 1 京 公网 安 备 11040102700014 号 政府 网站 标识码 bm19000004 网站 地图 网站 建设 免责 声明 联系 我们 相关 链接 政府 网站 标识码 bm19000004 主办单位 交通运输 部 政策 研究室 开发 单位 交通运输 部 科学 研究院 京 icp 备 05046837 号 1 京 公网 安 备 11040102700014 号 信用 交通 微信 公众号",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "f74d5bc98f89899f",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.5148048078829572,
+            "tag_kwd": [],
+            "term_similarity": 0.35583986840422455,
+            "vector_similarity": 0.885723
+          },
+          {
+            "content": "　　第一章 总则\n　　第一条 为规范银行业金融机构个人贷款业务行为，加强个人贷款业务审慎经营管理，促进个人贷款业务健康发展，依据《中华人民共和国银行业监督管理法》《中华人民共和国商业银行法》等法律法规，制定本办法。\n",
+            "content_ltks": "第一章 总则 第一条 为 规范 银行业 金融机构 个人 贷款 业务 行为 加强 个人 贷款 业务 审慎 经营 管理 促进 个人 贷款 业务 健康 发展 依据 中华人民共和国 银行业 监督管理 法 中华人民共和国 商业银行 法 等 法律法规 制定 本 办法",
+            "dataset_id": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+            "doc_type_kwd": "text",
+            "document_id": "a772649f44de45e6958d673cdb0a590c",
+            "document_keyword": "regulation.html",
+            "id": "075d0575a569915f",
+            "image_id": "",
+            "important_keywords": [],
+            "mom_id": "",
+            "positions": [],
+            "row_id": null,
+            "similarity": 0.48461827047458195,
+            "tag_kwd": [],
+            "term_similarity": 0.3163091721065455,
+            "vector_similarity": 0.8773395
+          }
+        ],
+        "doc_aggs": [
+          {
+            "count": 53,
+            "doc_id": "a772649f44de45e6958d673cdb0a590c",
+            "doc_name": "regulation.html"
+          }
+        ],
+        "labels": null,
+        "total": 53
+      },
+      "clauseLabels": [
+        [],
+        [
+          "第五十二条"
+        ],
+        [
+          "第一条"
+        ]
+      ],
+      "top1Correct": false,
+      "top3Correct": true,
+      "elapsedSeconds": 0.124
+    }
+  ],
+  "completed": 30,
+  "total": 30,
+  "top1": 23,
+  "top3": 28
+}

@@ -1,0 +1,7 @@
+{
+  "exitCode": 1,
+  "stage": "deployment",
+  "error": "Parent deployment identity must be unique",
+  "logDigest": "cd6edf666bad6b754cc2381cb913e1f8d4f156313b6d1b84b1576daad30ddff4",
+  "requestDigest": "4e1f19e64d1cd68ffb9cdf6606fb262b163c15d11bda38405badf612e2834ae5"
+}

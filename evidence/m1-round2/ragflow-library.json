@@ -1,0 +1,19 @@
+{
+  "elapsedMs": 0,
+  "file": {
+    "encoding": "utf-8",
+    "name": "source.html"
+  },
+  "mode": "UPSTREAM_HTML_PARSER_NO_CGO_NOT_SERVER",
+  "sourceDigest": "d091d80052322f3c933f846dab94078bc7fb25b08565c4fa20530e68e37cb5fa",
+  "upstreamCommit": "ac29b4b29928ca65d3efca19b6cfae3f86069b81",
+  "warnings": null,
+  "rawItems": 3,
+  "rawResponseDigest": "a1b5fadecf4aaa6e18d70d5a4de651ae9cf469c425398c0ec3a6b74d0c5d0d86",
+  "nativeItemKeys": [
+    "ck_type",
+    "doc_type_kwd",
+    "text"
+  ],
+  "goVersion": "1.27.3"
+}

@@ -1,0 +1,80 @@
+[probe.FlowableProbe.main()] ERROR org.flowable.dmn.engine.impl.RuleEngineExecutorImpl - decision table execution failed
+org.flowable.common.engine.api.FlowableException: HitPolicy UNIQUE violated.
+	at org.flowable.dmn.engine.impl.hitpolicy.HitPolicyUnique.evaluateRuleValidity(HitPolicyUnique.java:47)
+	at org.flowable.dmn.engine.impl.RuleEngineExecutorImpl.evaluateDecisionTable(RuleEngineExecutorImpl.java:128)
+	at org.flowable.dmn.engine.impl.RuleEngineExecutorImpl.execute(RuleEngineExecutorImpl.java:92)
+	at org.flowable.dmn.engine.impl.agenda.operation.ExecuteDecisionOperation.run(ExecuteDecisionOperation.java:43)
+	at org.flowable.dmn.engine.impl.interceptor.DmnCommandInvoker.executeOperation(DmnCommandInvoker.java:129)
+	at org.flowable.dmn.engine.impl.interceptor.DmnCommandInvoker.executeOperations(DmnCommandInvoker.java:76)
+	at org.flowable.dmn.engine.impl.interceptor.DmnCommandInvoker.execute(DmnCommandInvoker.java:62)
+	at org.flowable.common.engine.impl.interceptor.TransactionContextInterceptor.execute(TransactionContextInterceptor.java:53)
+	at org.flowable.common.engine.impl.interceptor.CommandContextInterceptor.execute(CommandContextInterceptor.java:105)
+	at org.flowable.common.engine.impl.interceptor.LogInterceptor.execute(LogInterceptor.java:30)
+	at org.flowable.common.engine.impl.cfg.CommandExecutorImpl.execute(CommandExecutorImpl.java:56)
+	at org.flowable.common.engine.impl.cfg.CommandExecutorImpl.execute(CommandExecutorImpl.java:51)
+	at org.flowable.dmn.engine.impl.DmnDecisionServiceImpl.executeDecision(DmnDecisionServiceImpl.java:58)
+	at org.flowable.dmn.engine.impl.ExecuteDecisionBuilderImpl.executeDecision(ExecuteDecisionBuilderImpl.java:134)
+	at probe.FlowableProbe.execute(FlowableProbe.java:54)
+	at probe.FlowableProbe.main(FlowableProbe.java:118)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.codehaus.mojo.exec.AbstractExecJavaBase.executeMainMethod(AbstractExecJavaBase.java:402)
+	at org.codehaus.mojo.exec.ExecJavaMojo.executeMainMethod(ExecJavaMojo.java:142)
+	at org.codehaus.mojo.exec.AbstractExecJavaBase.doExecClassLoader(AbstractExecJavaBase.java:377)
+	at org.codehaus.mojo.exec.AbstractExecJavaBase.lambda$execute$0(AbstractExecJavaBase.java:287)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+[probe.FlowableProbe.main()] ERROR org.flowable.common.engine.impl.interceptor.CommandContext - Error while closing command context
+org.flowable.dmn.xml.exception.DmnXMLException: javax.xml.transform.TransformerException: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[1,14]
+Message: XML document structures must start and end within the same entity.
+	at org.flowable.dmn.xml.converter.DmnXMLConverter.convertToDmnModel(DmnXMLConverter.java:253)
+	at org.flowable.dmn.engine.impl.parser.DmnParse.execute(DmnParse.java:83)
+	at org.flowable.dmn.engine.impl.deployer.ParsedDeploymentBuilder.createDmnParseFromResource(ParsedDeploymentBuilder.java:90)
+	at org.flowable.dmn.engine.impl.deployer.ParsedDeploymentBuilder.build(ParsedDeploymentBuilder.java:55)
+	at org.flowable.dmn.engine.impl.deployer.DmnDeployer.deploy(DmnDeployer.java:50)
+	at org.flowable.dmn.engine.impl.persistence.deploy.DeploymentManager.deploy(DeploymentManager.java:55)
+	at org.flowable.dmn.engine.impl.cmd.DeployCmd.execute(DeployCmd.java:112)
+	at org.flowable.dmn.engine.impl.cmd.DeployCmd.execute(DeployCmd.java:39)
+	at org.flowable.dmn.engine.impl.interceptor.DmnCommandInvoker$1.run(DmnCommandInvoker.java:58)
+	at org.flowable.dmn.engine.impl.interceptor.DmnCommandInvoker.executeOperation(DmnCommandInvoker.java:129)
+	at org.flowable.dmn.engine.impl.interceptor.DmnCommandInvoker.executeOperations(DmnCommandInvoker.java:76)
+	at org.flowable.dmn.engine.impl.interceptor.DmnCommandInvoker.execute(DmnCommandInvoker.java:62)
+	at org.flowable.common.engine.impl.interceptor.TransactionContextInterceptor.execute(TransactionContextInterceptor.java:53)
+	at org.flowable.common.engine.impl.interceptor.CommandContextInterceptor.execute(CommandContextInterceptor.java:105)
+	at org.flowable.common.engine.impl.interceptor.LogInterceptor.execute(LogInterceptor.java:30)
+	at org.flowable.common.engine.impl.cfg.CommandExecutorImpl.execute(CommandExecutorImpl.java:56)
+	at org.flowable.common.engine.impl.cfg.CommandExecutorImpl.execute(CommandExecutorImpl.java:51)
+	at org.flowable.dmn.engine.impl.DmnRepositoryServiceImpl.deploy(DmnRepositoryServiceImpl.java:61)
+	at org.flowable.dmn.engine.impl.repository.DmnDeploymentBuilderImpl.deploy(DmnDeploymentBuilderImpl.java:163)
+	at probe.FlowableProbe.install(FlowableProbe.java:40)
+	at probe.FlowableProbe.main(FlowableProbe.java:116)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.codehaus.mojo.exec.AbstractExecJavaBase.executeMainMethod(AbstractExecJavaBase.java:402)
+	at org.codehaus.mojo.exec.ExecJavaMojo.executeMainMethod(ExecJavaMojo.java:142)
+	at org.codehaus.mojo.exec.AbstractExecJavaBase.doExecClassLoader(AbstractExecJavaBase.java:377)
+	at org.codehaus.mojo.exec.AbstractExecJavaBase.lambda$execute$0(AbstractExecJavaBase.java:287)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: org.xml.sax.SAXException: javax.xml.transform.TransformerException: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[1,14]
+Message: XML document structures must start and end within the same entity.
+javax.xml.transform.TransformerException: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[1,14]
+Message: XML document structures must start and end within the same entity.
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.validation.StAXValidatorHelper.validate(StAXValidatorHelper.java:107)
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.validation.ValidatorImpl.validate(ValidatorImpl.java:122)
+	at java.xml/javax.xml.validation.Validator.validate(Validator.java:124)
+	at org.flowable.dmn.xml.converter.DmnXMLConverter.validateModel(DmnXMLConverter.java:161)
+	at org.flowable.dmn.xml.converter.DmnXMLConverter.convertToDmnModel(DmnXMLConverter.java:246)
+	... 27 more
+Caused by: javax.xml.transform.TransformerException: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[1,14]
+Message: XML document structures must start and end within the same entity.
+	at java.xml/com.sun.org.apache.xalan.internal.xsltc.trax.TransformerImpl.transform(TransformerImpl.java:793)
+	at java.xml/com.sun.org.apache.xalan.internal.xsltc.trax.TransformerImpl.transform(TransformerImpl.java:395)
+	at java.xml/com.sun.org.apache.xerces.internal.jaxp.validation.StAXValidatorHelper.validate(StAXValidatorHelper.java:103)
+	... 31 more
+Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[1,14]
+Message: XML document structures must start and end within the same entity.
+	at java.xml/com.sun.org.apache.xerces.internal.impl.XMLStreamReaderImpl.next(XMLStreamReaderImpl.java:652)
+	at java.xml/com.sun.org.apache.xalan.internal.xsltc.trax.StAXStream2SAX.bridge(StAXStream2SAX.java:207)
+	at java.xml/com.sun.org.apache.xalan.internal.xsltc.trax.StAXStream2SAX.parse(StAXStream2SAX.java:104)
+	at java.xml/com.sun.org.apache.xalan.internal.xsltc.trax.TransformerImpl.transformIdentity(TransformerImpl.java:714)
+	at java.xml/com.sun.org.apache.xalan.internal.xsltc.trax.TransformerImpl.transform(TransformerImpl.java:781)
+	... 33 more

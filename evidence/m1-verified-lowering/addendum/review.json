@@ -1,0 +1,224 @@
+{
+  "rows": [
+    {
+      "attemptId": "P08-1",
+      "originalBundleDigest": "7730fdb632e03df91fdfd7c173a0e49096c764081e94e01a85b9dc0f97b65736",
+      "frozenStatus": "SEMANTIC_ERROR",
+      "addendum": {
+        "version": "coverage-review-addendum.v0.2.1",
+        "goldDigest": "33a3854911c4800a8dc809985b42ddb862643924e1f523b6c587f68fd16076ca",
+        "semanticDigest": "e2531c62430ad7530c46fdec3a5526e555795701515c4d6e90b90c60f333c27b",
+        "status": "REVIEW_REQUIRED",
+        "findings": [
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "national",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "general",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "cashflow",
+            "reason": "QUALIFIER_DOES_NOT_ESTABLISH_SUBJECT_BRANCH"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "cashflow",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "extension",
+            "reason": "QUALIFIER_DOES_NOT_ESTABLISH_SUBJECT_BRANCH"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "extension",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "ceiling",
+            "reason": "QUALIFIER_DOES_NOT_ESTABLISH_SUBJECT_BRANCH"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "ceiling:requires:national",
+            "reason": "REQUIRED_RELATION_NOT_PROVEN"
+          }
+        ],
+        "mapping": {
+          "national": "u1",
+          "consumption": "u2",
+          "general": "u3",
+          "business": "u3",
+          "cashflow": "u4",
+          "extension": "u4",
+          "ceiling": "u4"
+        },
+        "atomicEvidenceCount": 7,
+        "expectedAtomicCount": 7,
+        "businessOwnerApproved": false,
+        "publicationAllowed": false,
+        "postObservationAnalysis": true,
+        "notNewExperimentScore": true
+      }
+    },
+    {
+      "attemptId": "P13-1",
+      "originalBundleDigest": "05eeffe64084ead86908b55d25280a2fccd69ab93bbfd01121b4773a94b73669",
+      "frozenStatus": "REVIEW_REQUIRED",
+      "addendum": {
+        "version": "coverage-review-addendum.v0.2.1",
+        "goldDigest": "16ec4e99cbabf9009845237d481f45e50c389fea27ae269e9b6ad78f67560f6b",
+        "semanticDigest": "98b7040a1a6daa8bda7a7dffa04ed6382f14f55f06ebd4e2b76759b1d82089af",
+        "status": "REVIEW_REQUIRED",
+        "findings": [
+          {
+            "category": "UNVERIFIABLE",
+            "key": "u2:requires:u1",
+            "reason": "EXTRA_RELATION_REQUIRES_REVIEW"
+          }
+        ],
+        "mapping": {
+          "application": "u1",
+          "evidence": "u2"
+        },
+        "atomicEvidenceCount": 2,
+        "expectedAtomicCount": 2,
+        "businessOwnerApproved": false,
+        "publicationAllowed": false,
+        "postObservationAnalysis": true,
+        "notNewExperimentScore": true
+      }
+    },
+    {
+      "attemptId": "P41-1",
+      "originalBundleDigest": "2b3604115d4e5a8a9674700623c4985fbd5c79022e0c28016f949392a9dc32d4",
+      "frozenStatus": "REVIEW_REQUIRED",
+      "addendum": {
+        "version": "coverage-review-addendum.v0.2.1",
+        "goldDigest": "c10a7fa66c11c5fc1df7ec2a8dd825d73b9d2b0d09b51d71db39b8f392c83867",
+        "semanticDigest": "9d99a709a8a58f4317f204da3c26cc62ffc4e40c3a138d9f0e0f04a0a879a9f2",
+        "status": "REVIEW_REQUIRED",
+        "findings": [
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "tracking",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "u2:followed_by:u1",
+            "reason": "EXTRA_RELATION_REQUIRES_REVIEW"
+          }
+        ],
+        "mapping": {
+          "tracking": "u1",
+          "future": "u2"
+        },
+        "atomicEvidenceCount": 2,
+        "expectedAtomicCount": 2,
+        "businessOwnerApproved": false,
+        "publicationAllowed": false,
+        "postObservationAnalysis": true,
+        "notNewExperimentScore": true
+      }
+    },
+    {
+      "attemptId": "P43-1",
+      "originalBundleDigest": "6e0a43a0adaad974bed9803ce17e3924ee9ada52d00b74222f3a20221f1cbab6",
+      "frozenStatus": "REVIEW_REQUIRED",
+      "addendum": {
+        "version": "coverage-review-addendum.v0.2.1",
+        "goldDigest": "76de12a7494ecb97e918908c2ae56e1203702788a77482c612b512ab1a3e069e",
+        "semanticDigest": "628b5d4366532be9e95961ee10fd952b7ab0f4148d8d5279b969e2398c26f892",
+        "status": "REVIEW_REQUIRED",
+        "findings": [
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "assessment",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "consent",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "reasonable_term",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "management",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "classification",
+            "reason": "KIND_REQUIRES_REVIEW"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "consent:business_prerequisite:assessment",
+            "reason": "RELATION_TYPE_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "reasonable_term:business_prerequisite:consent",
+            "reason": "MERGED_UNIT_RELATION_NOT_PROVEN"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "short:business_prerequisite:reasonable_term",
+            "reason": "RELATION_TYPE_REQUIRES_REVIEW"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "long:business_prerequisite:reasonable_term",
+            "reason": "RELATION_TYPE_REQUIRES_REVIEW"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "reasonable_term:followed_by:management",
+            "reason": "MERGED_UNIT_RELATION_NOT_PROVEN"
+          },
+          {
+            "category": "UNVERIFIABLE",
+            "key": "reasonable_term:followed_by:classification",
+            "reason": "MERGED_UNIT_RELATION_NOT_PROVEN"
+          },
+          {
+            "category": "REPRESENTATION_DIFFERENCE",
+            "key": "assessment:business_prerequisite:trigger",
+            "reason": "RELATION_TYPE_REQUIRES_REVIEW"
+          }
+        ],
+        "mapping": {
+          "trigger": "u1",
+          "assessment": "u2",
+          "consent": "u3",
+          "reasonable_term": "u3",
+          "management": "u3",
+          "classification": "u3",
+          "short": "u4",
+          "long": "u5"
+        },
+        "atomicEvidenceCount": 8,
+        "expectedAtomicCount": 8,
+        "businessOwnerApproved": false,
+        "publicationAllowed": false,
+        "postObservationAnalysis": true,
+        "notNewExperimentScore": true
+      }
+    }
+  ],
+  "originalResultsUnchanged": true,
+  "newModelCalls": 0
+}

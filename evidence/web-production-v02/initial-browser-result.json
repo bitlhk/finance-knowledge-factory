@@ -1,0 +1,18 @@
+{
+  "realRunId": "run-9ef0409f1bea4129903e58342dd4e3e8",
+  "uploadRunId": "run-f07037e6e9f546d29505fdf9b3aba048",
+  "modelCalls": 2,
+  "generatedRuleGroups": 2,
+  "failedExtractions": 0,
+  "documentClauses": 52,
+  "uploadClauses": 2,
+  "historyRefresh": true,
+  "sourceIsolation": true,
+  "mobileWidths": [
+    390,
+    320
+  ],
+  "publicationAllowed": false,
+  "pageErrors": [],
+  "cost": null
+}

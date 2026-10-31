@@ -1,0 +1,303 @@
+{
+  "models": [
+    {
+      "key": "condition_2c4c0155246b",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_2c4c0155246b\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 &lt;= v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "a2991abc53bd0ede07a1c4c5a1b696a3cb3f2e4629a26a81db8ffddb71ef0820",
+      "irDigest": "5a94663e9745f6ee799b5534981491190ba17034f83d3333c1c3263a4852c547",
+      "ruleId": "rule-001",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 36
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "e577653ccf5fc21bb48c9c5a7a3f3cd6c76c94181c7115f9f31830b11bc62ffe"
+    },
+    {
+      "key": "condition_e85f73015145",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_e85f73015145\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>((!(v0 == v1)))</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v2 &lt;= v3)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "5f485255fedadef72939dcea215f22d1f6d28c179041f3a0ec560b1a2550ba6b",
+      "irDigest": "5fbcaa6fff586388214a49cee54da4291cd7ad6d74b4217fbb5d09380498974d",
+      "ruleId": "rule-A-max-12-months",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "category"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "enum",
+            "value": "A"
+          }
+        },
+        {
+          "name": "v2",
+          "field": "months"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "aebd25c8d6ab339a1e5afa238ccf3aabc22a5cb5c5aca205a319fc3b590937e8"
+    },
+    {
+      "key": "condition_eb2dba56ac18",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_eb2dba56ac18\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>((!(v0 == v1)))</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v2 &lt;= v3)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "b8038c27ab3433f0ae39d2830ef7951e78d44c246791daf9e9c6b9ec18659b96",
+      "irDigest": "5fbcaa6fff586388214a49cee54da4291cd7ad6d74b4217fbb5d09380498974d",
+      "ruleId": "rule-B-max-36-months",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "category"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "enum",
+            "value": "B"
+          }
+        },
+        {
+          "name": "v2",
+          "field": "months"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "integer",
+            "value": 36
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "2bbf21a67580e0bf91071c672d9d2538c8fb26e088dc85b2a2deb66881e3dd76"
+    },
+    {
+      "key": "condition_e85f73015145",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_e85f73015145\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>((!(v0 == v1)))</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v2 &lt;= v3)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "5f485255fedadef72939dcea215f22d1f6d28c179041f3a0ec560b1a2550ba6b",
+      "irDigest": "bfa9fd8b7de7495252fc917b768655ccb85d19193e772091456bcfe98a9cd1ae",
+      "ruleId": "rule-A-max-12-months",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "category"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "enum",
+            "value": "A"
+          }
+        },
+        {
+          "name": "v2",
+          "field": "months"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "f62523d4c5d495ebce6d42ab20a499d794287ee7288970799c85a8e3e3bf15d8"
+    },
+    {
+      "key": "condition_eb2dba56ac18",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_eb2dba56ac18\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>((!(v0 == v1)))</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v2 &lt;= v3)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "b8038c27ab3433f0ae39d2830ef7951e78d44c246791daf9e9c6b9ec18659b96",
+      "irDigest": "bfa9fd8b7de7495252fc917b768655ccb85d19193e772091456bcfe98a9cd1ae",
+      "ruleId": "rule-B-max-36-months",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "category"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "enum",
+            "value": "B"
+          }
+        },
+        {
+          "name": "v2",
+          "field": "months"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "integer",
+            "value": 36
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "c7c0d75b8d4c85a25d9a9ee93e07ea583e4d9d96569aaa75cf7c393689d969da"
+    },
+    {
+      "key": "condition_bc70d6d1cad6",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_bc70d6d1cad6\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 &lt;= v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "c02a5905cbcf25d0bc8074db7bc5884b7e4030f81ddbc0becb9182c80f4e8f11",
+      "irDigest": "e3f83a0e2d4e705b0c222c191fcc70331235a9827b8c7b134be5ec64e690931e",
+      "ruleId": "rule_loan_term_limit_36m",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 36
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "8d3f8f4c4f6084ce3052db3923931f4bac91a7b310a8fbb212575e0120f55f13"
+    }
+  ],
+  "cases": [
+    {
+      "id": "E01-0",
+      "compiledDigest": "e577653ccf5fc21bb48c9c5a7a3f3cd6c76c94181c7115f9f31830b11bc62ffe",
+      "expected": "MET",
+      "variables": {
+        "v0": 36,
+        "v1": 36
+      }
+    },
+    {
+      "id": "E01-1",
+      "compiledDigest": "e577653ccf5fc21bb48c9c5a7a3f3cd6c76c94181c7115f9f31830b11bc62ffe",
+      "expected": "NOT_MET",
+      "variables": {
+        "v0": 37,
+        "v1": 36
+      }
+    },
+    {
+      "id": "E02-0",
+      "compiledDigest": "aebd25c8d6ab339a1e5afa238ccf3aabc22a5cb5c5aca205a319fc3b590937e8",
+      "expected": "MET",
+      "variables": {
+        "v0": "A",
+        "v1": "A",
+        "v2": 12,
+        "v3": 12
+      }
+    },
+    {
+      "id": "E02-1",
+      "compiledDigest": "aebd25c8d6ab339a1e5afa238ccf3aabc22a5cb5c5aca205a319fc3b590937e8",
+      "expected": "NOT_MET",
+      "variables": {
+        "v0": "A",
+        "v1": "A",
+        "v2": 13,
+        "v3": 12
+      }
+    },
+    {
+      "id": "E02-2",
+      "compiledDigest": "aebd25c8d6ab339a1e5afa238ccf3aabc22a5cb5c5aca205a319fc3b590937e8",
+      "expected": "NOT_APPLICABLE",
+      "variables": {
+        "v0": "B",
+        "v1": "A",
+        "v2": 6,
+        "v3": 12
+      }
+    },
+    {
+      "id": "E02-3",
+      "compiledDigest": "2bbf21a67580e0bf91071c672d9d2538c8fb26e088dc85b2a2deb66881e3dd76",
+      "expected": "MET",
+      "variables": {
+        "v0": "B",
+        "v1": "B",
+        "v2": 36,
+        "v3": 36
+      }
+    },
+    {
+      "id": "E02-4",
+      "compiledDigest": "2bbf21a67580e0bf91071c672d9d2538c8fb26e088dc85b2a2deb66881e3dd76",
+      "expected": "NOT_MET",
+      "variables": {
+        "v0": "B",
+        "v1": "B",
+        "v2": 37,
+        "v3": 36
+      }
+    },
+    {
+      "id": "E02-5",
+      "compiledDigest": "2bbf21a67580e0bf91071c672d9d2538c8fb26e088dc85b2a2deb66881e3dd76",
+      "expected": "NOT_APPLICABLE",
+      "variables": {
+        "v0": "A",
+        "v1": "B",
+        "v2": 6,
+        "v3": 36
+      }
+    },
+    {
+      "id": "E03-0",
+      "compiledDigest": "f62523d4c5d495ebce6d42ab20a499d794287ee7288970799c85a8e3e3bf15d8",
+      "expected": "REVIEW_REQUIRED",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "E03-1",
+      "compiledDigest": "f62523d4c5d495ebce6d42ab20a499d794287ee7288970799c85a8e3e3bf15d8",
+      "expected": "REVIEW_REQUIRED",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "E03-2",
+      "compiledDigest": "c7c0d75b8d4c85a25d9a9ee93e07ea583e4d9d96569aaa75cf7c393689d969da",
+      "expected": "REVIEW_REQUIRED",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "E03-3",
+      "compiledDigest": "c7c0d75b8d4c85a25d9a9ee93e07ea583e4d9d96569aaa75cf7c393689d969da",
+      "expected": "REVIEW_REQUIRED",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "E04-0",
+      "compiledDigest": "8d3f8f4c4f6084ce3052db3923931f4bac91a7b310a8fbb212575e0120f55f13",
+      "expected": "REVIEW_REQUIRED",
+      "guard": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "E04-1",
+      "compiledDigest": "8d3f8f4c4f6084ce3052db3923931f4bac91a7b310a8fbb212575e0120f55f13",
+      "expected": "REVIEW_REQUIRED",
+      "guard": "REVIEW_REQUIRED"
+    }
+  ],
+  "faults": []
+}

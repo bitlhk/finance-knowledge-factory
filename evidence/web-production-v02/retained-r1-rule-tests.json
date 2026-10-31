@@ -1,0 +1,196 @@
+[
+  {
+    "name": "met",
+    "receipt": {
+      "id": "test-c3c306b305d747d2b0e8e34b71e0bbaa",
+      "runId": "run-9ef0409f1bea4129903e58342dd4e3e8",
+      "artifactDigest": "7c7654207c829aed80366571781309aa26c658054f9f6c042f094c6cc5baa607",
+      "clause": "第四十三条",
+      "ruleId": "u4",
+      "compiledDigest": "594e811be68438fa644d78e8c39c667d9ab77f2d82505b61af49bdf957141007",
+      "inputs": {
+        "original_months": 12,
+        "extension_months": 6
+      },
+      "trustedContext": {
+        "region": "CN",
+        "institution": "poc-bank",
+        "product": "ordinary-personal-loan",
+        "purpose": "component-probe",
+        "business_date": "2024-07-02",
+        "timezone": "Asia/Shanghai"
+      },
+      "createdAt": "2026-10-30T09:20:27.537295+00:00",
+      "reference": "MET",
+      "engineCalls": 2,
+      "wholeClauseDecision": "REVIEW_REQUIRED",
+      "publicationAllowed": false,
+      "comparison": "ENGINE_REFERENCE_CONSISTENCY_NOT_BUSINESS_GOLD",
+      "decision": "MET",
+      "primaryEngineCalls": 1,
+      "recoveryEngineCalls": 1,
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "engineReceipt": {
+        "engine": "org.flowable:flowable-dmn-engine:8.0.0",
+        "engineCalls": 1,
+        "results": [
+          {
+            "id": "test-c3c306b305d747d2b0e8e34b71e0bbaa",
+            "actual": "MET",
+            "executor": "FLOWABLE_DMN_8.0.0",
+            "definitionId": "25a45524-d443-11f1-859e-6aff75352aa8",
+            "deploymentId": "2599f4e2-d443-11f1-859e-6aff75352aa8",
+            "parentDeploymentId": "594e811be68438fa644d78e8c39c667d9ab77f2d82505b61af49bdf957141007",
+            "expected": "MET",
+            "passed": true
+          }
+        ],
+        "referenceFallback": false,
+        "faultResults": [
+          {
+            "id": "missing-pinned-version",
+            "rejected": true,
+            "error": "Pinned definition changed"
+          },
+          {
+            "id": "tampered-artifact",
+            "rejected": true,
+            "error": "COMPILED_DIGEST_MISMATCH"
+          }
+        ],
+        "sameEngineRecovery": true,
+        "recoveryStatus": "EXECUTED"
+      },
+      "engineRequestDigest": "595e48d52ea18eeec572f40d2188bf9b46df6980c5bf6b13f9dfc977d3b82683",
+      "engineResponseDigest": "eb3474b39d23b3e6633e3bd934ea70fcbc6aceaf8f73f78f15e5d9be70b49ddb"
+    }
+  },
+  {
+    "name": "not-met",
+    "receipt": {
+      "id": "test-8f1067e4193748a2a0640795478ccf86",
+      "runId": "run-9ef0409f1bea4129903e58342dd4e3e8",
+      "artifactDigest": "7c7654207c829aed80366571781309aa26c658054f9f6c042f094c6cc5baa607",
+      "clause": "第四十三条",
+      "ruleId": "u4",
+      "compiledDigest": "594e811be68438fa644d78e8c39c667d9ab77f2d82505b61af49bdf957141007",
+      "inputs": {
+        "original_months": 12,
+        "extension_months": 13
+      },
+      "trustedContext": {
+        "region": "CN",
+        "institution": "poc-bank",
+        "product": "ordinary-personal-loan",
+        "purpose": "component-probe",
+        "business_date": "2024-07-02",
+        "timezone": "Asia/Shanghai"
+      },
+      "createdAt": "2026-10-30T09:20:28.999402+00:00",
+      "reference": "NOT_MET",
+      "engineCalls": 1,
+      "wholeClauseDecision": "REVIEW_REQUIRED",
+      "publicationAllowed": false,
+      "comparison": "ENGINE_REFERENCE_CONSISTENCY_NOT_BUSINESS_GOLD",
+      "decision": "NOT_MET",
+      "primaryEngineCalls": 1,
+      "recoveryEngineCalls": 0,
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "engineReceipt": {
+        "engine": "org.flowable:flowable-dmn-engine:8.0.0",
+        "engineCalls": 1,
+        "results": [
+          {
+            "id": "test-8f1067e4193748a2a0640795478ccf86",
+            "actual": "NOT_MET",
+            "executor": "FLOWABLE_DMN_8.0.0",
+            "definitionId": "267fe858-d443-11f1-a7cf-6aff75352aa8",
+            "deploymentId": "26756106-d443-11f1-a7cf-6aff75352aa8",
+            "parentDeploymentId": "594e811be68438fa644d78e8c39c667d9ab77f2d82505b61af49bdf957141007",
+            "expected": "NOT_MET",
+            "passed": true
+          }
+        ],
+        "referenceFallback": false,
+        "faultResults": [
+          {
+            "id": "missing-pinned-version",
+            "rejected": true,
+            "error": "Pinned definition changed"
+          },
+          {
+            "id": "tampered-artifact",
+            "rejected": true,
+            "error": "COMPILED_DIGEST_MISMATCH"
+          }
+        ],
+        "sameEngineRecovery": null,
+        "recoveryStatus": "NOT_EXECUTED_NO_ELIGIBLE_CASE"
+      },
+      "engineRequestDigest": "d6d9fd0b297cee9ecdfa377e7caebf18b9fd3ef1d100896ab151312543748ca1",
+      "engineResponseDigest": "35efa2c361863961ec937bf1ec6e2513f411ea1adf26bce462efb9c99b351b32"
+    }
+  },
+  {
+    "name": "invalid-input",
+    "receipt": {
+      "id": "test-33094bfd2c8b406885be1a5e269e09a0",
+      "runId": "run-9ef0409f1bea4129903e58342dd4e3e8",
+      "artifactDigest": "7c7654207c829aed80366571781309aa26c658054f9f6c042f094c6cc5baa607",
+      "clause": "第四十三条",
+      "ruleId": "u4",
+      "compiledDigest": "594e811be68438fa644d78e8c39c667d9ab77f2d82505b61af49bdf957141007",
+      "inputs": {
+        "original_months": 12,
+        "extension_months": true
+      },
+      "trustedContext": {
+        "region": "CN",
+        "institution": "poc-bank",
+        "product": "ordinary-personal-loan",
+        "purpose": "component-probe",
+        "business_date": "2024-07-02",
+        "timezone": "Asia/Shanghai"
+      },
+      "createdAt": "2026-10-30T09:20:30.465815+00:00",
+      "reference": "INVALID_INPUT",
+      "engineCalls": 0,
+      "wholeClauseDecision": "REVIEW_REQUIRED",
+      "publicationAllowed": false,
+      "comparison": "ENGINE_REFERENCE_CONSISTENCY_NOT_BUSINESS_GOLD",
+      "decision": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD"
+    }
+  },
+  {
+    "name": "not-applicable",
+    "receipt": {
+      "id": "test-d82d77e7f0c94075935cdeb3e0f70684",
+      "runId": "run-9ef0409f1bea4129903e58342dd4e3e8",
+      "artifactDigest": "7c7654207c829aed80366571781309aa26c658054f9f6c042f094c6cc5baa607",
+      "clause": "第四十三条",
+      "ruleId": "u4",
+      "compiledDigest": "594e811be68438fa644d78e8c39c667d9ab77f2d82505b61af49bdf957141007",
+      "inputs": {
+        "original_months": 24,
+        "extension_months": 6
+      },
+      "trustedContext": {
+        "region": "CN",
+        "institution": "poc-bank",
+        "product": "ordinary-personal-loan",
+        "purpose": "component-probe",
+        "business_date": "2024-07-02",
+        "timezone": "Asia/Shanghai"
+      },
+      "createdAt": "2026-10-30T09:20:30.916684+00:00",
+      "reference": "NOT_APPLICABLE",
+      "engineCalls": 0,
+      "wholeClauseDecision": "REVIEW_REQUIRED",
+      "publicationAllowed": false,
+      "comparison": "ENGINE_REFERENCE_CONSISTENCY_NOT_BUSINESS_GOLD",
+      "decision": "NOT_APPLICABLE",
+      "executor": "INPUT_SCOPE_GUARD"
+    }
+  }
+]
