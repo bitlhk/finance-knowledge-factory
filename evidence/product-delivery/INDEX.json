@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "product-delivery-evidence.v0.1",
+  "nativeExecutionCommit": "1b5f11d9a1e94f734d1aced2c98747a31361e27f",
+  "nativeWorkingTreeDirty": false,
+  "jointBuilderAcceptance": "PENDING_HARNESS",
+  "originalDataModified": false,
+  "artifacts": {
+    "binding.json": "a8513dc8c3e4d6d87b159b0477da8b7e907de5de35a0c667832d0cf6747d7014",
+    "host-context-requirements.json": "d9588bbd7e4b21f5137c3acc054ed4ebcc80c93bd8db596adda9fe822fdfebcc",
+    "manifest.json": "605344e8d52dfff10e1bd4fa2a3f2aeb7a27ee3366bc1b503f75b72380cafe6d",
+    "preparation.json": "bafdc4a77df4d5bf317ef2b5b2fbaafdcf38c3cb3246b4b9b9a277f3b51f880c",
+    "query-receipt.json": "77b3654eaa5d5d1fd4128062289bc7e4bd525b19d3e67425b36242306fcdf9fb",
+    "regression-302.xml": "f0f179e8ab782bca8295a7b4af00a9ccbef845d693bb1ca4dbd2ceb32b2141f7",
+    "release.json": "dcd33fbdc1ab74209cc83d41daa8d77acb29410ffe4f2ead9a1959caa110ecde",
+    "validation.json": "4b2c47efcee12b60d0fe247a267fc809cea8b4e8f8df2145258c9882d38375c1"
+  }
+}
