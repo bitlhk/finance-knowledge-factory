@@ -1,0 +1,103 @@
+{
+  "descriptorDigest": "d5fb72594c840a6afcd6dc2c08d053444851ece9cfa039815f0c04bbbf85f01d",
+  "descriptor": {
+    "schemaVersion": "knowledge-product-release.v0.1",
+    "productId": "run-39d069d400924257a857cfa7ec64917b",
+    "name": "合成客服制度",
+    "nameOrigin": "PINNED_SOURCE_TITLE",
+    "productType": "DOCUMENT_EVIDENCE",
+    "version": 1,
+    "manifestDigest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+    "publication": {
+      "state": "PUBLISHED",
+      "mode": "M2_ISOLATED_DOCUMENT",
+      "approvalDecision": "ISOLATED_TEST_APPROVAL",
+      "productionAuthorized": false
+    },
+    "versionPolicy": "PINNED",
+    "connectionRef": "knowledge-factory-isolated",
+    "capabilities": [
+      "knowledge.evidence.search"
+    ],
+    "applicability": {
+      "combine": "ALL",
+      "scopes": [
+        {
+          "institutions": [
+            "synthetic-bank"
+          ],
+          "products": [
+            "customer-service"
+          ],
+          "purposes": [
+            "evidence-query"
+          ],
+          "regions": [
+            "CN-BJ"
+          ],
+          "timezone": "Asia/Shanghai",
+          "validFrom": "2026-01-01",
+          "validTo": null
+        }
+      ]
+    },
+    "permissions": {
+      "query": [
+        {
+          "resource": "product:run-39d069d400924257a857cfa7ec64917b",
+          "action": "consume"
+        },
+        {
+          "resource": "source:run-39d069d400924257a857cfa7ec64917b-source",
+          "action": "source_read"
+        }
+      ],
+      "history": [
+        {
+          "resource": "product:run-39d069d400924257a857cfa7ec64917b",
+          "action": "history"
+        },
+        {
+          "resource": "source:run-39d069d400924257a857cfa7ec64917b-source",
+          "action": "source_read"
+        }
+      ],
+      "crossPrincipalHistory": "HOST_EXACT_RECEIPT_AND_CORE_RECEIPT_HISTORY_REQUIRED",
+      "authority": "CURRENT_HOST_AND_CORE_REQUIRED"
+    },
+    "source": {
+      "sourceId": "run-39d069d400924257a857cfa7ec64917b-source",
+      "sourceRevision": 1,
+      "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54",
+      "contentDigest": "0df1020667862909306c0852d5f5438fe9ae89522697791ab42fbd027e5e1792",
+      "originalDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+      "anchorDigest": "3ab5fc2d66030793cff43b9b6dffe9d20aa30317a3ed306b460f890cb8c05612"
+    },
+    "releaseEvidence": {
+      "candidateDigest": "9cc78fa109671985e709354bf2f514533abb91caa29830fff6617c264dcdd113",
+      "validationDigest": "b51d64e968efa8892a4c91641a43e7af8b3444798909a6c1327ed37b1c54d3c8",
+      "approvalDigest": "7bae7429eb7710a96f19347c9b6d40577531bf1bacc1c916fa0142705aad0afe",
+      "indexDigest": "12e80b6669fb76413ef99ef4f60acafd1cf291cd7daea0d8d7029d1baa50c52d"
+    },
+    "protocols": {
+      "query": {
+        "schemaVersion": "knowledge-query.v0.1",
+        "method": "POST",
+        "path": "/query",
+        "schemaDigest": "ae9fa3dbf053829144983f3d23892eeef93d43e1a755f0306ccd0a01a209c4fa"
+      },
+      "session": {
+        "schemaVersion": "knowledge-session-check.v0.1",
+        "method": "POST",
+        "path": "/session",
+        "schemaDigest": "ae9fa3dbf053829144983f3d23892eeef93d43e1a755f0306ccd0a01a209c4fa"
+      },
+      "history": {
+        "schemaVersion": "knowledge-history.v0.1",
+        "method": "POST",
+        "path": "/history/read",
+        "schemaDigest": "114397ec532e40b84975e5884457ed1de63b45c71a05652c7e8ed5c3f1f3c3c6"
+      }
+    }
+  }
+}
