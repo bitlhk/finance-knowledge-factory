@@ -1,0 +1,12 @@
+{
+  "approvalDigest": "2bb091a551be26e3a8950f65bd60a6318814650e46cd6536172038835663a647",
+  "candidateDigest": "9fea90e7aa89d0dc30b8c4e6e6b66c5432e3bfd5d66683f3913bd59ef11aa67f",
+  "id": "synthetic-product-policy-e1bdc9d3687e",
+  "indexDigest": "99adf775d106a687f17b8485725d0b8ea830aefbfb303b9910b5e5ccf02f3368",
+  "mode": "M2_ISOLATED_DOCUMENT",
+  "productId": "synthetic-product-policy-e1bdc9d3687e",
+  "revision": 1,
+  "schemaVersion": "document-manifest.v0.1",
+  "sourceDigest": "11c298e2fd93997d7bd3704ec6182dd0bf4faec610ce3fbf450e22b5927e6367",
+  "validationDigest": "94c136984acf026411826d7adbe67828bec85f41dbd1a08ff0d70afc79f1addb"
+}

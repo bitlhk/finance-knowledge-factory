@@ -1,0 +1,103 @@
+{
+  "descriptorDigest": "630d800708d62f3bd3c8f696de28cb7f08f0c9a3d11b91e3e85fbd35e3cd7374",
+  "descriptor": {
+    "schemaVersion": "knowledge-product-release.v0.1",
+    "productId": "synthetic-product-policy-e1bdc9d3687e",
+    "name": "合成产品适用性制度",
+    "nameOrigin": "PINNED_SOURCE_TITLE",
+    "productType": "DOCUMENT_EVIDENCE",
+    "version": 1,
+    "manifestDigest": "1d51ac2b45f67ad61099c5a741017c23bb5096c7300fe12a3395f5a45de1449f",
+    "publication": {
+      "state": "PUBLISHED",
+      "mode": "M2_ISOLATED_DOCUMENT",
+      "approvalDecision": "ISOLATED_TEST_APPROVAL",
+      "productionAuthorized": false
+    },
+    "versionPolicy": "PINNED",
+    "connectionRef": "knowledge-factory-isolated",
+    "capabilities": [
+      "knowledge.evidence.search"
+    ],
+    "applicability": {
+      "combine": "ALL",
+      "scopes": [
+        {
+          "institutions": [
+            "synthetic-bank"
+          ],
+          "products": [
+            "customer-service"
+          ],
+          "purposes": [
+            "evidence-query"
+          ],
+          "regions": [
+            "CN-BJ"
+          ],
+          "timezone": "Asia/Shanghai",
+          "validFrom": "2026-01-01",
+          "validTo": null
+        }
+      ]
+    },
+    "permissions": {
+      "query": [
+        {
+          "resource": "product:synthetic-product-policy-e1bdc9d3687e",
+          "action": "consume"
+        },
+        {
+          "resource": "source:synthetic-product-policy-e1bdc9d3687e-source",
+          "action": "source_read"
+        }
+      ],
+      "history": [
+        {
+          "resource": "product:synthetic-product-policy-e1bdc9d3687e",
+          "action": "history"
+        },
+        {
+          "resource": "source:synthetic-product-policy-e1bdc9d3687e-source",
+          "action": "source_read"
+        }
+      ],
+      "crossPrincipalHistory": "HOST_EXACT_RECEIPT_AND_CORE_RECEIPT_HISTORY_REQUIRED",
+      "authority": "CURRENT_HOST_AND_CORE_REQUIRED"
+    },
+    "source": {
+      "sourceId": "synthetic-product-policy-e1bdc9d3687e-source",
+      "sourceRevision": 1,
+      "sourceDigest": "11c298e2fd93997d7bd3704ec6182dd0bf4faec610ce3fbf450e22b5927e6367",
+      "contentDigest": "0330613c09a0bdc2a477b4854c49f2bf015be268b37567fac0cf67f6098ccdf2",
+      "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+      "anchorDigest": "af47a6fe82615abe20aa2c167a41bcb923cbf78bdbb71879ff0db7dc84e088e9"
+    },
+    "releaseEvidence": {
+      "candidateDigest": "9fea90e7aa89d0dc30b8c4e6e6b66c5432e3bfd5d66683f3913bd59ef11aa67f",
+      "validationDigest": "94c136984acf026411826d7adbe67828bec85f41dbd1a08ff0d70afc79f1addb",
+      "approvalDigest": "2bb091a551be26e3a8950f65bd60a6318814650e46cd6536172038835663a647",
+      "indexDigest": "99adf775d106a687f17b8485725d0b8ea830aefbfb303b9910b5e5ccf02f3368"
+    },
+    "protocols": {
+      "query": {
+        "schemaVersion": "knowledge-query.v0.1",
+        "method": "POST",
+        "path": "/query",
+        "schemaDigest": "ae9fa3dbf053829144983f3d23892eeef93d43e1a755f0306ccd0a01a209c4fa"
+      },
+      "session": {
+        "schemaVersion": "knowledge-session-check.v0.1",
+        "method": "POST",
+        "path": "/session",
+        "schemaDigest": "ae9fa3dbf053829144983f3d23892eeef93d43e1a755f0306ccd0a01a209c4fa"
+      },
+      "history": {
+        "schemaVersion": "knowledge-history.v0.1",
+        "method": "POST",
+        "path": "/history/read",
+        "schemaDigest": "114397ec532e40b84975e5884457ed1de63b45c71a05652c7e8ed5c3f1f3c3c6"
+      }
+    }
+  }
+}
