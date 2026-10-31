@@ -1,0 +1,257 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "id": "actual-workbench-build",
+      "passed": true
+    },
+    {
+      "id": "existing-agent-page-enter-application",
+      "passed": true
+    },
+    {
+      "id": "actual-installation-lock",
+      "passed": true
+    },
+    {
+      "id": "actual-factory-original-quote-visible",
+      "passed": true
+    },
+    {
+      "id": "same-fixed-manifest",
+      "passed": true
+    },
+    {
+      "id": "history-recorded",
+      "passed": true
+    },
+    {
+      "id": "changed-manifest-denied",
+      "passed": true
+    },
+    {
+      "id": "new-source-session-same-instance",
+      "passed": true
+    },
+    {
+      "id": "upstream-outage-denied",
+      "passed": true
+    },
+    {
+      "id": "recovered-session-same-instance",
+      "passed": true
+    },
+    {
+      "id": "current-revocation-denied",
+      "passed": true
+    },
+    {
+      "id": "revocation-no-model",
+      "passed": true
+    },
+    {
+      "id": "own-instance-stopped",
+      "passed": true
+    },
+    {
+      "id": "host-leases-reclaimed",
+      "passed": true
+    },
+    {
+      "id": "same-instance-history",
+      "passed": true
+    },
+    {
+      "id": "history-integrity-and-required-capture",
+      "passed": true
+    },
+    {
+      "id": "history-no-model",
+      "passed": true
+    },
+    {
+      "id": "one-actual-displayed-answer",
+      "passed": true
+    },
+    {
+      "id": "query-retains-original-installation-lock",
+      "passed": true
+    },
+    {
+      "id": "exact-sent-answer-and-tool-results-archived",
+      "passed": true
+    },
+    {
+      "id": "archive-locked-and-disclosure-still-denied",
+      "passed": true
+    },
+    {
+      "id": "metadata-does-not-disclose-answer",
+      "passed": true
+    },
+    {
+      "id": "frozen-factory-history-schema",
+      "passed": true
+    },
+    {
+      "id": "one-original-knowledge-receipt",
+      "passed": true
+    },
+    {
+      "id": "server-proves-current-viewer-is-stopped-instance-owner",
+      "passed": true
+    },
+    {
+      "id": "owner-history-http",
+      "passed": true
+    },
+    {
+      "id": "owner-history-exact-original-answer",
+      "passed": true
+    },
+    {
+      "id": "owner-history-instance-lock-manifest-receipt",
+      "passed": true
+    },
+    {
+      "id": "owner-history-original-evidence",
+      "passed": true
+    },
+    {
+      "id": "owner-history-anchors-visible",
+      "passed": true
+    },
+    {
+      "id": "owner-history-independent-authorization",
+      "passed": true
+    },
+    {
+      "id": "owner-history-lease-reclaimed",
+      "passed": true
+    },
+    {
+      "id": "owner-history-390-no-overflow",
+      "passed": true
+    },
+    {
+      "id": "owner-history-320-no-overflow",
+      "passed": true
+    },
+    {
+      "id": "other-real-workbench-session-denied",
+      "passed": true
+    },
+    {
+      "id": "owner-no-history-permission-http",
+      "passed": true
+    },
+    {
+      "id": "owner-no-history-permission-no-answer-or-evidence",
+      "passed": true
+    },
+    {
+      "id": "owner-no-history-permission-lease-reclaimed",
+      "passed": true
+    },
+    {
+      "id": "wrong-receipt-permission-http",
+      "passed": true
+    },
+    {
+      "id": "wrong-receipt-permission-no-answer-or-evidence",
+      "passed": true
+    },
+    {
+      "id": "wrong-receipt-permission-lease-reclaimed",
+      "passed": true
+    },
+    {
+      "id": "owner-history-repeat-http",
+      "passed": true
+    },
+    {
+      "id": "owner-history-repeat-exact-original-answer",
+      "passed": true
+    },
+    {
+      "id": "owner-history-repeat-instance-lock-manifest-receipt",
+      "passed": true
+    },
+    {
+      "id": "owner-history-repeat-original-evidence",
+      "passed": true
+    },
+    {
+      "id": "owner-history-repeat-anchors-visible",
+      "passed": true
+    },
+    {
+      "id": "owner-history-repeat-independent-authorization",
+      "passed": true
+    },
+    {
+      "id": "owner-history-repeat-lease-reclaimed",
+      "passed": true
+    },
+    {
+      "id": "new-history-grant-not-runtime-lease",
+      "passed": true
+    },
+    {
+      "id": "history-no-core-mutation-before-revocation",
+      "passed": true
+    },
+    {
+      "id": "source-revoked-history-http",
+      "passed": true
+    },
+    {
+      "id": "source-revoked-history-no-answer-or-evidence",
+      "passed": true
+    },
+    {
+      "id": "source-revoked-history-lease-reclaimed",
+      "passed": true
+    },
+    {
+      "id": "source-revoked-factory-denial",
+      "passed": true
+    },
+    {
+      "id": "denied-read-no-core-mutation",
+      "passed": true
+    },
+    {
+      "id": "history-no-new-query-receipts",
+      "passed": true
+    },
+    {
+      "id": "history-no-model-calls",
+      "passed": true
+    },
+    {
+      "id": "runtime-leases-still-reclaimed",
+      "passed": true
+    },
+    {
+      "id": "history-worker-stopped-without-retrieval",
+      "passed": true
+    },
+    {
+      "id": "original-core-state-unchanged",
+      "passed": true
+    }
+  ],
+  "buildId": "agent-eac6d78a03054c1f",
+  "instanceId": "09a8b578-67ff-42e7-8c9d-ca71c0b6ce37",
+  "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+  "factoryCommit": "d67d366f8aeabee15365c661055e93b8ef558e54",
+  "model": "CONTROLLED_FIXTURE",
+  "source": "FACTORY_INDEPENDENT_SERVICE_REAL_RETRIEVAL",
+  "authentication": "EXISTING_LOCAL_WORKBENCH_SESSION_NOT_SSO",
+  "historyScope": "SAME_AUTHENTICATED_OWNER_PAGE_AND_SOURCE_REVOCATION_VERIFIED",
+  "models": 2,
+  "builderCommit": "08a0c858c083cce97f29dc928011a76a65814c6e",
+  "builderDirty": false,
+  "harnessCommit": "622e374bb6f2a8455c8f6d1fc976cbd9bd87eb4d"
+}
