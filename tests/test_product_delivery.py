@@ -79,6 +79,22 @@ def test_generic_product_read_only_no_retrieval_or_new_receipt(setup):
     assert service.database.read_bytes() == before and client.calls == calls
 
 
+def test_product_specific_connection_is_projected(setup):
+    service, _, product, _, _, authority, _ = setup
+    runtime = DiscoveryRuntime(service.database, DiscoveryLeases(authority),
+        {product['id']: 'knowledge-product-specific'})
+    item = json.loads(runtime.discover(TOKEN, BODY))['products'][0]
+    assert item['descriptor']['connectionRef'] == 'knowledge-product-specific'
+
+
+def test_missing_product_connection_fails_closed(setup):
+    service, _, _, _, _, authority, _ = setup
+    runtime = DiscoveryRuntime(service.database, DiscoveryLeases(authority),
+        {'another-product': 'knowledge-other'})
+    with pytest.raises(Rejected, match='DISCOVERY_INTEGRITY_FAILED'):
+        json.loads(runtime.discover(TOKEN, BODY))
+
+
 @pytest.mark.parametrize('case', ['missing', 'wrong-token', 'expired', 'wrong-owner', 'forged-policy', 'runtime-token', 'permissions', 'symlink'])
 def test_discovery_host_authority_denials(setup, case):
     *_, runtime, authority, lease_path = setup

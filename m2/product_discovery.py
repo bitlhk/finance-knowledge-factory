@@ -70,9 +70,21 @@ class DiscoveryLeases:
 
 class DiscoveryRuntime:
     def __init__(self, database, resolve_lease, connection_ref):
-        if not isinstance(connection_ref, str) or not re.fullmatch('[a-z][a-z0-9-]{0,63}', connection_ref):
+        if isinstance(connection_ref, str):
+            connection_ref = {'*': connection_ref}
+        if (not isinstance(connection_ref, dict) or not connection_ref
+                or any(not isinstance(product, str) or not product for product in connection_ref)
+                or any(not isinstance(ref, str) or not re.fullmatch('[a-z][a-z0-9-]{0,63}', ref)
+                       for ref in connection_ref.values())):
             raise ValueError('INVALID_CONNECTION_REF')
-        self.database, self.resolve_lease, self.connection_ref = database, resolve_lease, connection_ref
+        self.database, self.resolve_lease = database, resolve_lease
+        self.connection_refs = dict(connection_ref)
+
+    def connection_ref(self, product):
+        ref = self.connection_refs.get(product, self.connection_refs.get('*'))
+        if ref is None:
+            raise Rejected('DISCOVERY_INTEGRITY_FAILED')
+        return ref
 
     def lease(self, credential):
         lease = self.resolve_lease(credential)
@@ -97,7 +109,7 @@ class DiscoveryRuntime:
                     try:
                         binding = core._get(lease.actor, binding_sha, 'document-binding')
                         products.append(describe(core, lease.actor, lease.context, product,
-                            binding['manifestDigest'], self.connection_ref))
+                            binding['manifestDigest'], self.connection_ref(product)))
                     except Rejected as exc:
                         if exc.code in ('FORBIDDEN', 'SOURCE_NOT_EFFECTIVE',
                                         'SOURCE_SUPERSEDED_OR_REVOKED', 'KNOWLEDGE_NOT_APPLICABLE'):

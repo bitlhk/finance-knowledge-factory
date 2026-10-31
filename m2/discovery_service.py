@@ -105,20 +105,34 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--database', type=Path, required=True)
     parser.add_argument('--authority', type=Path, required=True)
-    parser.add_argument('--connection-ref', required=True)
+    connections = parser.add_mutually_exclusive_group(required=True)
+    connections.add_argument('--connection-ref')
+    connections.add_argument('--connection-map', type=Path)
     parser.add_argument('--port', type=int, default=0)
     parser.add_argument('--ready-file', type=Path, required=True)
     args = parser.parse_args()
     if (not args.database.is_file() or args.database.is_symlink()
             or not 0 <= args.port <= 65535 or args.port in (61353, 61358, 61360)):
         parser.error('Existing isolated database and unreserved port required')
-    runtime = DiscoveryRuntime(args.database, DiscoveryLeases(args.authority), args.connection_ref)
+    connection_refs = args.connection_ref
+    if args.connection_map is not None:
+        if (not args.connection_map.is_file() or args.connection_map.is_symlink()
+                or args.connection_map.resolve() != args.connection_map):
+            parser.error('Private regular connection map required')
+        try:
+            connection_refs = decode(args.connection_map.read_bytes())
+        except (OSError, ValueError, TypeError):
+            parser.error('Valid connection map required')
+    try:
+        runtime = DiscoveryRuntime(args.database, DiscoveryLeases(args.authority), connection_refs)
+    except ValueError:
+        parser.error('Valid connection reference mapping required')
     server = DiscoveryServer(('127.0.0.1', args.port), handler(runtime))
     for sig in (signal.SIGINT, signal.SIGTERM):
         signal.signal(sig, lambda *_: threading.Thread(target=server.shutdown, daemon=True).start())
     metadata = {'state': 'LISTENING_HOST_DISCOVERY_AUTH_REQUIRED', 'host': '127.0.0.1',
         'port': server.server_port, 'schemaSha256': SCHEMA_SHA256, 'codeIdentity': code_identity(),
-        'connectionRef': args.connection_ref}
+        'connectionRefs': sorted(set(runtime.connection_refs.values()))}
     ready = False
     try:
         record(args.ready_file, metadata)
