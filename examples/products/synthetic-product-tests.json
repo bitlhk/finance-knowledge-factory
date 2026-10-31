@@ -1,0 +1,5 @@
+[
+  {"question": "客户风险承受等级和评估有效状态应从哪里取得？", "expectedClause": "第一条"},
+  {"question": "产品风险等级和当前可售状态应从哪里取得？", "expectedClause": "第二条"},
+  {"question": "形成合成匹配建议需要哪些依据，缺失时如何处理？", "expectedClause": "第三条"}
+]
