@@ -1,0 +1,10 @@
+{
+  "status": "FAILED_BEFORE_BUILD",
+  "recordKind": "diagnostic_transcribed_from_terminal_output",
+  "error": "ModuleNotFoundError: No module named 'lxml'",
+  "stage": "read-only Factory snapshot import",
+  "environment": "Builder venv selected for Factory subprocess",
+  "retry": "joint-02; select existing Factory venv in PATH, keep Builder executable",
+  "sourceCodeChanged": false,
+  "queryStarted": false
+}
