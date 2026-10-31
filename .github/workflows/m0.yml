@@ -1,4 +1,4 @@
-name: Core and document Runtime regression
+name: Core, document Runtime and isolated workspace regression
 
 on:
   push:
@@ -30,7 +30,7 @@ jobs:
         run: |
           python -m knowledge_core.contracts
           git diff --exit-code -- contracts
-      - name: Run Core, document and Runtime regression
+      - name: Run Core, document, Runtime and isolated UI regression
         run: python -m pytest -q
       - name: Run synthetic lifecycle walkthrough
         run: python -m examples.m0_smoke

@@ -1,0 +1,254 @@
+{
+  "implementationCommit": "b906b78fed9e5d2951df68fcd858866c035806b7",
+  "frozenCandidate": "160aaf51b2a54664434d5c17bc3aa95a1b75b693",
+  "python": "3.12.3 (main, Jun 19 2026, 12:46:00) [GCC 13.3.0]",
+  "packages": [
+    "attrs==26.1.0",
+    "iniconfig==2.3.1",
+    "jsonschema==4.10.3",
+    "lxml==6.1.3",
+    "packaging==26.3",
+    "pluggy==1.7.0",
+    "pyrsistent==0.20.0",
+    "pytest==7.4.4"
+  ],
+  "junitSuites": {
+    "unit-b-development.xml": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "166",
+        "time": "8.589",
+        "timestamp": "2026-10-31T09:02:08.913557",
+        "hostname": "ecs-ecbf"
+      }
+    ],
+    "frozen-160aaf5.xml": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "434",
+        "time": "52.244",
+        "timestamp": "2026-10-31T09:07:46.144591",
+        "hostname": "ecs-ecbf"
+      }
+    ],
+    "unit-d-development.xml": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "290",
+        "time": "45.518",
+        "timestamp": "2026-10-31T09:04:28.549224",
+        "hostname": "ecs-ecbf"
+      }
+    ],
+    "unit-c-development-02.xml": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "274",
+        "time": "38.412",
+        "timestamp": "2026-10-31T09:03:19.230148",
+        "hostname": "ecs-ecbf"
+      }
+    ],
+    "unit-c-development.xml": [
+      {
+        "name": "pytest",
+        "errors": "1",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "1",
+        "time": "0.190",
+        "timestamp": "2026-10-31T09:03:04.011750",
+        "hostname": "ecs-ecbf"
+      }
+    ],
+    "unit-d-development-02.xml": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "296",
+        "time": "48.224",
+        "timestamp": "2026-10-31T09:07:33.063752",
+        "hostname": "ecs-ecbf"
+      }
+    ],
+    "prefixes/unit-a-fixed.xml": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "130",
+        "time": "6.351",
+        "timestamp": "2026-10-31T09:11:11.836342",
+        "hostname": "ecs-ecbf"
+      }
+    ],
+    "prefixes/unit-d-fixed.xml": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "296",
+        "time": "44.872",
+        "timestamp": "2026-10-31T09:12:08.009837",
+        "hostname": "ecs-ecbf"
+      }
+    ],
+    "prefixes/unit-c-fixed.xml": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "274",
+        "time": "40.811",
+        "timestamp": "2026-10-31T09:11:26.894765",
+        "hostname": "ecs-ecbf"
+      }
+    ],
+    "prefixes/unit-b-fixed.xml": [
+      {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "166",
+        "time": "8.324",
+        "timestamp": "2026-10-31T09:11:18.367798",
+        "hostname": "ecs-ecbf"
+      }
+    ]
+  },
+  "prefixes": [
+    {
+      "unit": "A",
+      "commit": "116e69fc151e84af09895bd4a63f1372c5645945",
+      "exitCode": 0,
+      "command": [
+        "/home/ubuntu/outputs/kf-main-prep-160aaf5/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--junitxml=/home/ubuntu/outputs/kf-main-prep-160aaf5/prefixes/unit-a-fixed.xml"
+      ],
+      "seconds": 6.524,
+      "suite": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "130",
+        "time": "6.351",
+        "timestamp": "2026-10-31T09:11:11.836342",
+        "hostname": "ecs-ecbf"
+      }
+    },
+    {
+      "unit": "B",
+      "commit": "684217c0477150386fcee1fbcc79717130f405ac",
+      "exitCode": 0,
+      "command": [
+        "/home/ubuntu/outputs/kf-main-prep-160aaf5/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--junitxml=/home/ubuntu/outputs/kf-main-prep-160aaf5/prefixes/unit-b-fixed.xml"
+      ],
+      "seconds": 8.507,
+      "suite": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "166",
+        "time": "8.324",
+        "timestamp": "2026-10-31T09:11:18.367798",
+        "hostname": "ecs-ecbf"
+      }
+    },
+    {
+      "unit": "C",
+      "commit": "02e59a500cf2b6ca4080baae6fff731620d9dbae",
+      "exitCode": 0,
+      "command": [
+        "/home/ubuntu/outputs/kf-main-prep-160aaf5/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--junitxml=/home/ubuntu/outputs/kf-main-prep-160aaf5/prefixes/unit-c-fixed.xml"
+      ],
+      "seconds": 41.018,
+      "suite": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "274",
+        "time": "40.811",
+        "timestamp": "2026-10-31T09:11:26.894765",
+        "hostname": "ecs-ecbf"
+      }
+    },
+    {
+      "unit": "D",
+      "commit": "b906b78fed9e5d2951df68fcd858866c035806b7",
+      "exitCode": 0,
+      "command": [
+        "/home/ubuntu/outputs/kf-main-prep-160aaf5/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--junitxml=/home/ubuntu/outputs/kf-main-prep-160aaf5/prefixes/unit-d-fixed.xml"
+      ],
+      "seconds": 45.054,
+      "suite": {
+        "name": "pytest",
+        "errors": "0",
+        "failures": "0",
+        "skipped": "0",
+        "tests": "296",
+        "time": "44.872",
+        "timestamp": "2026-10-31T09:12:08.009837",
+        "hostname": "ecs-ecbf"
+      }
+    }
+  ],
+  "equivalenceBytesIdentical": true,
+  "equivalenceFileSha256": "c08d0118e0cd209eadbb3cbad7f3323eb942fba0d3e01a605af86dda7e9bf7e5",
+  "historyHttp": {
+    "passed": true,
+    "historyGeneratedQueryReceipts": 0,
+    "ragflowCalls": 0,
+    "modelCalls": 0,
+    "outboundConnectionAttempts": 0
+  },
+  "browser": {
+    "finalStatus": "PASSED",
+    "scope": "CONTROLLED_UPSTREAM_NOT_NATIVE_RAGFLOW_OR_HARNESS"
+  },
+  "failuresRetained": {
+    "unit-c-development.xml": "Missing test helper import, collection error",
+    "browser-01/failure.json": "Controlled in-memory client was recreated before query"
+  },
+  "notRerun": [
+    "Real LLM extraction",
+    "Real Java Flowable",
+    "Native RAGFlow ingestion/retrieval",
+    "Harness/Builder installation"
+  ]
+}
