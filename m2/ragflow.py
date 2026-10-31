@@ -1,5 +1,6 @@
 """Bounded native RAGFlow API adapter; endpoint and identity are server-owned."""
 import json
+import hashlib
 import time
 import threading
 import uuid
@@ -93,13 +94,58 @@ class Ragflow:
             if matching and matching[0].get('progress',0)<0:raise Rejected('RAGFLOW_PARSE_FAILED')
             time.sleep(2)
         else:raise Rejected('RAGFLOW_PARSE_TIMEOUT')
-        chunks,_=self._http('GET',f'/datasets/{ds}/documents/{doc}/chunks?page_size=100')
-        rows=chunks.get('chunks',[])
-        if not rows or len(rows)!=chunks.get('total'):raise Rejected('RAGFLOW_CHUNKS_INCOMPLETE')
+        rows = self._ready_chunks(ds, doc)
         self.operations.append({'stage':'INDEX_READY','documentId':doc,'datasetId':ds,'chunkCount':len(rows)})
         return {'datasetId':ds,'documentId':doc,'buildId':build_id,'engineIdentity':ENGINE,
             'embeddingIdentity':'BAAI/bge-small-zh-v1.5:'+self.model_id,
             'chunks':[{'id':c['chunk_id'],'text':c['content_with_weight']} for c in rows]}
+
+    def _ready_chunks(self, dataset, document):
+        # Parse completion can precede search-index visibility. Never re-ingest.
+        deadline = time.monotonic() + 30
+        previous = None
+        while True:
+            rows, seen, total = [], set(), None
+            complete = True
+            for page in range(1, 11):
+                payload, _ = self._http('GET',
+                    f'/datasets/{dataset}/documents/{document}/chunks?page={page}&page_size=100')
+                batch = payload.get('chunks') if isinstance(payload, dict) else None
+                count = payload.get('total') if isinstance(payload, dict) else None
+                if (not isinstance(batch, list) or type(count) is not int or
+                        count < 0 or count > 1000 or len(batch) > 100):
+                    raise Rejected('RAGFLOW_RESPONSE_INVALID')
+                if total is None:
+                    total = count
+                elif count != total:
+                    complete = False
+                    break
+                for chunk in batch:
+                    if (not isinstance(chunk, dict) or not isinstance(chunk.get('chunk_id'), str)
+                            or not chunk['chunk_id'] or not isinstance(chunk.get('content_with_weight'), str)
+                            or not chunk['content_with_weight'].strip()):
+                        raise Rejected('RAGFLOW_RESPONSE_INVALID')
+                    if chunk['chunk_id'] in seen:
+                        raise Rejected('RAGFLOW_DUPLICATE_CHUNK')
+                    seen.add(chunk['chunk_id'])
+                    rows.append(chunk)
+                if len(rows) > total:
+                    raise Rejected('RAGFLOW_RESPONSE_INVALID')
+                if not batch or len(rows) == total:
+                    break
+            complete = complete and bool(rows) and len(rows) == total
+            fingerprint = hashlib.sha256(json.dumps(sorted(
+                (r['chunk_id'], r['content_with_weight']) for r in rows),
+                ensure_ascii=False).encode()).hexdigest() if complete else None
+            self.operations.append({'stage': 'INDEX_VISIBILITY_CHECK', 'datasetId': dataset,
+                'documentId': document, 'expectedCount': total, 'receivedCount': len(rows),
+                'complete': complete, 'stable': complete and fingerprint == previous})
+            if complete and fingerprint == previous:
+                return rows
+            if time.monotonic() >= deadline:
+                raise Rejected('RAGFLOW_CHUNKS_INCOMPLETE')
+            previous = fingerprint
+            time.sleep(2)
 
     def retrieve(self, dataset, document, question):
         result,_=self._http('POST','/retrieval',{'dataset_ids':[dataset],'document_ids':[document],
