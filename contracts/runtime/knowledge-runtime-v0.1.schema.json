@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:knowledge-factory:knowledge-runtime:v0.1",
+  "$defs": {
+    "id": {"type":"string","pattern":"^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"},
+    "identity": {"type":"string","minLength":1},
+    "hash": {"type":"string","pattern":"^[a-f0-9]{64}$"},
+    "date": {"type":"string","pattern":"^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+    "queryRequest": {
+      "type":"object", "additionalProperties":false,
+      "required":["schemaVersion","capabilityId","productId","manifest","businessDate","principalId","subjectRef","sessionRef","purpose","requestId","traceId","arguments"],
+      "properties":{
+        "schemaVersion":{"const":"knowledge-query.v0.1"},
+        "capabilityId":{"const":"knowledge.evidence.search"},
+        "productId":{"$ref":"#/$defs/id"}, "manifest":{"$ref":"#/$defs/hash"},
+        "businessDate":{"$ref":"#/$defs/date"}, "principalId":{"$ref":"#/$defs/identity"},
+        "subjectRef":{"$ref":"#/$defs/identity"}, "sessionRef":{"$ref":"#/$defs/identity"},
+        "purpose":{"$ref":"#/$defs/identity"}, "requestId":{"$ref":"#/$defs/id"}, "traceId":{"$ref":"#/$defs/id"},
+        "arguments":{"type":"object","additionalProperties":false,"required":["question"],
+          "properties":{"question":{"type":"string","minLength":1,"maxLength":1000}}}
+      }
+    },
+    "sessionRequest":{"type":"object","maxProperties":0},
+    "sessionResponse":{
+      "type":"object","additionalProperties":false,
+      "required":["code","schemaVersion","sessionRef","productId","manifest"],
+      "properties":{
+        "code":{"type":"integer","const":0},"schemaVersion":{"const":"knowledge-session-check.v0.1"},
+        "sessionRef":{"$ref":"#/$defs/identity"},"productId":{"$ref":"#/$defs/id"},"manifest":{"$ref":"#/$defs/hash"}
+      }
+    },
+    "anchor":{
+      "type":"object","additionalProperties":false,
+      "required":["schemaVersion","sourceBytesDigest","mediaType","locatorKind","locator","quote","quoteDigest"],
+      "properties":{
+        "schemaVersion":{"const":"evidence-anchor.v0.1"},"sourceBytesDigest":{"$ref":"#/$defs/hash"},
+        "mediaType":{"const":"text/html"},"locatorKind":{"const":"HTML_DOM_TEXT"},
+        "quote":{"type":"string","minLength":1},"quoteDigest":{"$ref":"#/$defs/hash"},
+        "locator":{"type":"object","additionalProperties":false,"required":["xpath","start","end"],
+          "properties":{"xpath":{"type":"string","minLength":1},"start":{"type":"integer","minimum":0},"end":{"type":"integer","minimum":1}}}
+      }
+    },
+    "receipt":{
+      "type":"object","additionalProperties":false,
+      "required":["schemaVersion","receiptId","coreReceiptDigest","productId","manifest","businessDate","requestId","traceId","sourceDigest","sourceId","sourceRevision","indexDigest","bindingDigest","policyDigest","mode"],
+      "properties":{
+        "schemaVersion":{"const":"knowledge-receipt.v0.1"},"receiptId":{"type":"string","pattern":"^kr-[a-f0-9]{64}$"},
+        "coreReceiptDigest":{"$ref":"#/$defs/hash"},"productId":{"$ref":"#/$defs/id"},"manifest":{"$ref":"#/$defs/hash"},
+        "businessDate":{"$ref":"#/$defs/date"},"requestId":{"$ref":"#/$defs/id"},"traceId":{"$ref":"#/$defs/id"},
+        "sourceDigest":{"$ref":"#/$defs/hash"},"sourceId":{"$ref":"#/$defs/id"},
+        "sourceRevision":{"type":"integer","minimum":1},"indexDigest":{"$ref":"#/$defs/hash"},
+        "bindingDigest":{"$ref":"#/$defs/hash"},"policyDigest":{"$ref":"#/$defs/hash"},"mode":{"const":"M2_ISOLATED_DOCUMENT"}
+      }
+    },
+    "queryResponse":{
+      "type":"object","additionalProperties":false,"required":["code","decision","evidence","receipt"],
+      "properties":{
+        "code":{"type":"integer","const":0},"decision":{"enum":["EVIDENCE_FOUND","UNKNOWN"]},
+        "receipt":{"$ref":"#/$defs/receipt"},
+        "evidence":{"type":"array","maxItems":3,"items":{
+          "type":"object","additionalProperties":false,"required":["clause","quote","originalDigest","chunkId","anchors","sourceDigest"],
+          "properties":{"clause":{"type":"string","minLength":1},"quote":{"type":"string","minLength":1},
+            "originalDigest":{"$ref":"#/$defs/hash"},"chunkId":{"type":"string","minLength":1},"sourceDigest":{"$ref":"#/$defs/hash"},
+            "anchors":{"type":"array","minItems":1,"items":{"$ref":"#/$defs/anchor"}}}
+        }}
+      }
+    },
+    "errorResponse":{
+      "type":"object","additionalProperties":false,"required":["code","error"],
+      "properties":{"code":{"type":"integer","enum":[400,403,404,503]},"error":{"type":"string","pattern":"^[A-Z][A-Z0-9_]{0,127}$"}}
+    }
+  }
+}

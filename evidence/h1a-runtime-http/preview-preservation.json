@@ -1,0 +1,15 @@
+{
+  "before": {
+    "commit": "c2939742f211a1ed363dc792d3602d0098765a04",
+    "dirty": false,
+    "mode": "M2_ISOLATED_DOCUMENT",
+    "version": "M2 Isolated Documents"
+  },
+  "after": {
+    "commit": "c2939742f211a1ed363dc792d3602d0098765a04",
+    "dirty": false,
+    "mode": "M2_ISOLATED_DOCUMENT",
+    "version": "M2 Isolated Documents"
+  },
+  "sameVersion": true
+}

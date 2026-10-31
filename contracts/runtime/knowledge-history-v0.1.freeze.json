@@ -1,0 +1,8 @@
+{
+  "status": "ACKNOWLEDGED_FROZEN",
+  "schema": "knowledge-history-v0.1.proposed.schema.json",
+  "sha256": "114397ec532e40b84975e5884457ed1de63b45c71a05652c7e8ed5c3f1f3c3c6",
+  "ack": "https://github.com/bitlhk/finance-knowledge-factory/pull/6#issuecomment-6535802338",
+  "factoryBaseline": "7c6b0988d62448b195725734607b513637721a7b",
+  "note": "Historical filename/title retained byte-for-byte; this record supersedes proposal status only. Fields, errors and authority semantics unchanged."
+}

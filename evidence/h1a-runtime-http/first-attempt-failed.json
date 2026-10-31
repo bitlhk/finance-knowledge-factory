@@ -1,0 +1,523 @@
+{
+  "schemaVersion": "knowledge-runtime-http-acceptance.v0.1",
+  "status": "FAILED",
+  "scope": "REAL_HTTP_RUNTIME_AND_REAL_RAGFLOW_NOT_INSTALLED_AGENT",
+  "hostAuthority": "SYNTHETIC_FILE_FIXTURE_NOT_HARNESS_HOST_ACCEPTANCE",
+  "contractSha256": "ab154a75453e6460290fd2310aa709b1e96f31862cc202392fdd4798ffb6b7a6",
+  "binding": {
+    "schemaVersion": "knowledge-runtime-binding.v0.1",
+    "productId": "run-39d069d400924257a857cfa7ec64917b",
+    "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+    "productionBaseline": "c2939742f211a1ed363dc792d3602d0098765a04"
+  },
+  "checks": [
+    {
+      "name": "current-session",
+      "path": "/session",
+      "httpStatus": 200,
+      "response": {
+        "code": 0,
+        "schemaVersion": "knowledge-session-check.v0.1",
+        "sessionRef": "synthetic-http-session",
+        "productId": "run-39d069d400924257a857cfa7ec64917b",
+        "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3"
+      },
+      "passed": true
+    },
+    {
+      "name": "real-ragflow-query-0",
+      "path": "/query",
+      "httpStatus": 200,
+      "response": {
+        "code": 0,
+        "decision": "EVIDENCE_FOUND",
+        "evidence": [
+          {
+            "clause": "第一条",
+            "quote": "第一条 合成客服服务时间为每日09:00至17:00。",
+            "originalDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+            "chunkId": "7be299f43bd553c4",
+            "anchors": [
+              {
+                "locator": {
+                  "end": 27,
+                  "start": 0,
+                  "xpath": "/html/body/p[1]/text()[1]"
+                },
+                "locatorKind": "HTML_DOM_TEXT",
+                "mediaType": "text/html",
+                "quote": "第一条 合成客服服务时间为每日09:00至17:00。",
+                "quoteDigest": "7339dedce5da0d9dbcaeb693c95f5ef7168e4d0b2a78c4e1edb1ab2ea1301822",
+                "schemaVersion": "evidence-anchor.v0.1",
+                "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+              }
+            ],
+            "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54"
+          },
+          {
+            "clause": "第二条",
+            "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+            "originalDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+            "chunkId": "3906856fd9890225",
+            "anchors": [
+              {
+                "locator": {
+                  "end": 28,
+                  "start": 0,
+                  "xpath": "/html/body/p[2]/text()[1]"
+                },
+                "locatorKind": "HTML_DOM_TEXT",
+                "mediaType": "text/html",
+                "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+                "quoteDigest": "37cb23640221e65a1a31f1b793003b3853575546abef75a0946aef1107ab511f",
+                "schemaVersion": "evidence-anchor.v0.1",
+                "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+              }
+            ],
+            "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54"
+          }
+        ],
+        "receipt": {
+          "schemaVersion": "knowledge-receipt.v0.1",
+          "receiptId": "kr-e9f0a81ac58f5de43dc63ff0ad95f4d8de721b8422a83ba369357cc3672249d2",
+          "coreReceiptDigest": "e9f0a81ac58f5de43dc63ff0ad95f4d8de721b8422a83ba369357cc3672249d2",
+          "productId": "run-39d069d400924257a857cfa7ec64917b",
+          "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+          "businessDate": "2026-10-30",
+          "requestId": "http-acceptance-0",
+          "traceId": "http-acceptance-trace",
+          "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54",
+          "sourceId": "run-39d069d400924257a857cfa7ec64917b-source",
+          "sourceRevision": 1,
+          "indexDigest": "12e80b6669fb76413ef99ef4f60acafd1cf291cd7daea0d8d7029d1baa50c52d",
+          "bindingDigest": "f36da08f214957e0d777457f39d455ae38c518447d2e6bb9fd444460ad0a4f12",
+          "policyDigest": "fdab6ce6b50d4ed625d99c932dca8f4a8c7ab6bf3e63a11b8d27817f98cc8021",
+          "mode": "M2_ISOLATED_DOCUMENT"
+        }
+      },
+      "passed": true,
+      "requestContext": {
+        "requestId": "http-acceptance-0",
+        "traceId": "http-acceptance-trace",
+        "sessionRef": "synthetic-http-session",
+        "principalId": "knowledge-agent",
+        "productId": "run-39d069d400924257a857cfa7ec64917b",
+        "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+        "businessDate": "2026-10-30"
+      }
+    },
+    {
+      "name": "real-ragflow-query-1",
+      "path": "/query",
+      "httpStatus": 200,
+      "response": {
+        "code": 0,
+        "decision": "EVIDENCE_FOUND",
+        "evidence": [
+          {
+            "clause": "第二条",
+            "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+            "originalDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+            "chunkId": "3906856fd9890225",
+            "anchors": [
+              {
+                "locator": {
+                  "end": 28,
+                  "start": 0,
+                  "xpath": "/html/body/p[2]/text()[1]"
+                },
+                "locatorKind": "HTML_DOM_TEXT",
+                "mediaType": "text/html",
+                "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+                "quoteDigest": "37cb23640221e65a1a31f1b793003b3853575546abef75a0946aef1107ab511f",
+                "schemaVersion": "evidence-anchor.v0.1",
+                "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+              }
+            ],
+            "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54"
+          }
+        ],
+        "receipt": {
+          "schemaVersion": "knowledge-receipt.v0.1",
+          "receiptId": "kr-25d51006e6aad14d05269cda50c3ad9c0c30cf45a74f620dc7cb24d637f46623",
+          "coreReceiptDigest": "25d51006e6aad14d05269cda50c3ad9c0c30cf45a74f620dc7cb24d637f46623",
+          "productId": "run-39d069d400924257a857cfa7ec64917b",
+          "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+          "businessDate": "2026-10-30",
+          "requestId": "http-acceptance-1",
+          "traceId": "http-acceptance-trace",
+          "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54",
+          "sourceId": "run-39d069d400924257a857cfa7ec64917b-source",
+          "sourceRevision": 1,
+          "indexDigest": "12e80b6669fb76413ef99ef4f60acafd1cf291cd7daea0d8d7029d1baa50c52d",
+          "bindingDigest": "f36da08f214957e0d777457f39d455ae38c518447d2e6bb9fd444460ad0a4f12",
+          "policyDigest": "fdab6ce6b50d4ed625d99c932dca8f4a8c7ab6bf3e63a11b8d27817f98cc8021",
+          "mode": "M2_ISOLATED_DOCUMENT"
+        }
+      },
+      "passed": true,
+      "requestContext": {
+        "requestId": "http-acceptance-1",
+        "traceId": "http-acceptance-trace",
+        "sessionRef": "synthetic-http-session",
+        "principalId": "knowledge-agent",
+        "productId": "run-39d069d400924257a857cfa7ec64917b",
+        "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+        "businessDate": "2026-10-30"
+      }
+    },
+    {
+      "name": "real-ragflow-query-2",
+      "path": "/query",
+      "httpStatus": 200,
+      "response": {
+        "code": 0,
+        "decision": "EVIDENCE_FOUND",
+        "evidence": [
+          {
+            "clause": "第三条",
+            "quote": "第三条 信息缺失时，应交由人工核实，不得编造缺失信息。",
+            "originalDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+            "chunkId": "99daf69169117b5f",
+            "anchors": [
+              {
+                "locator": {
+                  "end": 27,
+                  "start": 0,
+                  "xpath": "/html/body/p[3]/text()[1]"
+                },
+                "locatorKind": "HTML_DOM_TEXT",
+                "mediaType": "text/html",
+                "quote": "第三条 信息缺失时，应交由人工核实，不得编造缺失信息。",
+                "quoteDigest": "b5783ab01d4db61c015afaa3b3ad0e597b6fc7004f5b1e023c89dcc7398a7e96",
+                "schemaVersion": "evidence-anchor.v0.1",
+                "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+              }
+            ],
+            "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54"
+          },
+          {
+            "clause": "第二条",
+            "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+            "originalDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+            "chunkId": "3906856fd9890225",
+            "anchors": [
+              {
+                "locator": {
+                  "end": 28,
+                  "start": 0,
+                  "xpath": "/html/body/p[2]/text()[1]"
+                },
+                "locatorKind": "HTML_DOM_TEXT",
+                "mediaType": "text/html",
+                "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+                "quoteDigest": "37cb23640221e65a1a31f1b793003b3853575546abef75a0946aef1107ab511f",
+                "schemaVersion": "evidence-anchor.v0.1",
+                "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+              }
+            ],
+            "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54"
+          }
+        ],
+        "receipt": {
+          "schemaVersion": "knowledge-receipt.v0.1",
+          "receiptId": "kr-54b0b604825b13bb1021f96b626d320dcc1851b3e41f2b119ecb8bcd2301fcab",
+          "coreReceiptDigest": "54b0b604825b13bb1021f96b626d320dcc1851b3e41f2b119ecb8bcd2301fcab",
+          "productId": "run-39d069d400924257a857cfa7ec64917b",
+          "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+          "businessDate": "2026-10-30",
+          "requestId": "http-acceptance-2",
+          "traceId": "http-acceptance-trace",
+          "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54",
+          "sourceId": "run-39d069d400924257a857cfa7ec64917b-source",
+          "sourceRevision": 1,
+          "indexDigest": "12e80b6669fb76413ef99ef4f60acafd1cf291cd7daea0d8d7029d1baa50c52d",
+          "bindingDigest": "f36da08f214957e0d777457f39d455ae38c518447d2e6bb9fd444460ad0a4f12",
+          "policyDigest": "fdab6ce6b50d4ed625d99c932dca8f4a8c7ab6bf3e63a11b8d27817f98cc8021",
+          "mode": "M2_ISOLATED_DOCUMENT"
+        }
+      },
+      "passed": true,
+      "requestContext": {
+        "requestId": "http-acceptance-2",
+        "traceId": "http-acceptance-trace",
+        "sessionRef": "synthetic-http-session",
+        "principalId": "knowledge-agent",
+        "productId": "run-39d069d400924257a857cfa7ec64917b",
+        "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+        "businessDate": "2026-10-30"
+      }
+    },
+    {
+      "name": "missing-bearer/query",
+      "path": "/query",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "KNOWLEDGE_AUTH_REQUIRED"
+      },
+      "passed": true
+    },
+    {
+      "name": "incorrect-bearer/query",
+      "path": "/query",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "KNOWLEDGE_AUTH_REQUIRED"
+      },
+      "passed": true
+    },
+    {
+      "name": "expired-lease/query",
+      "path": "/query",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "KNOWLEDGE_AUTH_REQUIRED"
+      },
+      "passed": true
+    },
+    {
+      "name": "revoked-lease/query",
+      "path": "/query",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "KNOWLEDGE_AUTH_REQUIRED"
+      },
+      "passed": true
+    },
+    {
+      "name": "missing-bearer/session",
+      "path": "/session",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "KNOWLEDGE_AUTH_REQUIRED"
+      },
+      "passed": true
+    },
+    {
+      "name": "incorrect-bearer/session",
+      "path": "/session",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "KNOWLEDGE_AUTH_REQUIRED"
+      },
+      "passed": true
+    },
+    {
+      "name": "expired-lease/session",
+      "path": "/session",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "KNOWLEDGE_AUTH_REQUIRED"
+      },
+      "passed": true
+    },
+    {
+      "name": "revoked-lease/session",
+      "path": "/session",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "KNOWLEDGE_AUTH_REQUIRED"
+      },
+      "passed": true
+    },
+    {
+      "name": "spoof-manifest",
+      "path": "/query",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "KNOWLEDGE_CONTEXT_MISMATCH"
+      },
+      "passed": true
+    },
+    {
+      "name": "spoof-sessionRef",
+      "path": "/query",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "KNOWLEDGE_CONTEXT_MISMATCH"
+      },
+      "passed": true
+    },
+    {
+      "name": "spoof-principalId",
+      "path": "/query",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "KNOWLEDGE_CONTEXT_MISMATCH"
+      },
+      "passed": true
+    },
+    {
+      "name": "spoof-productId",
+      "path": "/query",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "KNOWLEDGE_CONTEXT_MISMATCH"
+      },
+      "passed": true
+    },
+    {
+      "name": "spoof-businessDate",
+      "path": "/query",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "KNOWLEDGE_CONTEXT_MISMATCH"
+      },
+      "passed": true
+    },
+    {
+      "name": "invalid-query-type",
+      "path": "/query",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "KNOWLEDGE_QUERY_INVALID"
+      },
+      "passed": true
+    },
+    {
+      "name": "session-cannot-issue-identity",
+      "path": "/session",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "KNOWLEDGE_QUERY_INVALID"
+      },
+      "passed": true
+    },
+    {
+      "name": "host-binding-mismatch",
+      "path": "/session",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "KNOWLEDGE_BINDING_MISMATCH"
+      },
+      "passed": true
+    },
+    {
+      "name": "host-policy-revoked",
+      "path": "/session",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "KNOWLEDGE_AUTH_REQUIRED"
+      },
+      "passed": true
+    },
+    {
+      "name": "permission-revoked-source:query",
+      "path": "/query",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "FORBIDDEN"
+      },
+      "passed": true
+    },
+    {
+      "name": "permission-revoked-source:session",
+      "path": "/session",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "FORBIDDEN"
+      },
+      "passed": true
+    },
+    {
+      "name": "permission-revoked-product:query",
+      "path": "/query",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "FORBIDDEN"
+      },
+      "passed": true
+    },
+    {
+      "name": "permission-revoked-product:session",
+      "path": "/session",
+      "httpStatus": 403,
+      "response": {
+        "code": 403,
+        "error": "FORBIDDEN"
+      },
+      "passed": true
+    }
+  ],
+  "generativeModelCalls": 0,
+  "cost": null,
+  "installationLock": null,
+  "implementation": {
+    "runtime_acceptance.py": "ea5f3a5a0fae7e41afac677090d2aa57f6c517d4211236bdc0310ffb8f5296a1",
+    "runtime_service.py": "eeea9fe7657dc8e3590e0042338d56bf5975cb3424ee77f3504f49fe1490fcf6",
+    "harness_runtime.py": "75ef777c25cbacb70620bc6b8767081d92b2aab28111e5f9f7e4db549e02eed7",
+    "host_leases.py": "d6c2d73595fe5d045b79d5dd4d5bba65bbb3a3558413e81cf434b06f4dc6f676",
+    "runtime_protocol.py": "e31798ff65e0946c7c14a259789178bddf12ca0dfed62a1c287cbabca0ab1075"
+  },
+  "runtime": {
+    "schemaVersion": "knowledge-runtime-process.v0.1",
+    "pid": 429726,
+    "host": "127.0.0.1",
+    "port": 61357,
+    "binding": {
+      "schemaVersion": "knowledge-runtime-binding.v0.1",
+      "productId": "run-39d069d400924257a857cfa7ec64917b",
+      "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+      "productionBaseline": "c2939742f211a1ed363dc792d3602d0098765a04"
+    },
+    "contractSha256": "ab154a75453e6460290fd2310aa709b1e96f31862cc202392fdd4798ffb6b7a6",
+    "authority": "HOST_OWNED_READ_ONLY",
+    "implementation": {
+      "runtime_service.py": "eeea9fe7657dc8e3590e0042338d56bf5975cb3424ee77f3504f49fe1490fcf6",
+      "host_leases.py": "d6c2d73595fe5d045b79d5dd4d5bba65bbb3a3558413e81cf434b06f4dc6f676",
+      "harness_runtime.py": "75ef777c25cbacb70620bc6b8767081d92b2aab28111e5f9f7e4db549e02eed7",
+      "runtime_protocol.py": "e31798ff65e0946c7c14a259789178bddf12ca0dfed62a1c287cbabca0ab1075"
+    },
+    "status": "LISTENING_NOT_AUTHORIZATION_ACCEPTANCE"
+  },
+  "source": {
+    "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54",
+    "sourceId": "run-39d069d400924257a857cfa7ec64917b-source",
+    "revision": 1
+  },
+  "exitCode": 0,
+  "stopReceipt": {
+    "schemaVersion": "knowledge-runtime-process.v0.1",
+    "pid": 429726,
+    "host": "127.0.0.1",
+    "port": 61357,
+    "binding": {
+      "schemaVersion": "knowledge-runtime-binding.v0.1",
+      "productId": "run-39d069d400924257a857cfa7ec64917b",
+      "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+      "productionBaseline": "c2939742f211a1ed363dc792d3602d0098765a04"
+    },
+    "contractSha256": "ab154a75453e6460290fd2310aa709b1e96f31862cc202392fdd4798ffb6b7a6",
+    "authority": "HOST_OWNED_READ_ONLY",
+    "implementation": {
+      "runtime_service.py": "eeea9fe7657dc8e3590e0042338d56bf5975cb3424ee77f3504f49fe1490fcf6",
+      "host_leases.py": "d6c2d73595fe5d045b79d5dd4d5bba65bbb3a3558413e81cf434b06f4dc6f676",
+      "harness_runtime.py": "75ef777c25cbacb70620bc6b8767081d92b2aab28111e5f9f7e4db549e02eed7",
+      "runtime_protocol.py": "e31798ff65e0946c7c14a259789178bddf12ca0dfed62a1c287cbabca0ab1075"
+    },
+    "status": "SERVER_CLOSED_WORKERS_JOINED",
+    "scope": "ONLY_THIS_RUNTIME_HTTP_PROCESS"
+  },
+  "fixtureCredentialFilesRemoved": true,
+  "originalGovernanceUnchanged": true
+}
