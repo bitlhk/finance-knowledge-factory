@@ -104,6 +104,11 @@ The UI code is therefore **not** byte-identical to the previous candidate;
 `1bf631a` explicitly records this narrow, requested usability delta. User-facing
 acceptance remains pending. Public zhishi still serves `d67d366`, not this delta.
 
+Screenshot review found the new primary action broke its last character onto a
+second line at 320px. A later CSS-only fix gives that action a full mobile row;
+`guided-mobile-final` repeats the complete controlled browser path and preserves
+the corrected screenshot and CSS digest. Native/Core results above are unchanged.
+
 ## Failures and review navigation
 
 The first cross-repository launch used a Python environment missing `lxml` and
