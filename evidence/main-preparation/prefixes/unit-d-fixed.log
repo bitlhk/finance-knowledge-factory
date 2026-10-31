@@ -1,0 +1,27 @@
+........................................................................ [ 24%]
+........................................................................ [ 48%]
+........................................................................ [ 72%]
+........................................................................ [ 97%]
+........                                                                 [100%]
+=============================== warnings summary ===============================
+tests/test_runtime_http.py::test_http_upstream_failure_and_recovery[business-403-RAGFLOW_BUSINESS_ERROR]
+tests/test_runtime_http.py::test_http_upstream_failure_and_recovery[http-503-RAGFLOW_UNAVAILABLE]
+tests/test_runtime_http.py::test_http_upstream_failure_and_recovery[malformed-json-RAGFLOW_UNAVAILABLE]
+tests/test_runtime_http.py::test_http_upstream_failure_and_recovery[wrong-dataset-RAGFLOW_DATASET_MISMATCH]
+tests/test_runtime_http.py::test_http_upstream_failure_and_recovery[wrong-document-RETRIEVAL_INDEX_MISMATCH]
+tests/test_runtime_http.py::test_http_upstream_failure_and_recovery[changed-text-RETRIEVAL_INDEX_MISMATCH]
+  tests/test_runtime_http.py:36: PytestWarning: record_property is incompatible with junit_family 'xunit2' (use 'legacy' or 'xunit1')
+    @pytest.mark.parametrize('fault,expected', [
+
+tests/test_runtime_http.py::test_http_revocation_during_retrieval[lease-revoked]
+tests/test_runtime_http.py::test_http_revocation_during_retrieval[lease-expired]
+tests/test_runtime_http.py::test_http_revocation_during_retrieval[source-permission]
+tests/test_runtime_http.py::test_http_revocation_during_retrieval[product-permission]
+tests/test_runtime_http.py::test_http_revocation_during_retrieval[source-revoked]
+tests/test_runtime_http.py::test_http_revocation_during_retrieval[manifest-binding]
+  tests/test_runtime_http.py:86: PytestWarning: record_property is incompatible with junit_family 'xunit2' (use 'legacy' or 'xunit1')
+    @pytest.mark.parametrize('change', ['lease-revoked','lease-expired','source-permission',
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /home/ubuntu/outputs/kf-main-prep-160aaf5/prefixes/unit-d-fixed.xml -
+296 passed, 12 warnings in 44.88s

@@ -1,0 +1,11 @@
+{
+  "observationOnly": true,
+  "mutatingRequests": 0,
+  "live": {
+    "commit": "c2939742f211a1ed363dc792d3602d0098765a04",
+    "dirty": false,
+    "prototypeSha256": "a12cf30a5771b59cd9fabb00ea67d1bc84361d2a73c916c354593b1adc15eb80",
+    "version": "M2 Isolated Documents"
+  },
+  "listeners": "State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                              \nLISTEN 0      5          127.0.0.1:61359      0.0.0.0:*    users:((\"python3\",pid=1792456,fd=3))\nLISTEN 0      5          127.0.0.1:61353      0.0.0.0:*    users:((\"python\",pid=90035,fd=4))   \n"
+}
