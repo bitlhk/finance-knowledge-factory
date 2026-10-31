@@ -1,6 +1,7 @@
 """Bounded native RAGFlow API adapter; endpoint and identity are server-owned."""
 import json
 import time
+import threading
 import uuid
 from urllib import request, error
 
@@ -23,6 +24,9 @@ class Ragflow:
         self.opener = request.build_opener(NoRedirect())
         self.token = None
         self.operations = []
+        self._closed = False
+        self._session_check = None
+        self._session_reject = None
         credentials = json.loads(credentials_path.read_text())
         data, headers = self._http('POST','/auth/login', {
             'email':'knowledge-m1@example.invalid','password':credentials['password']})
@@ -36,6 +40,10 @@ class Ragflow:
         self.model_id = matching[0]
 
     def _http(self, method, path, data=None, multipart=None):
+        if getattr(self, '_closed', False):
+            raise Rejected('RAGFLOW_UNAVAILABLE')
+        if getattr(self, '_session_check', None) is not None:
+            self._session_check()
         headers = {'Accept':'application/json'}
         if self.token:
             headers['Authorization']='Bearer '+self.token
@@ -51,11 +59,18 @@ class Ragflow:
                 raw=res.read(2_000_001)
                 if len(raw)>2_000_000:raise Rejected('RAGFLOW_RESPONSE_LIMIT')
                 payload=json.loads(raw)
+                if getattr(self, '_session_check', None) is not None:
+                    self._session_check()
                 if type(payload.get('code')) is not int or payload['code']!=0:
                     raise Rejected('RAGFLOW_BUSINESS_ERROR')
                 return payload.get('data'),res.headers
         except Rejected:raise
-        except (error.HTTPError,error.URLError,TimeoutError,ValueError,AttributeError):
+        except error.HTTPError as exc:
+            if exc.code == 401 and getattr(self, '_session_reject', None) is not None:
+                self._session_reject()
+            exc.close()
+            raise Rejected('RAGFLOW_UNAVAILABLE') from None
+        except (error.URLError,TimeoutError,ValueError,AttributeError):
             raise Rejected('RAGFLOW_UNAVAILABLE') from None
 
     def ingest(self, raw):
@@ -98,3 +113,66 @@ class Ragflow:
             return [{'id':c['id'],'text':c['content'],'documentId':c['document_id']} for c in rows]
         except Rejected:raise
         except (KeyError,TypeError,ValueError):raise Rejected('RAGFLOW_RESPONSE_INVALID') from None
+
+
+class _SessionQueryClient(Ragflow):
+    def close(self):
+        self._closed = True
+        self.token = None
+
+    def ingest(self, raw):
+        raise Rejected('RAGFLOW_UNAVAILABLE')
+
+
+class RagflowQuerySession:
+    """One lazy upstream login per service, not a cache of Host/Core authority.
+
+    Each request gets its own opener. A rejected session is terminal for this
+    process: no automatic login refresh or query retry, including after failures.
+    """
+    def __init__(self, credentials_path, setup_path, *, client_type=Ragflow):
+        self.credentials_path, self.setup_path = credentials_path, setup_path
+        self.client_type = client_type
+        self._lock = threading.Lock()
+        self._client = None
+        self._closed = False
+        self._failure = None
+        self.login_attempts = 0
+
+    def _check(self):
+        with self._lock:
+            if self._closed or self._failure is not None:
+                raise Rejected(self._failure or 'RAGFLOW_UNAVAILABLE')
+
+    def _reject(self):
+        with self._lock:
+            self._failure = 'RAGFLOW_UNAVAILABLE'
+            if self._client is not None:
+                self._client.token = None
+
+    def __call__(self):
+        with self._lock:
+            if self._closed or self._failure is not None:
+                raise Rejected(self._failure or 'RAGFLOW_UNAVAILABLE')
+            if self._client is None:
+                self.login_attempts += 1
+                try:
+                    self._client = self.client_type(self.credentials_path, self.setup_path)
+                except Exception as exc:
+                    self._failure = exc.code if isinstance(exc, Rejected) else 'RAGFLOW_UNAVAILABLE'
+                    raise Rejected(self._failure) from None
+            # Transport state and close() belong to this query, not another thread.
+            client = object.__new__(_SessionQueryClient)
+            client.base, client.model_id = self._client.base, self._client.model_id
+            client.token = self._client.token
+            client.opener = request.build_opener(NoRedirect())
+            client.operations = []
+            client._closed = False
+            client._session_check, client._session_reject = self._check, self._reject
+            return client
+
+    def close(self):
+        with self._lock:
+            self._closed = True
+            if self._client is not None:
+                self._client.token = None
