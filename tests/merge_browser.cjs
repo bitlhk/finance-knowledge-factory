@@ -4,6 +4,8 @@ const fs=require('node:fs'),path=require('node:path'),assert=require('node:asser
 const out=process.argv[2];if(!out)throw Error('Evidence output directory required');
 fs.mkdirSync(out,{recursive:true});
 const root=path.resolve(__dirname,'..');
+const guided=process.argv[4]==='guided';
+const native=process.argv[5]==='native';
 (async()=>{
  const browser=await chromium.launch({headless:true,executablePath:process.env.CHROMIUM_PATH||'/home/ubuntu/.cache/ms-playwright/chromium-1187/chrome-linux/chrome',args:['--no-sandbox']});
  const context=await browser.newContext({viewport:{width:1440,height:1000}}),page=await context.newPage();
@@ -16,7 +18,28 @@ const root=path.resolve(__dirname,'..');
    if(body.id?.startsWith('run-')&&['COMPLETED','PARTIAL','FAILED'].includes(body.status))completed=body;
  }catch{}});
  try{
-  await page.goto(process.argv[3]);await page.locator('[data-do="new-product"]').click();
+  await page.goto(process.argv[3]);
+  if(guided){
+   await page.locator('[data-do="document-demo"]').waitFor();
+   await page.screenshot({path:path.join(out,'home.png'),fullPage:true});
+   await page.locator('[data-do="document-demo"]').click();
+   await page.locator('#next').waitFor();
+   assert(!calls.some(c=>c.path==='/api/runs'&&c.method==='POST'));
+   await page.getByRole('button',{name:'关闭',exact:true}).click();
+   await page.locator('[data-do="catalog"]').click();
+   await page.locator('[data-do="document-demo"]').click();
+   await page.locator('#next').click();assert(await page.locator('#rules-check').isDisabled());
+   await page.locator('#next').click();assert.equal(await page.locator('[data-question]').count(),3);
+   await page.screenshot({path:path.join(out,'recipe.png'),fullPage:true});
+   await page.locator('#next').click();await page.locator('#next').click();
+   assert(!calls.some(c=>c.path==='/api/runs'&&c.method==='POST'));
+   for(const width of [320,390,1440]){
+    await page.setViewportSize({width,height:1000});
+    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+   }
+   await page.locator('[data-next-action="start"]').click();
+  }else{
+  await page.locator('[data-do="new-product"]').click();
   await page.locator('#use-upload').click();await page.locator('#title').fill('M2 浏览器合成客服制度');
   await page.locator('#file').setInputFiles(path.join(root,'tests/fixtures/m2-document.html'));
   await page.getByRole('button',{name:'导入原料',exact:true}).click();
@@ -29,16 +52,18 @@ const root=path.resolve(__dirname,'..');
   await page.screenshot({path:path.join(out,'recipe.png'),fullPage:true});
   await page.locator('#next').click();await page.locator('#next').click();
   await page.locator('[data-do="start"]').click();
+  }
   await page.waitForFunction(()=>document.querySelector('[data-do="approve-document"]')&&!document.querySelector('[data-do="approve-document"]').disabled,null,{timeout:300000});
   assert.equal(completed.status,'COMPLETED');assert.equal(completed.release.state,'VALIDATED');
   assert.equal(completed.artifact.validation.retrievalTests.length,3);
   assert(completed.artifact.validation.retrievalTests.every(t=>t.passed));
-  assert.equal(completed.nativeOperations[0].operation,'CONTROLLED_TEST_ONLY');
+  if(native)assert(completed.nativeOperations.some(op=>op.stage==='INDEX_READY'));
+  else assert.equal(completed.nativeOperations[0].operation,'CONTROLLED_TEST_ONLY');
   assert(await page.locator('[data-do="publish-document"]').isDisabled());
   assert(await page.locator('[data-do="sandbox"]').isDisabled());
   await page.screenshot({path:path.join(out,'candidate.png'),fullPage:true});
   for(const action of ['approve-document','publish-document']){
-   await page.locator(`[data-do="${action}"]`).click();
+   await page.locator(guided?`[data-next-action="${action}"]`:`[data-do="${action}"]`).click();
    if(action==='approve-document')await page.locator('#release-reason').fill('固定合成材料，3 条用户提供检索题通过；仅隔离测试，不构成银行业务认可。');
    else assert(await page.locator('#release-reason').evaluate(el=>el.readOnly));
    await page.locator('#release-confirm').check();
@@ -53,6 +78,11 @@ const root=path.resolve(__dirname,'..');
   assert(query.hits.some(h=>h.clause==='第一条'));assert.equal(query.receipt.manifestDigest,release.manifestDigest);
   await page.screenshot({path:path.join(out,'query.png'),fullPage:true});
   await page.getByRole('button',{name:'关闭',exact:true}).click();
+  if(guided){
+   await page.locator('[data-next-action="sandbox"]').click();
+   await page.locator('#search-form').waitFor();
+   await page.getByRole('button',{name:'关闭',exact:true}).click();
+  }
   const postsBefore=calls.filter(c=>c.method==='POST').length;
   await page.reload();await page.locator('[data-page="consume"]').click();
   assert((await page.locator('.content').innerText()).includes('合成客服服务时间是什么？'));
@@ -64,7 +94,7 @@ const root=path.resolve(__dirname,'..');
    await page.screenshot({path:path.join(out,`mobile-${width}.png`),fullPage:true});
   }
   assert.deepEqual(errors,[]);
-  fs.writeFileSync(path.join(out,'result.json'),JSON.stringify({status:'PASSED',run:completed,release,query,calls,errors,scope:'CONTROLLED_UPSTREAM_BROWSER_CORE_REGRESSION_NOT_NATIVE_RAGFLOW_NOT_HARNESS'},null,2));
+  fs.writeFileSync(path.join(out,'result.json'),JSON.stringify({status:'PASSED',guided,run:completed,release,query,calls,errors,scope:native?'NATIVE_RAGFLOW_BROWSER_CORE_SMOKE_NOT_HARNESS':'CONTROLLED_UPSTREAM_BROWSER_CORE_REGRESSION_NOT_NATIVE_RAGFLOW_NOT_HARNESS'},null,2));
   console.log(JSON.stringify({status:'PASSED',runId:completed.id,manifest:release.manifestDigest,evidence:out}));
  }catch(e){await page.screenshot({path:path.join(out,'failure.png'),fullPage:true});fs.writeFileSync(path.join(out,'failure.json'),JSON.stringify({error:e.message,errors,calls,completed},null,2));throw e;}
  finally{await browser.close();}
