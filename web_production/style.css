@@ -1,0 +1,17 @@
+/* V1.5 baseline CSS is served first, unchanged. Only live controls and readability here. */
+*{letter-spacing:0!important}
+.card{border-radius:8px}.small,.tiny,.sub,.hint,.warn,.good,.risk,.kv,.raw,.field label,.checkbox,.checkline,.badge,.workstep,.lanetitle strong,.sourcetile b,.outputtile b,.outputtile p,.btn.sm{font-size:12px}
+.btn:disabled{cursor:not-allowed}.processintro{width:100%}.processintro .badge{margin-top:5px}.progressline .selector{margin-left:auto}
+.workcol .outputtile{margin-bottom:8px}.workstep{min-height:33px}.sidebottom{overflow-wrap:anywhere}.prodfoot{flex-wrap:wrap}
+.pending-section{margin-bottom:20px}.pending-section .sectiontitle{margin-top:16px}
+.pagehead{display:flex;justify-content:space-between;align-items:start;gap:12px;flex-wrap:wrap;margin-bottom:20px}.pagehead h1{font-size:26px;margin:4px 0}
+.muted{color:var(--sub);font-size:12px}.source-list{width:100%;border-collapse:collapse;background:white}.source-list td,.source-list th{padding:14px;border-bottom:1px solid var(--line);text-align:left;overflow-wrap:anywhere}.source-list .selected{background:var(--rp)}.subsource{font-size:12px;color:var(--sub)}
+.technical{margin:10px 0;font-size:12px}.technical summary{cursor:pointer;color:var(--sub);padding:8px 0}.technical pre{white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.7 ui-monospace,monospace;max-height:320px;overflow:auto;background:#f7f7f8;padding:12px}
+.quote{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.9}.candidate-result,.asset-row{padding:12px 0;border-bottom:1px solid var(--line)}.asset-row h3{font-size:15px}
+.notice{padding:12px;border-left:3px solid var(--gold);background:#fffbf2;margin:14px 0}.status-label{display:inline-block;padding:3px 8px;background:#fffbf2;color:#775922;font-size:12px}.error-strip,#wizard-error:not(:empty){background:#fff1f2;color:#962339;padding:12px;margin:10px 0;overflow-wrap:anywhere}
+.consume-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}.consume-grid section{min-width:0}.consume-grid h2{font-size:17px}.consume-grid .field{margin-top:12px}.consume-grid textarea{font-family:ui-monospace,monospace}.no-content{padding:30px 0;color:var(--sub)}
+#clause-choices{max-height:240px;overflow:auto}.test-row{display:grid;grid-template-columns:minmax(0,1fr) 145px 28px;gap:8px;align-items:center;margin-top:12px}.test-row .field{margin:0}.modalfoot{padding-left:0;padding-right:0;margin-top:16px}.modalbody .hint{margin:12px 0}.modalbody .actions{margin-top:16px}
+.topcontrols,.selector{min-width:0}.btn,.badge{white-space:normal}.prodtitle,.raw,.v14-task,.inspectpane,.workcol{overflow-wrap:anywhere}.v14-checkgrid{margin-bottom:12px}
+#modal-error:not(:empty){padding:12px;color:#962339;background:#fff1f2;margin-bottom:12px}
+@media(max-width:820px){.consume-grid{grid-template-columns:1fr}.pagehead h1{font-size:22px}.source-list th:nth-child(3),.source-list td:nth-child(3){display:none}.source-list td,.source-list th:nth-child(1){padding:10px 6px}.topcontrols .selector{max-width:100%;flex-basis:160px}.progressline .selector{margin-left:0;max-width:100%}.test-row{grid-template-columns:minmax(0,1fr) 105px 24px}}
+@media(max-width:550px){.versiontag{display:none}.v14-task{align-items:start;flex-wrap:wrap}.v15-panel{grid-template-columns:1fr}.v15-craftnav{grid-template-columns:repeat(2,minmax(0,1fr))}.source-list td:first-child{max-width:130px}.modalback{padding:8px}.inspecttop .selector{max-width:100%}}

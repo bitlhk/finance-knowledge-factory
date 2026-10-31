@@ -1,0 +1,25 @@
+{
+  "schema": "web-ui-evidence.v0.1",
+  "testedCommit": "5944988",
+  "prototypeSha256": "a12cf30a5771b59cd9fabb00ea67d1bc84361d2a73c916c354593b1adc15eb80",
+  "newModelCalls": 0,
+  "formalPublication": false,
+  "files": {
+    "layout/01-product-home.png": "b8fa174efd735e32e21221bde39970ada7279bdf0886f8ed5c21af221c7b99db",
+    "layout/02-workshop.png": "aab9967382181b9996e4d5f46cbbd4e3d566b0f3f6bbd8aed173cf8ad7d163a3",
+    "layout/03-recipe-components.png": "5bee8e17094796f4c2542c896c566c5d0d8e569240df08a859e75ec2aad581ac",
+    "layout/04-candidate-receipts.png": "0fc4ae2fd1c17aff9d03f01bb611b5187375a34bcd6495559e63531c8e09145f",
+    "layout/05-formal-artifacts.png": "e9b00b4dd1f9199e6b76736948c1d35db02b636f332550b3c63e4d27907e5025",
+    "layout/06-consumption.png": "b851b8acff71525cbdaeb635d125f232361e50e6c1a3e17fe54dba879e8d14ed",
+    "layout/07-tests.png": "5f3e482f16602c01a3d7dae33544d11b0341051f82bb150b9b233c36c2935dc5",
+    "layout/08-new-production.png": "ccf0f6fe8f63c71ba4bd000bdb690b16ad68ab295e641f5a390e674d3e4cb6f6",
+    "layout/new-document-run.json": "0b10f1b443537d066cea4280d17d7e206d2cf7b421085cfd54e49a6ea3e03c55",
+    "layout/result.json": "0beb3d01b45b3d3d9419cd16f4977365ed1568f14b14c174d7cc31a2fe61214d",
+    "layout/workshop-1366.png": "2da7fb1d9352988ef07df4c6e8f0a01498dd931461285d86ebed835ce7d0c7dc",
+    "layout/workshop-320.png": "000aec595adae4601fd50dd7cb7bc22d715fb6f8b057db39c2aaebf1b130c90e",
+    "layout/workshop-390.png": "cdd2c88bfb145f567087b5b7d533fa5ade301223db80fcede54c54e7ca29f594",
+    "rule-regression/browser-result.json": "ccbf803ac3377e6f05c027fc59b40a0a945e899a85b3ecb8f488c5183571e8a6",
+    "rule-regression/final-run-export.json": "8ff2ecc5e8bcae3b5b788cdce7b20d83030c9e84459f67b25a6229365cb1e751",
+    "rule-regression/rule-tests.json": "107be9ca57c15aec44b6fba019a356df1effa05bef55819d7eb0904ba2ef35d4"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "project": "kf-m1-ragflow",
+  "containers": [
+    {
+      "name": "/kf-m1-ragflow_kvrocks_1",
+      "status": "exited",
+      "finishedAt": "2026-10-30T03:59:34.162580728Z"
+    },
+    {
+      "name": "/kf-m1-ragflow_api_1",
+      "status": "exited",
+      "finishedAt": "2026-10-30T03:59:34.116959505Z"
+    },
+    {
+      "name": "/kf-m1-ragflow_admin_1",
+      "status": "exited",
+      "finishedAt": "2026-10-30T03:59:34.059361807Z"
+    },
+    {
+      "name": "/kf-m1-ragflow_ingestor_1",
+      "status": "exited",
+      "finishedAt": "2026-10-30T03:59:34.164305942Z"
+    },
+    {
+      "name": "/kf-m1-ragflow_es01_1",
+      "status": "exited",
+      "finishedAt": "2026-10-30T03:59:36.608797049Z"
+    },
+    {
+      "name": "/kf-m1-ragflow_minio_1",
+      "status": "exited",
+      "finishedAt": "2026-10-30T03:59:34.075506189Z"
+    },
+    {
+      "name": "/kf-m1-ragflow_nats_1",
+      "status": "exited",
+      "finishedAt": "2026-10-30T03:59:34.110542982Z"
+    },
+    {
+      "name": "/kf-m1-ragflow_mysql_1",
+      "status": "exited",
+      "finishedAt": "2026-10-30T03:59:37.532456692Z"
+    }
+  ],
+  "ports": [
+    {
+      "host": "127.0.0.1",
+      "port": 19380,
+      "listening": false
+    },
+    {
+      "host": "127.0.0.1",
+      "port": 19381,
+      "listening": false
+    },
+    {
+      "host": "172.21.0.1",
+      "port": 19382,
+      "listening": false
+    }
+  ],
+  "volumesPreserved": true,
+  "otherProjectsOperated": false
+}

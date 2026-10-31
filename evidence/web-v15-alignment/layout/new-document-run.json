@@ -1,0 +1,231 @@
+{
+  "id": "run-41345cccbccb43fca28f43812d1cc2cf",
+  "requestId": "5d97945c-48ed-46f1-9820-93eb6b079588",
+  "submissionDigest": "7978f89bb5dbfe1815241a0e81309a450eb2b96ac0342c922605b5992c440c07",
+  "sourceId": "b12d6e8076a6facf1f190218757653febf86d8619b6e01a8f7d4ac6ae25aeaa1",
+  "title": "V1.5 界面对齐 · 合成客服制度",
+  "recipe": {
+    "version": "production-recipe.v0.2",
+    "sourceId": "b12d6e8076a6facf1f190218757653febf86d8619b6e01a8f7d4ac6ae25aeaa1",
+    "documentPipeline": "native-html-dom+character-bigram-search.v0.1",
+    "rulePipeline": null,
+    "loweringConfig": null,
+    "selectedClauses": [],
+    "tests": [
+      {
+        "question": "第一条",
+        "expectedClause": "第一条"
+      }
+    ],
+    "parameters": null,
+    "delivery": "LOCAL_UNPUBLISHED_CANDIDATE",
+    "publicationAllowed": false
+  },
+  "recipeDigest": "25c84ccbed76812c6fe0294f567aa457c3c439763a7c53996ef984da38bf0ff6",
+  "createdAt": "2026-10-30T09:46:32.632685+00:00",
+  "status": "COMPLETED",
+  "publicationAllowed": false,
+  "stages": [
+    {
+      "name": "parse",
+      "status": "RUNNING",
+      "time": "2026-10-30T09:46:32.638106+00:00"
+    },
+    {
+      "name": "parse",
+      "status": "COMPLETED",
+      "time": "2026-10-30T09:46:32.639726+00:00",
+      "clauseCount": 2,
+      "anchorCount": 2
+    },
+    {
+      "name": "documents",
+      "status": "COMPLETED",
+      "time": "2026-10-30T09:46:32.639963+00:00",
+      "count": 2,
+      "faqGenerated": false
+    },
+    {
+      "name": "rules",
+      "status": "NOT_SELECTED",
+      "time": "2026-10-30T09:46:32.640265+00:00",
+      "selected": []
+    },
+    {
+      "name": "validation",
+      "status": "RUNNING",
+      "time": "2026-10-30T09:46:32.640525+00:00"
+    },
+    {
+      "name": "validation",
+      "status": "COMPLETED",
+      "time": "2026-10-30T09:46:32.640840+00:00",
+      "semanticQuality": "NOT_ACCEPTED",
+      "engineCalls": 0
+    }
+  ],
+  "attempts": [],
+  "cost": null,
+  "artifact": {
+    "schemaVersion": "production-candidate.v0.2",
+    "runId": "run-41345cccbccb43fca28f43812d1cc2cf",
+    "sourceDigest": "b12d6e8076a6facf1f190218757653febf86d8619b6e01a8f7d4ac6ae25aeaa1",
+    "recipeDigest": "25c84ccbed76812c6fe0294f567aa457c3c439763a7c53996ef984da38bf0ff6",
+    "documentClauses": [
+      {
+        "clause": "第一条",
+        "text": "第一条 客户咨询应以公布的服务条款为依据。",
+        "anchors": [
+          {
+            "xpath": "/html/body/p[1]/text()[1]",
+            "start": 0,
+            "end": 21,
+            "quote": "第一条 客户咨询应以公布的服务条款为依据。"
+          }
+        ],
+        "sourceDigest": "b12d6e8076a6facf1f190218757653febf86d8619b6e01a8f7d4ac6ae25aeaa1"
+      },
+      {
+        "clause": "第二条",
+        "text": "第二条 缺失信息应交由人工核实。",
+        "anchors": [
+          {
+            "xpath": "/html/body/p[2]/text()[1]",
+            "start": 0,
+            "end": 16,
+            "quote": "第二条 缺失信息应交由人工核实。"
+          }
+        ],
+        "sourceDigest": "b12d6e8076a6facf1f190218757653febf86d8619b6e01a8f7d4ac6ae25aeaa1"
+      }
+    ],
+    "source": {
+      "schemaVersion": "source-revision.v0.1",
+      "id": "source-b12d6e8076a6facf",
+      "revision": 1,
+      "mediaType": "text/plain",
+      "content": "第一条 客户咨询应以公布的服务条款为依据。\n第二条 缺失信息应交由人工核实。",
+      "contentDigest": "62a3342a541bdbf18e5b17ccf714b60f4f42754a16eb7557952cc02329420cf8"
+    },
+    "bridge": {
+      "schemaVersion": "html-anchor-bridge.v0.1",
+      "sourceBytesDigest": "b12d6e8076a6facf1f190218757653febf86d8619b6e01a8f7d4ac6ae25aeaa1",
+      "derivedSourceDigest": "d9e8a9f137e7a75d56c4b0e6010b94e579c67e520c3183ac15f1f3f21824fb7b",
+      "lineSpace": "DERIVED_TEXT_ONLY",
+      "producer": "html-dom-text-bridge-0.1",
+      "mappings": [
+        {
+          "anchorId": "4179e4f8dc87f2bed67e8d28f0a854c38580514e419f1ac8ad5a8d8637e60059",
+          "anchor": {
+            "schemaVersion": "evidence-anchor.v0.1",
+            "sourceBytesDigest": "b12d6e8076a6facf1f190218757653febf86d8619b6e01a8f7d4ac6ae25aeaa1",
+            "mediaType": "text/html",
+            "locatorKind": "HTML_DOM_TEXT",
+            "locator": {
+              "xpath": "/html/body/p[1]/text()[1]",
+              "start": 0,
+              "end": 21
+            },
+            "quote": "第一条 客户咨询应以公布的服务条款为依据。",
+            "quoteDigest": "a9f42fac273407a12971924892133c0bbbdc98a3bd89e1d4005fdc85d41747ee"
+          },
+          "clause": "第一条",
+          "lineStart": 1,
+          "lineEnd": 1
+        },
+        {
+          "anchorId": "7cbb05e480bf1f42a3312e916a6138b447ef612463016e6642845496f86729c2",
+          "anchor": {
+            "schemaVersion": "evidence-anchor.v0.1",
+            "sourceBytesDigest": "b12d6e8076a6facf1f190218757653febf86d8619b6e01a8f7d4ac6ae25aeaa1",
+            "mediaType": "text/html",
+            "locatorKind": "HTML_DOM_TEXT",
+            "locator": {
+              "xpath": "/html/body/p[2]/text()[1]",
+              "start": 0,
+              "end": 16
+            },
+            "quote": "第二条 缺失信息应交由人工核实。",
+            "quoteDigest": "d4ab1ba48358431c1e4b8fc312757f62d6f426f7c6ff725a44ae148d7e69cad8"
+          },
+          "clause": "第二条",
+          "lineStart": 2,
+          "lineEnd": 2
+        }
+      ]
+    },
+    "rules": [],
+    "publicationAllowed": false,
+    "status": "UNAPPROVED_CANDIDATE",
+    "validation": {
+      "anchorChecks": "PASSED",
+      "retrievalTests": [
+        {
+          "question": "第一条",
+          "expectedClause": "第一条",
+          "retrievedClauses": [
+            "第一条"
+          ],
+          "passed": true
+        }
+      ],
+      "retrievalTestOrigin": "USER_SUPPLIED_NOT_INDEPENDENT_GOLD",
+      "ruleSemanticQuality": "NOT_ACCEPTED",
+      "ruleExecution": "NOT_RUN_NO_FACT_INPUTS",
+      "engineCalls": 0,
+      "overall": "EVIDENCE_CANDIDATE_ONLY"
+    }
+  },
+  "artifactDigest": "8143d2c84c60bf75ecf6e28e959f9a13cb9f5af2e7e30e168adc58c0c3557478",
+  "implementation": {
+    "web_production/__init__.py": "3aaafd472504555babc72de24b7da26f3e04949936897b0d147c9b63a0ddafc7",
+    "web_production/engine.py": "2c67ff2dad1777cb2a74747ca7f843d5dc912fc11b1b9885f8d85e49eb02835a",
+    "web_production/server.py": "4a0a9186595a815caa75b204d86b4cdad02d9ba48cf2bd87619aef13df837b6c",
+    "probes/documents/__init__.py": "7ff7cec69cc8ab027b584baa044bb5629480f05ff18dd457348513e27df02af0",
+    "probes/documents/anchor_bridge.py": "73960eaf0cb66a150c39be367af8c9e6f3da80a099d30d69fb4b7c352b52810e",
+    "probes/documents/check_access.py": "f1a54dee650718beec7d01a598191455933150c306c5a3effc64651e0c62e183",
+    "probes/documents/check_pdf_locations.py": "df999ede439157ece61597163e92f3e27308a4182bcf6d61bdebc2eaac9af8a7",
+    "probes/documents/compare_html.py": "d3dd857181d2db0b5c9fc6c1f93cb69333d724000adcf96ef00d2e3c4b235eea",
+    "probes/documents/download_pdf.py": "9c216fc245e0b0173e5e16510fcf584c3e96fe446fff203a0b6185a2c9c1faf6",
+    "probes/documents/download_word.py": "0fede45a315d0da3bfce43671774d515a8b9a956e97cd369be5c5fb1bea35614",
+    "probes/documents/embedding_service.py": "fed796f0b4484d2b390932a1fdc4e379bcb21ab194832037aeb8eb5875ac2fdf",
+    "probes/documents/html_evidence.py": "8980e573f84e4b52db8ca9cf00e1725c7a9b45429d17e52294577392060e1912",
+    "probes/documents/ingest_file.py": "defc74b2ec388d4b445ec46052c1cf38f2caffdcca5f05adcbb4ab6731e55b5d",
+    "probes/documents/parse_file.py": "79df397cd6877a703e73f910ce09e21e0e4ff4e671fe928f539c4b314dc1dd13",
+    "probes/documents/ragflow_client.py": "27ccb4644dfeee26fc2c96c7ee8c146566e42e99b98c87e5fc0361f8435101a8",
+    "probes/documents/ragflow_service.py": "232d04fdeebceab589bc19978d0e9e5abe00e4dd1d14bea423c3e74a4661280b",
+    "probes/documents/retrieve_service.py": "ab9b139789246f725f25841ce2522995df51fa7e86306b645c33c41d9bc408ff",
+    "probes/documents/review_retrieval.py": "fd28b865c70b183f382342e643a3d9fcf0273092d7e7a9969b64c7a02d4cdc3d",
+    "probes/documents/run_docling.py": "464534ad23711d17cb45694ac80996ab74e2262a06e97cb48267b95b08f3d07f",
+    "probes/documents/run_ragflow.py": "f57321b7e334d2629ef1b65f502f78530a83c81528dc5f4fe49d9b05f0e8efea",
+    "probes/llm/__init__.py": "9209f566e40cf8d9e059005d2d14f8da358e93533fbe61d124ab76fd708b54c3",
+    "probes/llm/archive_coverage.py": "f0b203430ab9b82b2973aca9b6c350d10c12d57551690c1dc30e4d603570f310",
+    "probes/llm/candidate_bundle.py": "f4948dcc4c7cd419fbbd4a2a9761081da68f99221a9f53f2358c9fd724c2e663",
+    "probes/llm/coverage.py": "e933433c1d1d2ef62f194532d4c6157e61c433bfad8744833bf2a0165a3b0f2f",
+    "probes/llm/coverage_gold.py": "5a03ff3fd455199503794e1fafb88c40731e4a958aae0c16e40564caf6a56a93",
+    "probes/llm/coverage_gold_v2.py": "77343b278b887dc6b19193c20834b9e051dde333e458151e92120f405d043532",
+    "probes/llm/coverage_recipe.py": "1c78a29d175b5bda5409afe47f6c2ec9dc6c36788c565bcc3f22823515ad55ca",
+    "probes/llm/coverage_review_addendum.py": "0b31ce2c91f5d634ef15983c90049709fa51c4ddfbb30b87dc32c2bb2b2bc1a7",
+    "probes/llm/coverage_review_v2.py": "aab2ebc256726a78f49d104fc9012a51591376394f9936bc3afadb87a5a185d9",
+    "probes/llm/linked.py": "0a48784442a04a42843c362a293b8ad15724cb891519bc3f4cc9d2bb7219414b",
+    "probes/llm/lowering_bundle.py": "792408ab2559ed009c03c0f228ad720489608c6bff16e2ca92612f977b1537d2",
+    "probes/llm/policy_gold.py": "5ad9966a551254ce3b89f609f6adad9d52974fa93f6c14edc2ae762a8814323e",
+    "probes/llm/replay_linked.py": "2d2d220bb654a51dd8f896e4727cacf4739dedadc5ad92351080447f9b2135cf",
+    "probes/llm/run.py": "f217ef43dc731f4ab5f538e898ff9c4a0904b41ce08726fbe5de1792687766c2",
+    "probes/llm/run_coverage.py": "23147d06e42579283b4bb01b7b2a94621fae3b9cf5301175bc9fdd1b588fbf49",
+    "probes/llm/run_linked.py": "bdead7efa7098e3425c3df10d1dab56746fd86d4dd1336fcdd68bad8da7a043d",
+    "probes/llm/run_lowering.py": "7dcd9474a7aeb9bd4ce705153fecd2191545c4c2393c172f80df2fe32d571437",
+    "probes/llm/run_lowering_addendum.py": "458cf63a2df7b222119cd94ea439568c948b786d2653a5d26d00924d353eb0b9",
+    "probes/llm/run_policy.py": "cd81e15743049a797872c929049e26288489514ec3c26be66cea9cb33c46dc92",
+    "probes/llm/semantic_v2.py": "c305bcfce0c88c979f15e9ca618ab570f6c6c3566853b63b7d46eaf7405162c8",
+    "probes/llm/verified_lowering.py": "9ec0e6cfa8b066b71faac766aa3f3bd4930cd75c3fdddb6d3b2d28b259731597",
+    "probes/flowable/compiler.py": "2c234056151043a091dbcbd95d1a1173f61989efc6fb688e1914ecfd76709aa4",
+    "knowledge_core/__init__.py": "e134e31dc4bbaf179c8f65b1c4253ae802dc48b55a7b6afc3258896ee07a4e9c",
+    "knowledge_core/contracts.py": "04b2318785b55d97bc69bdf2e7c581afa63f8fb67ef21f11bc90cd5475c004b6",
+    "knowledge_core/core.py": "cb34d294affc783a6566510a153040940f066b27e1335bf2f21fa98801a7ee17",
+    "knowledge_core/rules.py": "81fed459adcca5956a468b1bd21b5f8ab5eff7e1cbc641a4947a67ce598d16ce"
+  },
+  "startedAt": "2026-10-30T09:46:32.637573+00:00",
+  "finishedAt": "2026-10-30T09:46:32.641611+00:00",
+  "consumptionReceipts": []
+}

@@ -1,0 +1,96 @@
+[
+  {
+    "name": "/kf-m1-ragflow_kvrocks_1",
+    "state": "running",
+    "imageId": "sha256:834c6ceb223d76e5b01f5a44c20bab49f8215e6375bda36a55e19e5fe263279f",
+    "repoDigests": [
+      "apache/kvrocks@sha256:9e632c317c83c80d92f1c9d22ac6aa9f64d149e1f04ff2af5f15a5768a01c4b7"
+    ],
+    "memoryBytes": 805306368,
+    "ports": {}
+  },
+  {
+    "name": "/kf-m1-ragflow_api_1",
+    "state": "running",
+    "imageId": "sha256:ade2f5ba71f8c7305440a9ba9ca552b854fdbc483bf5c48e2c74fe618c7fc0f6",
+    "repoDigests": [
+      "infiniflow/ragflow@sha256:141670c7d25b4421f6378152e583a0fe7e5280ed750c42f7507759192d0dad82"
+    ],
+    "memoryBytes": 1887436800,
+    "ports": {
+      "9380/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "19380"
+        }
+      ]
+    }
+  },
+  {
+    "name": "/kf-m1-ragflow_admin_1",
+    "state": "running",
+    "imageId": "sha256:ade2f5ba71f8c7305440a9ba9ca552b854fdbc483bf5c48e2c74fe618c7fc0f6",
+    "repoDigests": [
+      "infiniflow/ragflow@sha256:141670c7d25b4421f6378152e583a0fe7e5280ed750c42f7507759192d0dad82"
+    ],
+    "memoryBytes": 805306368,
+    "ports": {
+      "9381/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "19381"
+        }
+      ]
+    }
+  },
+  {
+    "name": "/kf-m1-ragflow_ingestor_1",
+    "state": "running",
+    "imageId": "sha256:ade2f5ba71f8c7305440a9ba9ca552b854fdbc483bf5c48e2c74fe618c7fc0f6",
+    "repoDigests": [
+      "infiniflow/ragflow@sha256:141670c7d25b4421f6378152e583a0fe7e5280ed750c42f7507759192d0dad82"
+    ],
+    "memoryBytes": 3221225472,
+    "ports": {}
+  },
+  {
+    "name": "/kf-m1-ragflow_es01_1",
+    "state": "running",
+    "imageId": "sha256:ac1eef4151323a027507b73e0536f971b5a2181f3c0e77b37b335c84e37c1340",
+    "repoDigests": [
+      "elasticsearch@sha256:58a3a280935d830215802322e9a0373faaacdfd646477aa7e718939c2f29292a"
+    ],
+    "memoryBytes": 2306867200,
+    "ports": {}
+  },
+  {
+    "name": "/kf-m1-ragflow_minio_1",
+    "state": "running",
+    "imageId": "sha256:7d95c9dd122be48d2cac105df468d1616386db351c33143a2fd1fdc3ec252ce7",
+    "repoDigests": [
+      "pgsty/silo@sha256:29a498b24669cae1fed11c1a2fb2b3d73c68829a0a9c0b14e71b386671d38fac"
+    ],
+    "memoryBytes": 536870912,
+    "ports": {}
+  },
+  {
+    "name": "/kf-m1-ragflow_nats_1",
+    "state": "running",
+    "imageId": "sha256:29535378bebe76ff33b25a0ee21ab0fe2346cb9bbd179ece59ab2f37f36e3c0e",
+    "repoDigests": [
+      "nats@sha256:bbfbb6c4cdaeb8a2e3ca57d3de30463a66a6c5181f324f3b680bcf858833d377"
+    ],
+    "memoryBytes": 268435456,
+    "ports": {}
+  },
+  {
+    "name": "/kf-m1-ragflow_mysql_1",
+    "state": "running",
+    "imageId": "sha256:6c55ddbef96911f9f36d1330ffe3f7557c019d49434e738cafabd1a3dd6b4bac",
+    "repoDigests": [
+      "mysql@sha256:d58ac93387f644e4e040c636b8f50494e78e5afc27ca0a87348b2f577da2b7ff"
+    ],
+    "memoryBytes": 1258291200,
+    "ports": {}
+  }
+]

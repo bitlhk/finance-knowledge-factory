@@ -1,0 +1,27 @@
+{
+  "datasetId": "a7a1e6bfbe954e15a5dcb2c51fb56b23",
+  "beforeEmbeddingCalls": 43,
+  "records": [
+    {
+      "identity": "separate-local-account",
+      "httpStatus": 200,
+      "response": {
+        "code": 403,
+        "data": null,
+        "message": "Permission denied"
+      }
+    },
+    {
+      "identity": "anonymous",
+      "httpStatus": 401,
+      "response": {
+        "code": 401,
+        "data": null,
+        "message": "Missing Authorization header"
+      }
+    }
+  ],
+  "scope": "RAGFLOW_LOCAL_DATASET_ONLY_NOT_CORE_IAM",
+  "afterEmbeddingCalls": 43,
+  "passed": true
+}

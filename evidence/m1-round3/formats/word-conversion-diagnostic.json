@@ -1,0 +1,7 @@
+{
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": "Warning: failed to launch javaldx - java may not function correctly\nError: source file could not be loaded\n",
+  "files": [],
+  "profile": "DOCLING_HARDENED_ISOLATED"
+}

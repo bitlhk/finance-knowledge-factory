@@ -1,0 +1,3485 @@
+{
+  "sourceBytesDigest": "a1dadac6c7bb4513177f3e0261f48c07dd4abfea13f5c97b25c087dd43334eef",
+  "parser": "Docling native PDF provenance",
+  "verifier": "pdftotext version 24.02.0",
+  "pageCount": 14,
+  "rows": [
+    {
+      "chunkId": "#/texts/0:0",
+      "content": "国家金融监督管理总局规章",
+      "regions": [
+        {
+          "page": 1,
+          "bbox": [
+            104.0,
+            67.63636364800004,
+            295.700125,
+            86.66115702399998
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局规章"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/1:0",
+      "content": "个人贷款管理办法",
+      "regions": [
+        {
+          "page": 1,
+          "bbox": [
+            209.5625,
+            156.25000001600006,
+            385.277125,
+            182.40909090800005
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "个人贷款管理办法"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/2:0",
+      "content": "(2024年2月2日国家金融监督管理总局2024年第3号公布",
+      "regions": [
+        {
+          "page": 1,
+          "bbox": [
+            81.734375,
+            202.83928572000002,
+            513.13725,
+            223.071428568
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(2024年2月2日国家金融监督管理总局2024年第3号公布"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/3:0",
+      "content": "自2024年7月1日起施行)",
+      "regions": [
+        {
+          "page": 1,
+          "bbox": [
+            203.109375,
+            224.83928572000002,
+            391.83425,
+            245.071428568
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "自2024年7月1日起施行)"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/4:0",
+      "content": "第一章 总则",
+      "regions": [
+        {
+          "page": 1,
+          "bbox": [
+            253.546875,
+            250.61904763200005,
+            341.34075,
+            268.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第一章 总则"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/5:0",
+      "content": "第一条 为规范银行业金融机构个人贷款业务行为,加强个 人贷款业务审慎经营管理,促进个人贷款业务健康发展,依据 《中华人民共和国银行业监督管理法》《中华人民共和国商业 银行法》等法律法规,制定本办法。",
+      "regions": [
+        {
+          "page": 1,
+          "bbox": [
+            79.0,
+            307.61904763200005,
+            515.8251250000001,
+            409.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第一条 为规范银行业金融机构个人贷款业务行为,加强个 人贷款业务审慎经营管理,促进个人贷款业务健康发展,依据 《中华人民共和国银行业监督管理法》《中华人民共和国商业 银行法》等法律法规,制定本办法。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/6:0",
+      "content": "第二条 本办法所称银行业金融机构(以下简称贷款人),是 指在中华人民共和国境内设立的商业银行、农村合作银行、农 村信用合作社等吸收公众存款的金融机构。",
+      "regions": [
+        {
+          "page": 1,
+          "bbox": [
+            79.0,
+            420.619047632,
+            515.8251250000001,
+            494.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第二条 本办法所称银行业金融机构(以下简称贷款人),是 指在中华人民共和国境内设立的商业银行、农村合作银行、农 村信用合作社等吸收公众存款的金融机构。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/7:0",
+      "content": "第三条 本办法所称个人贷款,是指贷款人向符合条件的自 然人发放的用于个人消费、生产经营等用途的本外币贷款。",
+      "regions": [
+        {
+          "page": 1,
+          "bbox": [
+            79.0,
+            505.619047632,
+            515.8251250000001,
+            551.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第三条 本办法所称个人贷款,是指贷款人向符合条件的自 然人发放的用于个人消费、生产经营等用途的本外币贷款。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/8:0",
+      "content": "第四条 贷款人开展个人贷款业务,应当遵循依法合规、审",
+      "regions": [
+        {
+          "page": 1,
+          "bbox": [
+            111.0,
+            562.619047632,
+            515.8251250000001,
+            580.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第四条 贷款人开展个人贷款业务,应当遵循依法合规、审"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/9:0",
+      "content": "慎经营、平等自愿、公平诚信的原则。",
+      "regions": [
+        {
+          "page": 1,
+          "bbox": [
+            79.0,
+            592.25,
+            350.872,
+            608.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "慎经营、平等自愿、公平诚信的原则。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/10:0",
+      "content": "第五条 贷款人应建立有效的个人贷款全流程管理机制,制",
+      "regions": [
+        {
+          "page": 1,
+          "bbox": [
+            111.0,
+            619.619047632,
+            515.8251250000001,
+            637.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第五条 贷款人应建立有效的个人贷款全流程管理机制,制"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/11:0",
+      "content": "订贷款管理制度及每一贷款品种的操作规程,明确相应贷款对 象和范围,实施差别风险管理,建立贷款各操作环节的考核和问 责机制。",
+      "regions": [
+        {
+          "page": 1,
+          "bbox": [
+            79.0,
+            649.25,
+            510.872,
+            721.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "订贷款管理制度及每一贷款品种的操作规程,明确相应贷款对 象和范围,实施差别风险管理,建立贷款各操作环节的考核和问 责机制。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/12:0",
+      "content": "- 1 -",
+      "regions": [
+        {
+          "page": 1,
+          "bbox": [
+            492.421875,
+            737.33007816,
+            515.9665,
+            755.793945302
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "- 1 -"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/13:0",
+      "content": "国家金融监督管理总局发布",
+      "regions": [
+        {
+          "page": 1,
+          "bbox": [
+            324.0,
+            787.636363648,
+            515.7001250000001,
+            806.661157024
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局发布"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/14:0",
+      "content": "国家金融监督管理总局规章",
+      "regions": [
+        {
+          "page": 2,
+          "bbox": [
+            104.0,
+            67.63636364800004,
+            295.700125,
+            86.66115702399998
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局规章"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/15:0",
+      "content": "第六条 贷款人应根据风险管理实际需要,建立个人贷款风 险限额管理制度。",
+      "regions": [
+        {
+          "page": 2,
+          "bbox": [
+            79.0,
+            133.61904763200005,
+            515.8251250000001,
+            179.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第六条 贷款人应根据风险管理实际需要,建立个人贷款风 险限额管理制度。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/16:0",
+      "content": "第七条 个人贷款用途应符合法律法规规定和国家有关政 策,贷款人不得发放无指定用途的个人贷款。",
+      "regions": [
+        {
+          "page": 2,
+          "bbox": [
+            79.0,
+            190.61904763200005,
+            515.8251250000001,
+            236.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第七条 个人贷款用途应符合法律法规规定和国家有关政 策,贷款人不得发放无指定用途的个人贷款。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/17:0",
+      "content": "贷款人应加强贷款资金支付管理,有效防范个人贷款业务 风险。",
+      "regions": [
+        {
+          "page": 2,
+          "bbox": [
+            79.0,
+            248.25,
+            502.872,
+            292.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "贷款人应加强贷款资金支付管理,有效防范个人贷款业务 风险。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/18:0",
+      "content": "第八条 个人贷款的期限应符合国家相关规定。用于个人 消费的贷款期限不得超过五年;用于生产经营的贷款期限一般 不超过五年,对于贷款用途对应的经营现金流回收周期较长的,",
+      "regions": [
+        {
+          "page": 2,
+          "bbox": [
+            79.0,
+            303.61904763200005,
+            515.8251250000001,
+            377.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第八条 个人贷款的期限应符合国家相关规定。用于个人 消费的贷款期限不得超过五年;用于生产经营的贷款期限一般 不超过五年,对于贷款用途对应的经营现金流回收周期较长的,"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/19:0",
+      "content": "可适当延长贷款期限,最长不超过十年。",
+      "regions": [
+        {
+          "page": 2,
+          "bbox": [
+            79.0,
+            389.25,
+            358.872,
+            405.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "可适当延长贷款期限,最长不超过十年。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/20:0",
+      "content": "第九条 个人贷款利率应当遵循利率市场化原则,由借贷双",
+      "regions": [
+        {
+          "page": 2,
+          "bbox": [
+            111.0,
+            416.61904763200005,
+            515.8251250000001,
+            434.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第九条 个人贷款利率应当遵循利率市场化原则,由借贷双"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/21:0",
+      "content": "方在遵守国家有关规定的前提下协商确定。",
+      "regions": [
+        {
+          "page": 2,
+          "bbox": [
+            79.0,
+            446.25,
+            382.872,
+            462.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "方在遵守国家有关规定的前提下协商确定。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/22:0",
+      "content": "第十条 贷款人应建立借款人合理的收入偿债比例控制机 制,结合借款人收入、负债、支出、贷款用途、担保情况等因 素,合理确定贷款金额和期限,控制借款人每期还款额不超过其 还款能力。",
+      "regions": [
+        {
+          "page": 2,
+          "bbox": [
+            79.0,
+            473.61904763200005,
+            515.8251250000001,
+            575.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第十条 贷款人应建立借款人合理的收入偿债比例控制机 制,结合借款人收入、负债、支出、贷款用途、担保情况等因 素,合理确定贷款金额和期限,控制借款人每期还款额不超过其 还款能力。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/23:0",
+      "content": "第十一条 国家金融监督管理总局及其派出机构依法对个",
+      "regions": [
+        {
+          "page": 2,
+          "bbox": [
+            111.0,
+            586.619047632,
+            515.8095000000001,
+            604.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第十一条 国家金融监督管理总局及其派出机构依法对个"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/24:0",
+      "content": "人贷款业务实施监督管理。",
+      "regions": [
+        {
+          "page": 2,
+          "bbox": [
+            79.0,
+            616.25,
+            270.872,
+            632.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "人贷款业务实施监督管理。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/25:0",
+      "content": "第二章 受理与调查",
+      "regions": [
+        {
+          "page": 2,
+          "bbox": [
+            229.5625,
+            642.619047632,
+            365.3095,
+            660.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第二章 受理与调查"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/26:0",
+      "content": "第十二条 个人贷款申请应具备以下条件:",
+      "regions": [
+        {
+          "page": 2,
+          "bbox": [
+            111.0,
+            671.619047632,
+            398.8735,
+            689.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第十二条 个人贷款申请应具备以下条件:"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/27:0",
+      "content": "(一)借款人为具有完全民事行为能力的中华人民共和国公",
+      "regions": [
+        {
+          "page": 2,
+          "bbox": [
+            111.0,
+            701.25,
+            510.872,
+            717.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(一)借款人为具有完全民事行为能力的中华人民共和国公"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/28:0",
+      "content": "2 -",
+      "regions": [
+        {
+          "page": 2,
+          "bbox": [
+            79.0,
+            737.33007816,
+            104.49775,
+            755.793945302
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "- 2 -"
+        }
+      ],
+      "exactNormalizedContent": false
+    },
+    {
+      "chunkId": "#/texts/29:0",
+      "content": "国家金融监督管理总局发布",
+      "regions": [
+        {
+          "page": 2,
+          "bbox": [
+            324.0,
+            787.636363648,
+            515.7001250000001,
+            806.661157024
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局发布"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/30:0",
+      "content": "国家金融监督管理总局规章",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            104.0,
+            67.63636364800004,
+            295.700125,
+            86.66115702399998
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局规章"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/31:0",
+      "content": "民或符合国家有关规定的境外自然人;",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            79.0,
+            134.25,
+            342.936,
+            150.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "民或符合国家有关规定的境外自然人;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/32:0",
+      "content": "(二)借款用途明确合法;",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            111.0,
+            162.25,
+            278.93600000000004,
+            178.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(二)借款用途明确合法;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/33:0",
+      "content": "(三)贷款申请数额、期限和币种合理;",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            111.0,
+            190.25,
+            374.936,
+            206.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(三)贷款申请数额、期限和币种合理;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/34:0",
+      "content": "(四)借款人具备还款意愿和还款能力;",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            111.0,
+            218.25,
+            374.936,
+            234.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(四)借款人具备还款意愿和还款能力;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/35:0",
+      "content": "(五)借款人信用状况良好;",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            111.0,
+            246.25,
+            294.93600000000004,
+            262.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(五)借款人信用状况良好;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/36:0",
+      "content": "(六)贷款人要求的其他条件。",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            111.0,
+            274.25,
+            318.872,
+            290.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(六)贷款人要求的其他条件。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/37:0",
+      "content": "第十三条 贷款人应要求借款人以书面形式提出个人贷款 申请,并要求借款人提供能够证明其符合贷款条件的相关资",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            79.0,
+            301.61904763200005,
+            515.8095000000001,
+            347.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第十三条 贷款人应要求借款人以书面形式提出个人贷款 申请,并要求借款人提供能够证明其符合贷款条件的相关资"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/38:0",
+      "content": "料。",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            79.0,
+            359.25,
+            110.872,
+            375.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "料。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/39:0",
+      "content": "第十四条 贷款人受理借款人贷款申请后,应履行尽职调查 职责,对个人贷款申请内容和相关情况的真实性、准确性、完 整性进行调查核实,形成调查评价意见。",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            79.0,
+            386.61904763200005,
+            515.8095000000001,
+            460.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第十四条 贷款人受理借款人贷款申请后,应履行尽职调查 职责,对个人贷款申请内容和相关情况的真实性、准确性、完 整性进行调查核实,形成调查评价意见。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/40:0",
+      "content": "第十五条 贷款调查包括但不限于以下内容:",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            111.0,
+            471.61904763200005,
+            414.8735,
+            489.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第十五条 贷款调查包括但不限于以下内容:"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/41:0",
+      "content": "(一)借款人基本情况;",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            111.0,
+            501.25,
+            262.93600000000004,
+            517.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(一)借款人基本情况;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/42:0",
+      "content": "(二)借款人收入情况;",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            111.0,
+            529.25,
+            262.93600000000004,
+            545.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(二)借款人收入情况;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/43:0",
+      "content": "(三)借款用途,用于生产经营的还应调查借款人经营情况;",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            111.0,
+            557.25,
+            510.936,
+            573.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(三)借款用途,用于生产经营的还应调查借款人经营情况;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/44:0",
+      "content": "(四)借款人还款来源、还款能力及还款方式;",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            111.0,
+            585.25,
+            422.936,
+            601.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(四)借款人还款来源、还款能力及还款方式;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/45:0",
+      "content": "(五)保证人担保意愿、担保能力或抵(质)押物权属、价值",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            111.0,
+            613.25,
+            510.872,
+            629.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(五)保证人担保意愿、担保能力或抵(质)押物权属、价值"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/46:0",
+      "content": "及变现能力。",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            79.0,
+            641.25,
+            174.872,
+            657.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "及变现能力。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/47:0",
+      "content": "第十六条 贷款调查应以现场实地调查与非现场间接调查 相结合的形式开展,采取现场核实、电话查问、信息咨询以及",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            79.0,
+            668.619047632,
+            515.8095000000001,
+            714.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第十六条 贷款调查应以现场实地调查与非现场间接调查 相结合的形式开展,采取现场核实、电话查问、信息咨询以及"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/48:0",
+      "content": "- 3 -",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            490.640625,
+            737.33007816,
+            515.9665,
+            755.793945302
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "- 3 -"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/49:0",
+      "content": "国家金融监督管理总局发布",
+      "regions": [
+        {
+          "page": 3,
+          "bbox": [
+            324.0,
+            787.636363648,
+            515.7001250000001,
+            806.661157024
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局发布"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/50:0",
+      "content": "国家金融监督管理总局规章",
+      "regions": [
+        {
+          "page": 4,
+          "bbox": [
+            104.0,
+            67.63636364800004,
+            295.700125,
+            86.66115702399998
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局规章"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/51:0",
+      "content": "其他数字化电子调查等途径和方法。",
+      "regions": [
+        {
+          "page": 4,
+          "bbox": [
+            79.0,
+            134.25,
+            334.872,
+            150.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "其他数字化电子调查等途径和方法。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/52:0",
+      "content": "对于金额不超过二十万元人民币的贷款,贷款人通过非现 场间接调查手段可有效核实相关信息真实性,并可据此对借款 人作出风险评价的,可简化或不再进行现场实地调查(不含用于 个人住房用途的贷款)。",
+      "regions": [
+        {
+          "page": 4,
+          "bbox": [
+            79.0,
+            162.25,
+            510.872,
+            262.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "对于金额不超过二十万元人民币的贷款,贷款人通过非现 场间接调查手段可有效核实相关信息真实性,并可据此对借款 人作出风险评价的,可简化或不再进行现场实地调查(不含用于 个人住房用途的贷款)。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/53:0",
+      "content": "第十七条 贷款人应建立健全贷款调查机制,明确对各类事 项调查的途径和方式方法,确保贷款调查的真实性和有效性。",
+      "regions": [
+        {
+          "page": 4,
+          "bbox": [
+            79.0,
+            273.61904763200005,
+            515.8095000000001,
+            319.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第十七条 贷款人应建立健全贷款调查机制,明确对各类事 项调查的途径和方式方法,确保贷款调查的真实性和有效性。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/54:0",
+      "content": "贷款人将贷款调查中的部分特定事项委托第三方代为办理 的,不得损害借款人合法权益,并确保相关风险可控。贷款人应 明确第三方的资质条件,建立名单制管理制度,并定期对名单进 行审查更新。",
+      "regions": [
+        {
+          "page": 4,
+          "bbox": [
+            79.0,
+            331.25,
+            510.872,
+            431.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "贷款人将贷款调查中的部分特定事项委托第三方代为办理 的,不得损害借款人合法权益,并确保相关风险可控。贷款人应 明确第三方的资质条件,建立名单制管理制度,并定期对名单进 行审查更新。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/55:0",
+      "content": "贷款人不得将贷款调查中涉及借款人真实意思表示、收入 水平、债务情况、自有资金来源及外部评估机构准入等风险控 制的核心事项委托第三方完成。",
+      "regions": [
+        {
+          "page": 4,
+          "bbox": [
+            79.0,
+            443.25,
+            510.872,
+            515.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "贷款人不得将贷款调查中涉及借款人真实意思表示、收入 水平、债务情况、自有资金来源及外部评估机构准入等风险控 制的核心事项委托第三方完成。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/56:0",
+      "content": "第十八条 贷款人应建立并执行贷款面谈制度。",
+      "regions": [
+        {
+          "page": 4,
+          "bbox": [
+            111.0,
+            526.6190476319998,
+            438.8095,
+            544.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第十八条 贷款人应建立并执行贷款面谈制度。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/57:0",
+      "content": "贷款人可根据业务需要通过视频形式与借款人面谈(不含 用于个人住房用途的贷款)。视频面谈应当在贷款人自有平台 上进行,记录并保存影像。贷款人应当采取有效措施确定并核 实借款人真实身份及所涉及信息真实性。",
+      "regions": [
+        {
+          "page": 4,
+          "bbox": [
+            79.0,
+            556.25,
+            502.872,
+            656.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "贷款人可根据业务需要通过视频形式与借款人面谈(不含 用于个人住房用途的贷款)。视频面谈应当在贷款人自有平台 上进行,记录并保存影像。贷款人应当采取有效措施确定并核 实借款人真实身份及所涉及信息真实性。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/58:0",
+      "content": "",
+      "regions": [
+        {
+          "page": 4,
+          "bbox": [
+            111.0,
+            666.4218750079999,
+            126.872,
+            684.0781249920001
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": ""
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/59:0",
+      "content": "- 4 -",
+      "regions": [
+        {
+          "page": 4,
+          "bbox": [
+            79.0,
+            737.33007816,
+            104.888375,
+            755.793945302
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "- 4 -"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/60:0",
+      "content": "第三章 风险评价与审批",
+      "regions": [
+        {
+          "page": 4,
+          "bbox": [
+            213.578125,
+            694.6190476319998,
+            381.293875,
+            712.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第三章 风险评价与审批"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/61:0",
+      "content": "国家金融监督管理总局发布",
+      "regions": [
+        {
+          "page": 4,
+          "bbox": [
+            324.0,
+            787.636363648,
+            515.7001250000001,
+            806.661157024
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局发布"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/62:0",
+      "content": "国家金融监督管理总局规章",
+      "regions": [
+        {
+          "page": 5,
+          "bbox": [
+            104.0,
+            67.63636364800004,
+            295.700125,
+            86.66115702399998
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局规章"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/63:0",
+      "content": "第十九条 贷款审查应对贷款调查内容的合法性、合理 性、准确性进行全面审查,重点关注调查人的尽职情况和借款 人的偿还能力、信用状况、担保情况、抵(质)押比率、风险程 度等。",
+      "regions": [
+        {
+          "page": 5,
+          "bbox": [
+            79.0,
+            161.61904763199982,
+            515.8095000000001,
+            263.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第十九条 贷款审查应对贷款调查内容的合法性、合理 性、准确性进行全面审查,重点关注调查人的尽职情况和借款 人的偿还能力、信用状况、担保情况、抵(质)押比率、风险程 度等。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/64:0",
+      "content": "第二十条 贷款人应建立和完善风险评价机制,落实风险评 价的责任部门和岗位。贷款风险评价应全面分析借款人的信用 状况和还款能力,关注其收入与支出情况、偿债情况等,用于生 产经营的还应对借款人经营情况和风险情况进行分析,采取定 量和定性分析方法,全面、动态、审慎地进行贷款风险评价。 对于提供担保的贷款,贷款人应当以全面评价借款人的偿债能 力为前提,不得直接通过担保方式确定贷款金额和期限等要 素。",
+      "regions": [
+        {
+          "page": 5,
+          "bbox": [
+            79.0,
+            274.6190476319998,
+            515.8095000000001,
+            488.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第二十条 贷款人应建立和完善风险评价机制,落实风险评 价的责任部门和岗位。贷款风险评价应全面分析借款人的信用 状况和还款能力,关注其收入与支出情况、偿债情况等,用于生 产经营的还应对借款人经营情况和风险情况进行分析,采取定 量和定性分析方法,全面、动态、审慎地进行贷款风险评价。 对于提供担保的贷款,贷款人应当以全面评价借款人的偿债能 力为前提,不得直接通过担保方式确定贷款金额和期限等要 素。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/65:0",
+      "content": "贷款人应建立和完善借款人信用风险评价体系,关注借款 人各类融资情况,建立健全个人客户统一授信管理体系,并根据 业务发展情况和风险控制需要,适时予以调整。",
+      "regions": [
+        {
+          "page": 5,
+          "bbox": [
+            79.0,
+            500.25,
+            510.872,
+            572.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "贷款人应建立和完善借款人信用风险评价体系,关注借款 人各类融资情况,建立健全个人客户统一授信管理体系,并根据 业务发展情况和风险控制需要,适时予以调整。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/66:0",
+      "content": "第二十一条 贷款人应根据审慎性原则,完善授权管理制 度,规范审批操作流程,明确贷款审批权限,实行审贷分离和授 权审批,确保贷款审批按照授权独立审批贷款。",
+      "regions": [
+        {
+          "page": 5,
+          "bbox": [
+            79.0,
+            583.6190476319998,
+            515.7938750000001,
+            657.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第二十一条 贷款人应根据审慎性原则,完善授权管理制 度,规范审批操作流程,明确贷款审批权限,实行审贷分离和授 权审批,确保贷款审批按照授权独立审批贷款。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/67:0",
+      "content": "贷款人通过线上方式进行自动化审批的,应当建立人工复 审机制,作为对自动化审批的补充,并设定人工复审的触发条",
+      "regions": [
+        {
+          "page": 5,
+          "bbox": [
+            79.0,
+            669.25,
+            502.872,
+            713.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "贷款人通过线上方式进行自动化审批的,应当建立人工复 审机制,作为对自动化审批的补充,并设定人工复审的触发条"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/68:0",
+      "content": "- 5 -",
+      "regions": [
+        {
+          "page": 5,
+          "bbox": [
+            490.8125,
+            737.33007816,
+            515.9665,
+            755.793945302
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "- 5 -"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/69:0",
+      "content": "国家金融监督管理总局发布",
+      "regions": [
+        {
+          "page": 5,
+          "bbox": [
+            324.0,
+            787.636363648,
+            515.7001250000001,
+            806.661157024
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局发布"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/70:0",
+      "content": "国家金融监督管理总局规章",
+      "regions": [
+        {
+          "page": 6,
+          "bbox": [
+            104.0,
+            67.63636364800004,
+            295.700125,
+            86.66115702399998
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局规章"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/71:0",
+      "content": "件。对贷后管理中发现自动化审批不能有效识别风险的,贷款",
+      "regions": [
+        {
+          "page": 6,
+          "bbox": [
+            79.0,
+            134.25,
+            502.872,
+            150.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "件。对贷后管理中发现自动化审批不能有效识别风险的,贷款"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/72:0",
+      "content": "人应当停止自动化审批流程。",
+      "regions": [
+        {
+          "page": 6,
+          "bbox": [
+            79.0,
+            162.25,
+            286.872,
+            178.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "人应当停止自动化审批流程。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/73:0",
+      "content": "第二十二条 贷款人通过全线上方式开展的业务,应当符合",
+      "regions": [
+        {
+          "page": 6,
+          "bbox": [
+            111.0,
+            189.61904763199982,
+            515.7938750000001,
+            207.49206348799999
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第二十二条 贷款人通过全线上方式开展的业务,应当符合"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/74:0",
+      "content": "互联网贷款相关规定。",
+      "regions": [
+        {
+          "page": 6,
+          "bbox": [
+            79.0,
+            219.25,
+            238.872,
+            235.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "互联网贷款相关规定。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/75:0",
+      "content": "第二十三条 对未获批准的个人贷款申请,贷款人应告知借 款人。",
+      "regions": [
+        {
+          "page": 6,
+          "bbox": [
+            79.0,
+            246.61904763199982,
+            515.7938750000001,
+            292.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第二十三条 对未获批准的个人贷款申请,贷款人应告知借 款人。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/76:0",
+      "content": "第二十四条 贷款人应根据重大经济形势变化、违约率明 显上升等异常情况,对贷款审批环节进行评价分析,及时、有针 对性地调整审批政策,加强相关贷款的管理。",
+      "regions": [
+        {
+          "page": 6,
+          "bbox": [
+            79.0,
+            303.6190476319998,
+            515.7938750000001,
+            377.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第二十四条 贷款人应根据重大经济形势变化、违约率明 显上升等异常情况,对贷款审批环节进行评价分析,及时、有针 对性地调整审批政策,加强相关贷款的管理。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/77:0",
+      "content": "第二十五条 贷款人为股东等关联方办理个人贷款的,应严 格执行关联交易管理的相关监管规定,发放贷款条件不得优于 一般借款人,并在风险评价报告中进行说明。",
+      "regions": [
+        {
+          "page": 6,
+          "bbox": [
+            79.0,
+            388.6190476319998,
+            515.7938750000001,
+            462.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第二十五条 贷款人为股东等关联方办理个人贷款的,应严 格执行关联交易管理的相关监管规定,发放贷款条件不得优于 一般借款人,并在风险评价报告中进行说明。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/78:0",
+      "content": "第四章 协议与发放",
+      "regions": [
+        {
+          "page": 6,
+          "bbox": [
+            229.5625,
+            472.6190476319998,
+            365.3095,
+            490.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第四章 协议与发放"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/79:0",
+      "content": "第二十六条 贷款人应与借款人签订书面借款合同,需担保 的应同时签订担保合同或条款。贷款人应要求借款人当面签订 借款合同及其他相关文件。对于金额不超过二十万元人民币的 贷款,可通过电子银行渠道签订有关合同和文件(不含用于个人",
+      "regions": [
+        {
+          "page": 6,
+          "bbox": [
+            79.0,
+            501.6190476319998,
+            515.7938750000001,
+            603.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第二十六条 贷款人应与借款人签订书面借款合同,需担保 的应同时签订担保合同或条款。贷款人应要求借款人当面签订 借款合同及其他相关文件。对于金额不超过二十万元人民币的 贷款,可通过电子银行渠道签订有关合同和文件(不含用于个人"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/80:0",
+      "content": "住房用途的贷款)。",
+      "regions": [
+        {
+          "page": 6,
+          "bbox": [
+            79.0,
+            615.25,
+            214.872,
+            631.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "住房用途的贷款)。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/81:0",
+      "content": "当面签约的,贷款人应当对签约过程进行录音录像并妥善 保存相关影像。",
+      "regions": [
+        {
+          "page": 6,
+          "bbox": [
+            79.0,
+            643.25,
+            502.872,
+            687.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "当面签约的,贷款人应当对签约过程进行录音录像并妥善 保存相关影像。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/82:0",
+      "content": "6 - 第二十七条 借款合同应符合《中华人民共和国民法典》",
+      "regions": [
+        {
+          "page": 6,
+          "bbox": [
+            79.0,
+            698.6190476319998,
+            515.7938750000001,
+            755.793945302
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第二十七条 借款合同应符合《中华人民共和国民法典》 - 6 -"
+        }
+      ],
+      "exactNormalizedContent": false
+    },
+    {
+      "chunkId": "#/texts/83:0",
+      "content": "国家金融监督管理总局发布",
+      "regions": [
+        {
+          "page": 6,
+          "bbox": [
+            324.0,
+            787.636363648,
+            515.7001250000001,
+            806.661157024
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局发布"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/84:0",
+      "content": "国家金融监督管理总局规章",
+      "regions": [
+        {
+          "page": 7,
+          "bbox": [
+            104.0,
+            67.63636364800004,
+            295.700125,
+            86.66115702399998
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局规章"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/85:0",
+      "content": "等法律规定,明确约定各方当事人的诚信承诺和贷款资金的用",
+      "regions": [
+        {
+          "page": 7,
+          "bbox": [
+            79.0,
+            134.25,
+            502.872,
+            150.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "等法律规定,明确约定各方当事人的诚信承诺和贷款资金的用"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/86:0",
+      "content": "途、支付对象(范围)、支付金额、支付条件、支付方式等。",
+      "regions": [
+        {
+          "page": 7,
+          "bbox": [
+            79.0,
+            162.25,
+            494.872,
+            178.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "途、支付对象(范围)、支付金额、支付条件、支付方式等。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/87:0",
+      "content": "贷款人应在合同中与借款人约定,借款人不履行合同或怠 于履行合同时应承担的违约责任,以及贷款人可采取的提前收 回贷款、调整贷款支付方式、调整贷款利率、收取罚息、压降 授信额度、停止或中止贷款发放等措施,并追究相应法律责 任。",
+      "regions": [
+        {
+          "page": 7,
+          "bbox": [
+            79.0,
+            190.25,
+            510.872,
+            318.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "贷款人应在合同中与借款人约定,借款人不履行合同或怠 于履行合同时应承担的违约责任,以及贷款人可采取的提前收 回贷款、调整贷款支付方式、调整贷款利率、收取罚息、压降 授信额度、停止或中止贷款发放等措施,并追究相应法律责 任。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/88:0",
+      "content": "第二十八条 贷款人应建立健全合同管理制度,有效防范个 人贷款法律风险。",
+      "regions": [
+        {
+          "page": 7,
+          "bbox": [
+            79.0,
+            329.6190476319998,
+            515.7938750000001,
+            375.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第二十八条 贷款人应建立健全合同管理制度,有效防范个 人贷款法律风险。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/89:0",
+      "content": "借款合同采用格式条款的,应当维护借款人的合法权益,并 予以公示。",
+      "regions": [
+        {
+          "page": 7,
+          "bbox": [
+            79.0,
+            387.25,
+            510.872,
+            431.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "借款合同采用格式条款的,应当维护借款人的合法权益,并 予以公示。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/90:0",
+      "content": "第二十九条 贷款人应依照《中华人民共和国民法典》等 法律法规的相关规定,规范担保流程与操作。",
+      "regions": [
+        {
+          "page": 7,
+          "bbox": [
+            79.0,
+            442.6190476319998,
+            515.7938750000001,
+            488.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第二十九条 贷款人应依照《中华人民共和国民法典》等 法律法规的相关规定,规范担保流程与操作。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/91:0",
+      "content": "按合同约定办理抵(质)押物登记的,贷款人应当参与。贷",
+      "regions": [
+        {
+          "page": 7,
+          "bbox": [
+            111.0,
+            500.25,
+            502.872,
+            516.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "按合同约定办理抵(质)押物登记的,贷款人应当参与。贷"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/92:0",
+      "content": "款人委托第三方办理的,应对抵(质)押物登记情况予以核实。",
+      "regions": [
+        {
+          "page": 7,
+          "bbox": [
+            79.0,
+            528.25,
+            502.872,
+            544.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "款人委托第三方办理的,应对抵(质)押物登记情况予以核实。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/93:0",
+      "content": "第三十条 贷款人应加强对贷款的发放管理,遵循审贷与放 贷分离的原则,设立独立的放款管理部门或岗位,负责落实放款 条件、发放满足约定条件的个人贷款。",
+      "regions": [
+        {
+          "page": 7,
+          "bbox": [
+            79.0,
+            555.6190476319998,
+            515.8095000000001,
+            629.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第三十条 贷款人应加强对贷款的发放管理,遵循审贷与放 贷分离的原则,设立独立的放款管理部门或岗位,负责落实放款 条件、发放满足约定条件的个人贷款。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/94:0",
+      "content": "第三十一条 借款合同生效后,贷款人应按合同约定及时发",
+      "regions": [
+        {
+          "page": 7,
+          "bbox": [
+            111.0,
+            640.6190476319998,
+            515.7938750000001,
+            658.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第三十一条 借款合同生效后,贷款人应按合同约定及时发"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/95:0",
+      "content": "放贷款。",
+      "regions": [
+        {
+          "page": 7,
+          "bbox": [
+            79.0,
+            670.25,
+            142.872,
+            686.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "放贷款。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/96:0",
+      "content": "第五章 支付管理",
+      "regions": [
+        {
+          "page": 7,
+          "bbox": [
+            237.5625,
+            696.6190476319998,
+            357.325125,
+            714.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第五章 支付管理"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/97:0",
+      "content": "- 7 -",
+      "regions": [
+        {
+          "page": 7,
+          "bbox": [
+            490.484375,
+            737.33007816,
+            515.9665,
+            755.793945302
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "- 7 -"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/98:0",
+      "content": "国家金融监督管理总局发布",
+      "regions": [
+        {
+          "page": 7,
+          "bbox": [
+            324.0,
+            787.636363648,
+            515.7001250000001,
+            806.661157024
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局发布"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/99:0",
+      "content": "国家金融监督管理总局规章",
+      "regions": [
+        {
+          "page": 8,
+          "bbox": [
+            104.0,
+            67.63636364800004,
+            295.700125,
+            86.66115702399998
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局规章"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/100:0",
+      "content": "第三十二条 贷款人应按照借款合同约定,通过贷款人受托 支付或借款人自主支付的方式对贷款资金的支付进行管理与控 制。贷款人应健全贷款资金支付管控体系,加强金融科技应用, 有效监督贷款资金按约定用途使用。",
+      "regions": [
+        {
+          "page": 8,
+          "bbox": [
+            79.0,
+            161.61904763199982,
+            515.7938750000001,
+            263.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第三十二条 贷款人应按照借款合同约定,通过贷款人受托 支付或借款人自主支付的方式对贷款资金的支付进行管理与控 制。贷款人应健全贷款资金支付管控体系,加强金融科技应用, 有效监督贷款资金按约定用途使用。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/101:0",
+      "content": "贷款人受托支付是指贷款人根据借款人的提款申请和支付 委托,将贷款资金支付给符合合同约定用途的借款人交易对 象。",
+      "regions": [
+        {
+          "page": 8,
+          "bbox": [
+            79.0,
+            275.25,
+            510.872,
+            347.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "贷款人受托支付是指贷款人根据借款人的提款申请和支付 委托,将贷款资金支付给符合合同约定用途的借款人交易对 象。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/102:0",
+      "content": "借款人自主支付是指贷款人根据借款人的提款申请将贷款 资金直接发放至借款人账户,并由借款人自主支付给符合合同 约定用途的借款人交易对象。",
+      "regions": [
+        {
+          "page": 8,
+          "bbox": [
+            79.0,
+            359.25,
+            510.872,
+            431.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "借款人自主支付是指贷款人根据借款人的提款申请将贷款 资金直接发放至借款人账户,并由借款人自主支付给符合合同 约定用途的借款人交易对象。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/103:0",
+      "content": "第三十三条 个人贷款资金应当采用贷款人受托支付方式 向借款人交易对象支付,但本办法第三十六条规定的情形除 外。",
+      "regions": [
+        {
+          "page": 8,
+          "bbox": [
+            79.0,
+            442.6190476319998,
+            515.7938750000001,
+            516.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第三十三条 个人贷款资金应当采用贷款人受托支付方式 向借款人交易对象支付,但本办法第三十六条规定的情形除 外。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/104:0",
+      "content": "第三十四条 采用贷款人受托支付的,贷款人应要求借款人 在使用贷款时提出支付申请,并授权贷款人按合同约定方式支 付贷款资金。",
+      "regions": [
+        {
+          "page": 8,
+          "bbox": [
+            79.0,
+            527.6190476319998,
+            515.7938750000001,
+            601.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第三十四条 采用贷款人受托支付的,贷款人应要求借款人 在使用贷款时提出支付申请,并授权贷款人按合同约定方式支 付贷款资金。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/105:0",
+      "content": "贷款人应在贷款资金发放前审核借款人相关交易资料和凭 证是否符合合同约定条件,支付后做好有关细节的认定记录。",
+      "regions": [
+        {
+          "page": 8,
+          "bbox": [
+            79.0,
+            613.25,
+            510.872,
+            657.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "贷款人应在贷款资金发放前审核借款人相关交易资料和凭 证是否符合合同约定条件,支付后做好有关细节的认定记录。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/106:0",
+      "content": "对于贷款资金使用记录良好的借款人,在合同约定的生产 经营贷款用途范围内,出现合理的紧急用款需求,贷款人经评估",
+      "regions": [
+        {
+          "page": 8,
+          "bbox": [
+            79.0,
+            669.25,
+            510.872,
+            713.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "对于贷款资金使用记录良好的借款人,在合同约定的生产 经营贷款用途范围内,出现合理的紧急用款需求,贷款人经评估"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/107:0",
+      "content": "- 8 -",
+      "regions": [
+        {
+          "page": 8,
+          "bbox": [
+            79.0,
+            737.33007816,
+            104.49775,
+            755.793945302
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "- 8 -"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/108:0",
+      "content": "国家金融监督管理总局发布",
+      "regions": [
+        {
+          "page": 8,
+          "bbox": [
+            324.0,
+            787.636363648,
+            515.7001250000001,
+            806.661157024
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局发布"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/109:0",
+      "content": "国家金融监督管理总局规章",
+      "regions": [
+        {
+          "page": 9,
+          "bbox": [
+            104.0,
+            67.63636364800004,
+            295.700125,
+            86.66115702399998
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局规章"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/110:0",
+      "content": "认为风险可控的,可适当简化借款人需提供的受托支付事前证 明材料和流程,于放款完成后及时完成事后审核。",
+      "regions": [
+        {
+          "page": 9,
+          "bbox": [
+            79.0,
+            134.25,
+            502.872,
+            178.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "认为风险可控的,可适当简化借款人需提供的受托支付事前证 明材料和流程,于放款完成后及时完成事后审核。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/111:0",
+      "content": "第三十五条 贷款人受托支付完成后,应详细记录资金流 向,归集保存相关凭证。",
+      "regions": [
+        {
+          "page": 9,
+          "bbox": [
+            79.0,
+            189.61904763199982,
+            515.7938750000001,
+            235.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第三十五条 贷款人受托支付完成后,应详细记录资金流 向,归集保存相关凭证。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/112:0",
+      "content": "第三十六条 有下列情形之一的个人贷款,经贷款人同意可",
+      "regions": [
+        {
+          "page": 9,
+          "bbox": [
+            111.0,
+            246.61904763199982,
+            515.7938750000001,
+            264.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第三十六条 有下列情形之一的个人贷款,经贷款人同意可"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/113:0",
+      "content": "以采取借款人自主支付方式:",
+      "regions": [
+        {
+          "page": 9,
+          "bbox": [
+            79.0,
+            276.25,
+            278.93600000000004,
+            292.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "以采取借款人自主支付方式:"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/114:0",
+      "content": "(一)借款人无法事先确定具体交易对象且单次提款金额不 超过三十万元人民币的;",
+      "regions": [
+        {
+          "page": 9,
+          "bbox": [
+            79.0,
+            304.25,
+            510.872,
+            348.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(一)借款人无法事先确定具体交易对象且单次提款金额不 超过三十万元人民币的;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/115:0",
+      "content": "(二)借款人交易对象不具备条件有效使用非现金结算方式 的;",
+      "regions": [
+        {
+          "page": 9,
+          "bbox": [
+            79.0,
+            360.25,
+            510.872,
+            404.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(二)借款人交易对象不具备条件有效使用非现金结算方式 的;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/116:0",
+      "content": "(三)贷款资金用于生产经营且单次提款金额不超过五十万 元人民币的;",
+      "regions": [
+        {
+          "page": 9,
+          "bbox": [
+            79.0,
+            416.25,
+            510.872,
+            460.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(三)贷款资金用于生产经营且单次提款金额不超过五十万 元人民币的;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/117:0",
+      "content": "(四)法律法规规定的其他情形的。",
+      "regions": [
+        {
+          "page": 9,
+          "bbox": [
+            111.0,
+            472.25,
+            350.872,
+            488.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(四)法律法规规定的其他情形的。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/118:0",
+      "content": "第三十七条 采用借款人自主支付的,贷款人应与借款人在",
+      "regions": [
+        {
+          "page": 9,
+          "bbox": [
+            111.0,
+            499.6190476319998,
+            515.7938750000001,
+            517.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第三十七条 采用借款人自主支付的,贷款人应与借款人在"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/119:0",
+      "content": "借款合同中事先约定,要求借款人定期报告或告知贷款人贷款 资金支付情况。",
+      "regions": [
+        {
+          "page": 9,
+          "bbox": [
+            79.0,
+            529.25,
+            502.872,
+            573.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "借款合同中事先约定,要求借款人定期报告或告知贷款人贷款 资金支付情况。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/120:0",
+      "content": "贷款人应当通过账户分析、凭证查验或现场调查等方式, 核查贷款支付是否符合约定用途,以及是否存在以化整为零方",
+      "regions": [
+        {
+          "page": 9,
+          "bbox": [
+            79.0,
+            585.25,
+            502.936,
+            629.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "贷款人应当通过账户分析、凭证查验或现场调查等方式, 核查贷款支付是否符合约定用途,以及是否存在以化整为零方"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/121:0",
+      "content": "式规避受托支付的情形。",
+      "regions": [
+        {
+          "page": 9,
+          "bbox": [
+            79.0,
+            641.25,
+            254.872,
+            657.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "式规避受托支付的情形。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/122:0",
+      "content": "第三十八条 贷款支付过程中,借款人信用状况下降、贷款",
+      "regions": [
+        {
+          "page": 9,
+          "bbox": [
+            111.0,
+            668.6190476319998,
+            515.7938750000001,
+            686.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第三十八条 贷款支付过程中,借款人信用状况下降、贷款"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/123:0",
+      "content": "资金使用出现异常或违反合同约定以化整为零方式规避受托支",
+      "regions": [
+        {
+          "page": 9,
+          "bbox": [
+            79.0,
+            698.25,
+            510.872,
+            714.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "资金使用出现异常或违反合同约定以化整为零方式规避受托支"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/124:0",
+      "content": "- 9 -",
+      "regions": [
+        {
+          "page": 9,
+          "bbox": [
+            490.3125,
+            737.33007816,
+            515.9665,
+            755.793945302
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "- 9 -"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/125:0",
+      "content": "国家金融监督管理总局发布",
+      "regions": [
+        {
+          "page": 9,
+          "bbox": [
+            324.0,
+            787.636363648,
+            515.7001250000001,
+            806.661157024
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局发布"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/126:0",
+      "content": "国家金融监督管理总局规章",
+      "regions": [
+        {
+          "page": 10,
+          "bbox": [
+            104.0,
+            67.63636364800004,
+            295.700125,
+            86.66115702399998
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局规章"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/127:0",
+      "content": "付的,贷款人应与借款人协商补充贷款发放和支付条件,或根据 合同约定变更贷款支付方式、停止或中止贷款资金的发放和支",
+      "regions": [
+        {
+          "page": 10,
+          "bbox": [
+            79.0,
+            134.25,
+            510.872,
+            178.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "付的,贷款人应与借款人协商补充贷款发放和支付条件,或根据 合同约定变更贷款支付方式、停止或中止贷款资金的发放和支"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/128:0",
+      "content": "付。",
+      "regions": [
+        {
+          "page": 10,
+          "bbox": [
+            79.0,
+            190.25,
+            110.872,
+            206.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "付。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/129:0",
+      "content": "第六章 贷后管理",
+      "regions": [
+        {
+          "page": 10,
+          "bbox": [
+            237.5625,
+            216.61904763199982,
+            357.325125,
+            234.49206348799999
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第六章 贷后管理"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/130:0",
+      "content": "第三十九条 个人贷款支付后,贷款人应采取有效方式对贷",
+      "regions": [
+        {
+          "page": 10,
+          "bbox": [
+            111.0,
+            273.6190476319998,
+            515.7938750000001,
+            291.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第三十九条 个人贷款支付后,贷款人应采取有效方式对贷"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/131:0",
+      "content": "款资金使用、借款人的信用及担保情况变化等进行跟踪检查和 监控分析,确保贷款资产安全。",
+      "regions": [
+        {
+          "page": 10,
+          "bbox": [
+            79.0,
+            303.25,
+            510.872,
+            347.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "款资金使用、借款人的信用及担保情况变化等进行跟踪检查和 监控分析,确保贷款资产安全。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/132:0",
+      "content": "贷款人应加强对借款人资金挪用行为的监控,发现借款人 挪用贷款资金的,应按照合同约定采取要求借款人整改、提前 归还贷款或下调贷款风险分类等相应措施进行管控。",
+      "regions": [
+        {
+          "page": 10,
+          "bbox": [
+            79.0,
+            359.25,
+            502.872,
+            431.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "贷款人应加强对借款人资金挪用行为的监控,发现借款人 挪用贷款资金的,应按照合同约定采取要求借款人整改、提前 归还贷款或下调贷款风险分类等相应措施进行管控。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/133:0",
+      "content": "第四十条 贷款人应区分个人贷款的品种、对象、金额等, 确定贷款检查的相应方式、内容和频度。对于简化或不再进行 现场实地调查的业务,应当按照适当比例实施贷后实地检查。 贷款人内部审计等部门应对贷款检查职能部门的工作质量进行 抽查和评价。",
+      "regions": [
+        {
+          "page": 10,
+          "bbox": [
+            79.0,
+            442.6190476319998,
+            515.8734999999999,
+            572.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第四十条 贷款人应区分个人贷款的品种、对象、金额等, 确定贷款检查的相应方式、内容和频度。对于简化或不再进行 现场实地调查的业务,应当按照适当比例实施贷后实地检查。 贷款人内部审计等部门应对贷款检查职能部门的工作质量进行 抽查和评价。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/134:0",
+      "content": "第四十一条 贷款人应定期跟踪分析评估借款人履行借款",
+      "regions": [
+        {
+          "page": 10,
+          "bbox": [
+            111.0,
+            583.6190476319998,
+            515.7938750000001,
+            601.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第四十一条 贷款人应定期跟踪分析评估借款人履行借款"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/135:0",
+      "content": "合同约定内容的情况,并作为与借款人后续合作的信用评价基 础。",
+      "regions": [
+        {
+          "page": 10,
+          "bbox": [
+            79.0,
+            613.25,
+            502.872,
+            657.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "合同约定内容的情况,并作为与借款人后续合作的信用评价基 础。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/136:0",
+      "content": "第四十二条 贷款人应当按照法律法规规定和借款合同的",
+      "regions": [
+        {
+          "page": 10,
+          "bbox": [
+            111.0,
+            668.6190476319998,
+            515.7938750000001,
+            686.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第四十二条 贷款人应当按照法律法规规定和借款合同的"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/137:0",
+      "content": "- 10 - 约定,对借款人未按合同承诺提供真实、完整信息和未按合同",
+      "regions": [
+        {
+          "page": 10,
+          "bbox": [
+            79.0,
+            698.25,
+            502.872,
+            755.793945302
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "约定,对借款人未按合同承诺提供真实、完整信息和未按合同 - 10 -"
+        }
+      ],
+      "exactNormalizedContent": false
+    },
+    {
+      "chunkId": "#/texts/138:0",
+      "content": "国家金融监督管理总局发布",
+      "regions": [
+        {
+          "page": 10,
+          "bbox": [
+            324.0,
+            787.636363648,
+            515.7001250000001,
+            806.661157024
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局发布"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/139:0",
+      "content": "国家金融监督管理总局规章",
+      "regions": [
+        {
+          "page": 11,
+          "bbox": [
+            104.0,
+            67.63636364800004,
+            295.700125,
+            86.66115702399998
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局规章"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/140:0",
+      "content": "约定用途使用、支付贷款等行为追究违约责任。",
+      "regions": [
+        {
+          "page": 11,
+          "bbox": [
+            79.0,
+            134.25,
+            414.872,
+            150.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "约定用途使用、支付贷款等行为追究违约责任。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/141:0",
+      "content": "第四十三条 借款人申请贷款展期的,贷款人应审慎评估展 期原因和后续还款安排的可行性。同意展期的,应根据还款来 源等情况,合理确定展期期限,并加强对贷款的后续管理,按照 实质风险状况进行风险分类。",
+      "regions": [
+        {
+          "page": 11,
+          "bbox": [
+            79.0,
+            161.61904763199982,
+            515.7938750000001,
+            263.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第四十三条 借款人申请贷款展期的,贷款人应审慎评估展 期原因和后续还款安排的可行性。同意展期的,应根据还款来 源等情况,合理确定展期期限,并加强对贷款的后续管理,按照 实质风险状况进行风险分类。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/142:0",
+      "content": "期限一年以内的贷款展期期限累计不得超过原贷款期限; 期限超过一年的贷款展期期限累计不得超过原贷款期限的一",
+      "regions": [
+        {
+          "page": 11,
+          "bbox": [
+            79.0,
+            275.25,
+            502.936,
+            319.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "期限一年以内的贷款展期期限累计不得超过原贷款期限; 期限超过一年的贷款展期期限累计不得超过原贷款期限的一"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/143:0",
+      "content": "半。",
+      "regions": [
+        {
+          "page": 11,
+          "bbox": [
+            79.0,
+            331.25,
+            110.872,
+            347.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "半。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/144:0",
+      "content": "第四十四条 贷款人应按照借款合同约定,收回贷款本息。 对于未按照借款合同约定偿还的贷款,贷款人应采取清",
+      "regions": [
+        {
+          "page": 11,
+          "bbox": [
+            111.0,
+            358.6190476319998,
+            510.793875,
+            404.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第四十四条 贷款人应按照借款合同约定,收回贷款本息。 对于未按照借款合同约定偿还的贷款,贷款人应采取清"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/145:0",
+      "content": "收、协议重组、债权转让或核销等措施进行处置。",
+      "regions": [
+        {
+          "page": 11,
+          "bbox": [
+            79.0,
+            416.25,
+            430.872,
+            432.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "收、协议重组、债权转让或核销等措施进行处置。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/146:0",
+      "content": "第七章 法律责任",
+      "regions": [
+        {
+          "page": 11,
+          "bbox": [
+            237.5625,
+            442.6190476319998,
+            357.325125,
+            460.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第七章 法律责任"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/147:0",
+      "content": "第四十五条 贷款人违反本办法规定办理个人贷款业务的, 国家金融监督管理总局及其派出机构应当责令其限期改正。贷 款人有下列情形之一的,国家金融监督管理总局及其派出机构 可根据《中华人民共和国银行业监督管理法》采取相关监管措 施:",
+      "regions": [
+        {
+          "page": 11,
+          "bbox": [
+            79.0,
+            499.6190476319998,
+            515.8578749999999,
+            629.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第四十五条 贷款人违反本办法规定办理个人贷款业务的, 国家金融监督管理总局及其派出机构应当责令其限期改正。贷 款人有下列情形之一的,国家金融监督管理总局及其派出机构 可根据《中华人民共和国银行业监督管理法》采取相关监管措 施:"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/148:0",
+      "content": "(一)贷款调查、审查、贷后管理未尽职的;",
+      "regions": [
+        {
+          "page": 11,
+          "bbox": [
+            111.0,
+            641.25,
+            406.936,
+            657.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(一)贷款调查、审查、贷后管理未尽职的;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/149:0",
+      "content": "(二)未按规定建立、执行贷款面谈、借款合同面签制度",
+      "regions": [
+        {
+          "page": 11,
+          "bbox": [
+            111.0,
+            669.25,
+            494.872,
+            685.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(二)未按规定建立、执行贷款面谈、借款合同面签制度"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/150:0",
+      "content": "的;",
+      "regions": [
+        {
+          "page": 11,
+          "bbox": [
+            79.0,
+            697.25,
+            102.936,
+            713.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "的;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/151:0",
+      "content": "- 11 -",
+      "regions": [
+        {
+          "page": 11,
+          "bbox": [
+            486.65625,
+            737.33007816,
+            515.9665,
+            755.793945302
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "- 11 -"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/152:0",
+      "content": "国家金融监督管理总局发布",
+      "regions": [
+        {
+          "page": 11,
+          "bbox": [
+            324.0,
+            787.636363648,
+            515.7001250000001,
+            806.661157024
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局发布"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/153:0",
+      "content": "国家金融监督管理总局规章",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            104.0,
+            67.63636364800004,
+            295.700125,
+            86.66115702399998
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局规章"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/154:0",
+      "content": "(三)借款合同采用格式条款未公示的;",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            111.0,
+            134.25,
+            374.936,
+            150.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(三)借款合同采用格式条款未公示的;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/155:0",
+      "content": "(四)违反本办法第三十条规定的;",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            111.0,
+            162.25,
+            342.936,
+            178.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(四)违反本办法第三十条规定的;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/156:0",
+      "content": "(五)支付管理不符合本办法要求的。",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            111.0,
+            190.25,
+            366.872,
+            206.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(五)支付管理不符合本办法要求的。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/157:0",
+      "content": "第四十六条 贷款人有下列情形之一的,国家金融监督管理 总局及其派出机构可根据《中华人民共和国银行业监督管理",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            79.0,
+            217.61904763199982,
+            515.7938750000001,
+            263.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第四十六条 贷款人有下列情形之一的,国家金融监督管理 总局及其派出机构可根据《中华人民共和国银行业监督管理"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/158:0",
+      "content": "法》对其采取相关监管措施或进行处罚:",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            79.0,
+            275.25,
+            358.936,
+            291.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "法》对其采取相关监管措施或进行处罚:"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/159:0",
+      "content": "(一)发放不符合条件的个人贷款的;",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            111.0,
+            303.25,
+            358.936,
+            319.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(一)发放不符合条件的个人贷款的;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/160:0",
+      "content": "(二)签订的借款合同不符合本办法规定的;",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            111.0,
+            331.25,
+            406.936,
+            347.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(二)签订的借款合同不符合本办法规定的;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/161:0",
+      "content": "(三)违反本办法第七条规定的;",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            111.0,
+            359.25,
+            326.93600000000004,
+            375.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(三)违反本办法第七条规定的;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/162:0",
+      "content": "(四)将贷款调查的风险控制核心事项委托第三方完成的;",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            111.0,
+            387.25,
+            502.936,
+            403.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(四)将贷款调查的风险控制核心事项委托第三方完成的;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/163:0",
+      "content": "(五)超越或变相超越贷款权限审批贷款的;",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            111.0,
+            415.25,
+            406.936,
+            431.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(五)超越或变相超越贷款权限审批贷款的;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/164:0",
+      "content": "(六)授意借款人虚构情节获得贷款的;",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            111.0,
+            443.25,
+            374.936,
+            459.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(六)授意借款人虚构情节获得贷款的;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/165:0",
+      "content": "(七)对借款人严重违约行为未采取有效措施的;",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            111.0,
+            471.25,
+            438.936,
+            487.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(七)对借款人严重违约行为未采取有效措施的;"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/166:0",
+      "content": "(八)严重违反本办法规定的审慎经营规则的其他情形的。",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            111.0,
+            499.25,
+            510.872,
+            515.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "(八)严重违反本办法规定的审慎经营规则的其他情形的。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/167:0",
+      "content": "第八章 附则",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            253.546875,
+            525.6190476319998,
+            341.34075,
+            543.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第八章 附则"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/168:0",
+      "content": "第四十七条 国家金融监督管理总局及其派出机构可以根 据贷款人的经营管理情况、风险水平和个人贷款业务开展情况",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            79.0,
+            582.6190476319998,
+            515.7938750000001,
+            628.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第四十七条 国家金融监督管理总局及其派出机构可以根 据贷款人的经营管理情况、风险水平和个人贷款业务开展情况"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/169:0",
+      "content": "等,对贷款人个人贷款管理提出相关审慎监管要求。",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            79.0,
+            640.25,
+            438.872,
+            656.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "等,对贷款人个人贷款管理提出相关审慎监管要求。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/170:0",
+      "content": "第四十八条 国家开发银行、政策性银行以及经国家金融 监督管理总局批准设立的非银行金融机构发放的个人贷款,可",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            79.0,
+            667.6190476319998,
+            515.7938750000001,
+            713.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第四十八条 国家开发银行、政策性银行以及经国家金融 监督管理总局批准设立的非银行金融机构发放的个人贷款,可"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/171:0",
+      "content": "- 12 -",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            79.0,
+            737.33007816,
+            110.263375,
+            755.793945302
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "- 12 -"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/172:0",
+      "content": "国家金融监督管理总局发布",
+      "regions": [
+        {
+          "page": 12,
+          "bbox": [
+            324.0,
+            787.636363648,
+            515.7001250000001,
+            806.661157024
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局发布"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/173:0",
+      "content": "国家金融监督管理总局规章",
+      "regions": [
+        {
+          "page": 13,
+          "bbox": [
+            104.0,
+            67.63636364800004,
+            295.700125,
+            86.66115702399998
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局规章"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/174:0",
+      "content": "参照本办法执行。",
+      "regions": [
+        {
+          "page": 13,
+          "bbox": [
+            79.0,
+            134.25,
+            206.872,
+            150.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "参照本办法执行。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/175:0",
+      "content": "第四十九条 国家金融监督管理总局对互联网、个人住 房、个人助学、个人汽车等其他特殊类贷款另有规定的,从其 规定。",
+      "regions": [
+        {
+          "page": 13,
+          "bbox": [
+            79.0,
+            161.61904763199982,
+            515.7938750000001,
+            235.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第四十九条 国家金融监督管理总局对互联网、个人住 房、个人助学、个人汽车等其他特殊类贷款另有规定的,从其 规定。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/176:0",
+      "content": "银行业金融机构发放给农户用于生产性贷款等国家有专门 政策规定的特殊类个人贷款,暂不执行本办法。",
+      "regions": [
+        {
+          "page": 13,
+          "bbox": [
+            79.0,
+            247.25,
+            510.872,
+            291.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "银行业金融机构发放给农户用于生产性贷款等国家有专门 政策规定的特殊类个人贷款,暂不执行本办法。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/177:0",
+      "content": "信用卡透支不适用本办法。",
+      "regions": [
+        {
+          "page": 13,
+          "bbox": [
+            111.0,
+            303.25,
+            302.872,
+            319.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "信用卡透支不适用本办法。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/178:0",
+      "content": "第五十条 贷款人应依照本办法制定个人贷款业务管理细 则及操作规程。",
+      "regions": [
+        {
+          "page": 13,
+          "bbox": [
+            79.0,
+            330.6190476319998,
+            515.8095000000001,
+            376.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第五十条 贷款人应依照本办法制定个人贷款业务管理细 则及操作规程。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/179:0",
+      "content": "第五十一条 本办法由国家金融监督管理总局负责解释。",
+      "regions": [
+        {
+          "page": 13,
+          "bbox": [
+            111.0,
+            387.6190476319998,
+            502.793875,
+            405.492063488
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第五十一条 本办法由国家金融监督管理总局负责解释。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/180:0",
+      "content": "第五十二条 本办法自2024年7月1日起施行,《个人贷款管 理暂行办法》(中国银行业监督管理委员会令2010年第2号)同 时废止。",
+      "regions": [
+        {
+          "page": 13,
+          "bbox": [
+            79.0,
+            416.6190476319998,
+            510.793875,
+            490.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "第五十二条 本办法自2024年7月1日起施行,《个人贷款管 理暂行办法》(中国银行业监督管理委员会令2010年第2号)同 时废止。"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/181:0",
+      "content": "附:",
+      "regions": [
+        {
+          "page": 13,
+          "bbox": [
+            100.0,
+            516.25,
+            123.936,
+            532.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "附:"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/182:0",
+      "content": "国家金融监督管理总局发布《固定资产贷款管理办法》《流 动资金贷款管理办法》《个人贷款管理办法》",
+      "regions": [
+        {
+          "page": 13,
+          "bbox": [
+            79.0,
+            558.25,
+            515.8720000000001,
+            602.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局发布《固定资产贷款管理办法》《流 动资金贷款管理办法》《个人贷款管理办法》"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/183:0",
+      "content": "https://www.cbirc.gov.cn/cn/view/pages/ItemDetail.html?",
+      "regions": [
+        {
+          "page": 13,
+          "bbox": [
+            100.0,
+            628.25,
+            539.9359999999999,
+            644.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "https://www.cbirc.gov.cn/cn/view/pages/ItemDetail.html?"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/184:0",
+      "content": "docId=1151058&itemId=915",
+      "regions": [
+        {
+          "page": 13,
+          "bbox": [
+            79.0,
+            656.25,
+            270.93600000000004,
+            672.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "docId=1151058&itemId=915"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/185:0",
+      "content": "国家金融监督管理总局有关司局负责人就《固定资产贷款管",
+      "regions": [
+        {
+          "page": 13,
+          "bbox": [
+            100.0,
+            698.25,
+            515.8720000000001,
+            714.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局有关司局负责人就《固定资产贷款管"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/186:0",
+      "content": "- 13 -",
+      "regions": [
+        {
+          "page": 13,
+          "bbox": [
+            484.875,
+            737.33007816,
+            515.9665,
+            755.793945302
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "- 13 -"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/187:0",
+      "content": "国家金融监督管理总局发布",
+      "regions": [
+        {
+          "page": 13,
+          "bbox": [
+            324.0,
+            787.636363648,
+            515.7001250000001,
+            806.661157024
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局发布"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/188:0",
+      "content": "国家金融监督管理总局规章",
+      "regions": [
+        {
+          "page": 14,
+          "bbox": [
+            104.0,
+            67.63636364800004,
+            295.700125,
+            86.66115702399998
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局规章"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/189:0",
+      "content": "理办法》《流动资金贷款管理办法》《个人贷款管理办法》答 记者问",
+      "regions": [
+        {
+          "page": 14,
+          "bbox": [
+            79.0,
+            134.25,
+            510.872,
+            178.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "理办法》《流动资金贷款管理办法》《个人贷款管理办法》答 记者问"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/190:0",
+      "content": "https://www.cbirc.gov.cn/cn/view/pages/ItemDetail.html? docId=1151057&itemId=915",
+      "regions": [
+        {
+          "page": 14,
+          "bbox": [
+            79.0,
+            204.25,
+            539.9359999999999,
+            248.25
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "https://www.cbirc.gov.cn/cn/view/pages/ItemDetail.html? docId=1151057&itemId=915"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/191:0",
+      "content": "- 14 -",
+      "regions": [
+        {
+          "page": 14,
+          "bbox": [
+            79.0,
+            737.33007816,
+            110.654,
+            755.793945302
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "- 14 -"
+        }
+      ],
+      "exactNormalizedContent": true
+    },
+    {
+      "chunkId": "#/texts/192:0",
+      "content": "国家金融监督管理总局发布",
+      "regions": [
+        {
+          "page": 14,
+          "bbox": [
+            324.0,
+            787.636363648,
+            515.7001250000001,
+            806.661157024
+          ],
+          "coordinateSystem": "PDF_POINTS_TOP_LEFT",
+          "popplerText": "国家金融监督管理总局发布"
+        }
+      ],
+      "exactNormalizedContent": true
+    }
+  ],
+  "exact": 190,
+  "total": 193,
+  "authorityActivationVerified": false
+}
