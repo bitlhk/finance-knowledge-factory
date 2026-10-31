@@ -15,3 +15,4 @@
 #modal-error:not(:empty){padding:12px;color:#962339;background:#fff1f2;margin-bottom:12px}
 @media(max-width:820px){.consume-grid{grid-template-columns:1fr}.pagehead h1{font-size:22px}.source-list th:nth-child(3),.source-list td:nth-child(3){display:none}.source-list td,.source-list th:nth-child(1){padding:10px 6px}.topcontrols .selector{max-width:100%;flex-basis:160px}.progressline .selector{margin-left:0;max-width:100%}.test-row{grid-template-columns:minmax(0,1fr) 105px 24px}}
 @media(max-width:550px){.versiontag{display:none}.v14-task{align-items:start;flex-wrap:wrap}.v15-panel{grid-template-columns:1fr}.v15-craftnav{grid-template-columns:repeat(2,minmax(0,1fr))}.source-list td:first-child{max-width:130px}.modalback{padding:8px}.inspecttop .selector{max-width:100%}}
+@media(max-width:550px){.heading .actions button[data-do="document-demo"]{flex-basis:100%}}
