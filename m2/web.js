@@ -1,9 +1,32 @@
 'use strict';
 // V1.5 layout is reused; release state is read only from the Core API response.
 window.m2 = {
+  async startDemo(){
+    await action(async()=>{
+      const html='<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>合成客服制度</title></head><body><h1>合成客服制度，仅供隔离测试</h1><p>第一条 合成客服服务时间为每日09:00至17:00。</p><p>第二条 客户申请历史对账单时，应在合成客服窗口提交申请。</p><p>第三条 信息缺失时，应交由人工核实，不得编造缺失信息。</p></body></html>';
+      const source=await api('/api/sources',{title:'合成客服制度 · 文档生产体验',html});
+      state=await api('/api/state');sourceId=source.id;run=null;recipe=null;queryResult=testResult=null;
+      activeClause=null;selection='parse';workshopOpen=true;page='production';
+      localStorage.removeItem('production-run');
+      wizardDraft={sourceId,rules:false,clauses:[],modelConsent:false,tests:[
+        {question:'合成客服服务时间是什么？',expectedClause:'第一条'},
+        {question:'客户如何申请历史对账单？',expectedClause:'第二条'},
+        {question:'信息缺失时如何处理？',expectedClause:'第三条'}]};
+      wizard=0;showWizard();
+    });
+  },
+  nextAction(){
+    if(!src())return null;
+    if(activeRun())return ['','生产进行中'];
+    if(run?.release?.state==='ISOLATED_PUBLISHED')return ['sandbox','查询本次知识产物'];
+    if(run?.release?.state==='APPROVED')return ['publish-document','生成并绑定隔离快照'];
+    if(run?.release?.state==='VALIDATED')return ['approve-document','隔离测试审批'];
+    if(run)return ['checks','查看本次验证结果'];
+    return recipe?['start','开始生产知识']:['recipe','配置生产配方'];
+  },
   releaseLabel(){return {NO_CANDIDATE:'等待生产',REVIEW_REQUIRED:'验证未通过',VALIDATED:'验证通过，待测试审批',APPROVED:'已测试审批，待绑定',ISOLATED_PUBLISHED:'隔离快照已绑定'}[run?.release?.state]||'等待生产';},
   home(){
-    return `${heading('KNOWLEDGE PRODUCTION / 工作台','知识生产','文档知识 · 隔离测试工作区','<button class="btn" data-do="new-product">＋ 新建试产</button>')}
+    return `${heading('KNOWLEDGE PRODUCTION / 工作台','知识生产','文档知识 · 隔离测试工作区','<button class="btn" data-do="document-demo">开始体验文档知识生产</button><button class="btn secondary" data-do="new-product">＋ 新建试产</button>')}
     <div class="v15-hero"><div><strong>五条专业知识生产线</strong><small>当前执行：文档知识</small></div><div class="v15-icons">${crafts.map((c,i)=>`<span class="v15-token ${i===0?'active':''}">${E(c)}</span>`).join('')}<button class="btn secondary sm" data-do="crafts">工艺目录</button></div></div>
     <div class="v14-summary"><b>${state.sources.length}</b> 份原料 · <b>${state.runs.length}</b> 次生产 · <b>${state.isolatedReleases.length}</b> 个隔离快照</div>
     <section class="pending-section"><div class="sectiontitle">生产记录</div>${state.runs.slice(0,5).map(r=>`<div class="v14-task"><div><b>${E(r.title)}</b><div class="small textmuted">${E(label(r.status))} · ${E(new Date(r.createdAt).toLocaleString())}</div></div><button class="btn secondary sm" data-run="${E(r.id)}">查看记录</button></div>`).join('')||'<div class="hint">尚无生产任务</div>'}</section>
@@ -33,6 +56,14 @@ window.m2 = {
   bind(){
     document.querySelectorAll('[data-query-run]').forEach(b=>b.onclick=()=>action(async()=>{const r=state.isolatedReleases.find(r=>r.runId===b.dataset.queryRun);await openProduct(r.sourceId,r.runId);showSandbox();}));
     if(workshopOpen&&page==='production'){
+      const next=this.nextAction();
+      if(next){
+        const button=document.createElement('button');button.className='btn';button.textContent=next[1];
+        button.id='next-production-action';
+        button.dataset.nextAction=next[0];button.disabled=busy||!next[0];button.onclick=()=>dispatch(next[0]);
+        if(next[0]==='start')button.dataset.do='start';
+        $('.heading [data-do="start"]').replaceWith(button);
+      }
       const technology=$('.v15-hero small');if(technology)technology.textContent='原生 HTML 锚点 · RAGFlow 索引与检索 · Core 验证';
       const output=$('.outcol .colhead .badge');if(output)output.textContent=run?.release?.state==='ISOLATED_PUBLISHED'?'隔离快照':'候选知识';
     }

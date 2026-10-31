@@ -78,6 +78,7 @@ function dialog(title, body) {
   $('.icon-button').onclick=()=>$('#modal-root').replaceChildren();
 }
 function dispatch(command) {
+  if(m2Mode()&&command==='document-demo')return window.m2.startDemo();
   if(m2Mode()&&['approve-document','publish-document'].includes(command))return window.m2.release(command);
   if(command==='catalog'){workshopOpen=false;page='production';render();return;}
   if(command==='workshop'){workshopOpen=true;page='production';render();return;}
