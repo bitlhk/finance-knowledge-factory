@@ -1,5 +1,10 @@
 # Product delivery candidate, 2026-10-31
 
+Post-handoff update: see `RAGFLOW-SESSION-FIX.md`. A user-approved targeted fix
+reuses the upstream login in the generic query process after the failed Harness
+normal-build-08. The original 302-test/native-production evidence below is retained;
+session-fix evidence has its own execution identity. Joint acceptance remains open.
+
 ## Review and integration boundaries
 
 - Backend A-C: PR #8 `ed350496156070d6a271a03e6b217e1725623d44`, unchanged, Draft.
