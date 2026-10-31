@@ -1,0 +1,20 @@
+{
+  "state": "LISTENING_HOST_AUTH_REQUIRED",
+  "host": "127.0.0.1",
+  "port": 45909,
+  "pid": 1791053,
+  "schemaSha256": "114397ec532e40b84975e5884457ed1de63b45c71a05652c7e8ed5c3f1f3c3c6",
+  "outboundDisabled": true,
+  "binding": {
+    "productId": "run-39d069d400924257a857cfa7ec64917b",
+    "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3"
+  },
+  "codeIdentity": {
+    "commit": "e4b45e4ad6796253f07a8d7feb8e878162a469fa",
+    "dirty": false
+  },
+  "implementation": {
+    "history_service.py": "f1fdc880881c41d01115144dd1006db82f051607cc0d5be46cbb3f27e75237a0",
+    "history_runtime.py": "21f95b38016ce91b90a941d71c171f2e099c775520e3560b7ae1c8f3f2b6a928"
+  }
+}
