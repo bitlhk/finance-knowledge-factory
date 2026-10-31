@@ -1,0 +1,11 @@
+{
+  "httpStatus": 403,
+  "body": {
+    "schemaVersion": "finance-workbench-api.v0.2",
+    "error": {
+      "code": "AUTHORIZATION_REJECTED",
+      "retryable": false
+    },
+    "clearConversation": true
+  }
+}

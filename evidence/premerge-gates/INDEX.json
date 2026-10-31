@@ -1,0 +1,24 @@
+{
+  "implementation": "02e59a500cf2b6ca4080baae6fff731620d9dbae",
+  "testedFullFactory": "d67d366f8aeabee15365c661055e93b8ef558e54",
+  "sameBackendBytes": true,
+  "files": {
+    "abc-regression.xml": "4b2f2174bb658b304d563683c882a813646db3c7686935ba3100854850749fc9",
+    "cross-repository/answer-archive-integrity.json": "2269029e9df78e5a3f677ef26689810bdfdef2661ba6db45a5c29759bb25bd84",
+    "cross-repository/history-core-after.json": "3ec6f76678494606ef0575afae81544a4ca46f7315f9c472fd6ce0028278a049",
+    "cross-repository/history-core-before.json": "3bec7c489a8fd2d5016497a92f3ee7529f5e01d0e87559d44b65ffcb9c0d743f",
+    "cross-repository/history-ready.stopped.json": "bf8967d877e5f75723466ab06263762f3f7a5726f3b6f6cbf7b5f7a913b5c141",
+    "cross-repository/manifest-rejection.json": "d475d0db22552e6dbff49c8f16c805ef9d90e92095978e855ac27ec0de601faa",
+    "cross-repository/outage-rejection.json": "d475d0db22552e6dbff49c8f16c805ef9d90e92095978e855ac27ec0de601faa",
+    "cross-repository/owner-history.json": "f5c8a114572f140cb9c67be1831862368fb69601355af8f0510fa9fbfb347cc1",
+    "cross-repository/report.json": "8edb6a445843722acc8047a46b4a195734e98a8cd08dca88c1be84092e11a54a",
+    "cross-repository/revocation-rejection.json": "d475d0db22552e6dbff49c8f16c805ef9d90e92095978e855ac27ec0de601faa",
+    "cross-repository/same-instance-binding.json": "820bffdcf15ccff816bb55e3d7eda0b1cc73ba6b7986e5eeab8df1db452b14aa",
+    "cross-repository/source-after.json": "ec5ec53ca2b62b59f42c5715b97755718e0d7652c1391b7edf39efb22e27498a",
+    "cross-repository/source-before.json": "ec5ec53ca2b62b59f42c5715b97755718e0d7652c1391b7edf39efb22e27498a",
+    "cross-repository/source-revoked-history.json": "0daac9b838a84f389b9b7588fc8143047e9920d0fbb7171cb693e0082a684675",
+    "native-d67d366/result.json": "25023ec0ea92600747c0e55275bdcbe630b7afb317dd2e015128ae3a8ffb5238",
+    "native-guided-01/provenance.json": "b129d15eee10d4122ccbb64f444e65c9244395b3df4a7d659da48e6c39a5ef4d",
+    "native-guided-01/result.json": "97cc0b9b31db42f5c7f4ef6bf0a5b7fa32a5adf070fcd51f6ecc0df178a3c627"
+  }
+}
