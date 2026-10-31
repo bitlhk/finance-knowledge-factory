@@ -32,12 +32,14 @@ def main():
         parser.error('Explicit trusted binding, isolated database and unreserved port required')
     binding = load_binding(args.binding)
     outbound_attempts = 0
+    query_session = None
     if args.mode == 'query':
         if args.private_config is None:
             parser.error('Query requires an existing private upstream configuration')
-        from m2.ragflow import Ragflow
-        runtime = Runtime(args.database, HostLeases(args.authority), lambda: Ragflow(
-            args.private_config / 'local-credentials.json', args.private_config / 'http-setup.json'), binding=binding)
+        from m2.ragflow import RagflowQuerySession
+        query_session = RagflowQuerySession(
+            args.private_config / 'local-credentials.json', args.private_config / 'http-setup.json')
+        runtime = Runtime(args.database, HostLeases(args.authority), query_session, binding=binding)
         server = IsolatedServer(('127.0.0.1', args.port), query_handler(runtime))
     else:
         if args.private_config is not None:
@@ -66,6 +68,8 @@ def main():
         server.serve_forever(poll_interval=0.1)
     finally:
         server.server_close()
+        if query_session is not None:
+            query_session.close()
         if ready:
             stopped = {**metadata, 'state': 'STOPPED_WORKERS_JOINED'}
             if args.mode == 'history':
