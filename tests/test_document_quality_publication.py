@@ -1,5 +1,7 @@
 import copy
 from dataclasses import replace
+import hashlib
+import json
 from pathlib import Path
 
 import pytest
@@ -48,6 +50,50 @@ def quality_set(source_digest):
             'sourceTitle':'合成客服制度', 'cases':cases}
 
 
+def runtime_evidence(core, candidate, test_digest, source_digest):
+    model = {'schemaVersion':'finance-model-selection.v1', 'defaultModelRef':'model-ea-002',
+             'connections':[{'modelRef':'model-ea-002', 'configVersion':'sha256:' + '1' * 64,
+                             'modelName':'deepseek-v4-flash', 'provider':'OpenAI'}]}
+    model_raw = (json.dumps(model, separators=(',', ':')) + '\n').encode()
+    service = {'schemaVersion':'local-agent-service-lock.v0.1',
+               'sources':{'builder':{'commit':'1' * 40, 'worktreeDirty':False},
+                          'harness':{'commit':'2' * 40, 'worktreeDirty':False}},
+               'files':{'model-selection.json':hashlib.sha256(model_raw).hexdigest()}}
+    service_raw = (json.dumps(service, separators=(',', ':')) + '\n').encode()
+    runtime_raw = b'{"runtime":"verified"}\n'
+    receipt = {'schemaVersion':'document-receipt.v0.1', 'requestId':'factory-request',
+        'traceId':'factory-trace', 'principal':'reader', 'productId':'faq',
+        'manifestDigest':'a' * 64, 'indexDigest':'b' * 64, 'sourceDigest':source_digest,
+        'bindingDigest':'c' * 64, 'policyDigest':'d' * 64,
+        'question':'合成客服服务时间是什么？', 'hostAuthority':'test-host',
+        'businessContextSource':'test', 'host':{}, 'result':{},
+        'createdAt':'2026-11-01T00:00:00Z', 'mode':'M2_ISOLATED_DOCUMENT'}
+    with core.tx():
+        receipt_digest = core._put(AUTHOR, 'document-receipt', receipt)
+    archive = {'schemaVersion':'finance-knowledge-answer.v0.1', 'status':'COMPLETED',
+        'requestId':'archive-request', 'runId':'archive-run', 'buildId':'agent-quality',
+        'instanceId':'instance-quality', 'serviceLockDigest':hashlib.sha256(service_raw).hexdigest(),
+        'runtimeLockDigest':hashlib.sha256(runtime_raw).hexdigest(), 'manifest':'a' * 64,
+        'productId':'faq', 'response':'服务时间为每日09:00至17:00。',
+        'toolResults':[{'data':{'result':{'knowledgeReceipt':{
+            'coreReceiptDigest':receipt_digest, 'productId':'faq', 'manifest':'a' * 64,
+            'requestId':'factory-request', 'traceId':'factory-trace'},
+            'evidence':[{'clause':'第一条'}]}}}]}
+    rows = [
+        {'recordType':'model-context', 'mode':'LIVE', 'modelRef':'model-ea-002',
+         'configVersion':'sha256:' + '1' * 64, 'modelName':'deepseek-v4-flash'},
+        {'schemaVersion':'finance-observation.v0.1', 'requestId':'archive-request',
+         'instanceId':'instance-quality', 'component':'model', 'operation':'attempt',
+         'phase':'END', 'outcome':'RETURNED'},
+    ]
+    return core.register_answer_runtime_evidence(AUTHOR, candidate, test_digest,
+        'a' * 64, service_raw, model_raw,
+        [{'caseId':'quality-service-hours', 'archive':archive,
+          'historyRows':rows, 'runtimeLockRaw':runtime_raw}],
+        {'instance':{'instanceId':'instance-quality', 'status':'STOPPED'},
+         'stoppedAt':'2026-11-01T00:01:00Z'})
+
+
 def test_quality_enrollment_cannot_bypass_core_recomputed_gate(tmp_path):
     core, client = DocumentCore(tmp_path / 'core.db'), QualityClient()
     try:
@@ -60,14 +106,12 @@ def test_quality_enrollment_cannot_bypass_core_recomputed_gate(tmp_path):
         profile = core.register_quality_profile(AUTHOR, 'financial-document-v02', 1, CONFIG)
         test_set = quality_set(data['sourceDigest'])
         test_digest = core.register_quality_test_set(AUTHOR, data['candidateDigest'], test_set, 1)
-        answers = []
-        for case in test_set['cases']:
-            answers.append({'caseId':case['caseId'],
-                'answer':'服务时间为每日09:00至17:00。', 'citedClauses':['第一条']})
         retrieval = core.evaluate_quality_retrieval(AUTHOR, data['candidateDigest'], profile,
                                                      test_digest, client)
+        runtime = runtime_evidence(core, data['candidateDigest'], test_digest,
+                                   data['sourceDigest'])
         answer = core.register_answer_evaluation(AUTHOR, data['candidateDigest'], profile,
-            test_digest, retrieval, 'REAL_HARNESS_DEEPSEEK', 'controlled-test-model', answers)
+            test_digest, retrieval, runtime)
         admission = core.assess_document_quality(AUTHOR, data['candidateDigest'], profile,
                                                  test_digest, retrieval, answer)
         assert core._get(AUTHOR, admission, 'document-quality-admission')['decision'] == 'PASS'

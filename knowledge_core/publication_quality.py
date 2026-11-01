@@ -16,7 +16,11 @@ def assess(structure, index_mapping, retrieval, answer):
         "noAnswerFalsePositiveZero": retrieval.get("metricsBps", {}).get("noAnswerFalsePositive") == 0,
         "allRetrievalCasesPass": bool(retrieval.get("cases")) and all(
             case.get("passed") is True for case in retrieval["cases"]),
-        "realHarnessAnswerEvaluation": answer.get("execution") == "REAL_HARNESS_DEEPSEEK",
+        "realHarnessAnswerEvaluation": (
+            answer.get("execution") == "CORE_CORRELATED_HARNESS_ARCHIVE"
+            and isinstance(answer.get("runtimeEvidenceDigest"), str)
+            and len(answer["runtimeEvidenceDigest"]) == 64
+        ),
         "answerFactAccuracyComplete": answer.get("metricsBps", {}).get("factAccuracy") == 10000,
         "answerCitationAccuracyComplete": answer.get("metricsBps", {}).get("citationAccuracy") == 10000,
         "allAnswerCasesClassified": bool(answer.get("cases")) and all(

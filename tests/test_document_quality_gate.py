@@ -8,7 +8,8 @@ def inputs():
     retrieval = {"execution":"CORE_EXECUTED",
                  "metricsBps": {"recallAt3": 10000, "hitAt1": 10000, "mrr": 10000,
                                 "noAnswerFalsePositive": 0}, "cases": [{"passed": True}]}
-    answer = {"execution": "REAL_HARNESS_DEEPSEEK",
+    answer = {"execution": "CORE_CORRELATED_HARNESS_ARCHIVE",
+              "runtimeEvidenceDigest": "a" * 64,
               "metricsBps": {"factAccuracy": 10000, "citationAccuracy": 10000},
               "cases": [{"classification": "CORRECT"}]}
     return structure, mapping, retrieval, answer
@@ -25,7 +26,7 @@ def test_each_quality_dimension_fails_closed():
         lambda values: values[1].update(coverageBps=9999),
         lambda values: values[2]["metricsBps"].update(recallAt3=9999),
         lambda values: values[2]["metricsBps"].update(noAnswerFalsePositive=1),
-        lambda values: values[3].update(execution="NOT_RUN"),
+        lambda values: values[3].update(runtimeEvidenceDigest=None),
         lambda values: values[3]["metricsBps"].update(citationAccuracy=9999),
     ]
     for mutate in mutations:

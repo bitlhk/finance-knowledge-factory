@@ -171,19 +171,129 @@ class DocumentCore(Core):
                 'testSetDigest':test_set_digest, 'execution':'CORE_EXECUTED',
                 'report':recomputed})
 
+    def register_answer_runtime_evidence(self, actor, candidate_digest, test_set_digest,
+                                         manifest_digest, service_lock_raw,
+                                         model_selection_raw, runs, stopped):
+        """Correlate original Host archives with immutable Lock and Core receipts.
+
+        This proves which installed Host, model binding, Factory receipts and stopped
+        instance produced the archived answers. It deliberately does not accept an
+        execution-mode label from the caller.
+        """
+        actor.require('candidate.validate')
+        with self.tx():
+            test_object = self._get(actor, test_set_digest, 'document-quality-test-set')
+        if test_object['candidateDigest'] != candidate_digest:
+            raise Rejected('QUALITY_RUNTIME_BINDING_MISMATCH')
+        if not isinstance(service_lock_raw, bytes) or not isinstance(model_selection_raw, bytes):
+            raise Rejected('QUALITY_RUNTIME_EVIDENCE_INVALID')
+        try:
+            service_lock = json.loads(service_lock_raw)
+            model_selection = json.loads(model_selection_raw)
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            raise Rejected('QUALITY_RUNTIME_EVIDENCE_INVALID') from None
+        lock_digest = hashlib.sha256(service_lock_raw).hexdigest()
+        model_digest = hashlib.sha256(model_selection_raw).hexdigest()
+        sources = service_lock.get('sources', {})
+        if (service_lock.get('files', {}).get('model-selection.json') != model_digest
+                or not sources or any(value.get('worktreeDirty') is not False
+                                      for value in sources.values() if isinstance(value, dict))):
+            raise Rejected('QUALITY_RUNTIME_LOCK_INVALID')
+        connections = model_selection.get('connections')
+        if (not isinstance(connections, list) or len(connections) != 1
+                or not isinstance(model_selection.get('defaultModelRef'), str)):
+            raise Rejected('QUALITY_RUNTIME_MODEL_INVALID')
+        model = connections[0]
+        model_identity = {key:model.get(key) for key in
+            ('modelRef', 'configVersion', 'modelName', 'provider')}
+        if (model_identity['modelRef'] != model_selection['defaultModelRef']
+                or any(not isinstance(value, str) or not value for value in model_identity.values())):
+            raise Rejected('QUALITY_RUNTIME_MODEL_INVALID')
+        stopped_instance = stopped.get('instance') if isinstance(stopped, dict) else None
+        if (not isinstance(stopped_instance, dict) or stopped_instance.get('status') != 'STOPPED'
+                or not isinstance(stopped_instance.get('instanceId'), str)):
+            raise Rejected('QUALITY_RUNTIME_STOP_INVALID')
+        expected_cases = [case['caseId'] for case in test_object['testSet']['cases']]
+        by_id = {item.get('caseId'):item for item in runs if isinstance(item, dict)}
+        if set(by_id) != set(expected_cases) or len(by_id) != len(runs):
+            raise Rejected('QUALITY_RUNTIME_CASE_MISMATCH')
+        build_id = instance_id = None
+        cases = []
+        for case_id in expected_cases:
+            item = by_id[case_id]
+            archive, rows = item.get('archive'), item.get('historyRows')
+            runtime_raw = item.get('runtimeLockRaw')
+            if (not isinstance(archive, dict) or not isinstance(rows, list)
+                    or not isinstance(runtime_raw, bytes)
+                    or hashlib.sha256(runtime_raw).hexdigest() != archive.get('runtimeLockDigest')
+                    or archive.get('schemaVersion') != 'finance-knowledge-answer.v0.1'
+                    or archive.get('status') != 'COMPLETED'
+                    or archive.get('serviceLockDigest') != lock_digest
+                    or archive.get('manifest') != manifest_digest):
+                raise Rejected('QUALITY_RUNTIME_ARCHIVE_INVALID', case_id)
+            build_id = archive['buildId'] if build_id is None else build_id
+            instance_id = archive['instanceId'] if instance_id is None else instance_id
+            if (archive['buildId'] != build_id or archive['instanceId'] != instance_id
+                    or instance_id != stopped_instance['instanceId']):
+                raise Rejected('QUALITY_RUNTIME_INSTANCE_MISMATCH', case_id)
+            contexts = [row for row in rows if row.get('recordType') == 'model-context']
+            returned = [row for row in rows if row.get('schemaVersion') == 'finance-observation.v0.1'
+                        and row.get('requestId') == archive['requestId']
+                        and row.get('instanceId') == instance_id and row.get('component') == 'model'
+                        and row.get('operation') == 'attempt' and row.get('phase') == 'END'
+                        and row.get('outcome') == 'RETURNED']
+            if (len(contexts) != 1 or contexts[0].get('mode') != 'LIVE'
+                    or any(contexts[0].get(key) != model_identity[key]
+                           for key in ('modelRef', 'configVersion', 'modelName'))
+                    or not returned):
+                raise Rejected('QUALITY_RUNTIME_MODEL_EVIDENCE_MISSING', case_id)
+            receipts, cited = [], []
+            for tool in archive.get('toolResults', []):
+                result = tool.get('data', {}).get('result', {})
+                receipt = result.get('knowledgeReceipt', {})
+                receipt_digest = receipt.get('coreReceiptDigest')
+                saved = self._get(actor, receipt_digest, 'document-receipt')
+                if (saved.get('manifestDigest') != manifest_digest
+                        or saved.get('productId') != archive.get('productId')
+                        or saved.get('requestId') != receipt.get('requestId')
+                        or saved.get('traceId') != receipt.get('traceId')):
+                    raise Rejected('QUALITY_RUNTIME_RECEIPT_MISMATCH', case_id)
+                receipts.append(receipt_digest)
+                cited.extend(evidence.get('clause') for evidence in result.get('evidence', [])
+                             if isinstance(evidence.get('clause'), str))
+            if not receipts or not isinstance(archive.get('response'), str):
+                raise Rejected('QUALITY_RUNTIME_RECEIPT_MISSING', case_id)
+            cases.append({'caseId':case_id, 'answer':archive['response'],
+                'answerDigest':text_digest(archive['response']),
+                'citedClauses':list(dict.fromkeys(cited)), 'requestId':archive['requestId'],
+                'runId':archive['runId'], 'runtimeLockDigest':archive['runtimeLockDigest'],
+                'coreReceiptDigests':receipts})
+        body = {'schemaVersion':'document-answer-runtime-evidence.v0.1',
+            'candidateDigest':candidate_digest, 'testSetDigest':test_set_digest,
+            'buildId':build_id, 'instanceId':instance_id,
+            'installationLockDigest':lock_digest, 'manifestDigest':manifest_digest,
+            'modelIdentity':model_identity, 'cases':cases,
+            'stoppedAt':stopped.get('stoppedAt', 'STOP_CONFIRMED_WITHOUT_TIMESTAMP'),
+            'verification':'CORE_CORRELATED_HARNESS_ARCHIVE'}
+        with self.tx():
+            return self._put(actor, 'document-answer-runtime-evidence', body)
+
     def register_answer_evaluation(self, actor, candidate_digest, profile_digest,
-                                   test_set_digest, retrieval_digest, execution,
-                                   model_identity, answers):
+                                   test_set_digest, retrieval_digest,
+                                   runtime_evidence_digest):
         actor.require('candidate.validate')
         with self.tx():
             test_object = self._get(actor, test_set_digest, 'document-quality-test-set')
             retrieval = self._get(actor, retrieval_digest, 'document-retrieval-evaluation')
+            runtime = self._get(actor, runtime_evidence_digest, 'document-answer-runtime-evidence')
         if (test_object['candidateDigest'] != candidate_digest
                 or retrieval['candidateDigest'] != candidate_digest
                 or retrieval['profileDigest'] != profile_digest
-                or retrieval['testSetDigest'] != test_set_digest):
+                or retrieval['testSetDigest'] != test_set_digest
+                or runtime['candidateDigest'] != candidate_digest
+                or runtime['testSetDigest'] != test_set_digest):
             raise Rejected('QUALITY_ANSWER_BINDING_MISMATCH')
-        by_id = {item.get('caseId'): item for item in answers if isinstance(item, dict)}
+        by_id = {item.get('caseId'): item for item in runtime['cases'] if isinstance(item, dict)}
         if set(by_id) != {case['caseId'] for case in test_object['testSet']['cases']}:
             raise Rejected('QUALITY_ANSWER_CASE_MISMATCH')
         cases, facts, citations, total_facts, total_citations = [], 0, 0, 0, 0
@@ -214,8 +324,10 @@ class DocumentCore(Core):
             return self._put(actor, 'document-answer-evaluation', {
                 'schemaVersion':'document-answer-evaluation.v0.1', 'candidateDigest':candidate_digest,
                 'profileDigest':profile_digest, 'testSetDigest':test_set_digest,
-                'retrievalEvaluationDigest':retrieval_digest, 'execution':execution,
-                'modelIdentity':model_identity, 'cases':cases, 'metricsBps':metrics})
+                'retrievalEvaluationDigest':retrieval_digest,
+                'runtimeEvidenceDigest':runtime_evidence_digest,
+                'execution':'CORE_CORRELATED_HARNESS_ARCHIVE',
+                'modelIdentity':runtime['modelIdentity'], 'cases':cases, 'metricsBps':metrics})
 
     def assess_document_quality(self, actor, candidate_digest, profile_digest,
                                 test_set_digest, retrieval_digest, answer_digest):
@@ -235,7 +347,9 @@ class DocumentCore(Core):
         structure = analyze(index['originalHtml'].encode())
         mapping = map_retrieval_chunks(structure['units'], index['index']['chunks'])
         retrieval_report = {'execution':retrieval['execution'], **retrieval['report']}
-        answer_report = {'execution':answer['execution'], 'metricsBps':answer['metricsBps'],
+        answer_report = {'execution':answer['execution'],
+                         'runtimeEvidenceDigest':answer['runtimeEvidenceDigest'],
+                         'metricsBps':answer['metricsBps'],
                          'cases':answer['cases']}
         gate = assess_quality_gate(structure['report'], mapping, retrieval_report, answer_report)
         body = {'schemaVersion':'document-quality-admission.v0.1',
