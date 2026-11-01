@@ -80,6 +80,7 @@ SCHEMAS = {
     'knowledge-evaluation-lease': versioned('knowledge-evaluation-lease', {
         'id': ID, 'revision': REV, 'assignmentDigest': HASH, 'tenant': ID,
         'principal': ID, 'workerIdentity': ID, 'caseIds': arr(ID, 1),
+        'workerBuildDigest': HASH,
         'maxCalls': {'type': 'integer', 'minimum': 1, 'maximum': 1000},
         'issuedAt': TIMESTAMP, 'expiresAt': TIMESTAMP, 'nonce': ID,
         'operation': enum('evaluation.evidence.read')}),
@@ -101,17 +102,28 @@ SCHEMAS = {
     'model-gateway-registration': versioned('model-gateway-registration', {
         'id': ID, 'revision': REV, 'gatewayPrincipal': ID, 'buildDigest': HASH,
         'adapterVersion': STR, 'openJiuwenVersion': enum('0.1.17.post1'),
-        'allowedProviders': arr(ID, 1), 'allowedModelRefs': arr(ID, 1),
-        'allowedRegions': arr(ID, 1), 'receiptAuthority': STR,
+        'deployments': arr(obj({
+            'id': ID, 'provider': ID, 'modelRef': ID, 'modelConfigDigest': HASH,
+            'endpointOrigin': STR, 'region': ID, 'executionZone': ID,
+            'external': BOOL}), 1),
+        'receiptAuthority': STR,
         'qualificationDigest': HASH, 'status': enum('QUALIFIED')}),
     'model-egress-authorization': versioned('model-egress-authorization', {
         'id': ID, 'revision': REV, 'assignmentDigest': HASH, 'caseId': ID,
         'candidateReceiptDigest': HASH, 'classificationDigest': HASH,
-        'promptDigest': HASH, 'evidenceDigest': HASH, 'provider': ID,
+        'promptDigest': HASH, 'evidenceDigest': HASH,
+        'gatewayRegistrationDigest': HASH, 'deploymentId': ID, 'provider': ID,
         'modelRef': ID, 'modelConfigDigest': HASH, 'region': ID,
+        'endpointOrigin': STR,
         'purpose': ID, 'executionZone': ID, 'external': BOOL,
         'redactionProfile': ID, 'issuedAt': TIMESTAMP, 'expiresAt': TIMESTAMP,
         'decision': enum('ALLOW')}),
+    'model-invocation-attempt': obj({
+        'schemaVersion': enum('model-invocation-attempt.v0.1'),
+        'egressAuthorizationDigest': HASH, 'gatewayRegistrationDigest': HASH,
+        'deploymentId': ID, 'requestId': ID, 'traceId': ID,
+        'requestPayloadDigest': HASH, 'runtimeIdentity': {'type': 'object'},
+        'createdAt': TIMESTAMP}),
     'model-answer-archive': versioned('model-answer-archive', {
         'id': ID, 'revision': REV, 'assignmentDigest': HASH, 'caseId': ID,
         'requestId': ID, 'traceId': ID, 'response': LONG_STR,
@@ -119,8 +131,10 @@ SCHEMAS = {
     'model-invocation-receipt': obj({
         'schemaVersion': enum('model-invocation-receipt.v0.1'),
         'assignmentDigest': HASH, 'caseId': ID, 'egressAuthorizationDigest': HASH,
+        'invocationAttemptDigest': HASH,
         'gatewayRegistrationDigest': HASH, 'gatewayPrincipal': ID,
         'provider': ID, 'modelRef': ID, 'modelConfigDigest': HASH,
+        'endpointOrigin': STR, 'external': BOOL,
         'promptDigest': HASH, 'evidenceDigest': HASH, 'requestId': ID, 'traceId': ID,
         'requestPayloadDigest': HASH,
         'startedAt': TIMESTAMP, 'endedAt': TIMESTAMP,

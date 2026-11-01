@@ -11,8 +11,8 @@ evaluation and quality admission. See
 
 ## Decision and scope
 
-Add one isolated Python 3.12 worker with OpenJiuwen `0.1.17.post1` inside the
-Knowledge Factory trust boundary to
+Add one dedicated Python 3.12 worker with OpenJiuwen `0.1.17.post1` inside the
+Knowledge Factory deployment boundary to
 execute answer-quality evaluations. The worker is not an Agent product, an Agent
 platform, a publication authority, or a replacement for Core.
 
@@ -40,7 +40,13 @@ Out of scope:
 
 Core remains the sole authority for source access, candidate identity, frozen test
 sets, evidence receipts, quality metrics, admission, and publication. The worker
-must never read the Core database or RAGFlow directly.
+uses only assignment-bound query and authorization clients and never intentionally
+reads the Core database or RAGFlow directly. In this PR's acceptance runner those
+clients, Core, and Gateway still share one Python process. Python object
+encapsulation reduces accidental authority but is not an operating-system security
+boundary. Production enablement therefore requires separate service identities and
+process/container boundaries for Worker, Core, and Gateway; that deployment gate is
+not satisfied by this PR.
 
 The worker receives a short-lived, single-assignment lease minted by the trusted
 Factory host. The host, not the caller or model, fixes:
@@ -97,10 +103,10 @@ Core-created immutable input:
 
 ### `knowledge-evaluation-lease.v0.1`
 
-Host-signed execution authority:
+Core-recorded execution authority issued by a privileged Host identity:
 
 - `leaseId`, `assignmentDigest`, `tenant`, `principal`;
-- `workerIdentity`, `issuedAt`, `expiresAt`, `nonce`;
+- `workerIdentity`, immutable Worker-build digest, `issuedAt`, `expiresAt`, `nonce`;
 - frozen case IDs, maximum calls, and per-case request nonce policy;
 - allowed operation: `evaluation.evidence.read` only.
 
@@ -123,7 +129,9 @@ and cannot authorize production query, publication, or history disclosure.
 
 ### `model-egress-authorization.v0.1`
 
-Policy-authority decision fixed before each model invocation:
+Policy-authority decision fixed before each model invocation. Provider, model,
+endpoint, region, execution zone, and external/internal status are copied from a
+qualified Gateway deployment registration; they are not supplied by the Worker:
 
 - assignment, candidate, source, case, evidence, and prompt digests;
 - source classification and allowed execution zone;
@@ -138,8 +146,9 @@ cannot be reused with an external provider.
 Core/host-managed qualification for the service that actually calls the model:
 
 - gateway service identity, build digest, adapter and OpenJiuwen versions;
-- permitted provider endpoint identities, regions, and model references;
-- receipt-signing identity, qualification evidence digest, validity, and status.
+- exact deployment IDs, provider endpoint origins, external/internal
+  classification, regions, execution zones, model references and config digests;
+- receipt authority, qualification evidence digest, validity, and status.
 
 The Worker can reference but cannot create or update this registration.
 
@@ -154,11 +163,14 @@ Created only by the host-owned model gateway after the actual provider attempt:
 - provider request correlation where available, without credentials or content logs.
 
 The Worker cannot write this store or supply authoritative values for this record.
-Core accepts the receipt only from a registered gateway service identity over an
-authenticated service channel. Gateway registration pins its build, adapter,
-permitted provider endpoints, receipt-signing identity, and qualification status.
-Receipt signatures or MAC keys are unavailable to the Worker. A provider request
-correlation value is supporting evidence, not a substitute for gateway identity.
+Core accepts the receipt operation only from the registered Gateway actor and only
+after a single-use `model-invocation-attempt.v0.1` matches the exact registered
+runtime identity, request payload, endpoint, and authorization. Gateway registration
+pins its build, adapter, endpoint, model config, receipt authority, and qualification
+status. The current library acceptance does not implement a remote authenticated
+channel or cryptographic receipt signature; those remain mandatory production
+deployment controls. A provider request correlation value is supporting evidence,
+not a substitute for Gateway identity.
 
 ### `document-factory-evaluation-runtime-evidence.v0.1`
 
@@ -188,8 +200,9 @@ evidence contract and must not be synthesized for Factory execution.
   and user-provided tools.
 - Require structured completion containing answer text and cited evidence IDs, but
   preserve the provider's raw returned answer for Core verification.
-- Bound concurrency, retries, response size, and per-case timeout. A retry creates a
-  separate attempt and cannot overwrite a prior attempt.
+- Bound concurrency, response size, and per-case timeout. Automatic provider retries
+  are disabled. A failed case requires a new authorized assignment/lease rather than
+  overwriting or replaying the prior attempt.
 
 ## Candidate-only evidence query
 
@@ -236,7 +249,10 @@ provider, model, region, purpose, and redaction profile. Recommended default pol
   recorded for the exact assignment;
 - `RESTRICTED`: no external-model egress.
 
-The gateway rechecks authorization immediately before every case, sends only the
+DNS endpoint origins default to external; only loopback and private IP origins are
+classified as internal. A Gateway registration whose declared classification
+conflicts with its endpoint fails closed. The
+gateway rechecks authorization immediately before every case, sends only the
 minimal receipt-backed evidence, and denies unknown fields. Revocation stops later
 cases and retries. Negative tests must inspect the actual outbound request and prove
 that unauthorized source text, tenant metadata, identities, and credentials are not
@@ -288,9 +304,10 @@ or a Core-computed v0.2 admission and pins its exact digest using PR #11's immut
 Manifest-admission link. No fallback converts legacy or unqualified execution
 records into v0.3 evidence.
 
-Acceptance is idempotent. Re-submission of the exact bundle returns the existing
-digest; a conflicting bundle for the same attempt is rejected and retained as a
-failed attempt record.
+Candidate queries, model invocation attempts, and model receipts are single-use.
+Replaying an authorization or recording a second receipt for one attempt is
+rejected. Immutable Core objects remain content-addressed; this does not imply that
+a failed duplicate request creates another trusted execution record.
 
 ## Relationship to PR #11
 

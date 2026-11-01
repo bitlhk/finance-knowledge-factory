@@ -4,7 +4,9 @@ The Worker can request evidence and submit receipt digests. It cannot create a
 trusted model receipt, calculate quality metrics, or publish a product.
 """
 from datetime import datetime, timezone
+import ipaddress
 import re
+from urllib.parse import urlsplit
 
 from .contracts import Rejected, canonical, digest, text_digest
 from .core import Actor
@@ -33,6 +35,29 @@ def _identifier(value, code='EVALUATION_REQUEST_INVALID'):
     if not isinstance(value, str) or not _ID.fullmatch(value):
         raise Rejected(code)
     return value
+
+
+def _endpoint_origin(value):
+    if not isinstance(value, str) or not 1 <= len(value) <= 2048:
+        raise Rejected('EVALUATION_MODEL_ENDPOINT_INVALID')
+    parsed = urlsplit(value)
+    if (parsed.scheme not in {'http', 'https'} or not parsed.hostname
+            or parsed.username or parsed.password or parsed.query or parsed.fragment):
+        raise Rejected('EVALUATION_MODEL_ENDPOINT_INVALID')
+    if parsed.scheme == 'http' and parsed.hostname not in {'127.0.0.1', 'localhost', '::1'}:
+        raise Rejected('EVALUATION_MODEL_ENDPOINT_INVALID')
+    return value.rstrip('/')
+
+
+def _endpoint_is_external(value):
+    hostname = urlsplit(value).hostname
+    if hostname == 'localhost':
+        return False
+    try:
+        address = ipaddress.ip_address(hostname)
+    except ValueError:
+        return True
+    return not (address.is_private or address.is_loopback or address.is_link_local)
 
 
 class FactoryEvaluationMixin:
@@ -117,7 +142,7 @@ class FactoryEvaluationMixin:
 
     def issue_evaluation_lease(self, actor, lease_id, revision,
                                assignment_digest, principal, worker_identity,
-                               expires_at, nonce):
+                               worker_build_digest, expires_at, nonce):
         actor.require('evaluation.lease.issue')
         issued = _now()
         with self.tx():
@@ -132,6 +157,7 @@ class FactoryEvaluationMixin:
                 'assignmentDigest':assignment_digest, 'tenant':actor.tenant,
                 'principal':_identifier(principal),
                 'workerIdentity':_identifier(worker_identity),
+                'workerBuildDigest':worker_build_digest,
                 'caseIds':assignment['caseIds'], 'maxCalls':len(assignment['caseIds']),
                 'issuedAt':issued.isoformat(), 'expiresAt':expires_at,
                 'nonce':_identifier(nonce),
@@ -235,9 +261,33 @@ class FactoryEvaluationMixin:
 
     def register_model_gateway(self, actor, gateway_id, revision,
                                gateway_principal, build_digest, adapter_version,
-                               providers, model_refs, regions, receipt_authority,
+                               deployments, receipt_authority,
                                qualification_digest):
         actor.require('model.gateway.manage')
+        if not isinstance(deployments, list) or not deployments:
+            raise Rejected('EVALUATION_MODEL_GATEWAY_INVALID')
+        normalized = []
+        for deployment in deployments:
+            if not isinstance(deployment, dict) or set(deployment) != {
+                    'id', 'provider', 'modelRef', 'modelConfigDigest',
+                    'endpointOrigin', 'region', 'executionZone', 'external'}:
+                raise Rejected('EVALUATION_MODEL_GATEWAY_INVALID')
+            endpoint = _endpoint_origin(deployment['endpointOrigin'])
+            if (type(deployment['external']) is not bool
+                    or deployment['external'] != _endpoint_is_external(endpoint)):
+                raise Rejected('EVALUATION_MODEL_ENDPOINT_CLASSIFICATION_MISMATCH')
+            normalized.append({
+                'id':_identifier(deployment['id']),
+                'provider':_identifier(deployment['provider']),
+                'modelRef':_identifier(deployment['modelRef']),
+                'modelConfigDigest':deployment['modelConfigDigest'],
+                'endpointOrigin':endpoint,
+                'region':_identifier(deployment['region']),
+                'executionZone':_identifier(deployment['executionZone']),
+                'external':deployment['external'],
+            })
+        if len({item['id'] for item in normalized}) != len(normalized):
+            raise Rejected('EVALUATION_MODEL_GATEWAY_INVALID')
         with self.tx():
             return self._put(actor, 'model-gateway-registration', {
                 'schemaVersion':'model-gateway-registration.v0.1',
@@ -245,15 +295,13 @@ class FactoryEvaluationMixin:
                 'gatewayPrincipal':_identifier(gateway_principal),
                 'buildDigest':build_digest, 'adapterVersion':adapter_version,
                 'openJiuwenVersion':'0.1.17.post1',
-                'allowedProviders':providers, 'allowedModelRefs':model_refs,
-                'allowedRegions':regions, 'receiptAuthority':receipt_authority,
+                'deployments':normalized, 'receiptAuthority':receipt_authority,
                 'qualificationDigest':qualification_digest, 'status':'QUALIFIED'})
 
     def authorize_model_egress(self, actor, authorization_id, revision,
                                assignment_digest, candidate_receipt_digest,
-                               provider, model_ref, model_config_digest, region,
-                               purpose, execution_zone, external,
-                               redaction_profile, expires_at):
+                               gateway_registration_digest, deployment_id,
+                               purpose, redaction_profile, expires_at):
         actor.require('model.egress.authorize')
         issued = _now()
         with self.tx():
@@ -263,20 +311,33 @@ class FactoryEvaluationMixin:
                                 'document-candidate-query-receipt')
             classification = self._get(actor, assignment['classificationDigest'],
                                        'document-source-classification')
+            gateway = self._get(actor, gateway_registration_digest,
+                                'model-gateway-registration')
+            deployments = [item for item in gateway['deployments']
+                           if item['id'] == deployment_id]
+            if len(deployments) != 1 or gateway['status'] != 'QUALIFIED':
+                raise Rejected('EVALUATION_MODEL_GATEWAY_FORBIDDEN')
+            deployment = deployments[0]
             if (receipt['assignmentDigest'] != assignment_digest
                     or receipt['sourceDigest'] != classification['sourceDigest']
-                    or model_config_digest != assignment['modelSelectionDigest']):
+                    or deployment['modelConfigDigest'] != assignment['modelSelectionDigest']):
                 raise Rejected('EVALUATION_SCOPE_MISMATCH')
-            if execution_zone not in classification['allowedExecutionZones']:
+            if deployment['executionZone'] not in classification['allowedExecutionZones']:
                 raise Rejected('EVALUATION_EGRESS_FORBIDDEN')
-            if external and (not classification['externalModelAllowed']
-                    or provider not in classification['allowedProviders']
-                    or region not in classification['allowedRegions']):
+            if deployment['external'] and (not classification['externalModelAllowed']
+                    or deployment['provider'] not in classification['allowedProviders']
+                    or deployment['region'] not in classification['allowedRegions']):
                 raise Rejected('EVALUATION_EGRESS_FORBIDDEN')
-            if classification['classification'] == 'RESTRICTED' and external:
+            if (classification['classification'] == 'RESTRICTED'
+                    and deployment['external']):
                 raise Rejected('EVALUATION_EGRESS_FORBIDDEN')
-            if _timestamp(expires_at) <= issued or _timestamp(expires_at) > _timestamp(assignment['expiresAt']):
+            if (_timestamp(expires_at) <= issued
+                    or _timestamp(expires_at) > _timestamp(assignment['expiresAt'])):
                 raise Rejected('EVALUATION_EGRESS_EXPIRED')
+            evaluation_principal = Actor(actor.tenant, receipt['principal'],
+                                         actor.authority)
+            self._source_current(evaluation_principal, receipt['sourceDigest'],
+                                 assignment['businessContext']['business_date'])
             evidence_digest = digest(receipt['result']['evidence'])
             return self._put(actor, 'model-egress-authorization', {
                 'schemaVersion':'model-egress-authorization.v0.1',
@@ -285,11 +346,17 @@ class FactoryEvaluationMixin:
                 'candidateReceiptDigest':candidate_receipt_digest,
                 'classificationDigest':assignment['classificationDigest'],
                 'promptDigest':assignment['promptTemplateDigest'],
-                'evidenceDigest':evidence_digest, 'provider':_identifier(provider),
-                'modelRef':_identifier(model_ref),
-                'modelConfigDigest':model_config_digest, 'region':_identifier(region),
-                'purpose':_identifier(purpose), 'executionZone':_identifier(execution_zone),
-                'external':external, 'redactionProfile':_identifier(redaction_profile),
+                'evidenceDigest':evidence_digest,
+                'gatewayRegistrationDigest':gateway_registration_digest,
+                'deploymentId':deployment['id'], 'provider':deployment['provider'],
+                'modelRef':deployment['modelRef'],
+                'modelConfigDigest':deployment['modelConfigDigest'],
+                'endpointOrigin':deployment['endpointOrigin'],
+                'region':deployment['region'],
+                'purpose':_identifier(purpose),
+                'executionZone':deployment['executionZone'],
+                'external':deployment['external'],
+                'redactionProfile':_identifier(redaction_profile),
                 'issuedAt':issued.isoformat(), 'expiresAt':expires_at,
                 'decision':'ALLOW'})
 
@@ -315,21 +382,33 @@ class FactoryEvaluationMixin:
         return receipt, assignment, payload
 
     def prepare_model_invocation(self, actor, gateway_registration_digest,
-                                 egress_authorization_digest):
+                                 egress_authorization_digest, request_id,
+                                 trace_id, runtime_identity):
         actor.require('model.receipt.record')
+        _identifier(request_id); _identifier(trace_id)
         with self.tx():
             gateway = self._get(actor, gateway_registration_digest,
                                 'model-gateway-registration')
             egress = self._get(actor, egress_authorization_digest,
                                'model-egress-authorization')
+            deployments = [item for item in gateway['deployments']
+                           if item['id'] == egress['deploymentId']]
             if (gateway['gatewayPrincipal'] != actor.principal
                     or gateway['receiptAuthority'] != actor.authority
                     or gateway['status'] != 'QUALIFIED'
-                    or egress['provider'] not in gateway['allowedProviders']
-                    or egress['modelRef'] not in gateway['allowedModelRefs']
-                    or egress['region'] not in gateway['allowedRegions']):
+                    or egress['gatewayRegistrationDigest'] != gateway_registration_digest
+                    or len(deployments) != 1):
                 raise Rejected('EVALUATION_MODEL_GATEWAY_FORBIDDEN')
-            if _timestamp(egress['expiresAt']) <= _now():
+            deployment = deployments[0]
+            expected_identity = {**deployment,
+                'gatewayBuildDigest':gateway['buildDigest'],
+                'adapterVersion':gateway['adapterVersion'],
+                'openJiuwenVersion':gateway['openJiuwenVersion'],
+                'qualificationDigest':gateway['qualificationDigest']}
+            if runtime_identity != expected_identity:
+                raise Rejected('EVALUATION_MODEL_ENDPOINT_MISMATCH')
+            if (_timestamp(egress['expiresAt']) <= _now()
+                    or egress['decision'] != 'ALLOW'):
                 raise Rejected('EVALUATION_EGRESS_EXPIRED')
             receipt, assignment, payload = self._model_request_payload(actor, egress)
             if (egress['promptDigest'] != assignment['promptTemplateDigest']
@@ -339,33 +418,61 @@ class FactoryEvaluationMixin:
                                          actor.authority)
             self._source_current(evaluation_principal, receipt['sourceDigest'],
                                  assignment['businessContext']['business_date'])
-            return {'requestPayloadDigest':digest(payload), **payload}
+            if self.db.execute(
+                    "SELECT 1 FROM objects WHERE tenant=? AND kind=? "
+                    "AND json_extract(body,'$.egressAuthorizationDigest')=?",
+                    (actor.tenant, 'model-invocation-attempt',
+                     egress_authorization_digest)).fetchone():
+                raise Rejected('EVALUATION_MODEL_INVOCATION_REPLAYED')
+            payload_digest = digest(payload)
+            attempt = self._put(actor, 'model-invocation-attempt', {
+                'schemaVersion':'model-invocation-attempt.v0.1',
+                'egressAuthorizationDigest':egress_authorization_digest,
+                'gatewayRegistrationDigest':gateway_registration_digest,
+                'deploymentId':egress['deploymentId'], 'requestId':request_id,
+                'traceId':trace_id, 'requestPayloadDigest':payload_digest,
+                'runtimeIdentity':runtime_identity, 'createdAt':_now().isoformat()})
+            return {'invocationAttemptDigest':attempt,
+                    'requestPayloadDigest':payload_digest, **payload}
 
     def record_model_invocation(self, actor, gateway_registration_digest,
-                                egress_authorization_digest, request_id, trace_id,
+                                egress_authorization_digest, invocation_attempt_digest,
                                 started_at, ended_at, outcome, response,
-                                provider_request_ref, usage,
-                                request_payload_digest):
+                                provider_request_ref, usage):
         actor.require('model.receipt.record')
-        _identifier(request_id); _identifier(trace_id)
         with self.tx():
             gateway = self._get(actor, gateway_registration_digest,
                                 'model-gateway-registration')
             egress = self._get(actor, egress_authorization_digest,
                                'model-egress-authorization')
+            attempt = self._get(actor, invocation_attempt_digest,
+                                'model-invocation-attempt')
+            deployments = [item for item in gateway['deployments']
+                           if item['id'] == egress['deploymentId']]
             if (gateway['gatewayPrincipal'] != actor.principal
                     or gateway['receiptAuthority'] != actor.authority
                     or gateway['status'] != 'QUALIFIED'
-                    or egress['provider'] not in gateway['allowedProviders']
-                    or egress['modelRef'] not in gateway['allowedModelRefs']
-                    or egress['region'] not in gateway['allowedRegions']):
+                    or egress['gatewayRegistrationDigest'] != gateway_registration_digest
+                    or len(deployments) != 1
+                    or attempt['egressAuthorizationDigest'] != egress_authorization_digest
+                    or attempt['gatewayRegistrationDigest'] != gateway_registration_digest
+                    or attempt['deploymentId'] != egress['deploymentId']):
                 raise Rejected('EVALUATION_MODEL_GATEWAY_FORBIDDEN')
-            if _timestamp(egress['expiresAt']) <= _now():
-                raise Rejected('EVALUATION_EGRESS_EXPIRED')
             _, _, payload = self._model_request_payload(actor, egress)
-            if request_payload_digest != digest(payload):
+            if attempt['requestPayloadDigest'] != digest(payload):
                 raise Rejected('EVALUATION_MODEL_REQUEST_MISMATCH')
-            if outcome == 'RETURNED' and not isinstance(response, str):
+            if self.db.execute(
+                    "SELECT 1 FROM objects WHERE tenant=? AND kind=? "
+                    "AND json_extract(body,'$.invocationAttemptDigest')=?",
+                    (actor.tenant, 'model-invocation-receipt',
+                     invocation_attempt_digest)).fetchone():
+                raise Rejected('EVALUATION_MODEL_INVOCATION_REPLAYED')
+            started, ended = _timestamp(started_at), _timestamp(ended_at)
+            if ended < started:
+                raise Rejected('EVALUATION_TIME_INVALID')
+            if (outcome == 'RETURNED'
+                    and (not isinstance(response, str) or not response.strip()
+                         or len(response) > 100000)):
                 raise Rejected('EVALUATION_MODEL_RESPONSE_INVALID')
             if outcome == 'FAILED' and response is not None:
                 raise Rejected('EVALUATION_MODEL_RESPONSE_INVALID')
@@ -374,24 +481,27 @@ class FactoryEvaluationMixin:
                 response_digest = text_digest(response)
                 archive_digest = self._put(actor, 'model-answer-archive', {
                     'schemaVersion':'model-answer-archive.v0.1',
-                    'id':request_id, 'revision':1,
+                    'id':attempt['requestId'], 'revision':1,
                     'assignmentDigest':egress['assignmentDigest'],
-                    'caseId':egress['caseId'], 'requestId':request_id,
-                    'traceId':trace_id, 'response':response,
+                    'caseId':egress['caseId'], 'requestId':attempt['requestId'],
+                    'traceId':attempt['traceId'], 'response':response,
                     'responseDigest':response_digest, 'createdAt':ended_at})
             receipt = {
                 'schemaVersion':'model-invocation-receipt.v0.1',
                 'assignmentDigest':egress['assignmentDigest'],
                 'caseId':egress['caseId'],
                 'egressAuthorizationDigest':egress_authorization_digest,
+                'invocationAttemptDigest':invocation_attempt_digest,
                 'gatewayRegistrationDigest':gateway_registration_digest,
                 'gatewayPrincipal':actor.principal, 'provider':egress['provider'],
                 'modelRef':egress['modelRef'],
                 'modelConfigDigest':egress['modelConfigDigest'],
+                'endpointOrigin':egress['endpointOrigin'],
+                'external':egress['external'],
                 'promptDigest':egress['promptDigest'],
                 'evidenceDigest':egress['evidenceDigest'],
-                'requestPayloadDigest':request_payload_digest,
-                'requestId':request_id, 'traceId':trace_id,
+                'requestPayloadDigest':attempt['requestPayloadDigest'],
+                'requestId':attempt['requestId'], 'traceId':attempt['traceId'],
                 'startedAt':started_at, 'endedAt':ended_at, 'outcome':outcome,
                 'answerArchiveDigest':archive_digest, 'responseDigest':response_digest,
                 'providerRequestRef':provider_request_ref, 'usage':usage}
@@ -405,7 +515,8 @@ class FactoryEvaluationMixin:
             assignment = self._get(actor, assignment_digest,
                                    'document-evaluation-assignment')
             lease = self._get(actor, lease_digest, 'knowledge-evaluation-lease')
-            if lease['assignmentDigest'] != assignment_digest:
+            if (lease['assignmentDigest'] != assignment_digest
+                    or lease['workerBuildDigest'] != worker_build_digest):
                 raise Rejected('QUALITY_RUNTIME_BINDING_MISMATCH')
             by_id = {item.get('caseId'):item for item in runs if isinstance(item, dict)}
             if set(by_id) != set(assignment['caseIds']) or len(by_id) != len(runs):
@@ -421,12 +532,23 @@ class FactoryEvaluationMixin:
                                           'model-invocation-receipt')
                 egress = self._get(actor, model_receipt['egressAuthorizationDigest'],
                                    'model-egress-authorization')
+                attempt = self._get(actor, model_receipt['invocationAttemptDigest'],
+                                    'model-invocation-attempt')
+                evaluation_principal = Actor(
+                    actor.tenant, candidate_receipt['principal'], actor.authority)
+                self._source_current(
+                    evaluation_principal, candidate_receipt['sourceDigest'],
+                    assignment['businessContext']['business_date'])
                 if (candidate_receipt['assignmentDigest'] != assignment_digest
                         or candidate_receipt['leaseDigest'] != lease_digest
                         or candidate_receipt['caseId'] != case_id
                         or model_receipt['assignmentDigest'] != assignment_digest
                         or model_receipt['caseId'] != case_id
                         or model_receipt['outcome'] != 'RETURNED'
+                        or attempt['egressAuthorizationDigest']
+                        != model_receipt['egressAuthorizationDigest']
+                        or attempt['requestId'] != model_receipt['requestId']
+                        or attempt['traceId'] != model_receipt['traceId']
                         or egress['candidateReceiptDigest'] != candidate_receipt_digest
                         or egress['evidenceDigest'] != digest(candidate_receipt['result']['evidence'])
                         or not model_receipt['answerArchiveDigest']):
@@ -434,8 +556,11 @@ class FactoryEvaluationMixin:
                 archive = self._get(actor, model_receipt['answerArchiveDigest'],
                                     'model-answer-archive')
                 if (archive['responseDigest'] != model_receipt['responseDigest']
+                        or archive['responseDigest'] != text_digest(archive['response'])
                         or archive['assignmentDigest'] != assignment_digest
-                        or archive['caseId'] != case_id):
+                        or archive['caseId'] != case_id
+                        or archive['requestId'] != model_receipt['requestId']
+                        or archive['traceId'] != model_receipt['traceId']):
                     raise Rejected('QUALITY_RUNTIME_MODEL_EVIDENCE_MISSING', case_id)
                 identity = {'provider':model_receipt['provider'],
                             'modelRef':model_receipt['modelRef'],

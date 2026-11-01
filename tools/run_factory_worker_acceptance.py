@@ -6,10 +6,10 @@ import json
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-from evaluation_worker import (CandidateEvaluationWorker, ModelEnvironment,
-                               OpenJiuwenModelGateway)
-from evaluation_worker.gateway import build_openjiuwen_model
-from knowledge_core.contracts import digest
+from evaluation_worker import (CandidateEvaluationWorker, CandidateQueryClient,
+                               CoreModelGatewayClient, ModelAuthorizationClient,
+                               ModelDeployment, ModelEnvironment,
+                               OpenJiuwenModelGateway, model_config_digest)
 from knowledge_core.core import Actor, BusinessContext
 from knowledge_core.documents import DocumentCore
 from m2.ragflow import Ragflow
@@ -54,16 +54,14 @@ def main():
                           frozenset({'model.receipt.record'}))
 
     environment = ModelEnvironment.from_env_file(args.model_env)
-    model_config_digest = digest({
-        'provider':'volcengine', 'modelRef':environment.model_name,
-        'apiBase':environment.api_base})
+    selected_model_digest = model_config_digest('volcengine', environment)
     worker_build_digest = sha256_bytes(args.worker_git_sha.encode())
     lock_digest = sha256_bytes((Path(__file__).parents[1] /
                                 'evaluation_worker/requirements.lock').read_bytes())
     now = datetime.now(timezone.utc)
     expires = iso(now + timedelta(hours=2))
     core = DocumentCore(args.database)
-    ragflow = model = None
+    ragflow = None
     try:
         candidate = core._get(manager, args.candidate, 'document-candidate')
         index = core._get(manager, candidate['indexDigest'], 'document-index')
@@ -91,36 +89,39 @@ def main():
                                   'factory-worker-acceptance')
         assignment = core.create_evaluation_assignment(
             manager, 'pr12-real-evaluation', 1, args.candidate, args.test_set,
-            args.profile, args.retrieval, classification, model_config_digest,
+            args.profile, args.retrieval, classification, selected_model_digest,
             prompt, context, expires)
         lease = core.issue_evaluation_lease(
             manager, 'pr12-real-worker-lease', 1, assignment,
-            worker.principal, worker.authority, expires, 'pr12-real-nonce')
+            worker.principal, worker.authority, worker_build_digest, expires,
+            'pr12-real-nonce')
+        deployment = ModelDeployment(
+            'volcengine-deepseek', 'volcengine', environment.api_base,
+            'cn-beijing', 'factory-dev', True, worker_build_digest,
+            'openjiuwen-model-v0.1', lock_digest)
         gateway_registration = core.register_model_gateway(
             manager, 'pr12-openjiuwen-gateway', 1, gateway_actor.principal,
-            worker_build_digest, 'openjiuwen-model-v0.1', ['volcengine'],
-            [environment.model_name], ['cn-beijing'], gateway_actor.authority,
-            lock_digest)
+            deployment.gateway_build_digest, deployment.adapter_version,
+            [deployment.registration(environment)], gateway_actor.authority,
+            deployment.qualification_digest)
         assignment_body = core._get(
             manager, assignment, 'document-evaluation-assignment')
 
         ragflow = Ragflow(args.private_config / 'local-credentials.json',
                           args.private_config / 'http-setup.json')
-        model = build_openjiuwen_model(environment)
+        core_gateway = CoreModelGatewayClient(
+            core, gateway_actor, gateway_registration,
+            deployment.runtime_identity(environment))
         gateway = OpenJiuwenModelGateway(
-            core, gateway_actor, gateway_registration, model)
-        def authorize(candidate_receipt):
-            case_id = candidate_receipt['caseId']
-            return core.authorize_model_egress(
-                manager, 'pr12-egress-' + case_id, 1, assignment,
-                candidate_receipt['receiptDigest'], 'volcengine',
-                environment.model_name, model_config_digest, 'cn-beijing',
-                'answer-quality', 'factory-dev', True, 'source-only', expires)
+            core_gateway, environment)
 
         evaluator = CandidateEvaluationWorker(
-            core, worker, gateway, ragflow, authorize)
-        runs = asyncio.run(evaluator.run(
-            assignment, lease, assignment_body['caseIds']))
+            CandidateQueryClient(core, worker, assignment, lease, ragflow),
+            ModelAuthorizationClient(
+                core, manager, assignment, gateway_registration, deployment.id,
+                'answer-quality', 'source-only', expires),
+            gateway)
+        runs = asyncio.run(evaluator.run(assignment_body['caseIds']))
         runtime = core.register_factory_evaluation_runtime_evidence(
             manager, assignment, lease, worker_build_digest, '3.12',
             '0.1.17.post1', runs)

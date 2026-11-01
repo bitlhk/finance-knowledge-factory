@@ -7,7 +7,10 @@ import pytest
 from knowledge_core.contracts import Rejected
 from knowledge_core.core import Actor
 from knowledge_core.documents import DocumentCore
-from evaluation_worker import CandidateEvaluationWorker, OpenJiuwenModelGateway
+from evaluation_worker import (CandidateEvaluationWorker, CandidateQueryClient,
+                               CoreModelGatewayClient, ModelAuthorizationClient,
+                               ModelDeployment, ModelEnvironment,
+                               OpenJiuwenModelGateway, model_config_digest)
 from evaluation_worker.gateway import _bounded_usage
 from knowledge_core.documents import _answer_references
 from m2.pipeline import produce
@@ -26,6 +29,13 @@ WORKER = Actor(MANAGER.tenant, 'factory-evaluation-worker', 'worker-build-001',
 GATEWAY = Actor(MANAGER.tenant, 'factory-model-gateway', 'gateway-receipts-v1',
                 frozenset({'model.receipt.record'}))
 FUTURE = '2099-01-01T00:00:00+00:00'
+ENVIRONMENT = ModelEnvironment(
+    'https://model.example.test/v1', 'deepseek-v4-flash', 'test-key')
+DEPLOYMENT = ModelDeployment(
+    'volcengine-deepseek', 'volcengine', ENVIRONMENT.api_base,
+    'cn-beijing', 'factory-dev', True, 'd' * 64,
+    'openjiuwen-model-v0.1', 'e' * 64)
+MODEL_CONFIG = model_config_digest(DEPLOYMENT.provider, ENVIRONMENT)
 
 
 def test_model_usage_excludes_floats_and_unbounded_provider_metadata():
@@ -85,14 +95,15 @@ def prepare(tmp_path, classification='PUBLIC', external_allowed=True):
         '给出直接结论并明确引用条款编号。')
     assignment = core.create_evaluation_assignment(
         MANAGER, 'faq-evaluation', 1, data['candidateDigest'], tests, profile,
-        retrieval, classification_digest, 'b' * 64, prompt, CONTEXT, FUTURE)
+        retrieval, classification_digest, MODEL_CONFIG, prompt, CONTEXT, FUTURE)
     lease = core.issue_evaluation_lease(
         MANAGER, 'faq-worker-lease', 1, assignment, WORKER.principal,
-        WORKER.authority, FUTURE, 'lease-nonce-1')
+        WORKER.authority, 'a' * 64, FUTURE, 'lease-nonce-1')
     gateway = core.register_model_gateway(
-        MANAGER, 'factory-model-gateway', 1, GATEWAY.principal, 'd' * 64,
-        'volcengine-openai-v1', ['volcengine'], ['deepseek-v4-flash'],
-        ['cn-beijing'], GATEWAY.authority, 'e' * 64)
+        MANAGER, 'factory-model-gateway', 1, GATEWAY.principal,
+        DEPLOYMENT.gateway_build_digest, DEPLOYMENT.adapter_version,
+        [DEPLOYMENT.registration(ENVIRONMENT)], GATEWAY.authority,
+        DEPLOYMENT.qualification_digest)
     return core, client, {
         **data, 'validation':validation, 'approval':approval, 'profile':profile,
         'tests':tests, 'retrieval':retrieval, 'classification':classification_digest,
@@ -106,16 +117,16 @@ def run_candidate(core, client, values):
         'candidate-request-1', 'candidate-trace-1', client)
     authorization = core.authorize_model_egress(
         MANAGER, 'faq-egress', 1, values['assignment'], receipt['receiptDigest'],
-        'volcengine', 'deepseek-v4-flash', 'b' * 64, 'cn-beijing',
-        'answer-quality', 'factory-dev', True, 'source-only', FUTURE)
-    request = core.prepare_model_invocation(GATEWAY, values['gateway'], authorization)
-    model_receipt = core.record_model_invocation(
+        values['gateway'], DEPLOYMENT.id, 'answer-quality', 'source-only', FUTURE)
+    request = core.prepare_model_invocation(
         GATEWAY, values['gateway'], authorization, 'model-request-1',
-        'model-trace-1', '2026-11-01T00:00:00+00:00',
+        'model-trace-1', DEPLOYMENT.runtime_identity(ENVIRONMENT))
+    model_receipt = core.record_model_invocation(
+        GATEWAY, values['gateway'], authorization,
+        request['invocationAttemptDigest'], '2026-11-01T00:00:00+00:00',
         '2026-11-01T00:00:01+00:00', 'RETURNED',
         '根据第一条，合成客服服务时间为每日09:00至17:00。',
-        'provider-request-1', {'inputTokens':100, 'outputTokens':20},
-        request['requestPayloadDigest'])
+        'provider-request-1', {'inputTokens':100, 'outputTokens':20})
     return receipt, authorization, model_receipt
 
 
@@ -168,15 +179,14 @@ def test_worker_cannot_forge_model_receipt_or_replay_candidate_query(tmp_path):
             'candidate-request-1', 'candidate-trace-1', client)
         authorization = core.authorize_model_egress(
             MANAGER, 'faq-egress', 1, values['assignment'],
-            candidate_receipt['receiptDigest'], 'volcengine', 'deepseek-v4-flash',
-            'b' * 64, 'cn-beijing', 'answer-quality', 'factory-dev', True,
-            'source-only', FUTURE)
+            candidate_receipt['receiptDigest'], values['gateway'], DEPLOYMENT.id,
+            'answer-quality', 'source-only', FUTURE)
         with pytest.raises(Rejected, match='FORBIDDEN'):
             core.record_model_invocation(
-                WORKER, values['gateway'], authorization, 'forged-request',
-                'forged-trace', '2026-11-01T00:00:00+00:00',
+                WORKER, values['gateway'], authorization, 'f' * 64,
+                '2026-11-01T00:00:00+00:00',
                 '2026-11-01T00:00:01+00:00', 'RETURNED', 'forged',
-                'forged-provider-request', {}, 'f' * 64)
+                'forged-provider-request', {})
         with pytest.raises(Rejected, match='EVALUATION_LEASE_REPLAYED'):
             core.query_document_candidate_for_evaluation(
                 WORKER, values['assignment'], values['lease'],
@@ -196,9 +206,8 @@ def test_source_revocation_and_restricted_egress_fail_closed(tmp_path):
         with pytest.raises(Rejected, match='EVALUATION_EGRESS_FORBIDDEN'):
             core.authorize_model_egress(
                 MANAGER, 'restricted-egress', 1, values['assignment'],
-                receipt['receiptDigest'], 'volcengine', 'deepseek-v4-flash',
-                'b' * 64, 'cn-beijing', 'answer-quality', 'factory-dev', True,
-                'source-only', FUTURE)
+                receipt['receiptDigest'], values['gateway'], DEPLOYMENT.id,
+                'answer-quality', 'source-only', FUTURE)
     finally:
         core.close()
 
@@ -224,16 +233,16 @@ def test_failed_model_attempt_cannot_be_admitted(tmp_path):
             'candidate-request-1', 'candidate-trace-1', client)
         authorization = core.authorize_model_egress(
             MANAGER, 'faq-egress', 1, values['assignment'],
-            candidate_receipt['receiptDigest'], 'volcengine', 'deepseek-v4-flash',
-            'b' * 64, 'cn-beijing', 'answer-quality', 'factory-dev', True,
-            'source-only', FUTURE)
-        failed = core.record_model_invocation(
+            candidate_receipt['receiptDigest'], values['gateway'], DEPLOYMENT.id,
+            'answer-quality', 'source-only', FUTURE)
+        prepared = core.prepare_model_invocation(
             GATEWAY, values['gateway'], authorization, 'model-request-failed',
-            'model-trace-failed', '2026-11-01T00:00:00+00:00',
+            'model-trace-failed', DEPLOYMENT.runtime_identity(ENVIRONMENT))
+        failed = core.record_model_invocation(
+            GATEWAY, values['gateway'], authorization,
+            prepared['invocationAttemptDigest'], '2026-11-01T00:00:00+00:00',
             '2026-11-01T00:00:01+00:00', 'FAILED', None,
-            'provider-request-failed', {'errorClass':'UPSTREAM_UNAVAILABLE'},
-            core.prepare_model_invocation(
-                GATEWAY, values['gateway'], authorization)['requestPayloadDigest'])
+            'provider-request-failed', {'errorClass':'UPSTREAM_UNAVAILABLE'})
         with pytest.raises(Rejected, match='QUALITY_RUNTIME_RECEIPT_MISMATCH'):
             core.register_factory_evaluation_runtime_evidence(
                 MANAGER, values['assignment'], values['lease'], 'a' * 64,
@@ -256,20 +265,20 @@ def test_fixed_worker_uses_only_core_prepared_outbound_payload(tmp_path):
                 content='根据第一条，合成客服服务时间为每日09:00至17:00。',
                 usage_metadata=None, metadata={'request_id':'provider-real-1'})
 
-    def authorize(candidate):
-        return core.authorize_model_egress(
-            MANAGER, 'worker-egress', 1, values['assignment'],
-            candidate['receiptDigest'], 'volcengine', 'deepseek-v4-flash',
-            'b' * 64, 'cn-beijing', 'answer-quality', 'factory-dev', True,
-            'source-only', FUTURE)
-
     try:
+        core_client = CoreModelGatewayClient(
+            core, GATEWAY, values['gateway'],
+            DEPLOYMENT.runtime_identity(ENVIRONMENT))
         gateway = OpenJiuwenModelGateway(
-            core, GATEWAY, values['gateway'], Model(), outbound.append)
+            core_client, ENVIRONMENT, lambda unused: Model(), outbound.append)
         worker = CandidateEvaluationWorker(
-            core, WORKER, gateway, client, authorize)
-        runs = asyncio.run(worker.run(
-            values['assignment'], values['lease'], ['quality-service-hours']))
+            CandidateQueryClient(core, WORKER, values['assignment'],
+                                 values['lease'], client),
+            ModelAuthorizationClient(
+                core, MANAGER, values['assignment'], values['gateway'],
+                DEPLOYMENT.id, 'answer-quality', 'source-only', FUTURE),
+            gateway)
+        runs = asyncio.run(worker.run(['quality-service-hours']))
         assert len(runs) == 1
         assert len(outbound) == 1
         assert set(outbound[0]) == {'messages', 'model', 'temperature'}
@@ -300,11 +309,13 @@ def test_gateway_does_not_mislabel_gateway_id_as_provider_id(tmp_path):
             'candidate-trace-1', client)
         authorization = core.authorize_model_egress(
             MANAGER, 'worker-egress', 1, values['assignment'],
-            candidate['receiptDigest'], 'volcengine', 'deepseek-v4-flash',
-            'b' * 64, 'cn-beijing', 'answer-quality', 'factory-dev', True,
-            'source-only', FUTURE)
+            candidate['receiptDigest'], values['gateway'], DEPLOYMENT.id,
+            'answer-quality', 'source-only', FUTURE)
+        core_client = CoreModelGatewayClient(
+            core, GATEWAY, values['gateway'],
+            DEPLOYMENT.runtime_identity(ENVIRONMENT))
         gateway = OpenJiuwenModelGateway(
-            core, GATEWAY, values['gateway'], Model())
+            core_client, ENVIRONMENT, lambda unused: Model())
         receipt_digest = asyncio.run(gateway.invoke(
             authorization, 'gateway-request-1', 'gateway-trace-1'))
         receipt = core._get(
@@ -323,18 +334,123 @@ def test_gateway_rejects_payload_tamper_and_post_query_source_revocation(tmp_pat
             'candidate-request-1', 'candidate-trace-1', client)
         authorization = core.authorize_model_egress(
             MANAGER, 'faq-egress', 1, values['assignment'],
-            candidate['receiptDigest'], 'volcengine', 'deepseek-v4-flash',
-            'b' * 64, 'cn-beijing', 'answer-quality', 'factory-dev', True,
-            'source-only', FUTURE)
-        with pytest.raises(Rejected, match='EVALUATION_MODEL_REQUEST_MISMATCH'):
-            core.record_model_invocation(
+            candidate['receiptDigest'], values['gateway'], DEPLOYMENT.id,
+            'answer-quality', 'source-only', FUTURE)
+        mismatched = {**DEPLOYMENT.runtime_identity(ENVIRONMENT),
+                      'endpointOrigin':'https://attacker.example.test/v1'}
+        with pytest.raises(Rejected, match='EVALUATION_MODEL_ENDPOINT_MISMATCH'):
+            core.prepare_model_invocation(
                 GATEWAY, values['gateway'], authorization, 'tampered-request',
-                'tampered-trace', '2026-11-01T00:00:00+00:00',
-                '2026-11-01T00:00:01+00:00', 'RETURNED', 'tampered',
-                'provider-tampered', {}, 'f' * 64)
+                'tampered-trace', mismatched)
         core.activate_source(MANAGER, values['sourceDigest'], '2026-11-01', 'REVOKED')
         with pytest.raises(Rejected, match='SOURCE_SUPERSEDED_OR_REVOKED'):
             core.prepare_model_invocation(
-                GATEWAY, values['gateway'], authorization)
+                GATEWAY, values['gateway'], authorization, 'revoked-request',
+                'revoked-trace', DEPLOYMENT.runtime_identity(ENVIRONMENT))
+    finally:
+        core.close()
+
+
+def test_gateway_registration_rejects_endpoint_classification_spoof(tmp_path):
+    core, _, _ = prepare(tmp_path)
+    try:
+        spoofed = {**DEPLOYMENT.registration(ENVIRONMENT), 'external':False}
+        with pytest.raises(
+                Rejected, match='EVALUATION_MODEL_ENDPOINT_CLASSIFICATION_MISMATCH'):
+            core.register_model_gateway(
+                MANAGER, 'spoofed-gateway', 1, GATEWAY.principal,
+                DEPLOYMENT.gateway_build_digest, DEPLOYMENT.adapter_version,
+                [spoofed], GATEWAY.authority, DEPLOYMENT.qualification_digest)
+        unsafe = {**DEPLOYMENT.registration(ENVIRONMENT),
+                  'endpointOrigin':'http://public.example.test/v1'}
+        with pytest.raises(Rejected, match='EVALUATION_MODEL_ENDPOINT_INVALID'):
+            core.register_model_gateway(
+                MANAGER, 'unsafe-gateway', 1, GATEWAY.principal,
+                DEPLOYMENT.gateway_build_digest, DEPLOYMENT.adapter_version,
+                [unsafe], GATEWAY.authority, DEPLOYMENT.qualification_digest)
+    finally:
+        core.close()
+
+
+def test_model_attempt_and_receipt_are_single_use(tmp_path):
+    core, client, values = prepare(tmp_path)
+    try:
+        candidate = core.query_document_candidate_for_evaluation(
+            WORKER, values['assignment'], values['lease'],
+            'quality-service-hours', 'candidate-request-1',
+            'candidate-trace-1', client)
+        authorization = core.authorize_model_egress(
+            MANAGER, 'single-use-egress', 1, values['assignment'],
+            candidate['receiptDigest'], values['gateway'], DEPLOYMENT.id,
+            'answer-quality', 'source-only', FUTURE)
+        prepared = core.prepare_model_invocation(
+            GATEWAY, values['gateway'], authorization, 'model-request-1',
+            'model-trace-1', DEPLOYMENT.runtime_identity(ENVIRONMENT))
+        with pytest.raises(Rejected, match='EVALUATION_MODEL_INVOCATION_REPLAYED'):
+            core.prepare_model_invocation(
+                GATEWAY, values['gateway'], authorization, 'model-request-2',
+                'model-trace-2', DEPLOYMENT.runtime_identity(ENVIRONMENT))
+        receipt = core.record_model_invocation(
+            GATEWAY, values['gateway'], authorization,
+            prepared['invocationAttemptDigest'],
+            '2026-11-01T00:00:00+00:00', '2026-11-01T00:00:01+00:00',
+            'RETURNED', '根据第一条，服务时间为09:00至17:00。',
+            'provider-request-1', {})
+        assert receipt
+        with pytest.raises(Rejected, match='EVALUATION_MODEL_INVOCATION_REPLAYED'):
+            core.record_model_invocation(
+                GATEWAY, values['gateway'], authorization,
+                prepared['invocationAttemptDigest'],
+                '2026-11-01T00:00:00+00:00', '2026-11-01T00:00:01+00:00',
+                'RETURNED', 'duplicate', 'provider-request-2', {})
+    finally:
+        core.close()
+
+
+def test_runtime_evidence_requires_lease_bound_worker_build(tmp_path):
+    core, client, values = prepare(tmp_path)
+    try:
+        candidate, _, model_receipt = run_candidate(core, client, values)
+        with pytest.raises(Rejected, match='QUALITY_RUNTIME_BINDING_MISMATCH'):
+            core.register_factory_evaluation_runtime_evidence(
+                MANAGER, values['assignment'], values['lease'], 'f' * 64,
+                '3.12', '0.1.17.post1', [{
+                    'caseId':'quality-service-hours',
+                    'candidateReceiptDigest':candidate['receiptDigest'],
+                    'modelReceiptDigest':model_receipt,
+                }])
+    finally:
+        core.close()
+
+
+def test_endpoint_mismatch_is_rejected_before_model_or_observer(tmp_path):
+    core, client, values = prepare(tmp_path)
+    calls, outbound = [], []
+
+    class Model:
+        async def invoke(self, messages, **kwargs):
+            calls.append((messages, kwargs))
+            raise AssertionError('model must not be called')
+
+    try:
+        candidate = core.query_document_candidate_for_evaluation(
+            WORKER, values['assignment'], values['lease'],
+            'quality-service-hours', 'candidate-request-1',
+            'candidate-trace-1', client)
+        authorization = core.authorize_model_egress(
+            MANAGER, 'mismatch-egress', 1, values['assignment'],
+            candidate['receiptDigest'], values['gateway'], DEPLOYMENT.id,
+            'answer-quality', 'source-only', FUTURE)
+        mismatched = {**DEPLOYMENT.runtime_identity(ENVIRONMENT),
+                      'modelRef':'other-model'}
+        gateway = OpenJiuwenModelGateway(
+            CoreModelGatewayClient(
+                core, GATEWAY, values['gateway'], mismatched),
+            ENVIRONMENT, lambda unused: Model(), outbound.append)
+        with pytest.raises(Rejected, match='EVALUATION_MODEL_ENDPOINT_MISMATCH'):
+            asyncio.run(gateway.invoke(
+                authorization, 'mismatch-request', 'mismatch-trace'))
+        assert calls == []
+        assert outbound == []
     finally:
         core.close()
