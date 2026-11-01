@@ -16,6 +16,7 @@ from . import document_contracts
 from knowledge_core.evidence.anchor_bridge import verify_bridge
 from knowledge_core.evidence.html_evidence import analyze, map_retrieval_chunks
 from knowledge_core.document_quality import evaluate_retrieval, validate_test_set
+from knowledge_core.factory_evaluation import FactoryEvaluationMixin
 from knowledge_core.retrieval_quality import select as select_quality, trace_select
 from knowledge_core.publication_quality import assess as assess_quality_gate
 
@@ -114,7 +115,9 @@ def _evaluate_answer_case(gold, item):
             'forbiddenClaimChecks':forbidden_checks, 'classification':classification}
 
 
-class DocumentCore(Core):
+class DocumentCore(FactoryEvaluationMixin, Core):
+    _factory_answer_references = staticmethod(_answer_references)
+
     def _put(self, actor, kind, body):
         if kind not in document_contracts.SCHEMAS:
             return super()._put(actor, kind, body)
@@ -406,7 +409,13 @@ class DocumentCore(Core):
         with self.tx():
             test_object = self._get(actor, test_set_digest, 'document-quality-test-set')
             retrieval = self._get(actor, retrieval_digest, 'document-retrieval-evaluation')
-            runtime = self._get(actor, runtime_evidence_digest, 'document-answer-runtime-evidence')
+            row = self.db.execute('SELECT kind FROM objects WHERE tenant=? AND digest=?',
+                                  (actor.tenant, runtime_evidence_digest)).fetchone()
+            if not row or row[0] not in {'document-answer-runtime-evidence',
+                                         'document-factory-evaluation-runtime-evidence'}:
+                raise Rejected('QUALITY_RUNTIME_EVIDENCE_INVALID')
+            runtime_kind = row[0]
+            runtime = self._get(actor, runtime_evidence_digest, runtime_kind)
         if (test_object['candidateDigest'] != candidate_digest
                 or retrieval['candidateDigest'] != candidate_digest
                 or retrieval['profileDigest'] != profile_digest
@@ -439,14 +448,25 @@ class DocumentCore(Core):
         metrics = {'factAccuracy': 10000 * facts // total_facts if total_facts else 10000,
                    'citationAccuracy': 10000 * citations // total_citations if total_citations else 10000,
                    'forbiddenClaimAccuracy': 10000 * forbidden // total_forbidden if total_forbidden else 10000}
-        with self.tx():
-            return self._put(actor, 'document-answer-evaluation', {
-                'schemaVersion':'document-answer-evaluation.v0.2', 'candidateDigest':candidate_digest,
+        factory = runtime_kind == 'document-factory-evaluation-runtime-evidence'
+        if factory and runtime.get('verification') != 'CORE_CORRELATED_FACTORY_WORKER':
+            raise Rejected('QUALITY_RUNTIME_EVIDENCE_INVALID')
+        if not factory and runtime.get('verification') != 'CORE_CORRELATED_HARNESS_ARCHIVE':
+            raise Rejected('QUALITY_RUNTIME_EVIDENCE_INVALID')
+        body = {
+                'schemaVersion':'document-answer-evaluation.v0.3' if factory
+                                else 'document-answer-evaluation.v0.2',
+                'candidateDigest':candidate_digest,
                 'profileDigest':profile_digest, 'testSetDigest':test_set_digest,
                 'retrievalEvaluationDigest':retrieval_digest,
                 'runtimeEvidenceDigest':runtime_evidence_digest,
-                'execution':'CORE_CORRELATED_HARNESS_ARCHIVE',
-                'modelIdentity':runtime['modelIdentity'], 'cases':cases, 'metricsBps':metrics})
+                'execution':runtime['verification'],
+                'modelIdentity':runtime['modelIdentity'], 'cases':cases,
+                'metricsBps':metrics}
+        if factory:
+            body['evidenceAuthority'] = 'FACTORY_WORKER'
+        with self.tx():
+            return self._put(actor, 'document-answer-evaluation', body)
 
     def assess_document_quality(self, actor, candidate_digest, profile_digest,
                                 test_set_digest, retrieval_digest, answer_digest):
@@ -470,13 +490,22 @@ class DocumentCore(Core):
                          'runtimeEvidenceDigest':answer['runtimeEvidenceDigest'],
                          'metricsBps':answer['metricsBps'],
                          'cases':answer['cases']}
-        gate = assess_quality_gate(structure['report'], mapping, retrieval_report, answer_report)
-        body = {'schemaVersion':'document-quality-admission.v0.1',
+        evidence_authority = answer.get('evidenceAuthority', 'HARNESS_ARCHIVE')
+        if evidence_authority not in {'HARNESS_ARCHIVE', 'FACTORY_WORKER'}:
+            raise Rejected('QUALITY_ANSWER_AUTHORITY_INVALID')
+        gate = assess_quality_gate(structure['report'], mapping, retrieval_report,
+                                   answer_report, evidence_authority)
+        factory = evidence_authority == 'FACTORY_WORKER'
+        body = {'schemaVersion':'document-quality-admission.v0.2' if factory
+                                else 'document-quality-admission.v0.1',
                 'candidateDigest':candidate_digest, 'sourceDigest':index['sourceDigest'],
                 'indexDigest':candidate['indexDigest'], 'profileDigest':profile_digest,
                 'testSetDigest':test_set_digest, 'retrievalEvaluationDigest':retrieval_digest,
                 'answerEvaluationDigest':answer_digest, 'decision':gate['decision'],
                 'checks':gate['checks'], 'gateDigest':gate['digest']}
+        if factory:
+            body['answerEvidenceAuthority'] = 'FACTORY_WORKER'
+            body['qualityGateVersion'] = 'document-quality-gate.v0.2'
         with self.tx():
             return self._put(actor, 'document-quality-admission', body)
 
