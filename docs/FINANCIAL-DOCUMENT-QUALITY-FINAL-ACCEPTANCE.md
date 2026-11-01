@@ -2,11 +2,11 @@
 
 ## Decision
 
-The independent knowledge Agent engineering path is complete, but the answer-quality gate is not fully green. PR #11 must remain Draft and must not be merged or deployed.
+The independent knowledge Agent engineering path and the corrected answer-quality gate are green. PR #11 remains Draft and must not be merged or deployed without review approval.
 
 - Normal Builder Build, managed installation, real Factory retrieval, live DeepSeek execution, stop, and independently authorized history replay passed.
-- The fixed answer set passed 5 of 6 cases under the current Core answer-evaluation logic.
-- The retained failure is `independent-no-answer-yield`. The model refused to invent a product-yield ranking, but the retrieval result included boundary clauses. The current evaluator derives `citedClauses` from every retrieved evidence item and then requires no citations for a supported refusal. No gold or threshold was changed.
+- The original v0.1 evaluation remains preserved at 5 of 6. Its retained failure is `independent-no-answer-yield`.
+- The v0.2 evaluation replays the same six original archives and passes 6 of 6. No gold, threshold, answer, retrieval result, or historical evidence was changed.
 
 ## Fixed blockers
 
@@ -33,15 +33,19 @@ The customer-manager three-Provider `COMPONENT_SELECTION_REJECTED` path was not 
 
 ## Trusted runtime evidence
 
-Core created runtime-evidence object `6bdf78609d0311ebd3b079a42af2e93713ae412f5abe9bdd80a4c8d59daf3ba4` with verification `CORE_CORRELATED_HARNESS_ARCHIVE`.
+The original Core runtime-evidence object remains `6bdf78609d0311ebd3b079a42af2e93713ae412f5abe9bdd80a4c8d59daf3ba4`. The v0.2 replay created runtime-evidence object `8503d1217311b5a9471ac6076bb2ee916b2e253cfa9a9643c4995cb6e5001a5d`, answer-evaluation object `ce0dc890dffbc1ffadc54a34e0deeff34ac2f769afd45edce931f1f64c05c143`, and quality-admission object `4e3385b4aceeeb167ca35d2e9ace330cf55708fbadf39610ae1594e27c0c3084`.
 
 It was recomputed from the immutable service Lock, model-selection digest, six original `finance-knowledge-answer.v0.1` archives, matching runtime Locks, live model-context and returned model-attempt events, six immutable Factory Core receipts, and the stopped-instance receipt. The caller no longer supplies a trusted execution label or model identity.
 
-This proves execution association. It does not turn lexical fact matching into an independent semantic judge. The v0.1 evaluator also does not currently score `forbiddenClaims`; this remains an explicit quality limitation.
+The v0.2 runtime evidence keeps retrieved candidates under `retrievedEvidence`. It derives `answerCitations` only from explicit references in the immutable archived answer and binds each citation to exact evidence in a verified Factory receipt. Unmatched references are retained as failures. Answer facts must occur in both the archived answer and at least one cited trusted quote. `forbiddenClaims` are now scored, including the distinction between an asserted claim and a nearby explicit negation.
+
+This proves execution and lexical evidence association. It is not an independent semantic judge: implicit citations, paraphrased facts that do not preserve the frozen fact string, and complex linguistic negation remain outside the v0.2 claim.
 
 ## Answer and history results
 
-Five answer cases returned the required fact and clause. The no-answer case correctly refused to rank product yields but remains a strict gate failure for the citation-model reason described above.
+All five answerable cases still return their required facts and answer citations. The no-answer case is now `CORRECT_REFUSAL`: it may cite the second and third clauses as background for the limitation, while the evaluator verifies that the archived answer makes no prohibited affirmative product-yield claim.
+
+The replay did not invoke retrieval, a model, or a Provider. It used a database backup and the six immutable answer archives, so the original 5/6 failure remains independently inspectable. The versioned evidence is under `evidence/document-quality/final-answer-v02/`.
 
 After the same instance stopped:
 
@@ -55,12 +59,12 @@ The full local evidence is under `/home/ubuntu/outputs/knowledge-quality-pr11/fi
 
 ## Verification
 
-- Knowledge Factory: `366 passed`.
+- Knowledge Factory: `369 passed`.
 - Builder impacted suite: `305 passed, 7 skipped`.
 - Builder archive/history suite with the actual candidate dependency closure: `71 passed`.
 
 ## Review conclusion
 
-The implementation is suitable for continued Draft review. The normal independent-Agent path and trustworthy runtime correlation are demonstrated. PR #11 is not merge-ready because the frozen answer gate is still 5/6 and the semantic/citation distinction is unresolved.
+The implementation is suitable for final Draft review. The normal independent-Agent path, trustworthy runtime correlation, retrieved-evidence/answer-citation separation, and 6/6 replay over the original archives are demonstrated. No published product or external v0.1 query/history contract changed.
 
-The smallest follow-up is to archive explicit answer citation references separately from retrieved evidence and have Core evaluate those references. That change must preserve the retained failure until independently re-evaluated; it must not alter the gold set or lower the threshold.
+This closes retrieval optimization for the current synthetic regulatory document. A future openJiuwen Python Evaluation Worker is a separate design and must not be added to this PR.

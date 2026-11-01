@@ -16,12 +16,16 @@ SCHEMAS = {
     'document-retrieval-evaluation': versioned('document-retrieval-evaluation', {
         'candidateDigest': HASH, 'profileDigest': HASH, 'testSetDigest': HASH,
         'execution': enum('CORE_EXECUTED'), 'report': {'type': 'object'}}),
-    'document-answer-runtime-evidence': versioned('document-answer-runtime-evidence', {
+    'document-answer-runtime-evidence': obj({
+        'schemaVersion': enum('document-answer-runtime-evidence.v0.1',
+                              'document-answer-runtime-evidence.v0.2'),
         'candidateDigest': HASH, 'testSetDigest': HASH, 'buildId': ID, 'instanceId': ID,
         'installationLockDigest': HASH, 'manifestDigest': HASH,
         'modelIdentity': {'type': 'object'}, 'cases': arr({'type': 'object'}, 1),
         'stoppedAt': STR, 'verification': enum('CORE_CORRELATED_HARNESS_ARCHIVE')}),
-    'document-answer-evaluation': versioned('document-answer-evaluation', {
+    'document-answer-evaluation': obj({
+        'schemaVersion': enum('document-answer-evaluation.v0.1',
+                              'document-answer-evaluation.v0.2'),
         'candidateDigest': HASH, 'profileDigest': HASH, 'testSetDigest': HASH,
         'retrievalEvaluationDigest': HASH, 'runtimeEvidenceDigest': HASH,
         'execution': enum('CORE_CORRELATED_HARNESS_ARCHIVE'), 'modelIdentity': {'type': 'object'},

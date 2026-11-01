@@ -24,6 +24,96 @@ def normal(text):
     return re.sub(r'\s+', '', text)
 
 
+_CLAUSE_REFERENCE = re.compile(r'第[0-9〇零一二三四五六七八九十百千万两]+条')
+_REFUSAL = re.compile(r'无法|不能|未找到|没有足够|依据不足|无足够')
+_NEGATION = re.compile(r'不|未|无|非|禁止|不得|不能|无法|不应')
+
+
+def _unique(values):
+    return list(dict.fromkeys(values))
+
+
+def _answer_references(answer, retrieved):
+    """Derive citations from the archived answer, never from caller assertions."""
+    explicit = _unique(_CLAUSE_REFERENCE.findall(answer))
+    for evidence in retrieved:
+        clause = evidence['clause']
+        if clause in answer and clause not in explicit:
+            explicit.append(clause)
+    by_clause = {}
+    for evidence in retrieved:
+        by_clause.setdefault(evidence['clause'], []).append(evidence)
+    citations, unmatched = [], []
+    for reference in explicit:
+        matches = by_clause.get(reference, [])
+        if not matches:
+            unmatched.append(reference)
+            continue
+        citations.append({'clause':reference, 'answerReference':reference,
+            'retrievedEvidenceDigests':_unique(item['evidenceDigest'] for item in matches),
+            'derivation':'ARCHIVED_ANSWER_EXPLICIT_REFERENCE'})
+    return citations, unmatched
+
+
+def _claim_asserted(answer, claim):
+    """Conservative lexical guard: a claim mention is allowed only near negation."""
+    text, needle = normal(answer), normal(claim)
+    start = 0
+    while needle and (position := text.find(needle, start)) >= 0:
+        context = text[max(0, position - 12):position + len(needle) + 20]
+        if not _NEGATION.search(context):
+            return True
+        start = position + len(needle)
+    return False
+
+
+def _evaluate_answer_case(gold, item):
+    answer = item['answer']
+    retrieved = item['retrievedEvidence']
+    answer_citations = item['answerCitations']
+    unmatched = item['unmatchedAnswerCitations']
+    cited = [value['clause'] for value in answer_citations]
+    cited_digests = {evidence_digest for citation in answer_citations
+                     for evidence_digest in citation['retrievedEvidenceDigests']}
+    cited_evidence = [evidence for evidence in retrieved
+                      if evidence['evidenceDigest'] in cited_digests]
+    normalized = normal(answer)
+    fact_checks = []
+    for fact in gold['answerFacts']:
+        supporting = _unique(evidence['clause'] for evidence in cited_evidence
+                             if normal(fact) in normal(evidence['quote']))
+        answer_contains = normal(fact) in normalized
+        fact_checks.append({'fact':fact, 'answerContains':answer_contains,
+                            'supportingClauses':supporting,
+                            'passed':answer_contains and bool(supporting)})
+    citation_checks = [{'clause':clause, 'passed':clause in cited}
+                       for clause in gold['expectedClauses']]
+    forbidden_checks = []
+    for claim in gold['forbiddenClaims']:
+        asserted = _claim_asserted(answer, claim)
+        forbidden_checks.append({'claim':claim, 'asserted':asserted, 'passed':not asserted})
+    if not gold['expectedClauses']:
+        refusal = bool(_REFUSAL.search(answer))
+        fact_checks.append({'fact':'SUPPORTED_REFUSAL', 'answerContains':refusal,
+                            'supportingClauses':cited,
+                            'passed':refusal
+                                and not any(check['asserted'] for check in forbidden_checks)
+                                and not unmatched})
+    fact_passed = all(check['passed'] for check in fact_checks)
+    citation_passed = all(check['passed'] for check in citation_checks) and not unmatched
+    forbidden_passed = all(check['passed'] for check in forbidden_checks)
+    correct = fact_passed and citation_passed and forbidden_passed
+    classification = ('CORRECT_REFUSAL' if correct and not gold['expectedClauses']
+                      else 'CORRECT' if correct
+                      else 'ANSWER_FACT_ERROR' if not fact_passed or not forbidden_passed
+                      else 'ANSWER_CITATION_ERROR')
+    return {'caseId':gold['caseId'], 'answer':answer, 'answerDigest':text_digest(answer),
+            'retrievedEvidence':retrieved, 'answerCitations':answer_citations,
+            'unmatchedAnswerCitations':unmatched, 'citedClauses':cited,
+            'factChecks':fact_checks, 'citationChecks':citation_checks,
+            'forbiddenClaimChecks':forbidden_checks, 'classification':classification}
+
+
 class DocumentCore(Core):
     def _put(self, actor, kind, body):
         if kind not in document_contracts.SCHEMAS:
@@ -247,7 +337,7 @@ class DocumentCore(Core):
                            for key in ('modelRef', 'configVersion', 'modelName'))
                     or not returned):
                 raise Rejected('QUALITY_RUNTIME_MODEL_EVIDENCE_MISSING', case_id)
-            receipts, cited = [], []
+            receipts, retrieved = [], []
             for tool in archive.get('toolResults', []):
                 result = tool.get('data', {}).get('result', {})
                 receipt = result.get('knowledgeReceipt', {})
@@ -259,16 +349,47 @@ class DocumentCore(Core):
                         or saved.get('traceId') != receipt.get('traceId')):
                     raise Rejected('QUALITY_RUNTIME_RECEIPT_MISMATCH', case_id)
                 receipts.append(receipt_digest)
-                cited.extend(evidence.get('clause') for evidence in result.get('evidence', [])
-                             if isinstance(evidence.get('clause'), str))
+                saved_evidence = saved.get('result', {}).get('evidence', [])
+                for evidence in result.get('evidence', []):
+                    trusted = [{**value,
+                                'sourceDigest':value.get('sourceDigest', saved.get('sourceDigest'))}
+                               for value in saved_evidence if isinstance(value, dict)]
+                    if (not isinstance(evidence, dict)
+                            or not isinstance(evidence.get('clause'), str)
+                            or not isinstance(evidence.get('quote'), str)
+                            or not any(canonical(evidence) == canonical(value)
+                                       for value in trusted)):
+                        raise Rejected('QUALITY_RUNTIME_EVIDENCE_MISMATCH', case_id)
+                    evidence_body = {
+                        'coreReceiptDigest':receipt_digest,
+                        'clause':evidence['clause'],
+                        'quote':evidence['quote'],
+                        'quoteDigest':text_digest(evidence['quote']),
+                        'sourceDigest':evidence.get('sourceDigest', saved.get('sourceDigest')),
+                        'originalDigest':evidence.get('originalDigest'),
+                        'chunkId':evidence.get('chunkId'),
+                    }
+                    if any(not isinstance(value, str) or not value
+                           for value in evidence_body.values()):
+                        raise Rejected('QUALITY_RUNTIME_EVIDENCE_MISMATCH', case_id)
+                    evidence_body['evidenceDigest'] = digest(evidence_body)
+                    if not any(value['evidenceDigest'] == evidence_body['evidenceDigest']
+                               for value in retrieved):
+                        retrieved.append(evidence_body)
             if not receipts or not isinstance(archive.get('response'), str):
                 raise Rejected('QUALITY_RUNTIME_RECEIPT_MISSING', case_id)
+            answer_citations, unmatched = _answer_references(archive['response'], retrieved)
             cases.append({'caseId':case_id, 'answer':archive['response'],
                 'answerDigest':text_digest(archive['response']),
-                'citedClauses':list(dict.fromkeys(cited)), 'requestId':archive['requestId'],
+                'retrievedEvidence':retrieved, 'answerCitations':answer_citations,
+                'unmatchedAnswerCitations':unmatched,
+                # Compatibility alias for internal v0.1 report readers. Unlike the old
+                # value, this is derived from the archived answer, not retrieval hits.
+                'citedClauses':[value['clause'] for value in answer_citations],
+                'requestId':archive['requestId'],
                 'runId':archive['runId'], 'runtimeLockDigest':archive['runtimeLockDigest'],
                 'coreReceiptDigests':receipts})
-        body = {'schemaVersion':'document-answer-runtime-evidence.v0.1',
+        body = {'schemaVersion':'document-answer-runtime-evidence.v0.2',
             'candidateDigest':candidate_digest, 'testSetDigest':test_set_digest,
             'buildId':build_id, 'instanceId':instance_id,
             'installationLockDigest':lock_digest, 'manifestDigest':manifest_digest,
@@ -296,33 +417,31 @@ class DocumentCore(Core):
         by_id = {item.get('caseId'): item for item in runtime['cases'] if isinstance(item, dict)}
         if set(by_id) != {case['caseId'] for case in test_object['testSet']['cases']}:
             raise Rejected('QUALITY_ANSWER_CASE_MISMATCH')
-        cases, facts, citations, total_facts, total_citations = [], 0, 0, 0, 0
+        cases, facts, citations, forbidden, total_facts, total_citations, total_forbidden = [], 0, 0, 0, 0, 0, 0
         for gold in test_object['testSet']['cases']:
             item = by_id[gold['caseId']]
-            answer, cited = item.get('answer'), item.get('citedClauses')
-            if not isinstance(answer, str) or not isinstance(cited, list) or any(not isinstance(v, str) for v in cited):
+            answer = item.get('answer')
+            retrieved = item.get('retrievedEvidence')
+            answer_citations = item.get('answerCitations')
+            unmatched = item.get('unmatchedAnswerCitations')
+            if (not isinstance(answer, str) or not isinstance(retrieved, list)
+                    or not isinstance(answer_citations, list) or not isinstance(unmatched, list)):
                 raise Rejected('QUALITY_ANSWER_CASE_INVALID', gold['caseId'])
-            normalized = normal(answer)
-            fact_checks = [{'fact': fact, 'passed': normal(fact) in normalized}
-                           for fact in gold['answerFacts']]
-            citation_checks = [{'clause': clause, 'passed': clause in cited}
-                               for clause in gold['expectedClauses']]
-            if not gold['expectedClauses']:
-                fact_checks.append({'fact':'SUPPORTED_REFUSAL',
-                    'passed': bool(re.search(r'无法|不能|未找到|没有足够|依据不足', answer)) and not cited})
+            evaluated = _evaluate_answer_case(gold, item)
+            fact_checks = evaluated['factChecks']
+            citation_checks = evaluated['citationChecks']
+            forbidden_checks = evaluated['forbiddenClaimChecks']
             facts += sum(check['passed'] for check in fact_checks); total_facts += len(fact_checks)
             citations += sum(check['passed'] for check in citation_checks); total_citations += len(citation_checks)
-            classification = ('CORRECT' if all(c['passed'] for c in fact_checks + citation_checks)
-                              else 'ANSWER_FACT_ERROR' if not all(c['passed'] for c in fact_checks)
-                              else 'ANSWER_CITATION_ERROR')
-            cases.append({'caseId':gold['caseId'], 'answer':answer, 'answerDigest':text_digest(answer),
-                          'citedClauses':cited, 'factChecks':fact_checks,
-                          'citationChecks':citation_checks, 'classification':classification})
+            forbidden += sum(check['passed'] for check in forbidden_checks)
+            total_forbidden += len(forbidden_checks)
+            cases.append(evaluated)
         metrics = {'factAccuracy': 10000 * facts // total_facts if total_facts else 10000,
-                   'citationAccuracy': 10000 * citations // total_citations if total_citations else 10000}
+                   'citationAccuracy': 10000 * citations // total_citations if total_citations else 10000,
+                   'forbiddenClaimAccuracy': 10000 * forbidden // total_forbidden if total_forbidden else 10000}
         with self.tx():
             return self._put(actor, 'document-answer-evaluation', {
-                'schemaVersion':'document-answer-evaluation.v0.1', 'candidateDigest':candidate_digest,
+                'schemaVersion':'document-answer-evaluation.v0.2', 'candidateDigest':candidate_digest,
                 'profileDigest':profile_digest, 'testSetDigest':test_set_digest,
                 'retrievalEvaluationDigest':retrieval_digest,
                 'runtimeEvidenceDigest':runtime_evidence_digest,
@@ -347,7 +466,7 @@ class DocumentCore(Core):
         structure = analyze(index['originalHtml'].encode())
         mapping = map_retrieval_chunks(structure['units'], index['index']['chunks'])
         retrieval_report = {'execution':retrieval['execution'], **retrieval['report']}
-        answer_report = {'execution':answer['execution'],
+        answer_report = {'schemaVersion':answer['schemaVersion'], 'execution':answer['execution'],
                          'runtimeEvidenceDigest':answer['runtimeEvidenceDigest'],
                          'metricsBps':answer['metricsBps'],
                          'cases':answer['cases']}

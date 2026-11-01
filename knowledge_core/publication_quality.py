@@ -23,6 +23,10 @@ def assess(structure, index_mapping, retrieval, answer):
         ),
         "answerFactAccuracyComplete": answer.get("metricsBps", {}).get("factAccuracy") == 10000,
         "answerCitationAccuracyComplete": answer.get("metricsBps", {}).get("citationAccuracy") == 10000,
+        "answerForbiddenClaimsAccurate": (
+            answer.get("schemaVersion") != "document-answer-evaluation.v0.2"
+            or answer.get("metricsBps", {}).get("forbiddenClaimAccuracy") == 10000
+        ),
         "allAnswerCasesClassified": bool(answer.get("cases")) and all(
             case.get("classification") in {"CORRECT", "CORRECT_REFUSAL"}
             for case in answer["cases"]),

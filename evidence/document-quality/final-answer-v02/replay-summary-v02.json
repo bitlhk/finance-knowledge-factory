@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "document-answer-quality-replay.v0.2",
+  "sourceRuntimeEvidenceDigest": "6bdf78609d0311ebd3b079a42af2e93713ae412f5abe9bdd80a4c8d59daf3ba4",
+  "sourceAnswerEvaluation": {
+    "artifactSha256": "76bb480340901f746dec6fd6a7561ee959361d6675e324281637a64bcbc592ef",
+    "decision": "FAIL",
+    "passed": 5,
+    "total": 6
+  },
+  "runtimeEvidenceDigest": "8503d1217311b5a9471ac6076bb2ee916b2e253cfa9a9643c4995cb6e5001a5d",
+  "answerEvaluationDigest": "ce0dc890dffbc1ffadc54a34e0deeff34ac2f769afd45edce931f1f64c05c143",
+  "qualityAdmissionDigest": "4e3385b4aceeeb167ca35d2e9ace330cf55708fbadf39610ae1594e27c0c3084",
+  "decision": "PASS",
+  "passed": 6,
+  "total": 6,
+  "instanceId": "bdb603f4-8eef-4280-9114-5cb3909de331",
+  "installationLockDigest": "fa6cd409b2af480b227721cd1fde7b0f5aa2df5c592daf3a06ac0a56523bdaa1",
+  "manifestDigest": "5eb19bb662f311cc91ed5cef0fac20bfbd3b75a9d45c5a7d69b46e24ae570d1b",
+  "modelIdentity": {
+    "configVersion": "sha256:6a6cd803d37867227a0fa178d4aa01172c8da744a05a24dc40eae0d5d4d1d207",
+    "modelName": "deepseek-v4-flash",
+    "modelRef": "model-ea-002",
+    "provider": "OpenAI"
+  },
+  "reexecuted": {
+    "retrieval": false,
+    "model": false
+  },
+  "originalArchivesChanged": false
+}

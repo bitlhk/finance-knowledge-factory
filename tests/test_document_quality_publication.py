@@ -50,7 +50,7 @@ def quality_set(source_digest):
             'sourceTitle':'合成客服制度', 'cases':cases}
 
 
-def runtime_evidence(core, candidate, test_digest, source_digest):
+def runtime_evidence(core, candidate, test_digest, source_digest, tamper=False):
     model = {'schemaVersion':'finance-model-selection.v1', 'defaultModelRef':'model-ea-002',
              'connections':[{'modelRef':'model-ea-002', 'configVersion':'sha256:' + '1' * 64,
                              'modelName':'deepseek-v4-flash', 'provider':'OpenAI'}]}
@@ -61,12 +61,15 @@ def runtime_evidence(core, candidate, test_digest, source_digest):
                'files':{'model-selection.json':hashlib.sha256(model_raw).hexdigest()}}
     service_raw = (json.dumps(service, separators=(',', ':')) + '\n').encode()
     runtime_raw = b'{"runtime":"verified"}\n'
+    evidence = {'clause':'第一条', 'quote':'第一条 服务时间为每日09:00至17:00。',
+                'sourceDigest':source_digest, 'originalDigest':'e' * 64, 'chunkId':'chunk-1'}
     receipt = {'schemaVersion':'document-receipt.v0.1', 'requestId':'factory-request',
         'traceId':'factory-trace', 'principal':'reader', 'productId':'faq',
         'manifestDigest':'a' * 64, 'indexDigest':'b' * 64, 'sourceDigest':source_digest,
         'bindingDigest':'c' * 64, 'policyDigest':'d' * 64,
         'question':'合成客服服务时间是什么？', 'hostAuthority':'test-host',
-        'businessContextSource':'test', 'host':{}, 'result':{},
+        'businessContextSource':'test', 'host':{},
+        'result':{'decision':'EVIDENCE_FOUND', 'evidence':[evidence]},
         'createdAt':'2026-11-01T00:00:00Z', 'mode':'M2_ISOLATED_DOCUMENT'}
     with core.tx():
         receipt_digest = core._put(AUTHOR, 'document-receipt', receipt)
@@ -74,11 +77,11 @@ def runtime_evidence(core, candidate, test_digest, source_digest):
         'requestId':'archive-request', 'runId':'archive-run', 'buildId':'agent-quality',
         'instanceId':'instance-quality', 'serviceLockDigest':hashlib.sha256(service_raw).hexdigest(),
         'runtimeLockDigest':hashlib.sha256(runtime_raw).hexdigest(), 'manifest':'a' * 64,
-        'productId':'faq', 'response':'服务时间为每日09:00至17:00。',
+        'productId':'faq', 'response':'根据第一条，服务时间为每日09:00至17:00。',
         'toolResults':[{'data':{'result':{'knowledgeReceipt':{
             'coreReceiptDigest':receipt_digest, 'productId':'faq', 'manifest':'a' * 64,
             'requestId':'factory-request', 'traceId':'factory-trace'},
-            'evidence':[{'clause':'第一条'}]}}}]}
+            'evidence':[{**evidence, 'quote':'伪造引用'}] if tamper else [evidence]}}}]}
     rows = [
         {'recordType':'model-context', 'mode':'LIVE', 'modelRef':'model-ea-002',
          'configVersion':'sha256:' + '1' * 64, 'modelName':'deepseek-v4-flash'},
@@ -110,6 +113,13 @@ def test_quality_enrollment_cannot_bypass_core_recomputed_gate(tmp_path):
                                                      test_digest, client)
         runtime = runtime_evidence(core, data['candidateDigest'], test_digest,
                                    data['sourceDigest'])
+        runtime_case = core._get(AUTHOR, runtime, 'document-answer-runtime-evidence')['cases'][0]
+        assert runtime_case['retrievedEvidence'][0]['clause'] == '第一条'
+        assert runtime_case['answerCitations'][0]['clause'] == '第一条'
+        assert runtime_case['unmatchedAnswerCitations'] == []
+        with pytest.raises(Rejected, match='QUALITY_RUNTIME_EVIDENCE_MISMATCH'):
+            runtime_evidence(core, data['candidateDigest'], test_digest,
+                             data['sourceDigest'], tamper=True)
         answer = core.register_answer_evaluation(AUTHOR, data['candidateDigest'], profile,
             test_digest, retrieval, runtime)
         admission = core.assess_document_quality(AUTHOR, data['candidateDigest'], profile,
