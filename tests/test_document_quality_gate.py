@@ -5,7 +5,8 @@ def inputs():
     structure = {"structureCoverageBps": 10000, "anchorAccuracyBps": 10000,
                  "parserCoverageBps": 10000, "missingArticleNumbers": []}
     mapping = {"coverageBps": 10000}
-    retrieval = {"metricsBps": {"recallAt3": 10000, "hitAt1": 10000, "mrr": 10000,
+    retrieval = {"execution":"CORE_EXECUTED",
+                 "metricsBps": {"recallAt3": 10000, "hitAt1": 10000, "mrr": 10000,
                                 "noAnswerFalsePositive": 0}, "cases": [{"passed": True}]}
     answer = {"execution": "REAL_HARNESS_DEEPSEEK",
               "metricsBps": {"factAccuracy": 10000, "citationAccuracy": 10000},

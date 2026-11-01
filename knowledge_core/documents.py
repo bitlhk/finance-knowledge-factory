@@ -5,6 +5,7 @@ checked both before sending and immediately before persisting/disclosing results
 Only exact original quotes are returned, never arbitrary upstream chunk bodies.
 """
 import hashlib
+import json
 import re
 from datetime import datetime, timezone
 
@@ -13,6 +14,10 @@ from .contracts import Rejected, canonical, digest, text_digest
 from .rules import in_scope
 from . import document_contracts
 from knowledge_core.evidence.anchor_bridge import verify_bridge
+from knowledge_core.evidence.html_evidence import analyze, map_retrieval_chunks
+from knowledge_core.document_quality import evaluate_retrieval, validate_test_set
+from knowledge_core.retrieval_quality import select as select_quality, trace_select
+from knowledge_core.publication_quality import assess as assess_quality_gate
 
 
 def normal(text):
@@ -46,17 +51,21 @@ class DocumentCore(Core):
         texts = {key: '\n'.join(parts) for key, parts in expected.items()}
         if clauses != [{'clause': k, 'text': v} for k, v in texts.items()]:
             raise Rejected('CLAUSE_SOURCE_MISMATCH')
-        seen, covered = set(), set()
+        seen = set()
         for chunk in index['chunks']:
             if chunk['id'] in seen or text_digest(chunk['text']) != chunk['textDigest']:
                 raise Rejected('INDEX_CHUNK_INVALID')
             seen.add(chunk['id'])
-            matches = [key for key, quote in texts.items() if normal(quote) in normal(chunk['text'])]
-            if matches != chunk['clauses']:
-                raise Rejected('INDEX_ANCHOR_MISMATCH')
-            covered.update(matches)
-        if covered != set(texts):
+        structure = analyze(raw)
+        mapped = map_retrieval_chunks(structure['units'], index['chunks'])
+        labels = {unit['unitId']: unit['label'] for unit in structure['units']
+                  if unit['kind'] == 'ARTICLE'}
+        expected_chunks = {chunk['chunkId']: [labels[value] for value in chunk['unitIds']]
+                           for chunk in mapped['chunks']}
+        if mapped['coverageBps'] != 10000 or mapped['incompleteUnitIds']:
             raise Rejected('INDEX_COVERAGE_INCOMPLETE')
+        if any(chunk['clauses'] != expected_chunks.get(chunk['id'], []) for chunk in index['chunks']):
+            raise Rejected('INDEX_ANCHOR_MISMATCH')
         body = {'schemaVersion':'document-index.v0.1', 'sourceDigest':source_digest,
                 'originalHtml':raw.decode('utf-8'), 'originalDigest':hashlib.sha256(raw).hexdigest(),
                 'bridge':bridge, 'bridgeDigest':digest(bridge), 'index':index, 'clauses':clauses}
@@ -79,6 +88,165 @@ class DocumentCore(Core):
                 'schemaVersion':'document-candidate.v0.1', 'productId':candidate['productId'],
                 'coreCandidateDigest':candidate_digest, 'indexDigest':index_digest, 'tests':tests})
 
+    def register_quality_profile(self, actor, profile_id, revision, config):
+        actor.require('artifact.produce')
+        required = {'retrieval', 'postRank', 'selectionThresholdBps', 'queryPlanner', 'supportPolicy'}
+        if (not isinstance(config, dict) or set(config) != required
+                or config['postRank'] != 'STRUCTURE_V0_2'
+                or config['queryPlanner'] != 'DETERMINISTIC_FINANCIAL_V0_1'
+                or config['supportPolicy'] != 'EVIDENCE_SUPPORT_V0_1'
+                or type(config['selectionThresholdBps']) is not int):
+            raise Rejected('QUALITY_PROFILE_INVALID')
+        # The adapter performs the detailed retrieval-profile validation before use.
+        with self.tx():
+            return self._put(actor, 'document-quality-profile', {
+                'schemaVersion':'document-quality-profile.v0.1', 'id':profile_id,
+                'revision':revision, 'config':config})
+
+    def register_quality_test_set(self, actor, candidate_digest, test_set, revision):
+        actor.require('candidate.validate')
+        candidate, _, _, index = self._document_parts(actor, candidate_digest)
+        validate_test_set(test_set, {item['clause'] for item in index['clauses']})
+        if test_set['sourceDigest'] != index['sourceDigest']:
+            raise Rejected('QUALITY_TEST_SET_SOURCE_MISMATCH')
+        with self.tx():
+            self._document_parts(actor, candidate_digest)
+            return self._put(actor, 'document-quality-test-set', {
+                'schemaVersion':'document-quality-test-set.v0.1', 'id':test_set['id'],
+                'revision':revision, 'candidateDigest':candidate_digest, 'testSet':test_set})
+
+    def evaluate_quality_retrieval(self, actor, candidate_digest, profile_digest,
+                                   test_set_digest, client):
+        actor.require('candidate.validate')
+        with self.tx():
+            _, _, _, index = self._document_parts(actor, candidate_digest)
+            profile = self._get(actor, profile_digest, 'document-quality-profile')
+            test_object = self._get(actor, test_set_digest, 'document-quality-test-set')
+        if test_object['candidateDigest'] != candidate_digest:
+            raise Rejected('QUALITY_TEST_SET_CANDIDATE_MISMATCH')
+        pinned = index['index']
+        indexed = {chunk['id']: chunk for chunk in pinned['chunks']}
+        rows = []
+        for case in test_object['testSet']['cases']:
+            started = datetime.now(timezone.utc)
+            try:
+                trace = trace_select(client, pinned['datasetId'], pinned['documentId'],
+                                     case['question'], profile['config'])
+            except Rejected:
+                raise
+            except Exception:
+                raise Rejected('QUALITY_RETRIEVAL_UNAVAILABLE') from None
+            def record(item, stage, decision, reasons):
+                chunk = indexed.get(item.get('id'))
+                if (chunk is None or item.get('documentId') != pinned['documentId']
+                        or item.get('text') != chunk['text']
+                        or text_digest(item['text']) != chunk['textDigest']):
+                    raise Rejected('QUALITY_RETRIEVAL_INDEX_MISMATCH', case['caseId'])
+                return {'stage':stage, 'rank':item['rank'], 'chunkId':item['id'],
+                        'clauses':chunk['clauses'], 'scoreBps':item.get('scoreBps'),
+                        'termScoreBps':item.get('termScoreBps'),
+                        'vectorScoreBps':item.get('vectorScoreBps'),
+                        'postRankScoreBps':item.get('postRankScoreBps'),
+                        'decision':decision, 'reasons':reasons}
+            stages = {
+                'retrieved':[record(item, 'RETRIEVED', 'CANDIDATE',
+                    ['returned by pinned retrieval profile']) for item in trace['retrieved']],
+                'ranked':[record(item, 'RANKED', 'CANDIDATE',
+                    ['ordered by pinned post-ranker']) for item in trace['ranked']],
+                'filtered':[record(item, 'FILTERED', item['qualityDecision'], item['qualityReasons'])
+                    for item in trace['filtered']],
+                'selected':[record(item, 'SELECTED', 'SELECT',
+                    ['within first three supported candidates']) for item in trace['selected']]}
+            elapsed = max(0, round((datetime.now(timezone.utc) - started).total_seconds() * 1000))
+            rows.append({'caseId':case['caseId'], 'latencyMs':elapsed, 'stages':stages,
+                         'candidates':stages['selected']})
+        recomputed = evaluate_retrieval(test_object['testSet'], rows,
+            {'name': profile['id'], **profile['config']},
+            pinned['engineIdentity'], pinned['embeddingIdentity'])
+        with self.tx():
+            self._document_parts(actor, candidate_digest)
+            return self._put(actor, 'document-retrieval-evaluation', {
+                'schemaVersion':'document-retrieval-evaluation.v0.1',
+                'candidateDigest':candidate_digest, 'profileDigest':profile_digest,
+                'testSetDigest':test_set_digest, 'execution':'CORE_EXECUTED',
+                'report':recomputed})
+
+    def register_answer_evaluation(self, actor, candidate_digest, profile_digest,
+                                   test_set_digest, retrieval_digest, execution,
+                                   model_identity, answers):
+        actor.require('candidate.validate')
+        with self.tx():
+            test_object = self._get(actor, test_set_digest, 'document-quality-test-set')
+            retrieval = self._get(actor, retrieval_digest, 'document-retrieval-evaluation')
+        if (test_object['candidateDigest'] != candidate_digest
+                or retrieval['candidateDigest'] != candidate_digest
+                or retrieval['profileDigest'] != profile_digest
+                or retrieval['testSetDigest'] != test_set_digest):
+            raise Rejected('QUALITY_ANSWER_BINDING_MISMATCH')
+        by_id = {item.get('caseId'): item for item in answers if isinstance(item, dict)}
+        if set(by_id) != {case['caseId'] for case in test_object['testSet']['cases']}:
+            raise Rejected('QUALITY_ANSWER_CASE_MISMATCH')
+        cases, facts, citations, total_facts, total_citations = [], 0, 0, 0, 0
+        for gold in test_object['testSet']['cases']:
+            item = by_id[gold['caseId']]
+            answer, cited = item.get('answer'), item.get('citedClauses')
+            if not isinstance(answer, str) or not isinstance(cited, list) or any(not isinstance(v, str) for v in cited):
+                raise Rejected('QUALITY_ANSWER_CASE_INVALID', gold['caseId'])
+            normalized = normal(answer)
+            fact_checks = [{'fact': fact, 'passed': normal(fact) in normalized}
+                           for fact in gold['answerFacts']]
+            citation_checks = [{'clause': clause, 'passed': clause in cited}
+                               for clause in gold['expectedClauses']]
+            if not gold['expectedClauses']:
+                fact_checks.append({'fact':'SUPPORTED_REFUSAL',
+                    'passed': bool(re.search(r'无法|不能|未找到|没有足够|依据不足', answer)) and not cited})
+            facts += sum(check['passed'] for check in fact_checks); total_facts += len(fact_checks)
+            citations += sum(check['passed'] for check in citation_checks); total_citations += len(citation_checks)
+            classification = ('CORRECT' if all(c['passed'] for c in fact_checks + citation_checks)
+                              else 'ANSWER_FACT_ERROR' if not all(c['passed'] for c in fact_checks)
+                              else 'ANSWER_CITATION_ERROR')
+            cases.append({'caseId':gold['caseId'], 'answer':answer, 'answerDigest':text_digest(answer),
+                          'citedClauses':cited, 'factChecks':fact_checks,
+                          'citationChecks':citation_checks, 'classification':classification})
+        metrics = {'factAccuracy': 10000 * facts // total_facts if total_facts else 10000,
+                   'citationAccuracy': 10000 * citations // total_citations if total_citations else 10000}
+        with self.tx():
+            return self._put(actor, 'document-answer-evaluation', {
+                'schemaVersion':'document-answer-evaluation.v0.1', 'candidateDigest':candidate_digest,
+                'profileDigest':profile_digest, 'testSetDigest':test_set_digest,
+                'retrievalEvaluationDigest':retrieval_digest, 'execution':execution,
+                'modelIdentity':model_identity, 'cases':cases, 'metricsBps':metrics})
+
+    def assess_document_quality(self, actor, candidate_digest, profile_digest,
+                                test_set_digest, retrieval_digest, answer_digest):
+        actor.require('candidate.validate')
+        candidate, _, _, index = self._document_parts(actor, candidate_digest)
+        with self.tx():
+            profile = self._get(actor, profile_digest, 'document-quality-profile')
+            test_object = self._get(actor, test_set_digest, 'document-quality-test-set')
+            retrieval = self._get(actor, retrieval_digest, 'document-retrieval-evaluation')
+            answer = self._get(actor, answer_digest, 'document-answer-evaluation')
+        expected = (candidate_digest, profile_digest, test_set_digest)
+        if ((retrieval['candidateDigest'], retrieval['profileDigest'], retrieval['testSetDigest']) != expected
+                or (answer['candidateDigest'], answer['profileDigest'], answer['testSetDigest']) != expected
+                or answer['retrievalEvaluationDigest'] != retrieval_digest
+                or test_object['candidateDigest'] != candidate_digest):
+            raise Rejected('QUALITY_ADMISSION_BINDING_MISMATCH')
+        structure = analyze(index['originalHtml'].encode())
+        mapping = map_retrieval_chunks(structure['units'], index['index']['chunks'])
+        retrieval_report = {'execution':retrieval['execution'], **retrieval['report']}
+        answer_report = {'execution':answer['execution'], 'metricsBps':answer['metricsBps'],
+                         'cases':answer['cases']}
+        gate = assess_quality_gate(structure['report'], mapping, retrieval_report, answer_report)
+        body = {'schemaVersion':'document-quality-admission.v0.1',
+                'candidateDigest':candidate_digest, 'sourceDigest':index['sourceDigest'],
+                'indexDigest':candidate['indexDigest'], 'profileDigest':profile_digest,
+                'testSetDigest':test_set_digest, 'retrievalEvaluationDigest':retrieval_digest,
+                'answerEvaluationDigest':answer_digest, 'decision':gate['decision'],
+                'checks':gate['checks'], 'gateDigest':gate['digest']}
+        with self.tx():
+            return self._put(actor, 'document-quality-admission', body)
+
     def _document_parts(self, actor, candidate_digest):
         candidate = self._get(actor, candidate_digest, 'document-candidate')
         core_candidate, recipe, artifacts, rules = self._parts(actor, candidate['coreCandidateDigest'])
@@ -88,10 +256,18 @@ class DocumentCore(Core):
         return candidate, recipe, artifacts, index
 
     @staticmethod
-    def _retrieve(index, question, client):
+    def _retrieve(index, question, client, profile=None):
         pinned = index['index']
         try:
-            rows = client.retrieve(pinned['datasetId'], pinned['documentId'], question)
+            if profile is None:
+                rows = client.retrieve(pinned['datasetId'], pinned['documentId'], question)
+            elif not hasattr(client, 'retrieve_candidates'):
+                raise Rejected('QUALITY_RETRIEVAL_UNSUPPORTED')
+            else:
+                selected = select_quality(client, pinned['datasetId'], pinned['documentId'],
+                                          question, profile['config'])
+                rows = [{'id':item['id'], 'text':item['text'],
+                         'documentId':item['documentId']} for item in selected]
         except Rejected:
             raise
         except Exception:
@@ -160,6 +336,11 @@ class DocumentCore(Core):
         actor.require('manifest.publish')
         with self.tx():
             candidate, recipe, _, index = self._document_parts(actor, candidate_digest)
+            enrolled = [json.loads(row[0]) for row in self.db.execute(
+                "SELECT body FROM objects WHERE tenant=? AND kind='document-quality-test-set'",
+                (actor.tenant,)).fetchall()]
+            if any(item['candidateDigest'] == candidate_digest for item in enrolled):
+                raise Rejected('QUALITY_ADMISSION_REQUIRED')
             self._document_valid(actor, candidate_digest, validation_digest)
             approval = self._get(actor, approval_digest, 'document-approval')
             if approval['candidateDigest'] != candidate_digest or approval['validationDigest'] != validation_digest:
@@ -172,6 +353,44 @@ class DocumentCore(Core):
                 'validationDigest':validation_digest, 'approvalDigest':approval_digest,
                 'indexDigest':candidate['indexDigest'], 'sourceDigest':index['sourceDigest'],
                 'mode':'M2_ISOLATED_DOCUMENT'})
+
+    def publish_quality_document(self, actor, candidate_digest, validation_digest,
+                                 approval_digest, quality_admission_digest, revision):
+        actor.require('manifest.publish')
+        with self.tx():
+            candidate, recipe, _, index = self._document_parts(actor, candidate_digest)
+            self._document_valid(actor, candidate_digest, validation_digest)
+            approval = self._get(actor, approval_digest, 'document-approval')
+            admission = self._get(actor, quality_admission_digest, 'document-quality-admission')
+            if (approval['candidateDigest'] != candidate_digest
+                    or approval['validationDigest'] != validation_digest):
+                raise Rejected('DOCUMENT_APPROVAL_MISMATCH')
+            if (admission['candidateDigest'] != candidate_digest or admission['decision'] != 'PASS'
+                    or admission['sourceDigest'] != index['sourceDigest']
+                    or admission['indexDigest'] != candidate['indexDigest']):
+                raise Rejected('QUALITY_ADMISSION_FAILED_OR_MISMATCH')
+            if self._head(actor, 'recipe', recipe['id'])[1] != digest(recipe):
+                raise Rejected('DRAFT_CHANGED_REVALIDATE')
+            return self._put(actor, 'document-manifest', {
+                'schemaVersion':'document-manifest.v0.1', 'id':candidate['productId'], 'revision':revision,
+                'productId':candidate['productId'], 'candidateDigest':candidate_digest,
+                'validationDigest':validation_digest, 'approvalDigest':approval_digest,
+                'indexDigest':candidate['indexDigest'], 'sourceDigest':index['sourceDigest'],
+                'mode':'M2_ISOLATED_DOCUMENT'})
+
+    def _quality_profile_for_candidate(self, actor, candidate_digest):
+        admissions = []
+        for admission_digest, body in self.db.execute(
+                "SELECT digest,body FROM objects WHERE tenant=? AND kind='document-quality-admission'",
+                (actor.tenant,)).fetchall():
+            admission = json.loads(body)
+            if admission['candidateDigest'] == candidate_digest and admission['decision'] == 'PASS':
+                admissions.append((admission_digest, admission))
+        if not admissions:
+            return None
+        if len(admissions) != 1:
+            raise Rejected('QUALITY_ADMISSION_AMBIGUOUS')
+        return self._get(actor, admissions[0][1]['profileDigest'], 'document-quality-profile')
 
     def bind_document(self, actor, manifest_digest, expected_revision):
         actor.require('binding.manage')
@@ -207,7 +426,8 @@ class DocumentCore(Core):
                 raise Rejected('INVALID_REQUEST_ID')
         with self.tx():
             binding, manifest, index, host = self._query_binding(actor, product_id, manifest_digest, context)
-        evidence = self._retrieve(index, question, client)
+            profile = self._quality_profile_for_candidate(actor, manifest['candidateDigest'])
+        evidence = self._retrieve(index, question, client, profile)
         with self.tx():
             current, _, _, _ = self._query_binding(actor, product_id, manifest_digest, context)
             if current != binding:

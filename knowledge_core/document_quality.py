@@ -130,7 +130,7 @@ QUALITY_TEST_SET = {
     "properties": {
         "schemaVersion": {"const": "document-quality-test-set.v0.1"},
         "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{2,79}$"},
-        "purpose": {"enum": ["TUNING", "FROZEN_ACCEPTANCE"]},
+        "purpose": {"enum": ["TUNING", "FROZEN_ACCEPTANCE", "BLIND_ACCEPTANCE"]},
         "sourceDigest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
         "sourceTitle": {"type": "string", "minLength": 1, "maxLength": 200},
         "cases": {"type": "array", "items": QUALITY_CASE, "minItems": 1, "maxItems": 100},
@@ -257,7 +257,8 @@ def evaluate_retrieval(test_set: dict, rows: list[dict], profile: dict,
             if selected:
                 false_positive += 1
                 failures.append("FALSE_POSITIVE_NO_ANSWER")
-        scored.append({**case, "candidates": candidates, "selectedClauses": selected,
+        scored.append({**case, "stages": row.get("stages", {}),
+                       "candidates": candidates, "selectedClauses": selected,
                        "latencyMs": case_latency, "passed": not failures,
                        "failureClassifications": failures})
     evaluation = {

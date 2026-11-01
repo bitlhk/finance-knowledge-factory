@@ -1,0 +1,1057 @@
+{
+  "schemaVersion": "document-quality-evaluation.v0.1",
+  "testSetDigest": "2a134b1b1f0e4be2a22d38d093c152403e1557a199e902a816a6b874d9923e76",
+  "profile": {
+    "name": "financial-document-v02",
+    "retrieval": {
+      "pageSize": 12,
+      "knnTopK": 64,
+      "knnCandidates": 128,
+      "rerankCandidates": 64,
+      "similarityThresholdBps": 0,
+      "keywordWeightBps": 5000,
+      "rerankerId": null
+    },
+    "postRank": "STRUCTURE_V0_2",
+    "selectionThresholdBps": 3300,
+    "queryPlanner": "DETERMINISTIC_FINANCIAL_V0_1",
+    "supportPolicy": "EVIDENCE_SUPPORT_V0_1"
+  },
+  "engineIdentity": "infiniflow/ragflow@sha256:141670c7d25b4421f6378152e583a0fe7e5280ed750c42f7507759192d0dad82",
+  "embeddingIdentity": "BAAI/bge-small-zh-v1.5:3d995819ca6e4f46be2adb76cd4dfe4a",
+  "metricsBps": {
+    "recallAt3": 10000,
+    "hitAt1": 10000,
+    "mrr": 10000,
+    "noAnswerFalsePositive": 0
+  },
+  "latencyMs": {
+    "total": 121,
+    "average": 20
+  },
+  "cases": [
+    {
+      "caseId": "independent-customer-source",
+      "category": "CANONICAL",
+      "question": "客户风险承受等级应从哪里取得？",
+      "expectedClauses": [
+        "第一条"
+      ],
+      "answerFacts": [
+        "客户管理服务"
+      ],
+      "forbiddenClaims": [
+        "历史对话摘要",
+        "模型推断"
+      ],
+      "stages": {
+        "retrieved": [
+          {
+            "stage": "RETRIEVED",
+            "rank": 1,
+            "chunkId": "ba1a646d97bcb5af",
+            "clauses": [
+              "第一条"
+            ],
+            "scoreBps": 6827,
+            "termScoreBps": 5054,
+            "vectorScoreBps": 8600,
+            "postRankScoreBps": null,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "returned by pinned RAGFlow profile"
+            ]
+          },
+          {
+            "stage": "RETRIEVED",
+            "rank": 2,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 6556,
+            "termScoreBps": 4631,
+            "vectorScoreBps": 8481,
+            "postRankScoreBps": null,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "returned by pinned RAGFlow profile"
+            ]
+          },
+          {
+            "stage": "RETRIEVED",
+            "rank": 3,
+            "chunkId": "e841273e142faca3",
+            "clauses": [
+              "第二条"
+            ],
+            "scoreBps": 5456,
+            "termScoreBps": 2618,
+            "vectorScoreBps": 8293,
+            "postRankScoreBps": null,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "returned by pinned RAGFlow profile"
+            ]
+          }
+        ],
+        "ranked": [
+          {
+            "stage": "RANKED",
+            "rank": 1,
+            "chunkId": "ba1a646d97bcb5af",
+            "clauses": [
+              "第一条"
+            ],
+            "scoreBps": 6827,
+            "termScoreBps": 5054,
+            "vectorScoreBps": 8600,
+            "postRankScoreBps": 6558,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "ordered by pinned post-ranker"
+            ]
+          },
+          {
+            "stage": "RANKED",
+            "rank": 2,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 6556,
+            "termScoreBps": 4631,
+            "vectorScoreBps": 8481,
+            "postRankScoreBps": 6088,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "ordered by pinned post-ranker"
+            ]
+          },
+          {
+            "stage": "RANKED",
+            "rank": 3,
+            "chunkId": "e841273e142faca3",
+            "clauses": [
+              "第二条"
+            ],
+            "scoreBps": 5456,
+            "termScoreBps": 2618,
+            "vectorScoreBps": 8293,
+            "postRankScoreBps": 4504,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "ordered by pinned post-ranker"
+            ]
+          }
+        ],
+        "filtered": [
+          {
+            "stage": "FILTERED",
+            "rank": 1,
+            "chunkId": "ba1a646d97bcb5af",
+            "clauses": [
+              "第一条"
+            ],
+            "scoreBps": 6827,
+            "termScoreBps": 5054,
+            "vectorScoreBps": 8600,
+            "postRankScoreBps": 6558,
+            "decision": "KEEP",
+            "reasons": [
+              "score 6558 >= threshold 3300",
+              "evidence contains no unsupported answer-type conflict"
+            ]
+          },
+          {
+            "stage": "FILTERED",
+            "rank": 2,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 6556,
+            "termScoreBps": 4631,
+            "vectorScoreBps": 8481,
+            "postRankScoreBps": 6088,
+            "decision": "KEEP",
+            "reasons": [
+              "score 6088 >= threshold 3300",
+              "evidence contains no unsupported answer-type conflict"
+            ]
+          },
+          {
+            "stage": "FILTERED",
+            "rank": 3,
+            "chunkId": "e841273e142faca3",
+            "clauses": [
+              "第二条"
+            ],
+            "scoreBps": 5456,
+            "termScoreBps": 2618,
+            "vectorScoreBps": 8293,
+            "postRankScoreBps": 4504,
+            "decision": "KEEP",
+            "reasons": [
+              "score 4504 >= threshold 3300",
+              "evidence contains no unsupported answer-type conflict"
+            ]
+          }
+        ],
+        "selected": [
+          {
+            "stage": "SELECTED",
+            "rank": 1,
+            "chunkId": "ba1a646d97bcb5af",
+            "clauses": [
+              "第一条"
+            ],
+            "scoreBps": 6827,
+            "termScoreBps": 5054,
+            "vectorScoreBps": 8600,
+            "postRankScoreBps": 6558,
+            "decision": "SELECT",
+            "reasons": [
+              "within first three supported candidates"
+            ]
+          },
+          {
+            "stage": "SELECTED",
+            "rank": 2,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 6556,
+            "termScoreBps": 4631,
+            "vectorScoreBps": 8481,
+            "postRankScoreBps": 6088,
+            "decision": "SELECT",
+            "reasons": [
+              "within first three supported candidates"
+            ]
+          },
+          {
+            "stage": "SELECTED",
+            "rank": 3,
+            "chunkId": "e841273e142faca3",
+            "clauses": [
+              "第二条"
+            ],
+            "scoreBps": 5456,
+            "termScoreBps": 2618,
+            "vectorScoreBps": 8293,
+            "postRankScoreBps": 4504,
+            "decision": "SELECT",
+            "reasons": [
+              "within first three supported candidates"
+            ]
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "stage": "SELECTED",
+          "rank": 1,
+          "chunkId": "ba1a646d97bcb5af",
+          "clauses": [
+            "第一条"
+          ],
+          "scoreBps": 6827,
+          "termScoreBps": 5054,
+          "vectorScoreBps": 8600,
+          "postRankScoreBps": 6558,
+          "decision": "SELECT",
+          "reasons": [
+            "within first three supported candidates"
+          ]
+        },
+        {
+          "stage": "SELECTED",
+          "rank": 2,
+          "chunkId": "c14aafe317bf7f32",
+          "clauses": [
+            "第三条"
+          ],
+          "scoreBps": 6556,
+          "termScoreBps": 4631,
+          "vectorScoreBps": 8481,
+          "postRankScoreBps": 6088,
+          "decision": "SELECT",
+          "reasons": [
+            "within first three supported candidates"
+          ]
+        },
+        {
+          "stage": "SELECTED",
+          "rank": 3,
+          "chunkId": "e841273e142faca3",
+          "clauses": [
+            "第二条"
+          ],
+          "scoreBps": 5456,
+          "termScoreBps": 2618,
+          "vectorScoreBps": 8293,
+          "postRankScoreBps": 4504,
+          "decision": "SELECT",
+          "reasons": [
+            "within first three supported candidates"
+          ]
+        }
+      ],
+      "selectedClauses": [
+        "第一条",
+        "第三条",
+        "第二条"
+      ],
+      "latencyMs": 23,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "independent-product-source",
+      "category": "PARAPHRASE",
+      "question": "产品是否可售和风险等级以哪个系统为准？",
+      "expectedClauses": [
+        "第二条"
+      ],
+      "answerFacts": [
+        "产品服务"
+      ],
+      "forbiddenClaims": [],
+      "stages": {
+        "retrieved": [
+          {
+            "stage": "RETRIEVED",
+            "rank": 1,
+            "chunkId": "e841273e142faca3",
+            "clauses": [
+              "第二条"
+            ],
+            "scoreBps": 5936,
+            "termScoreBps": 3218,
+            "vectorScoreBps": 8653,
+            "postRankScoreBps": null,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "returned by pinned RAGFlow profile"
+            ]
+          },
+          {
+            "stage": "RETRIEVED",
+            "rank": 2,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 5224,
+            "termScoreBps": 1986,
+            "vectorScoreBps": 8461,
+            "postRankScoreBps": null,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "returned by pinned RAGFlow profile"
+            ]
+          },
+          {
+            "stage": "RETRIEVED",
+            "rank": 3,
+            "chunkId": "ba1a646d97bcb5af",
+            "clauses": [
+              "第一条"
+            ],
+            "scoreBps": 4560,
+            "termScoreBps": 1165,
+            "vectorScoreBps": 7954,
+            "postRankScoreBps": null,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "returned by pinned RAGFlow profile"
+            ]
+          }
+        ],
+        "ranked": [
+          {
+            "stage": "RANKED",
+            "rank": 1,
+            "chunkId": "e841273e142faca3",
+            "clauses": [
+              "第二条"
+            ],
+            "scoreBps": 5936,
+            "termScoreBps": 3218,
+            "vectorScoreBps": 8653,
+            "postRankScoreBps": 4738,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "ordered by pinned post-ranker"
+            ]
+          },
+          {
+            "stage": "RANKED",
+            "rank": 2,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 5224,
+            "termScoreBps": 1986,
+            "vectorScoreBps": 8461,
+            "postRankScoreBps": 4311,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "ordered by pinned post-ranker"
+            ]
+          },
+          {
+            "stage": "RANKED",
+            "rank": 3,
+            "chunkId": "ba1a646d97bcb5af",
+            "clauses": [
+              "第一条"
+            ],
+            "scoreBps": 4560,
+            "termScoreBps": 1165,
+            "vectorScoreBps": 7954,
+            "postRankScoreBps": 2942,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "ordered by pinned post-ranker"
+            ]
+          }
+        ],
+        "filtered": [
+          {
+            "stage": "FILTERED",
+            "rank": 1,
+            "chunkId": "e841273e142faca3",
+            "clauses": [
+              "第二条"
+            ],
+            "scoreBps": 5936,
+            "termScoreBps": 3218,
+            "vectorScoreBps": 8653,
+            "postRankScoreBps": 4738,
+            "decision": "KEEP",
+            "reasons": [
+              "score 4738 >= threshold 3300",
+              "evidence contains no unsupported answer-type conflict"
+            ]
+          },
+          {
+            "stage": "FILTERED",
+            "rank": 2,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 5224,
+            "termScoreBps": 1986,
+            "vectorScoreBps": 8461,
+            "postRankScoreBps": 4311,
+            "decision": "KEEP",
+            "reasons": [
+              "score 4311 >= threshold 3300",
+              "evidence contains no unsupported answer-type conflict"
+            ]
+          },
+          {
+            "stage": "FILTERED",
+            "rank": 3,
+            "chunkId": "ba1a646d97bcb5af",
+            "clauses": [
+              "第一条"
+            ],
+            "scoreBps": 4560,
+            "termScoreBps": 1165,
+            "vectorScoreBps": 7954,
+            "postRankScoreBps": 2942,
+            "decision": "REJECT",
+            "reasons": [
+              "score 2942 < threshold 3300",
+              "evidence contains no unsupported answer-type conflict"
+            ]
+          }
+        ],
+        "selected": [
+          {
+            "stage": "SELECTED",
+            "rank": 1,
+            "chunkId": "e841273e142faca3",
+            "clauses": [
+              "第二条"
+            ],
+            "scoreBps": 5936,
+            "termScoreBps": 3218,
+            "vectorScoreBps": 8653,
+            "postRankScoreBps": 4738,
+            "decision": "SELECT",
+            "reasons": [
+              "within first three supported candidates"
+            ]
+          },
+          {
+            "stage": "SELECTED",
+            "rank": 2,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 5224,
+            "termScoreBps": 1986,
+            "vectorScoreBps": 8461,
+            "postRankScoreBps": 4311,
+            "decision": "SELECT",
+            "reasons": [
+              "within first three supported candidates"
+            ]
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "stage": "SELECTED",
+          "rank": 1,
+          "chunkId": "e841273e142faca3",
+          "clauses": [
+            "第二条"
+          ],
+          "scoreBps": 5936,
+          "termScoreBps": 3218,
+          "vectorScoreBps": 8653,
+          "postRankScoreBps": 4738,
+          "decision": "SELECT",
+          "reasons": [
+            "within first three supported candidates"
+          ]
+        },
+        {
+          "stage": "SELECTED",
+          "rank": 2,
+          "chunkId": "c14aafe317bf7f32",
+          "clauses": [
+            "第三条"
+          ],
+          "scoreBps": 5224,
+          "termScoreBps": 1986,
+          "vectorScoreBps": 8461,
+          "postRankScoreBps": 4311,
+          "decision": "SELECT",
+          "reasons": [
+            "within first three supported candidates"
+          ]
+        }
+      ],
+      "selectedClauses": [
+        "第二条",
+        "第三条"
+      ],
+      "latencyMs": 23,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "independent-match-conditions",
+      "category": "PARAPHRASE",
+      "question": "形成合成匹配建议必须同时满足什么条件？",
+      "expectedClauses": [
+        "第三条"
+      ],
+      "answerFacts": [
+        "客户风险承受等级不低于产品风险等级",
+        "客户风险评估有效",
+        "产品当前可售"
+      ],
+      "forbiddenClaims": [],
+      "stages": {
+        "retrieved": [
+          {
+            "stage": "RETRIEVED",
+            "rank": 1,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 5102,
+            "termScoreBps": 1713,
+            "vectorScoreBps": 8491,
+            "postRankScoreBps": null,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "returned by pinned RAGFlow profile"
+            ]
+          },
+          {
+            "stage": "RETRIEVED",
+            "rank": 2,
+            "chunkId": "b8bd7183cfd1b217",
+            "clauses": [],
+            "scoreBps": 4573,
+            "termScoreBps": 1023,
+            "vectorScoreBps": 8124,
+            "postRankScoreBps": null,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "returned by pinned RAGFlow profile"
+            ]
+          }
+        ],
+        "ranked": [
+          {
+            "stage": "RANKED",
+            "rank": 1,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 5102,
+            "termScoreBps": 1713,
+            "vectorScoreBps": 8491,
+            "postRankScoreBps": 4708,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "ordered by pinned post-ranker"
+            ]
+          },
+          {
+            "stage": "RANKED",
+            "rank": 2,
+            "chunkId": "b8bd7183cfd1b217",
+            "clauses": [],
+            "scoreBps": 4573,
+            "termScoreBps": 1023,
+            "vectorScoreBps": 8124,
+            "postRankScoreBps": 3214,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "ordered by pinned post-ranker"
+            ]
+          }
+        ],
+        "filtered": [
+          {
+            "stage": "FILTERED",
+            "rank": 1,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 5102,
+            "termScoreBps": 1713,
+            "vectorScoreBps": 8491,
+            "postRankScoreBps": 4708,
+            "decision": "KEEP",
+            "reasons": [
+              "score 4708 >= threshold 3300",
+              "evidence contains no unsupported answer-type conflict"
+            ]
+          },
+          {
+            "stage": "FILTERED",
+            "rank": 2,
+            "chunkId": "b8bd7183cfd1b217",
+            "clauses": [],
+            "scoreBps": 4573,
+            "termScoreBps": 1023,
+            "vectorScoreBps": 8124,
+            "postRankScoreBps": 3214,
+            "decision": "REJECT",
+            "reasons": [
+              "score 3214 < threshold 3300",
+              "evidence contains no unsupported answer-type conflict"
+            ]
+          }
+        ],
+        "selected": [
+          {
+            "stage": "SELECTED",
+            "rank": 1,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 5102,
+            "termScoreBps": 1713,
+            "vectorScoreBps": 8491,
+            "postRankScoreBps": 4708,
+            "decision": "SELECT",
+            "reasons": [
+              "within first three supported candidates"
+            ]
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "stage": "SELECTED",
+          "rank": 1,
+          "chunkId": "c14aafe317bf7f32",
+          "clauses": [
+            "第三条"
+          ],
+          "scoreBps": 5102,
+          "termScoreBps": 1713,
+          "vectorScoreBps": 8491,
+          "postRankScoreBps": 4708,
+          "decision": "SELECT",
+          "reasons": [
+            "within first three supported candidates"
+          ]
+        }
+      ],
+      "selectedClauses": [
+        "第三条"
+      ],
+      "latencyMs": 20,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "independent-missing-basis",
+      "category": "CONFUSABLE",
+      "question": "缺少产品可售依据时能否先给匹配结论？",
+      "expectedClauses": [
+        "第三条"
+      ],
+      "answerFacts": [
+        "应标记待核实",
+        "不得编造缺失事实"
+      ],
+      "forbiddenClaims": [
+        "可以先给结论"
+      ],
+      "stages": {
+        "retrieved": [
+          {
+            "stage": "RETRIEVED",
+            "rank": 1,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 5603,
+            "termScoreBps": 2433,
+            "vectorScoreBps": 8773,
+            "postRankScoreBps": null,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "returned by pinned RAGFlow profile"
+            ]
+          }
+        ],
+        "ranked": [
+          {
+            "stage": "RANKED",
+            "rank": 1,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 5603,
+            "termScoreBps": 2433,
+            "vectorScoreBps": 8773,
+            "postRankScoreBps": 4862,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "ordered by pinned post-ranker"
+            ]
+          }
+        ],
+        "filtered": [
+          {
+            "stage": "FILTERED",
+            "rank": 1,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 5603,
+            "termScoreBps": 2433,
+            "vectorScoreBps": 8773,
+            "postRankScoreBps": 4862,
+            "decision": "KEEP",
+            "reasons": [
+              "score 4862 >= threshold 3300",
+              "evidence contains no unsupported answer-type conflict"
+            ]
+          }
+        ],
+        "selected": [
+          {
+            "stage": "SELECTED",
+            "rank": 1,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 5603,
+            "termScoreBps": 2433,
+            "vectorScoreBps": 8773,
+            "postRankScoreBps": 4862,
+            "decision": "SELECT",
+            "reasons": [
+              "within first three supported candidates"
+            ]
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "stage": "SELECTED",
+          "rank": 1,
+          "chunkId": "c14aafe317bf7f32",
+          "clauses": [
+            "第三条"
+          ],
+          "scoreBps": 5603,
+          "termScoreBps": 2433,
+          "vectorScoreBps": 8773,
+          "postRankScoreBps": 4862,
+          "decision": "SELECT",
+          "reasons": [
+            "within first three supported candidates"
+          ]
+        }
+      ],
+      "selectedClauses": [
+        "第三条"
+      ],
+      "latencyMs": 18,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "independent-knowledge-boundary",
+      "category": "CONFUSABLE",
+      "question": "这份制度会提供客户实时资料和持仓吗？",
+      "expectedClauses": [
+        "第二条"
+      ],
+      "answerFacts": [
+        "不提供任何客户的实时资料、具体产品数据或持仓事实"
+      ],
+      "forbiddenClaims": [],
+      "stages": {
+        "retrieved": [
+          {
+            "stage": "RETRIEVED",
+            "rank": 1,
+            "chunkId": "e841273e142faca3",
+            "clauses": [
+              "第二条"
+            ],
+            "scoreBps": 5520,
+            "termScoreBps": 2851,
+            "vectorScoreBps": 8190,
+            "postRankScoreBps": null,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "returned by pinned RAGFlow profile"
+            ]
+          }
+        ],
+        "ranked": [
+          {
+            "stage": "RANKED",
+            "rank": 1,
+            "chunkId": "e841273e142faca3",
+            "clauses": [
+              "第二条"
+            ],
+            "scoreBps": 5520,
+            "termScoreBps": 2851,
+            "vectorScoreBps": 8190,
+            "postRankScoreBps": 5062,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "ordered by pinned post-ranker"
+            ]
+          }
+        ],
+        "filtered": [
+          {
+            "stage": "FILTERED",
+            "rank": 1,
+            "chunkId": "e841273e142faca3",
+            "clauses": [
+              "第二条"
+            ],
+            "scoreBps": 5520,
+            "termScoreBps": 2851,
+            "vectorScoreBps": 8190,
+            "postRankScoreBps": 5062,
+            "decision": "KEEP",
+            "reasons": [
+              "score 5062 >= threshold 3300",
+              "evidence contains no unsupported answer-type conflict"
+            ]
+          }
+        ],
+        "selected": [
+          {
+            "stage": "SELECTED",
+            "rank": 1,
+            "chunkId": "e841273e142faca3",
+            "clauses": [
+              "第二条"
+            ],
+            "scoreBps": 5520,
+            "termScoreBps": 2851,
+            "vectorScoreBps": 8190,
+            "postRankScoreBps": 5062,
+            "decision": "SELECT",
+            "reasons": [
+              "within first three supported candidates"
+            ]
+          }
+        ]
+      },
+      "candidates": [
+        {
+          "stage": "SELECTED",
+          "rank": 1,
+          "chunkId": "e841273e142faca3",
+          "clauses": [
+            "第二条"
+          ],
+          "scoreBps": 5520,
+          "termScoreBps": 2851,
+          "vectorScoreBps": 8190,
+          "postRankScoreBps": 5062,
+          "decision": "SELECT",
+          "reasons": [
+            "within first three supported candidates"
+          ]
+        }
+      ],
+      "selectedClauses": [
+        "第二条"
+      ],
+      "latencyMs": 19,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "independent-no-answer-yield",
+      "category": "NO_ANSWER",
+      "question": "当前哪款产品预期收益最高？",
+      "expectedClauses": [],
+      "answerFacts": [],
+      "forbiddenClaims": [
+        "具体产品收益排名"
+      ],
+      "stages": {
+        "retrieved": [
+          {
+            "stage": "RETRIEVED",
+            "rank": 1,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 4254,
+            "termScoreBps": 1334,
+            "vectorScoreBps": 7173,
+            "postRankScoreBps": null,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "returned by pinned RAGFlow profile"
+            ]
+          },
+          {
+            "stage": "RETRIEVED",
+            "rank": 2,
+            "chunkId": "e841273e142faca3",
+            "clauses": [
+              "第二条"
+            ],
+            "scoreBps": 4223,
+            "termScoreBps": 1334,
+            "vectorScoreBps": 7112,
+            "postRankScoreBps": null,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "returned by pinned RAGFlow profile"
+            ]
+          }
+        ],
+        "ranked": [
+          {
+            "stage": "RANKED",
+            "rank": 1,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 4254,
+            "termScoreBps": 1334,
+            "vectorScoreBps": 7173,
+            "postRankScoreBps": 3280,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "ordered by pinned post-ranker"
+            ]
+          },
+          {
+            "stage": "RANKED",
+            "rank": 2,
+            "chunkId": "e841273e142faca3",
+            "clauses": [
+              "第二条"
+            ],
+            "scoreBps": 4223,
+            "termScoreBps": 1334,
+            "vectorScoreBps": 7112,
+            "postRankScoreBps": 3261,
+            "decision": "CANDIDATE",
+            "reasons": [
+              "ordered by pinned post-ranker"
+            ]
+          }
+        ],
+        "filtered": [
+          {
+            "stage": "FILTERED",
+            "rank": 1,
+            "chunkId": "c14aafe317bf7f32",
+            "clauses": [
+              "第三条"
+            ],
+            "scoreBps": 4254,
+            "termScoreBps": 1334,
+            "vectorScoreBps": 7173,
+            "postRankScoreBps": 3280,
+            "decision": "REJECT",
+            "reasons": [
+              "score 3280 < threshold 3300",
+              "comparative product request requires named comparative evidence"
+            ]
+          },
+          {
+            "stage": "FILTERED",
+            "rank": 2,
+            "chunkId": "e841273e142faca3",
+            "clauses": [
+              "第二条"
+            ],
+            "scoreBps": 4223,
+            "termScoreBps": 1334,
+            "vectorScoreBps": 7112,
+            "postRankScoreBps": 3261,
+            "decision": "REJECT",
+            "reasons": [
+              "score 3261 < threshold 3300",
+              "comparative product request requires named comparative evidence"
+            ]
+          }
+        ],
+        "selected": []
+      },
+      "candidates": [],
+      "selectedClauses": [],
+      "latencyMs": 18,
+      "passed": true,
+      "failureClassifications": []
+    }
+  ]
+}

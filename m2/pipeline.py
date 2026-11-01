@@ -4,10 +4,9 @@ from lxml import html
 from jsonschema import Draft202012Validator
 from knowledge_core.contracts import Rejected, digest, text_digest
 from knowledge_core.document_contracts import CASE
-from knowledge_core.documents import normal
 from knowledge_core.rules import validate_scope
 from knowledge_core.evidence.anchor_bridge import build
-from knowledge_core.evidence.html_evidence import analyze, locate, verify
+from knowledge_core.evidence.html_evidence import analyze, locate, map_retrieval_chunks, verify
 
 
 def parse(raw):
@@ -48,9 +47,16 @@ def produce(core, actor, product_id, revision, raw, scope, tests, consumers, cli
     source_sha = core.register_source(actor, source)
     core._source_access(actor, source_sha)
     index = client.ingest(raw)
+    structure = analyze(raw)
+    mapped = map_retrieval_chunks(structure['units'], index['chunks'])
+    if mapped['coverageBps'] != 10000 or mapped['incompleteUnitIds']:
+        raise Rejected('INDEX_COVERAGE_INCOMPLETE')
+    labels = {unit['unitId']: unit['label'] for unit in structure['units']
+              if unit['kind'] == 'ARTICLE'}
+    mapped_by_id = {chunk['chunkId']: chunk for chunk in mapped['chunks']}
     for chunk in index['chunks']:
         chunk['textDigest'] = text_digest(chunk['text'])
-        chunk['clauses'] = [c['clause'] for c in chunks if normal(c['text']) in normal(chunk['text'])]
+        chunk['clauses'] = [labels[unit_id] for unit_id in mapped_by_id.get(chunk['id'], {}).get('unitIds', [])]
     index_sha = core.register_document_index(actor, source_sha, raw, bridge, index,
                                             [{'clause':c['clause'],'text':c['text']} for c in chunks])
     refs = []

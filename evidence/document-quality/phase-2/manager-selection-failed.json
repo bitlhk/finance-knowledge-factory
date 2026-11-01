@@ -1,0 +1,13 @@
+{
+  "status": "FAILED",
+  "model": "LIVE_CONFIGURED_NOT_CALLED",
+  "authentication": "LOCAL_CREATOR_NOT_SSO",
+  "harness": "1773f63d99e568f4e5fc806a10d5a31dabfd533e",
+  "builder": "94bd3880db6873ae489bc5c81ce06d3ebd31dc44",
+  "factory": "ba2263bb0157d2fae9869a29eec94e3438936211",
+  "manifest": "5eb19bb662f311cc91ed5cef0fac20bfbd3b75a9d45c5a7d69b46e24ae570d1b",
+  "queryAcceptance": "NOT_RUN",
+  "h1b": "NOT_RUN",
+  "modelObservation": "EXISTING_REDACTED_CAPTURE_OWN_CREATOR_ONLY_NO_VIEW_GRANT",
+  "error": "API_FAILED:409:{'code': 'COMPONENT_SELECTION_REJECTED', 'retryable': False, 'message': '操作未完成。', 'nextStep': '请稍后重试；若仍失败，请携带请求 ID 联系维护者。', 'failedState': 'OPERATION_FAILED', 'requestId': 'fhreq-06ca14a45bed4b90beeebe50c197d40e'}"
+}

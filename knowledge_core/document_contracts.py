@@ -9,6 +9,22 @@ INDEX = obj({'datasetId': ID, 'documentId': ID, 'buildId': ID,
              'engineIdentity': STR, 'embeddingIdentity': STR, 'chunks': arr(CHUNK, 1)})
 CASE = obj({'question': STR, 'expectedClause': STR})
 SCHEMAS = {
+    'document-quality-profile': versioned('document-quality-profile', {
+        'id': ID, 'revision': REV, 'config': {'type': 'object'}}),
+    'document-quality-test-set': versioned('document-quality-test-set', {
+        'id': ID, 'revision': REV, 'candidateDigest': HASH, 'testSet': {'type': 'object'}}),
+    'document-retrieval-evaluation': versioned('document-retrieval-evaluation', {
+        'candidateDigest': HASH, 'profileDigest': HASH, 'testSetDigest': HASH,
+        'execution': enum('CORE_EXECUTED'), 'report': {'type': 'object'}}),
+    'document-answer-evaluation': versioned('document-answer-evaluation', {
+        'candidateDigest': HASH, 'profileDigest': HASH, 'testSetDigest': HASH,
+        'retrievalEvaluationDigest': HASH, 'execution': STR, 'modelIdentity': STR,
+        'cases': arr({'type': 'object'}, 1), 'metricsBps': {'type': 'object'}}),
+    'document-quality-admission': versioned('document-quality-admission', {
+        'candidateDigest': HASH, 'sourceDigest': HASH, 'indexDigest': HASH,
+        'profileDigest': HASH, 'testSetDigest': HASH, 'retrievalEvaluationDigest': HASH,
+        'answerEvaluationDigest': HASH, 'decision': enum('PASS', 'REJECT'),
+        'checks': {'type': 'object'}, 'gateDigest': HASH}),
     'document-index': versioned('document-index', {
         'sourceDigest': HASH, 'originalHtml': {'type': 'string', 'maxLength': 1000000},
         'originalDigest': HASH, 'bridge': {'type': 'object'}, 'bridgeDigest': HASH,

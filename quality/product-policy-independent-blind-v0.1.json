@@ -1,0 +1,15 @@
+{
+  "schemaVersion":"document-quality-test-set.v0.1",
+  "id":"product-policy-independent-blind-v0-1",
+  "purpose":"BLIND_ACCEPTANCE",
+  "sourceDigest":"8b9610e8719ef9aae6ec2038ac646c136be195844accc71895adbba41eea18e6",
+  "sourceTitle":"合成产品适用性制度",
+  "cases":[
+    {"caseId":"independent-customer-source","category":"CANONICAL","question":"客户风险承受等级应从哪里取得？","expectedClauses":["第一条"],"answerFacts":["客户管理服务"],"forbiddenClaims":["历史对话摘要","模型推断"]},
+    {"caseId":"independent-product-source","category":"PARAPHRASE","question":"产品是否可售和风险等级以哪个系统为准？","expectedClauses":["第二条"],"answerFacts":["产品服务"],"forbiddenClaims":[]},
+    {"caseId":"independent-match-conditions","category":"PARAPHRASE","question":"形成合成匹配建议必须同时满足什么条件？","expectedClauses":["第三条"],"answerFacts":["客户风险承受等级不低于产品风险等级","客户风险评估有效","产品当前可售"],"forbiddenClaims":[]},
+    {"caseId":"independent-missing-basis","category":"CONFUSABLE","question":"缺少产品可售依据时能否先给匹配结论？","expectedClauses":["第三条"],"answerFacts":["应标记待核实","不得编造缺失事实"],"forbiddenClaims":["可以先给结论"]},
+    {"caseId":"independent-knowledge-boundary","category":"CONFUSABLE","question":"这份制度会提供客户实时资料和持仓吗？","expectedClauses":["第二条"],"answerFacts":["不提供任何客户的实时资料、具体产品数据或持仓事实"],"forbiddenClaims":[]},
+    {"caseId":"independent-no-answer-yield","category":"NO_ANSWER","question":"当前哪款产品预期收益最高？","expectedClauses":[],"answerFacts":[],"forbiddenClaims":["具体产品收益排名"]}
+  ]
+}

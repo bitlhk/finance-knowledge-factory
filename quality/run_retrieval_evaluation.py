@@ -7,7 +7,17 @@ import time
 
 from knowledge_core.document_quality import evaluate_retrieval, load_test_set
 from m2.ragflow import Ragflow
-from quality.retrieval_profiles import PROFILES, rank
+from knowledge_core.retrieval_quality import trace_select
+from quality.retrieval_profiles import PROFILES
+
+
+def _record(item, clauses_by_chunk, *, stage, decision, reasons):
+    return {"stage": stage, "rank": item["rank"], "chunkId": item["id"],
+            "clauses": clauses_by_chunk.get(item["id"], []),
+            "scoreBps": item["scoreBps"], "termScoreBps": item["termScoreBps"],
+            "vectorScoreBps": item["vectorScoreBps"],
+            "postRankScoreBps": item.get("postRankScoreBps"),
+            "decision": decision, "reasons": reasons}
 
 
 def main():
@@ -34,18 +44,30 @@ def main():
     rows = []
     for case in test_set["cases"]:
         started = time.monotonic()
-        candidates = client.retrieve_candidates(document_index["index"]["datasetId"],
-            document_index["index"]["documentId"], case["question"], experiment["retrieval"])
-        candidates = rank(case["question"], candidates, experiment["postRank"])
-        candidates = [item for item in candidates if (item.get("postRankScoreBps", item["scoreBps"] or 0)
-                                                       >= experiment["selectionThresholdBps"])]
+        trace = trace_select(client, document_index["index"]["datasetId"],
+                             document_index["index"]["documentId"], case["question"], experiment)
+        raw_candidates, ranked_candidates = trace["retrieved"], trace["ranked"]
+        final_candidates = trace["selected"]
+        filtering = [_record(item, clauses_by_chunk, stage="FILTERED",
+            decision=item["qualityDecision"], reasons=item["qualityReasons"])
+            for item in trace["filtered"]]
         rows.append({"caseId": case["caseId"], "latencyMs": round((time.monotonic() - started) * 1000),
-                     "candidates": [{"rank": item["rank"], "chunkId": item["id"],
-                         "clauses": clauses_by_chunk.get(item["id"], []),
-                         "scoreBps": item["scoreBps"], "termScoreBps": item["termScoreBps"],
-                         "vectorScoreBps": item["vectorScoreBps"],
-                         **({"postRankScoreBps": item["postRankScoreBps"]}
-                            if "postRankScoreBps" in item else {})} for item in candidates]})
+                     "stages": {
+                         "retrieved": [_record(item, clauses_by_chunk, stage="RETRIEVED",
+                             decision="CANDIDATE", reasons=["returned by pinned RAGFlow profile"])
+                             for item in raw_candidates],
+                         "ranked": [_record(item, clauses_by_chunk, stage="RANKED",
+                             decision="CANDIDATE", reasons=["ordered by pinned post-ranker"])
+                             for item in ranked_candidates],
+                         "filtered": filtering,
+                         "selected": [_record(item, clauses_by_chunk, stage="SELECTED",
+                             decision="SELECT", reasons=["within first three supported candidates"])
+                             for item in final_candidates],
+                     },
+                     "queryVariants": trace["queryVariants"],
+                     "candidates": [_record(item, clauses_by_chunk, stage="SELECTED",
+                         decision="SELECT", reasons=["within first three supported candidates"])
+                         for item in final_candidates]})
     report = evaluate_retrieval(test_set, rows, {"name": args.profile, **experiment},
                                 document_index["index"]["engineIdentity"],
                                 document_index["index"]["embeddingIdentity"])
