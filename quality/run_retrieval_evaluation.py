@@ -1,0 +1,49 @@
+"""Run an explicit read-only retrieval profile against a pinned document index."""
+import argparse
+import json
+from pathlib import Path
+import sqlite3
+import time
+
+from knowledge_core.document_quality import evaluate_retrieval, load_test_set
+from m2.ragflow import BASELINE_RETRIEVAL, Ragflow
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--database", type=Path, required=True)
+    parser.add_argument("--index-digest", required=True)
+    parser.add_argument("--test-set", type=Path, required=True)
+    parser.add_argument("--private-config", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+    database = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True)
+    row = database.execute("select body from objects where digest=? and kind='document-index'",
+                           (args.index_digest,)).fetchone()
+    if row is None:
+        parser.error("Pinned document index not found")
+    document_index = json.loads(row[0])
+    clauses_by_chunk = {chunk["id"]: chunk["clauses"] for chunk in document_index["index"]["chunks"]}
+    available = {clause["clause"] for clause in document_index["clauses"]}
+    test_set = load_test_set(args.test_set, available)
+    client = Ragflow(args.private_config / "local-credentials.json",
+                     args.private_config / "http-setup.json")
+    rows = []
+    for case in test_set["cases"]:
+        started = time.monotonic()
+        candidates = client.retrieve_candidates(document_index["index"]["datasetId"],
+            document_index["index"]["documentId"], case["question"], BASELINE_RETRIEVAL)
+        rows.append({"caseId": case["caseId"], "latencyMs": round((time.monotonic() - started) * 1000),
+                     "candidates": [{"rank": item["rank"], "chunkId": item["id"],
+                         "clauses": clauses_by_chunk.get(item["id"], []),
+                         "scoreBps": item["scoreBps"], "termScoreBps": item["termScoreBps"],
+                         "vectorScoreBps": item["vectorScoreBps"]} for item in candidates]})
+    report = evaluate_retrieval(test_set, rows, BASELINE_RETRIEVAL,
+                                document_index["index"]["engineIdentity"],
+                                document_index["index"]["embeddingIdentity"])
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+if __name__ == "__main__":
+    main()
