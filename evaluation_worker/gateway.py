@@ -50,6 +50,21 @@ def build_openjiuwen_model(environment):
             model=environment.model_name, temperature=0, max_tokens=2048))
 
 
+def _bounded_usage(metadata):
+    if metadata is None:
+        return {}
+    values = metadata.model_dump() if hasattr(metadata, "model_dump") else metadata
+    if not isinstance(values, dict):
+        return {}
+    mapping = {
+        "input_tokens":"inputTokens", "output_tokens":"outputTokens",
+        "total_tokens":"totalTokens", "cache_tokens":"cacheTokens",
+        "reasoning_tokens":"reasoningTokens",
+    }
+    return {target:values[source] for source, target in mapping.items()
+            if type(values.get(source)) is int and values[source] >= 0}
+
+
 class OpenJiuwenModelGateway:
     """Invokes only the Core-prepared request and records the actual attempt."""
 
@@ -80,8 +95,7 @@ class OpenJiuwenModelGateway:
                 raise ValueError("EVALUATION_MODEL_RESPONSE_INVALID")
             if len(answer) > prepared["maxAnswerCharacters"]:
                 raise ValueError("EVALUATION_MODEL_RESPONSE_TOO_LARGE")
-            usage = (response.usage_metadata.model_dump()
-                     if getattr(response, "usage_metadata", None) else {})
+            usage = _bounded_usage(getattr(response, "usage_metadata", None))
             metadata = getattr(response, "metadata", {}) or {}
             provider_ref = str(metadata.get("request_id") or request_id)
             return self.core.record_model_invocation(

@@ -8,6 +8,7 @@ from knowledge_core.contracts import Rejected
 from knowledge_core.core import Actor
 from knowledge_core.documents import DocumentCore
 from evaluation_worker import CandidateEvaluationWorker, OpenJiuwenModelGateway
+from evaluation_worker.gateway import _bounded_usage
 from m2.pipeline import produce
 from tests.support import CONTEXT, ir, policy
 from tests.test_document_quality_publication import (
@@ -24,6 +25,14 @@ WORKER = Actor(MANAGER.tenant, 'factory-evaluation-worker', 'worker-build-001',
 GATEWAY = Actor(MANAGER.tenant, 'factory-model-gateway', 'gateway-receipts-v1',
                 frozenset({'model.receipt.record'}))
 FUTURE = '2099-01-01T00:00:00+00:00'
+
+
+def test_model_usage_excludes_floats_and_unbounded_provider_metadata():
+    usage = SimpleNamespace(model_dump=lambda: {
+        'input_tokens':12, 'output_tokens':3, 'total_tokens':15,
+        'total_latency':1.25, 'prompt':'sensitive prompt', 'unknown':999})
+    assert _bounded_usage(usage) == {
+        'inputTokens':12, 'outputTokens':3, 'totalTokens':15}
 
 
 def evaluation_policy():
