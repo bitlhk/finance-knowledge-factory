@@ -1,0 +1,1287 @@
+{
+  "models": [
+    {
+      "key": "condition_013f54400c82",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_013f54400c82\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>((v0 == v1))</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v3 &gt;= v2)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "2d196a91ba2b36d39ebe7d364979656d7a74b3082276348352e18f5525a00bba",
+      "irDigest": "bdfc829cd551dac7e1ac9c6f43d0c0973c7d47e5afd79fab602a1d478ad28c29",
+      "ruleId": "age",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "industry"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "enum",
+            "value": "special"
+          }
+        },
+        {
+          "name": "v2",
+          "anniversary": {
+            "op": "years_at_least",
+            "start": {
+              "field": "registration_date"
+            },
+            "asOf": {
+              "field": "business_date"
+            },
+            "years": 3,
+            "anniversary": "FEB29_TO_FEB28"
+          }
+        },
+        {
+          "name": "v3",
+          "field": "business_date"
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef"
+    },
+    {
+      "key": "condition_168374334431",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_168374334431\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 &lt;= v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "04251ba77560673b0216429f242ac63104a332aec4f059f2f371ed05ebd35a7c",
+      "irDigest": "bdfc829cd551dac7e1ac9c6f43d0c0973c7d47e5afd79fab602a1d478ad28c29",
+      "ruleId": "months",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 36
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "f15ac313b136ef2979440d635ba74325c4ad509ec721ae36eeb33e946b80b25b"
+    },
+    {
+      "key": "condition_cc1d3b023484",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_cc1d3b023484\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 == v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "c400f42fd0ada4e031b0108a7c13d43293377fa67c565ac70be1e5d98eb8df84",
+      "irDigest": "bdfc829cd551dac7e1ac9c6f43d0c0973c7d47e5afd79fab602a1d478ad28c29",
+      "ruleId": "license",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "license_valid"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "boolean",
+            "value": true
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "416c0adbe32c6058131895e42aa53ff510910a8bec51de87b9a987fca17fb761"
+    },
+    {
+      "key": "condition_168374334431",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_168374334431\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 &lt;= v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "04251ba77560673b0216429f242ac63104a332aec4f059f2f371ed05ebd35a7c",
+      "irDigest": "6d3a7dbb3c6c35181350f52a0d89b713e8edf8fd630841077675fb9e18f0433f",
+      "ruleId": "months",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "4a7dacd988a3c300305382a683b856ca6fefc4f684b1f4375b0738c0133c1a02"
+    },
+    {
+      "key": "condition_a92f1bd636ea",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_a92f1bd636ea\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 == v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "5002d672f691dc0b93847e634eee8faebc0955f673e42c94a5d4e0ba5b16da96",
+      "irDigest": "6f0cb956aae0ebd967a7f595c0b151da3e4135bd2532a2a95e39139fcd755ff3",
+      "ruleId": "AST-eq-true",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "684d0c00231fbed2c3ca616ca64b0b0293ac27d20f33c517075296b3db25b622"
+    },
+    {
+      "key": "condition_0c61f547c880",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_0c61f547c880\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 == v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "8c8a32820fb2efc4134b525eb115cb26c2b5a9527976a8399f8c2de6f6b36bb5",
+      "irDigest": "86903818342636d4e9005b55a1b1108a96442cdd5ce8094f5c2f7600e5599217",
+      "ruleId": "AST-eq-false",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "b9e31efbe09867f745e170ddc6968da4beb9e9214e9bf496c575f77196266239"
+    },
+    {
+      "key": "condition_2403be5bb910",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_2403be5bb910\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 != v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "ece102873c2b53a706e455caa8960b8bc066add1296d03c3fe6231ac252ba046",
+      "irDigest": "ebd513b82acf5bf4ac9c5f7ae3f11a4c1f9f2f7298d51282348c8fa9e566ad06",
+      "ruleId": "AST-ne-true",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "cb62e56f6dd92527640f29b542f8f34358e3d86804e0b5e650b1dce00317a023"
+    },
+    {
+      "key": "condition_e8f8bbd5844b",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_e8f8bbd5844b\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 != v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "f03b13ec2e012a5881a1a37e40113b182e99d0147929999284051c784475a344",
+      "irDigest": "7fec37762b5ba75aa63d1cc3a57dc353d5d71b64b334996119c1814f7e7fe74c",
+      "ruleId": "AST-ne-false",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "37fe277f0d72886fe6f1fa4957752a5f1f899e5569a0fc016ed304602b7d5d08"
+    },
+    {
+      "key": "condition_7cd5409db87e",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_7cd5409db87e\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 &lt; v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "bbc849dd65921ea7edb2553807e7f2aabc93071b2eb2508942fab17cdbc22e7d",
+      "irDigest": "eccf90929310747915226ef76dd0232d226007434b5ebdd6fa5072661698f3aa",
+      "ruleId": "AST-lt-true",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "2881bfee06dc1921a68a40ea5586399caed829f78e2dd97a745a9131cf72ca6e"
+    },
+    {
+      "key": "condition_5344158f026a",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_5344158f026a\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 &lt; v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "de65d1d503ace9d3229d739381dfea92f6a0e1415428e4be6b8d7fab01afac92",
+      "irDigest": "af4c19d03983eed27a60b00d66fddad30de3d83db9c07c92908f3699e6afe6aa",
+      "ruleId": "AST-lt-false",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "da156d076dc859b52259642d04e2fbdc04cd190af4038afb450f61f35c9952dd"
+    },
+    {
+      "key": "condition_bacb6caa3bce",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_bacb6caa3bce\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 &lt;= v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "ac4d5e284f85bec6461dbac43add3938ae2d8d9ce064f31f43015ae6b69ef037",
+      "irDigest": "2e22361a98e6ada6c39c6e95d6959c221353ff8413aa39ab4dc1cd5863e449eb",
+      "ruleId": "AST-lte-true",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "c89f1f010f27577a4cc49e14417ff906dd9962a79aa24460149ddfce66c9b639"
+    },
+    {
+      "key": "condition_d80868470ad0",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_d80868470ad0\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 &lt;= v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "19bafc3209ea474293b588d2145d943345884abb01e22af45093aab0ec7b2596",
+      "irDigest": "c187532154c8b739c685c3009d5d4e8d90363fd404fda96eeb81c9f60d8d60b6",
+      "ruleId": "AST-lte-false",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "edbc668e7866f6f7bcfe962b38a2861d19362814180d4557056ee31afaa44f76"
+    },
+    {
+      "key": "condition_32795f68a6dd",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_32795f68a6dd\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 &gt; v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "ade6188b8188fb430ba73199b5ad1f98f981187c65605d5178e7af26d04e02c8",
+      "irDigest": "989e90470a87c544159e9ec7c8c004e15dd9f9d3fbb6b5579cba8dac62268485",
+      "ruleId": "AST-gt-true",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "b3330f8fc4302c9927dc5fb4bd6957e1474fa7eb5abb8248f589cea1b7105307"
+    },
+    {
+      "key": "condition_3afdb143b79e",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_3afdb143b79e\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 &gt; v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "f94973266607c567eee9f319c86574e99ebc360ed29227837f0060efefedf5eb",
+      "irDigest": "c266fcdfe774bc771bc51403b7b93f2026359cab3b99cb3bdfef98e97cbbb2ef",
+      "ruleId": "AST-gt-false",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "a81df1ca3be208cd8f615c078e181f4230cd53943d7f5d53544337fc2dae5671"
+    },
+    {
+      "key": "condition_00b10f29bbe5",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_00b10f29bbe5\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 &gt;= v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "ad05c74d75b6725e6235f70d02388b429d6f4b389f1827de896617d09dff768f",
+      "irDigest": "83f1f65e39dd6b4908613c809df455d8c22a3f62dfcd524023fce8a952cd525e",
+      "ruleId": "AST-gte-true",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "93dac547345b7075d8340a4e7d7d11866494fc267415460a15f9a6d1bf63fc46"
+    },
+    {
+      "key": "condition_f6ad93a991d6",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_f6ad93a991d6\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 &gt;= v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "af4146a77b138ec0fece7646eb990bb543c5c7f506d868f5979e0f4cf6a68004",
+      "irDigest": "7aa410801d2a6b18462255ce2e981090e3e28cd44e6dba039a0fdedb1c85b421",
+      "ruleId": "AST-gte-false",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "32cc65a2806cd17f2a6b188b4a4d1505060411ae4824533ab102f579e4436110"
+    },
+    {
+      "key": "condition_c5380d856ce2",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_c5380d856ce2\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>((v0 &gt;= v1) &amp;&amp; (v2 &lt;= v3))</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "cfbf5bc9fb482e9be271ccb93b25dd4e17e1ce2ca00a0db90435facd1ff03810",
+      "irDigest": "9da01025771f820c6e7b5f671ad925083be729b2838d690eb9d24c2da66cbf5a",
+      "ruleId": "AST-all-true",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        },
+        {
+          "name": "v2",
+          "field": "months"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "integer",
+            "value": 24
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "641dc2d848bf3f0cdb82ef5f657fbdeb1ac9caf1644a2a5e3c24e1ea737c96a8"
+    },
+    {
+      "key": "condition_ffe7d50d17dc",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_ffe7d50d17dc\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>((v0 &gt;= v1) &amp;&amp; (v2 &lt;= v3))</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "1940800208e8878b06a08a93503e7ce2f05f0be6acd787d81e9155cafd43271f",
+      "irDigest": "5ab49c5bef99c9ddf0be57f9d1d0aa8cdd6b830ab536abc3b3a96ccc7dcf3ea8",
+      "ruleId": "AST-all-false",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        },
+        {
+          "name": "v2",
+          "field": "months"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "integer",
+            "value": 24
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "e48be3864e8bd6023590d7db2d31d45ae288b78370132ddf4cc08cbb7f7c3cd1"
+    },
+    {
+      "key": "condition_f287eeb6f0b4",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_f287eeb6f0b4\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>((v0 == v1) || (v2 == v3))</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "e136f1ab56b1a947e5a8881e9b1d8ae29b07f9596fd09d8ccc8b93156cbb7d55",
+      "irDigest": "b5fc4751f15d7ac2bda948f78fd78c9c0788ba1e6017c4601c64bdef505d7bf9",
+      "ruleId": "AST-any-true",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        },
+        {
+          "name": "v2",
+          "field": "months"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "integer",
+            "value": 24
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "4b96e0a93a73eac05859c6e968a69740f3eca5b494a61fb96ef047e94c1ce4eb"
+    },
+    {
+      "key": "condition_fddb6c37db9a",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_fddb6c37db9a\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>((v0 == v1) || (v2 == v3))</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "e501786e9bf6497f2706bd9dc35da77ee173ebd005e652df8bf4ae899aedac07",
+      "irDigest": "315d1722f3ded11cf3db96ae16827fe8186a985009207edf53547da3c32b4828",
+      "ruleId": "AST-any-false",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        },
+        {
+          "name": "v2",
+          "field": "months"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "integer",
+            "value": 24
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "f8d3aee62f3b05b161381d659b6bc63b3f0bdaa37fe1d64e062185a854430062"
+    },
+    {
+      "key": "condition_036056bf24a8",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_036056bf24a8\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(!(v0 == v1))</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "cd9efcff916b3834c53e863f560b7014aaf1b6e7607c4b6ad290476d302cceb5",
+      "irDigest": "e0bcf782918813990d910ef662b6eb6e3e880cc7dee603f53fbf7dcd10910a03",
+      "ruleId": "AST-not-true",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "fce90948e6a5eb914345d046b5caa851ad7be79502238f06e8552c3d89f7b361"
+    },
+    {
+      "key": "condition_dc4ba7138fbe",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_dc4ba7138fbe\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(!(v0 == v1))</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "353d763e3e70a7fe34255b44aa56b547d905395f7d7391bf2262638453b71908",
+      "irDigest": "eda99d2d1b27256b0313489ef3ea92225ed0790d633477f3ee4489adbca2a856",
+      "ruleId": "AST-not-false",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "9af02491a36f2a3b50205c2b14c66dbb2cf79fa4d083cc10c5183301aa7d08c5"
+    },
+    {
+      "key": "condition_cedd038d16c2",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_cedd038d16c2\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>((v0 == v1) || (v0 == v2))</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "f63e949c77badc77b998743eced8f17ae6e11ab47f93e84009472af0b0b9f576",
+      "irDigest": "a6a7894066d03951a996254537bb9a1d5f4a5f713c5d732b0f2cc37d174d9186",
+      "ruleId": "AST-in-true",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        },
+        {
+          "name": "v2",
+          "literal": {
+            "type": "integer",
+            "value": 24
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "ad70332602c364cc3baed01074bea8746885ed2f94dd59f03ad312db954da45b"
+    },
+    {
+      "key": "condition_98b533d857cd",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_98b533d857cd\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>((v0 == v1) || (v0 == v2))</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "0c60fbda0dc846f0193755b7b06fc7aac3a149c47997c67294b70818a8012ce0",
+      "irDigest": "66b1096356a03a37f5f4f019a8e73cccd1f23a378903f0310da7a317a7e07c29",
+      "ruleId": "AST-in-false",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        },
+        {
+          "name": "v2",
+          "literal": {
+            "type": "integer",
+            "value": 24
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "5b69857061fd48269c14fdd8872aee1de78293f65dea6d7d6b78a470fd60ca7e"
+    },
+    {
+      "key": "condition_2334cc8527b2",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_2334cc8527b2\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 == v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "769be0f4b462e935e21e76e1c0f4343058e32718d0e74095d7ac3366b83fecce",
+      "irDigest": "008e2df50c6dd88a150885cb8e0338f6c64f9319ea45c0d5fe18da7dff079f6f",
+      "ruleId": "AST-date-eq",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "registration_date"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "date",
+            "value": "2024-02-29"
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "e4028f54f72cd9db6722ac38f81a176b83f467725c210c08b7e5262aea589a81"
+    },
+    {
+      "key": "condition_cabf96d08ca3",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_cabf96d08ca3\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 &lt; v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "59f3b1d70b1d3108bebf8310509bfd498607f8b6668bf18f04c660c4d00ef20a",
+      "irDigest": "57ecb24887ba6fd62d1507af2f35d59a187faafe893476a1b17dc0e19ce4907e",
+      "ruleId": "AST-date-lt",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "registration_date"
+        },
+        {
+          "name": "v1",
+          "field": "business_date"
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "87a694a249301316e3900d51baf4d1ef7329ca50474231c62aa967557a4fcb4e"
+    },
+    {
+      "key": "condition_5ab789e18d44",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_5ab789e18d44\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 == v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "ecd00e90b98eedfa8c87b7f5aa36768540ecd6c20a05c95f12dc7ebb96e99a67",
+      "irDigest": "942203b4bffdd2274fc20515d023deade895ecc84dc20dd11509647e9fda7071",
+      "ruleId": "AST-string-literal",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "label"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "string",
+            "value": "${7*7}<quote>"
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "319bcc0f45980b2807d99a05866da860516057b8d26c51f767f899da54af6385"
+    },
+    {
+      "key": "condition_feb405f32c8f",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_feb405f32c8f\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>((v0 &gt; v1))</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v2 &lt;= v3)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "7baaaae627efb39bf7d2a7a48e1892e5f7357baed9eadee9791ab06dca4f3bc3",
+      "irDigest": "50c09e089f245a3b8bbaa53683c6f6f5dfab8fa295892fda7f8e17c89f2605b4",
+      "ruleId": "AST-exception-na",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 24
+          }
+        },
+        {
+          "name": "v2",
+          "field": "months"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "8dcc3cc33a5c4d75f819f7cec93a938c8966bea4979843b4d057bb0bd7259e9f"
+    },
+    {
+      "key": "condition_b8ea67548a1c",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_b8ea67548a1c\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>((v0 &gt; v1))</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>((v2 &gt; v3))</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v4 &lt;= v5)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "dmnDigest": "61607d9e767bc12e955658c44ea8cdcebb8f0d5d8953a27c634d332dab98e4d9",
+      "irDigest": "2079c3d4797f51be10f901e56f117f73eb19a96a209deb02cf5ba30b6977d755",
+      "ruleId": "AST-exception-priority",
+      "slots": [
+        {
+          "name": "v0",
+          "field": "months"
+        },
+        {
+          "name": "v1",
+          "literal": {
+            "type": "integer",
+            "value": 24
+          }
+        },
+        {
+          "name": "v2",
+          "field": "months"
+        },
+        {
+          "name": "v3",
+          "literal": {
+            "type": "integer",
+            "value": 24
+          }
+        },
+        {
+          "name": "v4",
+          "field": "months"
+        },
+        {
+          "name": "v5",
+          "literal": {
+            "type": "integer",
+            "value": 12
+          }
+        }
+      ],
+      "compiler": "m1-probe-0.1",
+      "compiledDigest": "5a27f9cfea5440690cfbd880d93e304267769a3961b08734fae3dc691fbe26f7"
+    }
+  ],
+  "cases": [
+    {
+      "id": "R01",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "variables": {
+        "v0": "ordinary",
+        "v1": "special",
+        "v2": 739935,
+        "v3": 739935
+      }
+    },
+    {
+      "id": "R02",
+      "expected": "NOT_MET",
+      "reference": "NOT_MET",
+      "compiledDigest": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "variables": {
+        "v0": "ordinary",
+        "v1": "special",
+        "v2": 739936,
+        "v3": 739935
+      }
+    },
+    {
+      "id": "R03",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "variables": {
+        "v0": "ordinary",
+        "v1": "special",
+        "v2": 739934,
+        "v3": 739935
+      }
+    },
+    {
+      "id": "R04",
+      "expected": "UNKNOWN",
+      "reference": "UNKNOWN",
+      "compiledDigest": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "guard": "UNKNOWN"
+    },
+    {
+      "id": "R05",
+      "expected": "INVALID_INPUT",
+      "reference": "INVALID_INPUT",
+      "compiledDigest": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "guard": "INVALID_INPUT"
+    },
+    {
+      "id": "R06",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "variables": {
+        "v0": "ordinary",
+        "v1": "special",
+        "v2": 740040,
+        "v3": 740040
+      }
+    },
+    {
+      "id": "R07",
+      "expected": "NOT_MET",
+      "reference": "NOT_MET",
+      "compiledDigest": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "variables": {
+        "v0": "ordinary",
+        "v1": "special",
+        "v2": 740040,
+        "v3": 740039
+      }
+    },
+    {
+      "id": "R08",
+      "expected": "UNKNOWN",
+      "reference": "UNKNOWN",
+      "compiledDigest": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "guard": "UNKNOWN"
+    },
+    {
+      "id": "R09",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "f15ac313b136ef2979440d635ba74325c4ad509ec721ae36eeb33e946b80b25b",
+      "variables": {
+        "v0": 36,
+        "v1": 36
+      }
+    },
+    {
+      "id": "R10",
+      "expected": "NOT_MET",
+      "reference": "NOT_MET",
+      "compiledDigest": "f15ac313b136ef2979440d635ba74325c4ad509ec721ae36eeb33e946b80b25b",
+      "variables": {
+        "v0": 37,
+        "v1": 36
+      }
+    },
+    {
+      "id": "R11-false",
+      "expected": "INVALID_INPUT",
+      "reference": "INVALID_INPUT",
+      "compiledDigest": "f15ac313b136ef2979440d635ba74325c4ad509ec721ae36eeb33e946b80b25b",
+      "guard": "INVALID_INPUT"
+    },
+    {
+      "id": "R11-true",
+      "expected": "INVALID_INPUT",
+      "reference": "INVALID_INPUT",
+      "compiledDigest": "f15ac313b136ef2979440d635ba74325c4ad509ec721ae36eeb33e946b80b25b",
+      "guard": "INVALID_INPUT"
+    },
+    {
+      "id": "R12",
+      "expected": "INVALID_INPUT",
+      "reference": "INVALID_INPUT",
+      "compiledDigest": "f15ac313b136ef2979440d635ba74325c4ad509ec721ae36eeb33e946b80b25b",
+      "guard": "INVALID_INPUT"
+    },
+    {
+      "id": "R13",
+      "expected": "UNKNOWN",
+      "reference": "UNKNOWN",
+      "compiledDigest": "f15ac313b136ef2979440d635ba74325c4ad509ec721ae36eeb33e946b80b25b",
+      "guard": "UNKNOWN"
+    },
+    {
+      "id": "R14-negative",
+      "expected": "INVALID_INPUT",
+      "reference": "INVALID_INPUT",
+      "compiledDigest": "f15ac313b136ef2979440d635ba74325c4ad509ec721ae36eeb33e946b80b25b",
+      "guard": "INVALID_INPUT"
+    },
+    {
+      "id": "R14-decimal",
+      "expected": "INVALID_INPUT",
+      "reference": "INVALID_INPUT",
+      "compiledDigest": "f15ac313b136ef2979440d635ba74325c4ad509ec721ae36eeb33e946b80b25b",
+      "guard": "INVALID_INPUT"
+    },
+    {
+      "id": "R15",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "416c0adbe32c6058131895e42aa53ff510910a8bec51de87b9a987fca17fb761",
+      "variables": {
+        "v0": true,
+        "v1": true
+      }
+    },
+    {
+      "id": "R16",
+      "expected": "NOT_MET",
+      "reference": "NOT_MET",
+      "compiledDigest": "416c0adbe32c6058131895e42aa53ff510910a8bec51de87b9a987fca17fb761",
+      "variables": {
+        "v0": false,
+        "v1": true
+      }
+    },
+    {
+      "id": "R17",
+      "expected": "INVALID_INPUT",
+      "reference": "INVALID_INPUT",
+      "compiledDigest": "416c0adbe32c6058131895e42aa53ff510910a8bec51de87b9a987fca17fb761",
+      "guard": "INVALID_INPUT"
+    },
+    {
+      "id": "R18-evaluation-only",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "variables": {
+        "v0": "special",
+        "v1": "special",
+        "v2": 738521,
+        "v3": 739935
+      }
+    },
+    {
+      "id": "R19",
+      "expected": "NOT_APPLICABLE",
+      "reference": "NOT_APPLICABLE",
+      "compiledDigest": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "guard": "NOT_APPLICABLE"
+    },
+    {
+      "id": "R20",
+      "expected": "UNKNOWN",
+      "reference": "UNKNOWN",
+      "compiledDigest": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "guard": "UNKNOWN"
+    },
+    {
+      "id": "R21",
+      "expected": "NOT_APPLICABLE",
+      "reference": "NOT_APPLICABLE",
+      "compiledDigest": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "guard": "NOT_APPLICABLE"
+    },
+    {
+      "id": "invalid-host-date",
+      "expected": "INVALID_INPUT",
+      "reference": "INVALID_INPUT",
+      "compiledDigest": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "guard": "INVALID_INPUT"
+    },
+    {
+      "id": "host-override",
+      "expected": "INVALID_INPUT",
+      "reference": "INVALID_INPUT",
+      "compiledDigest": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "guard": "INVALID_INPUT"
+    },
+    {
+      "id": "unknown-enum",
+      "expected": "INVALID_INPUT",
+      "reference": "INVALID_INPUT",
+      "compiledDigest": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "guard": "INVALID_INPUT"
+    },
+    {
+      "id": "PIN-OLD",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "f15ac313b136ef2979440d635ba74325c4ad509ec721ae36eeb33e946b80b25b",
+      "variables": {
+        "v0": 24,
+        "v1": 36
+      }
+    },
+    {
+      "id": "PIN-NEW",
+      "expected": "NOT_MET",
+      "reference": "NOT_MET",
+      "compiledDigest": "4a7dacd988a3c300305382a683b856ca6fefc4f684b1f4375b0738c0133c1a02",
+      "variables": {
+        "v0": 24,
+        "v1": 12
+      }
+    },
+    {
+      "id": "AST-eq-true",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "684d0c00231fbed2c3ca616ca64b0b0293ac27d20f33c517075296b3db25b622",
+      "variables": {
+        "v0": 12,
+        "v1": 12
+      }
+    },
+    {
+      "id": "AST-eq-false",
+      "expected": "NOT_MET",
+      "reference": "NOT_MET",
+      "compiledDigest": "b9e31efbe09867f745e170ddc6968da4beb9e9214e9bf496c575f77196266239",
+      "variables": {
+        "v0": 11,
+        "v1": 12
+      }
+    },
+    {
+      "id": "AST-ne-true",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "cb62e56f6dd92527640f29b542f8f34358e3d86804e0b5e650b1dce00317a023",
+      "variables": {
+        "v0": 11,
+        "v1": 12
+      }
+    },
+    {
+      "id": "AST-ne-false",
+      "expected": "NOT_MET",
+      "reference": "NOT_MET",
+      "compiledDigest": "37fe277f0d72886fe6f1fa4957752a5f1f899e5569a0fc016ed304602b7d5d08",
+      "variables": {
+        "v0": 12,
+        "v1": 12
+      }
+    },
+    {
+      "id": "AST-lt-true",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "2881bfee06dc1921a68a40ea5586399caed829f78e2dd97a745a9131cf72ca6e",
+      "variables": {
+        "v0": 11,
+        "v1": 12
+      }
+    },
+    {
+      "id": "AST-lt-false",
+      "expected": "NOT_MET",
+      "reference": "NOT_MET",
+      "compiledDigest": "da156d076dc859b52259642d04e2fbdc04cd190af4038afb450f61f35c9952dd",
+      "variables": {
+        "v0": 12,
+        "v1": 12
+      }
+    },
+    {
+      "id": "AST-lte-true",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "c89f1f010f27577a4cc49e14417ff906dd9962a79aa24460149ddfce66c9b639",
+      "variables": {
+        "v0": 12,
+        "v1": 12
+      }
+    },
+    {
+      "id": "AST-lte-false",
+      "expected": "NOT_MET",
+      "reference": "NOT_MET",
+      "compiledDigest": "edbc668e7866f6f7bcfe962b38a2861d19362814180d4557056ee31afaa44f76",
+      "variables": {
+        "v0": 13,
+        "v1": 12
+      }
+    },
+    {
+      "id": "AST-gt-true",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "b3330f8fc4302c9927dc5fb4bd6957e1474fa7eb5abb8248f589cea1b7105307",
+      "variables": {
+        "v0": 13,
+        "v1": 12
+      }
+    },
+    {
+      "id": "AST-gt-false",
+      "expected": "NOT_MET",
+      "reference": "NOT_MET",
+      "compiledDigest": "a81df1ca3be208cd8f615c078e181f4230cd53943d7f5d53544337fc2dae5671",
+      "variables": {
+        "v0": 12,
+        "v1": 12
+      }
+    },
+    {
+      "id": "AST-gte-true",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "93dac547345b7075d8340a4e7d7d11866494fc267415460a15f9a6d1bf63fc46",
+      "variables": {
+        "v0": 12,
+        "v1": 12
+      }
+    },
+    {
+      "id": "AST-gte-false",
+      "expected": "NOT_MET",
+      "reference": "NOT_MET",
+      "compiledDigest": "32cc65a2806cd17f2a6b188b4a4d1505060411ae4824533ab102f579e4436110",
+      "variables": {
+        "v0": 11,
+        "v1": 12
+      }
+    },
+    {
+      "id": "AST-all-true",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "641dc2d848bf3f0cdb82ef5f657fbdeb1ac9caf1644a2a5e3c24e1ea737c96a8",
+      "variables": {
+        "v0": 18,
+        "v1": 12,
+        "v2": 18,
+        "v3": 24
+      }
+    },
+    {
+      "id": "AST-all-false",
+      "expected": "NOT_MET",
+      "reference": "NOT_MET",
+      "compiledDigest": "e48be3864e8bd6023590d7db2d31d45ae288b78370132ddf4cc08cbb7f7c3cd1",
+      "variables": {
+        "v0": 25,
+        "v1": 12,
+        "v2": 25,
+        "v3": 24
+      }
+    },
+    {
+      "id": "AST-any-true",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "4b96e0a93a73eac05859c6e968a69740f3eca5b494a61fb96ef047e94c1ce4eb",
+      "variables": {
+        "v0": 24,
+        "v1": 12,
+        "v2": 24,
+        "v3": 24
+      }
+    },
+    {
+      "id": "AST-any-false",
+      "expected": "NOT_MET",
+      "reference": "NOT_MET",
+      "compiledDigest": "f8d3aee62f3b05b161381d659b6bc63b3f0bdaa37fe1d64e062185a854430062",
+      "variables": {
+        "v0": 18,
+        "v1": 12,
+        "v2": 18,
+        "v3": 24
+      }
+    },
+    {
+      "id": "AST-not-true",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "fce90948e6a5eb914345d046b5caa851ad7be79502238f06e8552c3d89f7b361",
+      "variables": {
+        "v0": 11,
+        "v1": 12
+      }
+    },
+    {
+      "id": "AST-not-false",
+      "expected": "NOT_MET",
+      "reference": "NOT_MET",
+      "compiledDigest": "9af02491a36f2a3b50205c2b14c66dbb2cf79fa4d083cc10c5183301aa7d08c5",
+      "variables": {
+        "v0": 12,
+        "v1": 12
+      }
+    },
+    {
+      "id": "AST-in-true",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "ad70332602c364cc3baed01074bea8746885ed2f94dd59f03ad312db954da45b",
+      "variables": {
+        "v0": 24,
+        "v1": 12,
+        "v2": 24
+      }
+    },
+    {
+      "id": "AST-in-false",
+      "expected": "NOT_MET",
+      "reference": "NOT_MET",
+      "compiledDigest": "5b69857061fd48269c14fdd8872aee1de78293f65dea6d7d6b78a470fd60ca7e",
+      "variables": {
+        "v0": 18,
+        "v1": 12,
+        "v2": 24
+      }
+    },
+    {
+      "id": "AST-date-eq",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "e4028f54f72cd9db6722ac38f81a176b83f467725c210c08b7e5262aea589a81",
+      "variables": {
+        "v0": 738945,
+        "v1": 738945
+      }
+    },
+    {
+      "id": "AST-date-lt",
+      "expected": "NOT_MET",
+      "reference": "NOT_MET",
+      "compiledDigest": "87a694a249301316e3900d51baf4d1ef7329ca50474231c62aa967557a4fcb4e",
+      "variables": {
+        "v0": 739936,
+        "v1": 739935
+      }
+    },
+    {
+      "id": "AST-string-literal",
+      "expected": "MET",
+      "reference": "MET",
+      "compiledDigest": "319bcc0f45980b2807d99a05866da860516057b8d26c51f767f899da54af6385",
+      "variables": {
+        "v0": "${7*7}<quote>",
+        "v1": "${7*7}<quote>"
+      }
+    },
+    {
+      "id": "AST-exception-na",
+      "expected": "NOT_APPLICABLE",
+      "reference": "NOT_APPLICABLE",
+      "compiledDigest": "8dcc3cc33a5c4d75f819f7cec93a938c8966bea4979843b4d057bb0bd7259e9f",
+      "variables": {
+        "v0": 25,
+        "v1": 24,
+        "v2": 25,
+        "v3": 12
+      }
+    },
+    {
+      "id": "AST-exception-priority",
+      "expected": "REVIEW_REQUIRED",
+      "reference": "REVIEW_REQUIRED",
+      "compiledDigest": "5a27f9cfea5440690cfbd880d93e304267769a3961b08734fae3dc691fbe26f7",
+      "variables": {
+        "v0": 25,
+        "v1": 24,
+        "v2": 25,
+        "v3": 24,
+        "v4": 25,
+        "v5": 12
+      }
+    }
+  ],
+  "faults": [
+    {
+      "id": "zero-hit",
+      "key": "condition_168374334431",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_168374334431\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 &lt;= v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "variables": {
+        "v0": 6,
+        "v1": 36
+      }
+    },
+    {
+      "id": "multiple-hit",
+      "key": "condition_168374334431",
+      "xml": "<definitions xmlns=\"http://www.omg.org/spec/DMN/20151101\" id=\"definition\" name=\"M1 probe\" namespace=\"urn:knowledge:m1\"><decision id=\"condition_168374334431\" name=\"Condition only\"><decisionTable id=\"table\" hitPolicy=\"UNIQUE\"><input id=\"input0\"><inputExpression id=\"expression0\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input1\"><inputExpression id=\"expression1\" typeRef=\"boolean\"><text>false</text></inputExpression></input><input id=\"input2\"><inputExpression id=\"expression2\" typeRef=\"boolean\"><text>(v0 &lt;= v1)</text></inputExpression></input><output id=\"output\" name=\"decision\" typeRef=\"string\" /><rule id=\"row0\"><inputEntry id=\"cell0_0\"><text>true</text></inputEntry><inputEntry id=\"cell0_1\"><text>-</text></inputEntry><inputEntry id=\"cell0_2\"><text>-</text></inputEntry><outputEntry id=\"result0\"><text>\"REVIEW_REQUIRED\"</text></outputEntry></rule><rule id=\"row1\"><inputEntry id=\"cell1_0\"><text>false</text></inputEntry><inputEntry id=\"cell1_1\"><text>true</text></inputEntry><inputEntry id=\"cell1_2\"><text>-</text></inputEntry><outputEntry id=\"result1\"><text>\"NOT_APPLICABLE\"</text></outputEntry></rule><rule id=\"row2\"><inputEntry id=\"cell2_0\"><text>false</text></inputEntry><inputEntry id=\"cell2_1\"><text>false</text></inputEntry><inputEntry id=\"cell2_2\"><text>true</text></inputEntry><outputEntry id=\"result2\"><text>\"MET\"</text></outputEntry></rule><rule id=\"row3\"><inputEntry id=\"cell3_0\"><text>false</text></inputEntry><inputEntry id=\"cell3_1\"><text>false</text></inputEntry><inputEntry id=\"cell3_2\"><text>false</text></inputEntry><outputEntry id=\"result3\"><text>\"NOT_MET\"</text></outputEntry></rule><rule id=\"row2_duplicate\"><inputEntry id=\"cell2_0_duplicate\"><text>false</text></inputEntry><inputEntry id=\"cell2_1_duplicate\"><text>false</text></inputEntry><inputEntry id=\"cell2_2_duplicate\"><text>true</text></inputEntry><outputEntry id=\"result2_duplicate\"><text>\"NOT_MET\"</text></outputEntry></rule></decisionTable></decision></definitions>",
+      "variables": {
+        "v0": 6,
+        "v1": 36
+      }
+    },
+    {
+      "id": "malformed-xml",
+      "key": "broken",
+      "xml": "<definitions>",
+      "variables": {}
+    }
+  ],
+  "goldDigest": "daa82be7524e0d1f4e221c5620ff6af662b8405abce7cd0302d947d18f060a39"
+}

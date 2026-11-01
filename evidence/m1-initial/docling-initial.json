@@ -1,0 +1,50 @@
+{
+  "phase": "M1_HTML_PARSE_ONLY",
+  "sourceUrl": "https://credit.mot.gov.cn/zhengcefagui/202408/t20240807_4147084.html",
+  "sourceDigest": "d091d80052322f3c933f846dab94078bc7fb25b08565c4fa20530e68e37cb5fa",
+  "retrievedAt": "2026-10-30T02:26:56.179537+00:00",
+  "parser": "docling-slim",
+  "parserVersion": "2.145.0",
+  "parseStatus": "ConversionStatus.SUCCESS",
+  "elapsedSeconds": 0.192,
+  "checks": [
+    {
+      "clause": "第八条",
+      "found": false,
+      "exactLocation": false
+    },
+    {
+      "clause": "第三十三条",
+      "found": false,
+      "exactLocation": false
+    },
+    {
+      "clause": "第三十六条",
+      "found": false,
+      "exactLocation": false
+    },
+    {
+      "clause": "第四十三条",
+      "found": false,
+      "exactLocation": false
+    },
+    {
+      "clause": "第五十一条",
+      "found": false,
+      "exactLocation": false
+    }
+  ],
+  "textItems": 36,
+  "exactParagraphLocations": 0,
+  "ragflowCompared": false,
+  "pdfTableCrossPageTested": false,
+  "retrievalQuestionsTested": 0,
+  "bodyClausePresence": {
+    "第八条": true,
+    "第三十三条": true,
+    "第三十六条": true,
+    "第四十三条": true,
+    "第五十一条": true
+  },
+  "rawReportDigest": "bdf3c56122ab9fc51229f2ac709355ce8491873d350716704d55c586b1776aff"
+}

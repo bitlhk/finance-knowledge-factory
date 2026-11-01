@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "product-delivery-preparation.v0.1",
+  "productId": "synthetic-product-policy-e1bdc9d3687e",
+  "implementation": "1b5f11d9a1e94f734d1aced2c98747a31361e27f",
+  "workingTreeDirty": false,
+  "schemaDigest": "0b671ae3de0dcb04e0614a9bed80ee38b7cd4672fb9db9df064aabe25f0a7e4e",
+  "inputDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+  "approvalMeaning": "ISOLATED_TEST_APPROVAL_NOT_BANK_APPROVED",
+  "hostCredentialsCreated": 0,
+  "generativeModelCalls": 0,
+  "corePolicyScope": "NEW_ISOLATED_DATABASE_ONLY",
+  "status": "ISOLATED_RELEASE_READY_NOT_BUILDER_ACCEPTANCE",
+  "manifestDigest": "1d51ac2b45f67ad61099c5a741017c23bb5096c7300fe12a3395f5a45de1449f",
+  "descriptorDigest": "630d800708d62f3bd3c8f696de28cb7f08f0c9a3d11b91e3e85fbd35e3cd7374",
+  "coreReceiptDigest": "6d977853d28ee08730dc1372f33a269418072dd320d716e7159b0c92f404a549",
+  "validationPassed": 3,
+  "validationTotal": 3,
+  "ragflowOperations": [
+    {
+      "stage": "DATASET_CREATED",
+      "buildId": "3616598fcde5478ca6476e3b5d9e8ff7",
+      "datasetId": "76629dcf703d47378fa61678b629b356"
+    },
+    {
+      "stage": "DOCUMENT_UPLOADED",
+      "documentId": "05be8a5a81ff4bdd96ed41e19ed6bc4c",
+      "datasetId": "76629dcf703d47378fa61678b629b356"
+    },
+    {
+      "stage": "INDEX_READY",
+      "documentId": "05be8a5a81ff4bdd96ed41e19ed6bc4c",
+      "datasetId": "76629dcf703d47378fa61678b629b356",
+      "chunkCount": 4
+    }
+  ],
+  "retainedResources": "New synthetic RAGFlow index retained for Harness verification"
+}

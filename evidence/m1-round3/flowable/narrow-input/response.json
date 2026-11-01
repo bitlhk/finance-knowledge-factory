@@ -1,0 +1,77 @@
+{
+  "engine" : "org.flowable:flowable-dmn-engine:8.0.0",
+  "engineCalls" : 0,
+  "results" : [ {
+    "id" : "P43-NARROW-rule-extension-cap-within-one-year-0",
+    "actual" : "UNKNOWN",
+    "executor" : "INPUT_SCOPE_GUARD",
+    "expected" : "MET",
+    "passed" : false
+  }, {
+    "id" : "P43-NARROW-rule-extension-cap-within-one-year-1",
+    "actual" : "UNKNOWN",
+    "executor" : "INPUT_SCOPE_GUARD",
+    "expected" : "NOT_MET",
+    "passed" : false
+  }, {
+    "id" : "P43-NARROW-rule-extension-cap-within-one-year-2",
+    "actual" : "UNKNOWN",
+    "executor" : "INPUT_SCOPE_GUARD",
+    "expected" : "MET",
+    "passed" : false
+  }, {
+    "id" : "P43-NARROW-rule-extension-cap-within-one-year-3",
+    "actual" : "UNKNOWN",
+    "executor" : "INPUT_SCOPE_GUARD",
+    "expected" : "NOT_MET",
+    "passed" : false
+  }, {
+    "id" : "P43-NARROW-rule-extension-cap-within-one-year-4",
+    "actual" : "UNKNOWN",
+    "executor" : "INPUT_SCOPE_GUARD",
+    "expected" : "NOT_APPLICABLE",
+    "passed" : false
+  }, {
+    "id" : "P43-NARROW-rule-extension-cap-within-one-year-5",
+    "actual" : "UNKNOWN",
+    "executor" : "INPUT_SCOPE_GUARD",
+    "expected" : "UNKNOWN",
+    "passed" : true
+  }, {
+    "id" : "P43-NARROW-rule-extension-cap-within-one-year-6",
+    "actual" : "INVALID_INPUT",
+    "executor" : "INPUT_SCOPE_GUARD",
+    "expected" : "INVALID_INPUT",
+    "passed" : true
+  }, {
+    "id" : "P43-NARROW-rule-extension-cap-within-one-year-7",
+    "actual" : "NOT_APPLICABLE",
+    "executor" : "INPUT_SCOPE_GUARD",
+    "expected" : "NOT_APPLICABLE",
+    "passed" : true
+  }, {
+    "id" : "P43-NARROW-rule-extension-cap-within-one-year-8",
+    "actual" : "INVALID_INPUT",
+    "executor" : "INPUT_SCOPE_GUARD",
+    "expected" : "INVALID_INPUT",
+    "passed" : true
+  }, {
+    "id" : "P43-NARROW-rule-extension-cap-within-one-year-9",
+    "actual" : "NOT_APPLICABLE",
+    "executor" : "INPUT_SCOPE_GUARD",
+    "expected" : "NOT_APPLICABLE",
+    "passed" : true
+  } ],
+  "referenceFallback" : false,
+  "faultResults" : [ {
+    "rejected" : true,
+    "error" : "Pinned definition changed",
+    "id" : "missing-pinned-version"
+  }, {
+    "rejected" : true,
+    "error" : "COMPILED_DIGEST_MISMATCH",
+    "id" : "tampered-artifact"
+  } ],
+  "sameEngineRecovery" : null,
+  "recoveryStatus" : "NOT_EXECUTED_NO_ELIGIBLE_CASE"
+}

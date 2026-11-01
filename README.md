@@ -1,5 +1,17 @@
 # Finance Knowledge Factory
 
+## 主线合并准备候选
+
+本分支从 `main` 独立拆取固定候选 `160aaf5` 的已验收工程范围，尚未合并、部署或开启生产功能。
+按 A 来源锚点、B 文档 Core/RAGFlow、C Runtime 查询与历史、D V1.5 隔离页面四个提交评审。
+规则抽取与 Wiki 实验不进入可执行范围；原始失败记录和证据完整保留。
+
+请先阅读 [合并范围、依赖与验收报告](docs/MAIN-CONVERGENCE-REVIEW.md) 和
+[本轮执行证据](evidence/main-preparation/summary.json)。隔离网页须显式启动，不能直接作为生产 IAM／审批服务。
+以下保留原始 M0 基线说明。会写入 `evidence/` 的旧示例命令只应在独立测试副本执行，避免覆盖归档。
+
+## 原始 M0 基线
+
 金融可信知识工厂：规划五条专业知识产线，首期聚焦文档知识与业务规则，通过标准知识服务对接 Finance Harness。
 
 当前公开基线为 **Knowledge Core V0.1 · M0 工程候选**，不是已完成的五条真实产线。

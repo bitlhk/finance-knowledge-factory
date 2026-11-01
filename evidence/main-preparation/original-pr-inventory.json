@@ -1,0 +1,50 @@
+[
+  {
+    "baseRefName": "feat/m2-document-e2e",
+    "headRefName": "feat/m2-web-core-h1a",
+    "headRefOid": "160aaf51b2a54664434d5c17bc3aa95a1b75b693",
+    "isDraft": true,
+    "number": 6,
+    "url": "https://github.com/bitlhk/finance-knowledge-factory/pull/6"
+  },
+  {
+    "baseRefName": "feat/web-production-v02",
+    "headRefName": "feat/m2-document-e2e",
+    "headRefOid": "b7c0e99257f3988631e9359d3f4e7a2c0ed5f1a6",
+    "isDraft": true,
+    "number": 5,
+    "url": "https://github.com/bitlhk/finance-knowledge-factory/pull/5"
+  },
+  {
+    "baseRefName": "feat/web-preview-v01",
+    "headRefName": "feat/web-production-v02",
+    "headRefOid": "784974f35b7bc2eb105d3f6137c6e5ad88330d02",
+    "isDraft": true,
+    "number": 4,
+    "url": "https://github.com/bitlhk/finance-knowledge-factory/pull/4"
+  },
+  {
+    "baseRefName": "feat/m1-component-probes",
+    "headRefName": "feat/web-preview-v01",
+    "headRefOid": "c385a30c0cb3921bf3ea012306049a2df1d7967b",
+    "isDraft": true,
+    "number": 3,
+    "url": "https://github.com/bitlhk/finance-knowledge-factory/pull/3"
+  },
+  {
+    "baseRefName": "feat/m1-component-probes",
+    "headRefName": "feat/m1-wiki-worker-probe",
+    "headRefOid": "74b8438754297495e9e5c8913d600876700901b7",
+    "isDraft": true,
+    "number": 2,
+    "url": "https://github.com/bitlhk/finance-knowledge-factory/pull/2"
+  },
+  {
+    "baseRefName": "main",
+    "headRefName": "feat/m1-component-probes",
+    "headRefOid": "a91add94038d03f6c46aa067135b98b99cd7f85a",
+    "isDraft": true,
+    "number": 1,
+    "url": "https://github.com/bitlhk/finance-knowledge-factory/pull/1"
+  }
+]

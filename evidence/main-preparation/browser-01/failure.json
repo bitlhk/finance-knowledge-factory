@@ -1,0 +1,409 @@
+{
+  "error": "page.waitForFunction: Timeout 90000ms exceeded.",
+  "errors": [],
+  "calls": [
+    {
+      "path": "/api/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/sources",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/runs",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/runs/run-7d9597af3fc84c9a82cb354b8d911364",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/document-approve",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/runs/run-7d9597af3fc84c9a82cb354b8d911364",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/document-publish",
+      "status": 200,
+      "method": "POST"
+    },
+    {
+      "path": "/api/runs/run-7d9597af3fc84c9a82cb354b8d911364",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/state",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/runs/run-7d9597af3fc84c9a82cb354b8d911364",
+      "status": 200,
+      "method": "GET"
+    },
+    {
+      "path": "/api/search",
+      "status": 409,
+      "method": "POST"
+    }
+  ],
+  "completed": {
+    "id": "run-7d9597af3fc84c9a82cb354b8d911364",
+    "requestId": "84855561-eaba-4138-a49a-d89f411ea365",
+    "submissionDigest": "1c82c01ed759b9e88688d890cd6d37c5f8d6b9755b3b094a7c20dc1d951bcd1a",
+    "sourceId": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+    "title": "M2 浏览器合成客服制度",
+    "recipe": {
+      "version": "production-recipe.v0.2",
+      "sourceId": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+      "documentPipeline": "native-ragflow+verified-html-anchors.v0.1",
+      "rulePipeline": null,
+      "loweringConfig": null,
+      "selectedClauses": [],
+      "tests": [
+        {
+          "question": "合成客服服务时间是什么？",
+          "expectedClause": "第一条"
+        },
+        {
+          "question": "客户如何申请历史对账单？",
+          "expectedClause": "第二条"
+        },
+        {
+          "question": "信息缺失时如何处理？",
+          "expectedClause": "第三条"
+        }
+      ],
+      "parameters": null,
+      "delivery": "CORE_ISOLATED_DOCUMENT_CANDIDATE",
+      "publicationAllowed": false,
+      "trustedContext": {
+        "business_date": "2026-10-30",
+        "region": "CN-BJ",
+        "institution": "synthetic-bank",
+        "product": "customer-service",
+        "purpose": "evidence-query",
+        "timezone": "Asia/Shanghai"
+      },
+      "approvalAuthority": "ISOLATED_TEST_ONLY"
+    },
+    "recipeDigest": "86a0c93eede1172e38eb710e0a769b934b33e472dfb38b3078dedf4a29c43588",
+    "createdAt": "2026-10-31T01:09:05.003382+00:00",
+    "status": "COMPLETED",
+    "publicationAllowed": false,
+    "stages": [
+      {
+        "name": "parse",
+        "status": "RUNNING",
+        "time": "2026-10-31T01:09:05.018507+00:00"
+      },
+      {
+        "name": "parse",
+        "status": "COMPLETED",
+        "time": "2026-10-31T01:09:05.019659+00:00",
+        "clauseCount": 3
+      },
+      {
+        "name": "documents",
+        "status": "RUNNING",
+        "time": "2026-10-31T01:09:05.020015+00:00",
+        "executor": "RAGFLOW_NATIVE_HTTP"
+      },
+      {
+        "name": "documents",
+        "status": "COMPLETED",
+        "time": "2026-10-31T01:09:05.064075+00:00",
+        "datasetId": "test-dataset",
+        "documentId": "test-doc",
+        "chunkCount": 3
+      },
+      {
+        "name": "rules",
+        "status": "NOT_SELECTED",
+        "time": "2026-10-31T01:09:05.064405+00:00"
+      },
+      {
+        "name": "validation",
+        "status": "RUNNING",
+        "time": "2026-10-31T01:09:05.064707+00:00"
+      },
+      {
+        "name": "validation",
+        "status": "COMPLETED",
+        "time": "2026-10-31T01:09:05.077119+00:00",
+        "validationDigest": "b7c7a79e1d280f5ec2d6a84ef223d2bbe27ad762a91ad7f04e80b0bbe2902e16"
+      }
+    ],
+    "attempts": [],
+    "cost": null,
+    "artifact": {
+      "schemaVersion": "m2-document-display.v0.1",
+      "documentClauses": [
+        {
+          "clause": "第一条",
+          "text": "第一条 合成客服服务时间为每日09:00至17:00。",
+          "anchors": [
+            {
+              "xpath": "/html/body/p[1]/text()[1]",
+              "start": 0,
+              "end": 27,
+              "quote": "第一条 合成客服服务时间为每日09:00至17:00。"
+            }
+          ],
+          "sourceDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+        },
+        {
+          "clause": "第二条",
+          "text": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+          "anchors": [
+            {
+              "xpath": "/html/body/p[2]/text()[1]",
+              "start": 0,
+              "end": 28,
+              "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。"
+            }
+          ],
+          "sourceDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+        },
+        {
+          "clause": "第三条",
+          "text": "第三条 信息缺失时，应交由人工核实，不得编造缺失信息。",
+          "anchors": [
+            {
+              "xpath": "/html/body/p[3]/text()[1]",
+              "start": 0,
+              "end": 27,
+              "quote": "第三条 信息缺失时，应交由人工核实，不得编造缺失信息。"
+            }
+          ],
+          "sourceDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+        }
+      ],
+      "rules": [],
+      "candidateDigest": "0d7409914414f2a5ab20d3060d8b4b94ed3434a69afc811aab94657be0c5f5b6",
+      "indexDigest": "28d2b04b407677ca2de2f63043ef3edbeec8d92593c547c50a0d93c3cf281272",
+      "source": {
+        "content": "第一条 合成客服服务时间为每日09:00至17:00。\n第二条 客户申请历史对账单时，应在合成客服窗口提交申请。\n第三条 信息缺失时，应交由人工核实，不得编造缺失信息。",
+        "contentDigest": "0df1020667862909306c0852d5f5438fe9ae89522697791ab42fbd027e5e1792",
+        "id": "run-7d9597af3fc84c9a82cb354b8d911364-source",
+        "mediaType": "text/plain",
+        "revision": 1,
+        "schemaVersion": "source-revision.v0.1"
+      },
+      "bridge": {
+        "derivedSourceDigest": "6670d28720e817af9d6770885bea3acf167d5eca4f1a702cd2fd97b4dcb9ab3a",
+        "lineSpace": "DERIVED_TEXT_ONLY",
+        "mappings": [
+          {
+            "anchor": {
+              "locator": {
+                "end": 27,
+                "start": 0,
+                "xpath": "/html/body/p[1]/text()[1]"
+              },
+              "locatorKind": "HTML_DOM_TEXT",
+              "mediaType": "text/html",
+              "quote": "第一条 合成客服服务时间为每日09:00至17:00。",
+              "quoteDigest": "7339dedce5da0d9dbcaeb693c95f5ef7168e4d0b2a78c4e1edb1ab2ea1301822",
+              "schemaVersion": "evidence-anchor.v0.1",
+              "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+            },
+            "anchorId": "6ca1cded08fd4ff30f0a3d710455b105c6f007fe968ae56b5aab19d02fe30007",
+            "clause": "第一条",
+            "lineEnd": 1,
+            "lineStart": 1
+          },
+          {
+            "anchor": {
+              "locator": {
+                "end": 28,
+                "start": 0,
+                "xpath": "/html/body/p[2]/text()[1]"
+              },
+              "locatorKind": "HTML_DOM_TEXT",
+              "mediaType": "text/html",
+              "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+              "quoteDigest": "37cb23640221e65a1a31f1b793003b3853575546abef75a0946aef1107ab511f",
+              "schemaVersion": "evidence-anchor.v0.1",
+              "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+            },
+            "anchorId": "c553809590d9cdce34e3e1bcc509b6018e2b8c0eb1ce65411191d062be0e98e2",
+            "clause": "第二条",
+            "lineEnd": 2,
+            "lineStart": 2
+          },
+          {
+            "anchor": {
+              "locator": {
+                "end": 27,
+                "start": 0,
+                "xpath": "/html/body/p[3]/text()[1]"
+              },
+              "locatorKind": "HTML_DOM_TEXT",
+              "mediaType": "text/html",
+              "quote": "第三条 信息缺失时，应交由人工核实，不得编造缺失信息。",
+              "quoteDigest": "b5783ab01d4db61c015afaa3b3ad0e597b6fc7004f5b1e023c89dcc7398a7e96",
+              "schemaVersion": "evidence-anchor.v0.1",
+              "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+            },
+            "anchorId": "75567771a0d7c5c24853b0248907b6913524d6f8398989cc64359c1e873f44c6",
+            "clause": "第三条",
+            "lineEnd": 3,
+            "lineStart": 3
+          }
+        ],
+        "producer": "html-dom-text-bridge-0.1",
+        "schemaVersion": "html-anchor-bridge.v0.1",
+        "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+      },
+      "validation": {
+        "retrievalTests": [
+          {
+            "actualClauses": [
+              "第一条"
+            ],
+            "error": null,
+            "expectedClause": "第一条",
+            "passed": true,
+            "question": "合成客服服务时间是什么？"
+          },
+          {
+            "actualClauses": [
+              "第二条"
+            ],
+            "error": null,
+            "expectedClause": "第二条",
+            "passed": true,
+            "question": "客户如何申请历史对账单？"
+          },
+          {
+            "actualClauses": [
+              "第三条"
+            ],
+            "error": null,
+            "expectedClause": "第三条",
+            "passed": true,
+            "question": "信息缺失时如何处理？"
+          }
+        ],
+        "coreValidationDigest": "b7c7a79e1d280f5ec2d6a84ef223d2bbe27ad762a91ad7f04e80b0bbe2902e16",
+        "passed": true,
+        "scope": "USER_SUPPLIED_DOCUMENT_TESTS_ONLY"
+      },
+      "publicationAllowed": false,
+      "status": "CORE_CANDIDATE"
+    },
+    "artifactDigest": "8b524e47e01ff725107f416647eed371168474c2fccdee31fddcb046be58e6c9",
+    "implementation": {
+      "web_production/__init__.py": "3aaafd472504555babc72de24b7da26f3e04949936897b0d147c9b63a0ddafc7",
+      "web_production/assets.py": "8785c1def7d48409936058c1d2decd0ad5d5127e1cdb6c8a2a86937e6043856e",
+      "web_production/engine.py": "b477f313892d0bb2c30ea54cab98fe743cfd4b8bbcb8787736503ac60e14b963",
+      "web_production/server.py": "0caee8e6b9d2d89741cb678ea210beb55928ffacd3fcda172b193b0fb01f7968",
+      "knowledge_core/evidence/__init__.py": "984a403241b3673a0b05e0a2deef4c9062a37542ab861832cdeea0c7463dfa80",
+      "knowledge_core/evidence/anchor_bridge.py": "033170e8355e0d21c7ba4a21c2c89ad2d95e8010156f9c5d64d62d4d6e5bceee",
+      "knowledge_core/evidence/html_evidence.py": "8980e573f84e4b52db8ca9cf00e1725c7a9b45429d17e52294577392060e1912",
+      "knowledge_core/evidence/json_digest.py": "8ebd431a5894332c2bbd6207101483d12358983be0340373ef41114b5555e937",
+      "knowledge_core/__init__.py": "e134e31dc4bbaf179c8f65b1c4253ae802dc48b55a7b6afc3258896ee07a4e9c",
+      "knowledge_core/contracts.py": "04b2318785b55d97bc69bdf2e7c581afa63f8fb67ef21f11bc90cd5475c004b6",
+      "knowledge_core/core.py": "cb34d294affc783a6566510a153040940f066b27e1335bf2f21fa98801a7ee17",
+      "knowledge_core/document_contracts.py": "07c911aa7920a0106e79a596fc17d9008bc0213ac1a4a31dc039440022daa500",
+      "knowledge_core/documents.py": "387305f2b26f274457dc3f4bbbb3934d25f0f8668149145062d56409168d961e",
+      "knowledge_core/rules.py": "81fed459adcca5956a468b1bd21b5f8ab5eff7e1cbc641a4947a67ce598d16ce",
+      "m2/ragflow.py": "d22e8efd0bf7026478713311d89fdc110d0bc60d45923b701a0db345b10be3c3",
+      "m2/synthetic_context.py": "39c86d812bce7ed27893d0b909f7c3e1107a0664eac8c5ada6669db598c761ee",
+      "m2/runtime_service.py": "1b35bbf78f63924f3ea101bb177a9d6a9820015e148818bb480d86692708f2e2",
+      "m2/web.py": "4a73b77f0d9d3abb1842be8e660112eb67cddb0c6a6156284c3eff60c14de7b2",
+      "m2/__init__.py": "54060f8d44e72d23b5c21cb66cfce5216ddd43c0b95afb41a453f09ed5af7bb8",
+      "m2/runtime_protocol.py": "e31798ff65e0946c7c14a259789178bddf12ca0dfed62a1c287cbabca0ab1075",
+      "m2/pipeline.py": "d02efa34c6b3e6d84198169ece2270f246737eddf2d7558594ea7796a7641423",
+      "m2/history_service.py": "204718c992c426936ed3124b77de1ca3f45eb8fdbf71a6db4bca486e1142aa58",
+      "m2/process_support.py": "1652be10e6e1b65b12ffda8074f35d9d685c364bfce5f6cfba22123846b87688",
+      "m2/history_runtime.py": "0c33a87e53d241d25c69140480b4038f50f9b1006709973425a8e000029d931a",
+      "m2/harness_runtime.py": "75ef777c25cbacb70620bc6b8767081d92b2aab28111e5f9f7e4db549e02eed7",
+      "m2/host_leases.py": "1be48f23af06bc40b64193efa92f3fa2ed9fc9c720af1fd1692d84f87ac44c67"
+    },
+    "startedAt": "2026-10-31T01:09:05.006550+00:00",
+    "coreObjects": {
+      "sourceDigest": "6670d28720e817af9d6770885bea3acf167d5eca4f1a702cd2fd97b4dcb9ab3a",
+      "indexDigest": "28d2b04b407677ca2de2f63043ef3edbeec8d92593c547c50a0d93c3cf281272",
+      "recipeDigest": "9ad1619a70d384ee01e20846abb6317bb73c9e6bb62921b9ab43d641b74e624d",
+      "artifactDigest": "403cc249fc166ff143c1c5f31c95540919b23288fb5036bbf0df5744323f54d2",
+      "coreCandidateDigest": "00d3bb3c6014cf25d48fd0990fbc8f949514de4778bfd84344822eaf9cfd1a1d",
+      "candidateDigest": "0d7409914414f2a5ab20d3060d8b4b94ed3434a69afc811aab94657be0c5f5b6"
+    },
+    "nativeOperations": [
+      {
+        "operation": "CONTROLLED_TEST_ONLY"
+      }
+    ],
+    "finishedAt": "2026-10-31T01:09:05.077575+00:00",
+    "consumptionReceipts": [],
+    "release": {
+      "state": "ISOLATED_PUBLISHED",
+      "candidateDigest": "0d7409914414f2a5ab20d3060d8b4b94ed3434a69afc811aab94657be0c5f5b6",
+      "validationDigest": "b7c7a79e1d280f5ec2d6a84ef223d2bbe27ad762a91ad7f04e80b0bbe2902e16",
+      "approvalDigest": "3513b031647324ee9948d7daf9981c6fe504241f3f34072f287b07c1c7440a4e",
+      "approvalReason": "固定合成材料，3 条用户提供检索题通过；仅隔离测试，不构成银行业务认可。",
+      "manifestDigest": "ee8a811fec971c5a4825d3e97f16df727c50515a80c5befa39670f6aaf744dbb",
+      "bindingDigest": "9a9f8a74ee16987e8ef2ed989cf19d078b94459a2d2df7d4a47aebc1f156a456",
+      "productId": "run-7d9597af3fc84c9a82cb354b8d911364",
+      "authority": "ISOLATED_TEST_ONLY",
+      "scope": {
+        "regions": [
+          "CN-BJ"
+        ],
+        "institutions": [
+          "synthetic-bank"
+        ],
+        "products": [
+          "customer-service"
+        ],
+        "purposes": [
+          "evidence-query"
+        ],
+        "validFrom": "2026-01-01",
+        "validTo": null,
+        "timezone": "Asia/Shanghai"
+      },
+      "businessContext": {
+        "business_date": "2026-10-30",
+        "region": "CN-BJ",
+        "institution": "synthetic-bank",
+        "product": "customer-service",
+        "purpose": "evidence-query",
+        "timezone": "Asia/Shanghai"
+      }
+    }
+  }
+}

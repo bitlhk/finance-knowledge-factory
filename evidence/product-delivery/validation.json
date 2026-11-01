@@ -1,0 +1,39 @@
+{
+  "candidateDigest": "9fea90e7aa89d0dc30b8c4e6e6b66c5432e3bfd5d66683f3913bd59ef11aa67f",
+  "coreValidationDigest": "f5d75cc46da81b9ca79bb6f309c756268501e162a28ca44c9d0cfc6bd8cc881e",
+  "passed": true,
+  "results": [
+    {
+      "actualClauses": [
+        "第一条",
+        "第三条",
+        "第二条"
+      ],
+      "error": null,
+      "expectedClause": "第一条",
+      "passed": true,
+      "question": "客户风险承受等级和评估有效状态应从哪里取得？"
+    },
+    {
+      "actualClauses": [
+        "第二条",
+        "第三条",
+        "第一条"
+      ],
+      "error": null,
+      "expectedClause": "第二条",
+      "passed": true,
+      "question": "产品风险等级和当前可售状态应从哪里取得？"
+    },
+    {
+      "actualClauses": [
+        "第三条"
+      ],
+      "error": null,
+      "expectedClause": "第三条",
+      "passed": true,
+      "question": "形成合成匹配建议需要哪些依据，缺失时如何处理？"
+    }
+  ],
+  "schemaVersion": "document-validation.v0.1"
+}

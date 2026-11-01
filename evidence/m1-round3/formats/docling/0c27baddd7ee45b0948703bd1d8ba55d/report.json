@@ -1,0 +1,10 @@
+{
+  "sourceDigest": "a1dadac6c7bb4513177f3e0261f48c07dd4abfea13f5c97b25c087dd43334eef",
+  "name": "regulation.pdf",
+  "parserVersion": "2.145.0",
+  "derivedConversion": false,
+  "execution": "FAILED",
+  "errorType": "ImportError",
+  "error": "The 'docling-parse' package is required to parse PDF files with this backend. Install it with `pip install 'docling-slim[format-pdf-docling]'`.",
+  "elapsedSeconds": 0.188
+}

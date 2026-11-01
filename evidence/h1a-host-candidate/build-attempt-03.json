@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "local-agent-build.v0.1",
+  "buildId": "knowledge-evidence-h1a",
+  "status": "FAILED",
+  "sources": {
+    "harness": {
+      "commit": "a2db41618e098049fc3c5d3b766f89fd71a9e146",
+      "worktreeDirty": true
+    },
+    "builder": {
+      "commit": "9b4b5be41ecb37fbad41d0b7a26b85bf11698c50",
+      "worktreeDirty": true
+    }
+  },
+  "stages": [
+    {
+      "name": "harness_contracts",
+      "status": "PASS",
+      "log": "logs/harness_contracts.log",
+      "exitCode": 0,
+      "elapsedMillis": 464,
+      "logSha256": "b08cdc8a4ba4baa461645e9fe968aca989ab7d9c1d7621766c1fbfe399b23ae7"
+    },
+    {
+      "name": "harness_tests_install",
+      "status": "PASS",
+      "log": "logs/harness_tests_install.log",
+      "exitCode": 0,
+      "elapsedMillis": 49410,
+      "logSha256": "6910e96a4095f2458622cf78bc7b60df677fa691868f790117c5ae8de7613079"
+    },
+    {
+      "name": "candidate_package",
+      "status": "PASS",
+      "log": "logs/candidate_package.log",
+      "exitCode": 0,
+      "elapsedMillis": 9911,
+      "logSha256": "c8ae1608439fa9d1189aef05ff5306924d1fcbcdb729ea789a01dc7ded3f6a1d"
+    },
+    {
+      "name": "component_installation",
+      "status": "FAIL",
+      "log": "logs/component_installation.log",
+      "exitCode": 1,
+      "elapsedMillis": 965,
+      "logSha256": "21494490332b42ee640a30cc8be4ffd991ee9eb699f0da6be64403881cdf4111"
+    }
+  ],
+  "realModel": "NOT_RUN",
+  "fullSimulator": "NOT_RUN",
+  "humanOnboarding": "PENDING",
+  "failureCode": "BUILD_STAGE_FAILED",
+  "elapsedMillis": 61036
+}

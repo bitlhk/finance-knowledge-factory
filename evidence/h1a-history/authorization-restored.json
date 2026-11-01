@@ -1,0 +1,177 @@
+{
+  "name": "authorization-restored",
+  "passed": true,
+  "httpStatus": 200,
+  "expectedStatus": 200,
+  "request": {
+    "schemaVersion": "knowledge-history.v0.1",
+    "requestId": "history-1",
+    "traceId": "history-trace-1",
+    "coreReceiptDigest": "6bfafa7dbce44296561fad0b99feea70a7e07f5b6baae012eaa9f4e271ae068e",
+    "expected": {
+      "productId": "run-39d069d400924257a857cfa7ec64917b",
+      "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+      "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54",
+      "sourceRevision": 1,
+      "originalRequestId": "fh-request-eddedb70-8bff-4870-9821-a637851a2bcf",
+      "originalTraceId": "fh-trace-eddedb70-8bff-4870-9821-a637851a2bcf"
+    }
+  },
+  "response": {
+    "schemaVersion": "knowledge-history.v0.1",
+    "code": 0,
+    "replay": true,
+    "requestId": "history-1",
+    "traceId": "history-trace-1",
+    "coreReceiptDigest": "6bfafa7dbce44296561fad0b99feea70a7e07f5b6baae012eaa9f4e271ae068e",
+    "savedReceipt": {
+      "bindingDigest": "f36da08f214957e0d777457f39d455ae38c518447d2e6bb9fd444460ad0a4f12",
+      "businessContextSource": "frozen-synthetic-clock",
+      "createdAt": "2026-10-30T23:34:34.558464+00:00",
+      "host": {
+        "business_date": "2026-10-30",
+        "institution": "synthetic-bank",
+        "product": "customer-service",
+        "purpose": "evidence-query",
+        "region": "CN-BJ",
+        "timezone": "Asia/Shanghai"
+      },
+      "hostAuthority": "synthetic-host-not-production",
+      "indexDigest": "12e80b6669fb76413ef99ef4f60acafd1cf291cd7daea0d8d7029d1baa50c52d",
+      "manifestDigest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+      "mode": "M2_ISOLATED_DOCUMENT",
+      "policyDigest": "fdab6ce6b50d4ed625d99c932dca8f4a8c7ab6bf3e63a11b8d27817f98cc8021",
+      "principal": "knowledge-agent",
+      "productId": "run-39d069d400924257a857cfa7ec64917b",
+      "question": "合成客服服务时间是什么？请给出原文依据。",
+      "requestId": "fh-request-eddedb70-8bff-4870-9821-a637851a2bcf",
+      "result": {
+        "decision": "EVIDENCE_FOUND",
+        "evidence": [
+          {
+            "anchors": [
+              {
+                "locator": {
+                  "end": 27,
+                  "start": 0,
+                  "xpath": "/html/body/p[1]/text()[1]"
+                },
+                "locatorKind": "HTML_DOM_TEXT",
+                "mediaType": "text/html",
+                "quote": "第一条 合成客服服务时间为每日09:00至17:00。",
+                "quoteDigest": "7339dedce5da0d9dbcaeb693c95f5ef7168e4d0b2a78c4e1edb1ab2ea1301822",
+                "schemaVersion": "evidence-anchor.v0.1",
+                "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+              }
+            ],
+            "chunkId": "7be299f43bd553c4",
+            "clause": "第一条",
+            "originalDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+            "quote": "第一条 合成客服服务时间为每日09:00至17:00。"
+          },
+          {
+            "anchors": [
+              {
+                "locator": {
+                  "end": 28,
+                  "start": 0,
+                  "xpath": "/html/body/p[2]/text()[1]"
+                },
+                "locatorKind": "HTML_DOM_TEXT",
+                "mediaType": "text/html",
+                "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+                "quoteDigest": "37cb23640221e65a1a31f1b793003b3853575546abef75a0946aef1107ab511f",
+                "schemaVersion": "evidence-anchor.v0.1",
+                "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+              }
+            ],
+            "chunkId": "3906856fd9890225",
+            "clause": "第二条",
+            "originalDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+            "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。"
+          }
+        ]
+      },
+      "schemaVersion": "document-receipt.v0.1",
+      "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54",
+      "traceId": "fh-trace-eddedb70-8bff-4870-9821-a637851a2bcf"
+    },
+    "queryResponse": {
+      "code": 0,
+      "decision": "EVIDENCE_FOUND",
+      "evidence": [
+        {
+          "anchors": [
+            {
+              "locator": {
+                "end": 27,
+                "start": 0,
+                "xpath": "/html/body/p[1]/text()[1]"
+              },
+              "locatorKind": "HTML_DOM_TEXT",
+              "mediaType": "text/html",
+              "quote": "第一条 合成客服服务时间为每日09:00至17:00。",
+              "quoteDigest": "7339dedce5da0d9dbcaeb693c95f5ef7168e4d0b2a78c4e1edb1ab2ea1301822",
+              "schemaVersion": "evidence-anchor.v0.1",
+              "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+            }
+          ],
+          "chunkId": "7be299f43bd553c4",
+          "clause": "第一条",
+          "originalDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+          "quote": "第一条 合成客服服务时间为每日09:00至17:00。",
+          "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54"
+        },
+        {
+          "anchors": [
+            {
+              "locator": {
+                "end": 28,
+                "start": 0,
+                "xpath": "/html/body/p[2]/text()[1]"
+              },
+              "locatorKind": "HTML_DOM_TEXT",
+              "mediaType": "text/html",
+              "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+              "quoteDigest": "37cb23640221e65a1a31f1b793003b3853575546abef75a0946aef1107ab511f",
+              "schemaVersion": "evidence-anchor.v0.1",
+              "sourceBytesDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019"
+            }
+          ],
+          "chunkId": "3906856fd9890225",
+          "clause": "第二条",
+          "originalDigest": "e5c20d5829ee2f693df9600be04ee34ffcb8103b4453d5f4cfa25df0e9e1d019",
+          "quote": "第二条 客户申请历史对账单时，应在合成客服窗口提交申请。",
+          "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54"
+        }
+      ],
+      "receipt": {
+        "schemaVersion": "knowledge-receipt.v0.1",
+        "receiptId": "kr-6bfafa7dbce44296561fad0b99feea70a7e07f5b6baae012eaa9f4e271ae068e",
+        "coreReceiptDigest": "6bfafa7dbce44296561fad0b99feea70a7e07f5b6baae012eaa9f4e271ae068e",
+        "productId": "run-39d069d400924257a857cfa7ec64917b",
+        "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3",
+        "businessDate": "2026-10-30",
+        "requestId": "fh-request-eddedb70-8bff-4870-9821-a637851a2bcf",
+        "traceId": "fh-trace-eddedb70-8bff-4870-9821-a637851a2bcf",
+        "sourceDigest": "bb544cfada0813b21195c233c7379ae594703211a99a2e0c7771a15e279cfb54",
+        "sourceId": "run-39d069d400924257a857cfa7ec64917b-source",
+        "sourceRevision": 1,
+        "indexDigest": "12e80b6669fb76413ef99ef4f60acafd1cf291cd7daea0d8d7029d1baa50c52d",
+        "bindingDigest": "f36da08f214957e0d777457f39d455ae38c518447d2e6bb9fd444460ad0a4f12",
+        "policyDigest": "fdab6ce6b50d4ed625d99c932dca8f4a8c7ab6bf3e63a11b8d27817f98cc8021",
+        "mode": "M2_ISOLATED_DOCUMENT"
+      }
+    }
+  },
+  "before": {
+    "stateDigest": "fa6711d83ce3440a9bf6ec5fa03e7932fd805870de4f68a27ac2f72f61a1ca60",
+    "receiptDigest": "90f6a3bab2ac32672d228f4058a3d26fe1ccff560f45e15a5b7dd998cb32c7b8",
+    "receiptCount": 18
+  },
+  "after": {
+    "stateDigest": "fa6711d83ce3440a9bf6ec5fa03e7932fd805870de4f68a27ac2f72f61a1ca60",
+    "receiptDigest": "90f6a3bab2ac32672d228f4058a3d26fe1ccff560f45e15a5b7dd998cb32c7b8",
+    "receiptCount": 18
+  }
+}

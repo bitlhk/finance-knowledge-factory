@@ -1,0 +1,83 @@
+{
+  "attempts": [
+    {
+      "id": "P43-1",
+      "status": "ANALYZED",
+      "modelCall": "COMPLETED",
+      "responseModel": "deepseek-v4-flash-ga-260731",
+      "usage": {
+        "completion_tokens": 453,
+        "prompt_tokens": 1178,
+        "total_tokens": 1631,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "strictJsonCompliant": false,
+      "coverageStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P08-1",
+      "status": "ANALYZED",
+      "modelCall": "COMPLETED",
+      "responseModel": "deepseek-v4-flash-ga-260731",
+      "usage": {
+        "completion_tokens": 325,
+        "prompt_tokens": 1147,
+        "total_tokens": 1472,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "strictJsonCompliant": true,
+      "coverageStatus": "SEMANTIC_ERROR"
+    },
+    {
+      "id": "P13-1",
+      "status": "ANALYZED",
+      "modelCall": "COMPLETED",
+      "responseModel": "deepseek-v4-flash-0731",
+      "usage": {
+        "prompt_tokens": 1125,
+        "completion_tokens": 155,
+        "total_tokens": 1280,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "strictJsonCompliant": false,
+      "coverageStatus": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "P41-1",
+      "status": "ANALYZED",
+      "modelCall": "COMPLETED",
+      "responseModel": "deepseek-v4-flash-ga-260731",
+      "usage": {
+        "completion_tokens": 127,
+        "prompt_tokens": 1126,
+        "total_tokens": 1253,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        },
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "strictJsonCompliant": false,
+      "coverageStatus": "REVIEW_REQUIRED"
+    }
+  ],
+  "planned": 4,
+  "cost": null,
+  "publicationAllowed": false
+}

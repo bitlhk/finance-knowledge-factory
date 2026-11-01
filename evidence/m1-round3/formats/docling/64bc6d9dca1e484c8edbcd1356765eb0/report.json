@@ -1,0 +1,10 @@
+{
+  "sourceDigest": "ebd65f48a2fda08a871fdf57610d478c99e2970f52a7159adc98c6b260b31bba",
+  "name": "regulation.doc",
+  "parserVersion": "2.145.0",
+  "derivedConversion": false,
+  "execution": "FAILED",
+  "errorType": "ConversionError",
+  "error": "Conversion failed for: .m1-local/multiformat/f0298c03dd06484ab0d452c2903b9647/regulation.doc with status: failure. Errors: An unexpected error occurred while opening the document regulation.doc.",
+  "elapsedSeconds": 2.148
+}

@@ -1,0 +1,21 @@
+{
+  "state": "STOPPED_WORKERS_JOINED",
+  "host": "127.0.0.1",
+  "port": 45207,
+  "pid": 2019099,
+  "schemaSha256": "114397ec532e40b84975e5884457ed1de63b45c71a05652c7e8ed5c3f1f3c3c6",
+  "outboundDisabled": true,
+  "binding": {
+    "productId": "run-39d069d400924257a857cfa7ec64917b",
+    "manifest": "8f5dc67b321edb48b0636581d63834c62b175a90d5dcad624b6460ff989606f3"
+  },
+  "codeIdentity": {
+    "commit": "02e59a500cf2b6ca4080baae6fff731620d9dbae",
+    "dirty": false
+  },
+  "implementation": {
+    "history_service.py": "204718c992c426936ed3124b77de1ca3f45eb8fdbf71a6db4bca486e1142aa58",
+    "history_runtime.py": "0c33a87e53d241d25c69140480b4038f50f9b1006709973425a8e000029d931a"
+  },
+  "outboundAttempts": 0
+}

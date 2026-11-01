@@ -1,0 +1,26 @@
+{
+  "runId": "run-41345cccbccb43fca28f43812d1cc2cf",
+  "baselineSha256": "a12cf30a5771b59cd9fabb00ea67d1bc84361d2a73c916c354593b1adc15eb80",
+  "oldRunId": "run-9ef0409f1bea4129903e58342dd4e3e8",
+  "oldExportBefore": "52419b38716a30deffb8e6b502c1aeb01e053314d79830deadd71d585afe88c1",
+  "oldExportAfter": "52419b38716a30deffb8e6b502c1aeb01e053314d79830deadd71d585afe88c1",
+  "newModelCalls": 0,
+  "newRuleCalls": 0,
+  "newDocumentProductions": 1,
+  "documentClauses": 2,
+  "retrievalTests": "1/1",
+  "threeColumns": true,
+  "separatePipelines": true,
+  "threePaneInspector": true,
+  "recipeComponentLinkage": true,
+  "draftCancelPreservesRun": true,
+  "refresh": true,
+  "unsupportedSourceRejected": true,
+  "noFormalPublication": true,
+  "viewports": [
+    1366,
+    390,
+    320
+  ],
+  "pageErrors": []
+}

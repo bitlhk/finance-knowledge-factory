@@ -1,0 +1,15 @@
+{
+  "tenant": "m2-isolated",
+  "principalId": "knowledge-agent",
+  "authority": "isolated-h1a-host-operator",
+  "context": {
+    "business_date": "2026-10-31",
+    "region": "CN-BJ",
+    "institution": "synthetic-bank",
+    "product": "customer-service",
+    "purpose": "evidence-query",
+    "source": "frozen-synthetic-clock",
+    "timezone": "Asia/Shanghai"
+  },
+  "note": "Contract example only, not a Host authority file or credential"
+}

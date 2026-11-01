@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "product-session-fix-evidence.v0.1",
+  "implementation": "5f0bc7baeb1a66c2ea27621ec47f3b33d307a0ad",
+  "originalFailureRetained": true,
+  "agentJointAcceptance": "PENDING",
+  "artifacts": {
+    "native-concurrency.json": "6bc1f24d27a1da08656fd824e03c434cc349cd54b398e0da707c4763c1132d64",
+    "regression-312.xml": "72915202069e00ba4a1cc567297579f17686bef0565ecfe8b5e13c5dc1e3e3cd",
+    "normal-build-08-readonly-diagnosis.json": "8f4b888aa188557d716c1c9f9048e65369d48a6fc1cc2a9b30a8a74715396f62"
+  }
+}

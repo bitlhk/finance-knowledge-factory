@@ -1,0 +1,92 @@
+{
+  "schemaVersion": "knowledge-integration-readonly-diagnosis.v0.1",
+  "reviewDate": "2026-10-31",
+  "reviewType": "READ_ONLY_NO_REEXECUTION",
+  "evidenceDirectory": "/home/ubuntu/outputs/knowledge-product-integration/normal-build-08",
+  "factoryCommit": "3561f736acb5c00075f6ae9bf3507f19df4c2ab0",
+  "harnessCommit": "cec6a7d6b1ea183b66c91ff7e971a8f2b924bfaa",
+  "builderCommit": "26f60ada55d76c738cc5baad92d462d69867d53c",
+  "agentId": "agent-414bd49e0f0e4af9",
+  "instanceId": "2b923f93-3971-4b30-b3e9-316a570a2062",
+  "failedRequestId": "fh-request-554c9652-da7a-4577-aa05-dc04fc575781",
+  "successfulRequestId": "fh-request-02e6ed8a-ad67-4c76-8135-84363715fa9b",
+  "successfulCoreReceiptDigest": "dddade12a411b734f5d47893f72eb3db5ee307ef492d58f2392efa373f5e483b",
+  "confirmed": [
+    {
+      "finding": "The RAGFlow API logged a retrieval HTTP 401 during the two overlapping queries.",
+      "source": "docker logs kf-m1-ragflow_api_1, bounded window 2026-10-31T03:06:50Z through 2026-10-31T03:06:55Z",
+      "timestamp": "2026-10-31T03:06:54.237Z",
+      "method": "POST",
+      "path": "/api/v1/retrieval",
+      "status": 401,
+      "latencySeconds": 0.021172946
+    },
+    {
+      "finding": "Harness observed Factory query responses 403 then 200 and marked the overall answer PARTIAL.",
+      "source": "query-events.sse, finance.display",
+      "failedObservationAt": "2026-10-31T03:06:54.240916069Z",
+      "successfulObservationAt": "2026-10-31T03:06:54.262388703Z",
+      "failureCodePreservedByHarness": "UPSTREAM_REJECTED"
+    },
+    {
+      "finding": "Factory maps upstream HTTPError to Rejected(RAGFLOW_UNAVAILABLE), and maps Rejected to HTTP 403. Factory 403 alone does not identify a Core permission denial.",
+      "sourceReferences": ["m2/ragflow.py:58", "m2/harness_runtime.py:175"]
+    },
+    {
+      "finding": "Run08 and the initial native-01 database have identical current policy, document binding and source activation. There is one original smoke receipt plus one new successful query receipt, and no receipt for the failed request.",
+      "inspection": "SQLite mode=ro only",
+      "policyDigest": "dadc600222325237d5c65eee0d9f03597a7da0e9f29a6608c9bed2e667a5359a",
+      "bindingDigest": "d14b8be838bf5dd0b1cd08b0455c23c27e5ce5a960f83d4516dd96a9b2a81c3a",
+      "sourceActivationDigest": "cd78bf3a4084f7f9cf89d3ac18e4d4d5a609f18dca1b30916c860d6c9138a5b1",
+      "successfulReceiptCanonicalDigestValid": true,
+      "limit": "Persisted state does not prove every transient Host lease check succeeded. A missing receipt does not by itself locate the rejection stage."
+    },
+    {
+      "finding": "Each Factory query constructs a new Ragflow client, whose constructor logs in with the same configured account.",
+      "sourceReferences": ["m2/harness_runtime.py:77", "m2/ragflow.py:27"]
+    },
+    {
+      "finding": "The inspected RAGFlow reference source maps /auth/login to LoginByEmail, overwrites User.AccessToken on login, and authenticates against the current stored token.",
+      "referenceSourceCommit": "ac29b4b29928ca65d3efca19b6cfae3f86069b81",
+      "referenceSourceRoot": "/home/ubuntu/worktrees/knowledge-factory-m1-probes/.m1-local/ragflow-src",
+      "sourceReferences": ["internal/router/router.go:174", "internal/service/user.go:314", "internal/service/user.go:320", "internal/service/user.go:512"],
+      "runningImageRepoDigest": "infiniflow/ragflow@sha256:141670c7d25b4421f6378152e583a0fe7e5280ed750c42f7507759192d0dad82",
+      "limit": "The running image has no source revision label; reference source to binary identity was not independently proven."
+    }
+  ],
+  "attribution": {
+    "hypothesis": "Concurrent per-query logins rotate the shared account token, invalidating one in-flight retrieval.",
+    "confidence": "HIGH_SUSPICION_NOT_REQUEST_LEVEL_PROOF",
+    "support": "Overlapping requests, retrieval 401 immediately before Factory 403, and the inspected token replacement mechanism are consistent.",
+    "missing": [
+      "Factory rejection body/error code for the failed request",
+      "A request-level correlation from the failed Factory request to the RAGFlow 401",
+      "Per-request login/token-generation ordering without exposing credential values",
+      "An independently established correspondence between the running RAGFlow binary and the inspected source"
+    ],
+    "notEstablished": [
+      "A Core authorization or Manifest failure caused this request",
+      "SQLite contention caused this request; an uncaught SQLite exception maps to 503 in the inspected handler, not the observed 403",
+      "The failed request definitely completed every Host authorization check"
+    ]
+  },
+  "minimalFollowUpAfterUserApproval": [
+    "Preserve an allowlisted Factory rejection code with requestId/traceId and HTTP status in Harness diagnostics. Do not log bearer tokens, passwords, complete HTTP bodies or private authority files; keep current refusal semantics.",
+    "Review and bound the RAGFlow service-account session lifecycle instead of logging in for every query. Reuse an established session with synchronized authentication/refresh, while retaining per-query Host/Core authorization. A process-local lock alone cannot protect against other services logging into the same account. Do not silently create a new API credential or change upstream authentication policy.",
+    "First add deterministic concurrency tests for token rotation, parallel retrieval, expiry and revocation. Only after approval run a minimal real Factory/Harness check, retaining the original failed run and correlating successful query, stop and historical evidence within the same instance. Do not use uncontrolled retry-until-success or another instance's history to close this failure."
+  ],
+  "acceptance": {
+    "normalBuild08": "PARTIAL_QUERY_NOT_ACCEPTED",
+    "finalRealPageHistory": "NOT_ACCEPTED",
+    "h1b": "NOT_ACCEPTED"
+  },
+  "actions": {
+    "newModelCalls": 0,
+    "newKnowledgeQueries": 0,
+    "credentialRefreshes": 0,
+    "codeChanges": 0,
+    "serviceChanges": 0,
+    "originalEvidenceOverwrites": 0,
+    "onlyNewArtifact": "normal-build-08-readonly-diagnosis.json"
+  }
+}

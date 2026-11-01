@@ -1,0 +1,658 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:knowledge-factory:product-discovery:v0.1",
+  "$defs": {
+    "release": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "knowledge-product-release.v0.1"
+        },
+        "productId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "nameOrigin": {
+          "enum": [
+            "PINNED_SOURCE_TITLE",
+            "PRODUCT_ID_FALLBACK"
+          ]
+        },
+        "productType": {
+          "const": "DOCUMENT_EVIDENCE"
+        },
+        "version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "manifestDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "publication": {
+          "type": "object",
+          "properties": {
+            "state": {
+              "const": "PUBLISHED"
+            },
+            "mode": {
+              "const": "M2_ISOLATED_DOCUMENT"
+            },
+            "approvalDecision": {
+              "const": "ISOLATED_TEST_APPROVAL"
+            },
+            "productionAuthorized": {
+              "const": false
+            }
+          },
+          "required": [
+            "state",
+            "mode",
+            "approvalDecision",
+            "productionAuthorized"
+          ],
+          "additionalProperties": false
+        },
+        "versionPolicy": {
+          "const": "PINNED"
+        },
+        "connectionRef": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,63}$"
+        },
+        "capabilities": {
+          "const": [
+            "knowledge.evidence.search"
+          ]
+        },
+        "applicability": {
+          "type": "object",
+          "properties": {
+            "combine": {
+              "const": "ALL"
+            },
+            "scopes": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "regions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+                    },
+                    "minItems": 1,
+                    "maxItems": 100,
+                    "uniqueItems": true
+                  },
+                  "institutions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+                    },
+                    "minItems": 1,
+                    "maxItems": 100,
+                    "uniqueItems": true
+                  },
+                  "products": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+                    },
+                    "minItems": 1,
+                    "maxItems": 100,
+                    "uniqueItems": true
+                  },
+                  "purposes": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+                    },
+                    "minItems": 1,
+                    "maxItems": 100,
+                    "uniqueItems": true
+                  },
+                  "validFrom": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "validTo": {
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "timezone": {
+                    "const": "Asia/Shanghai"
+                  }
+                },
+                "required": [
+                  "regions",
+                  "institutions",
+                  "products",
+                  "purposes",
+                  "validFrom",
+                  "validTo",
+                  "timezone"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "maxItems": 100,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "combine",
+            "scopes"
+          ],
+          "additionalProperties": false
+        },
+        "permissions": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "resource": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 256
+                  },
+                  "action": {
+                    "enum": [
+                      "consume",
+                      "source_read"
+                    ]
+                  }
+                },
+                "required": [
+                  "resource",
+                  "action"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "maxItems": 100,
+              "uniqueItems": true
+            },
+            "history": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "resource": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 256
+                  },
+                  "action": {
+                    "enum": [
+                      "history",
+                      "source_read"
+                    ]
+                  }
+                },
+                "required": [
+                  "resource",
+                  "action"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "maxItems": 100,
+              "uniqueItems": true
+            },
+            "crossPrincipalHistory": {
+              "const": "HOST_EXACT_RECEIPT_AND_CORE_RECEIPT_HISTORY_REQUIRED"
+            },
+            "authority": {
+              "const": "CURRENT_HOST_AND_CORE_REQUIRED"
+            }
+          },
+          "required": [
+            "query",
+            "history",
+            "crossPrincipalHistory",
+            "authority"
+          ],
+          "additionalProperties": false
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "sourceId": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+            },
+            "sourceRevision": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "sourceDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "contentDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "originalDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "anchorDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          },
+          "required": [
+            "sourceId",
+            "sourceRevision",
+            "sourceDigest",
+            "contentDigest",
+            "originalDigest",
+            "anchorDigest"
+          ],
+          "additionalProperties": false
+        },
+        "releaseEvidence": {
+          "type": "object",
+          "properties": {
+            "candidateDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "validationDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "approvalDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            },
+            "indexDigest": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{64}$"
+            }
+          },
+          "required": [
+            "candidateDigest",
+            "validationDigest",
+            "approvalDigest",
+            "indexDigest"
+          ],
+          "additionalProperties": false
+        },
+        "protocols": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "object",
+              "properties": {
+                "schemaVersion": {
+                  "const": "knowledge-query.v0.1"
+                },
+                "method": {
+                  "const": "POST"
+                },
+                "path": {
+                  "const": "/query"
+                },
+                "schemaDigest": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "schemaVersion",
+                "method",
+                "path",
+                "schemaDigest"
+              ],
+              "additionalProperties": false
+            },
+            "session": {
+              "type": "object",
+              "properties": {
+                "schemaVersion": {
+                  "const": "knowledge-session-check.v0.1"
+                },
+                "method": {
+                  "const": "POST"
+                },
+                "path": {
+                  "const": "/session"
+                },
+                "schemaDigest": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "schemaVersion",
+                "method",
+                "path",
+                "schemaDigest"
+              ],
+              "additionalProperties": false
+            },
+            "history": {
+              "type": "object",
+              "properties": {
+                "schemaVersion": {
+                  "const": "knowledge-history.v0.1"
+                },
+                "method": {
+                  "const": "POST"
+                },
+                "path": {
+                  "const": "/history/read"
+                },
+                "schemaDigest": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "required": [
+                "schemaVersion",
+                "method",
+                "path",
+                "schemaDigest"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "query",
+            "session",
+            "history"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "productId",
+        "name",
+        "nameOrigin",
+        "productType",
+        "version",
+        "manifestDigest",
+        "publication",
+        "versionPolicy",
+        "connectionRef",
+        "capabilities",
+        "applicability",
+        "permissions",
+        "source",
+        "releaseEvidence",
+        "protocols"
+      ],
+      "additionalProperties": false
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "knowledge-products-discover.v0.1"
+        },
+        "requestId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "traceId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "requestId",
+        "traceId"
+      ],
+      "additionalProperties": false
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "knowledge-products-discover.v0.1"
+        },
+        "code": {
+          "const": 0
+        },
+        "requestId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "traceId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "checkedAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "(Z|[+-][0-9]{2}:[0-9]{2})$"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "(Z|[+-][0-9]{2}:[0-9]{2})$"
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "descriptorDigest": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "descriptor": {
+                "$ref": "#/$defs/release"
+              }
+            },
+            "required": [
+              "descriptorDigest",
+              "descriptor"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "code",
+        "requestId",
+        "traceId",
+        "checkedAt",
+        "expiresAt",
+        "products"
+      ],
+      "additionalProperties": false
+    },
+    "hostAuthority": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "knowledge-discovery-authority.v0.1"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "ownerRef": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "tenant": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "principalId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "authority": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "allowedProductIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "uniqueItems": true
+        },
+        "context": {
+          "type": "object",
+          "properties": {
+            "business_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "region": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+            },
+            "institution": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+            },
+            "product": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+            },
+            "purpose": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+            },
+            "source": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+            },
+            "timezone": {
+              "const": "Asia/Shanghai"
+            }
+          },
+          "required": [
+            "business_date",
+            "region",
+            "institution",
+            "product",
+            "purpose",
+            "source",
+            "timezone"
+          ],
+          "additionalProperties": false
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "(Z|[+-][0-9]{2}:[0-9]{2})$"
+        },
+        "leaseDirectory": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "enabled",
+        "ownerRef",
+        "tenant",
+        "principalId",
+        "authority",
+        "allowedProductIds",
+        "context",
+        "expiresAt",
+        "leaseDirectory"
+      ],
+      "additionalProperties": false
+    },
+    "hostLease": {
+      "type": "object",
+      "properties": {
+        "schemaVersion": {
+          "const": "knowledge-discovery-lease.v0.1"
+        },
+        "ownerRef": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "policyDigest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "builderSessionRef": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}$"
+        },
+        "expiresAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "(Z|[+-][0-9]{2}:[0-9]{2})$"
+        }
+      },
+      "required": [
+        "schemaVersion",
+        "ownerRef",
+        "policyDigest",
+        "builderSessionRef",
+        "expiresAt"
+      ],
+      "additionalProperties": false
+    },
+    "error": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "enum": [
+            400,
+            403,
+            409,
+            413,
+            503
+          ]
+        },
+        "error": {
+          "enum": [
+            "DISCOVERY_REQUEST_INVALID",
+            "DISCOVERY_AUTH_REQUIRED",
+            "DISCOVERY_INTEGRITY_FAILED",
+            "DISCOVERY_RESPONSE_LIMIT",
+            "DISCOVERY_UNAVAILABLE"
+          ]
+        }
+      },
+      "required": [
+        "code",
+        "error"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

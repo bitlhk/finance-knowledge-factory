@@ -1,0 +1,160 @@
+{
+  "schemaVersion": "native-query-session-check.v0.1",
+  "implementation": "5f0bc7baeb1a66c2ea27621ec47f3b33d307a0ad",
+  "workingTreeDirty": false,
+  "manifestDigest": "1d51ac2b45f67ad61099c5a741017c23bb5096c7300fe12a3395f5a45de1449f",
+  "descriptorDigest": "630d800708d62f3bd3c8f696de28cb7f08f0c9a3d11b91e3e85fbd35e3cd7374",
+  "upstream": "REAL_RAGFLOW",
+  "hostAuthorization": "NOT_AN_AGENT_ACCEPTANCE",
+  "loginAttempts": 1,
+  "scheduledReadOnlyRetrievals": 2,
+  "automaticRetries": 0,
+  "modelCalls": 0,
+  "newCoreQueryReceipts": 0,
+  "snapshotBytesUnchanged": true,
+  "descriptorUnchanged": true,
+  "sessionClosed": true,
+  "results": [
+    {
+      "question": "客户风险承受等级和评估有效状态应从哪里取得？",
+      "expectedClause": "第一条",
+      "status": "PASSED",
+      "evidence": [
+        {
+          "clause": "第一条",
+          "quote": "第一条 客户风险承受等级和风险评估有效状态必须从客户管理服务取得。历史对话摘要和模型推断不能代替当前客户事实。",
+          "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+          "chunkId": "bc68570fdab39e3a",
+          "anchors": [
+            {
+              "locator": {
+                "end": 55,
+                "start": 0,
+                "xpath": "/html/body/p[2]/text()[1]"
+              },
+              "locatorKind": "HTML_DOM_TEXT",
+              "mediaType": "text/html",
+              "quote": "第一条 客户风险承受等级和风险评估有效状态必须从客户管理服务取得。历史对话摘要和模型推断不能代替当前客户事实。",
+              "quoteDigest": "eb991395b291ce56263d3eac9f14276d96789ffb27e14ac7e098b0b1f046c587",
+              "schemaVersion": "evidence-anchor.v0.1",
+              "sourceBytesDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e"
+            }
+          ]
+        },
+        {
+          "clause": "第三条",
+          "quote": "第三条 只有客户风险承受等级不低于产品风险等级、客户风险评估有效且产品当前可售时，才能形成合成匹配建议。缺少任一依据时应标记待核实，不得编造缺失事实。本知识服务不执行交易、自动审批或规则核验。",
+          "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+          "chunkId": "f76811a52425c0d7",
+          "anchors": [
+            {
+              "locator": {
+                "end": 96,
+                "start": 0,
+                "xpath": "/html/body/p[4]/text()[1]"
+              },
+              "locatorKind": "HTML_DOM_TEXT",
+              "mediaType": "text/html",
+              "quote": "第三条 只有客户风险承受等级不低于产品风险等级、客户风险评估有效且产品当前可售时，才能形成合成匹配建议。缺少任一依据时应标记待核实，不得编造缺失事实。本知识服务不执行交易、自动审批或规则核验。",
+              "quoteDigest": "b066befdb35d31c0e036ce0d111d5659f85878e2bedcf365277b5cb3e9f46934",
+              "schemaVersion": "evidence-anchor.v0.1",
+              "sourceBytesDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e"
+            }
+          ]
+        },
+        {
+          "clause": "第二条",
+          "quote": "第二条 产品风险等级和当前可售状态必须从产品服务取得。本制度不提供任何客户的实时资料、具体产品数据或持仓事实。",
+          "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+          "chunkId": "73da3410bfd2e01a",
+          "anchors": [
+            {
+              "locator": {
+                "end": 55,
+                "start": 0,
+                "xpath": "/html/body/p[3]/text()[1]"
+              },
+              "locatorKind": "HTML_DOM_TEXT",
+              "mediaType": "text/html",
+              "quote": "第二条 产品风险等级和当前可售状态必须从产品服务取得。本制度不提供任何客户的实时资料、具体产品数据或持仓事实。",
+              "quoteDigest": "f9ecf828b4b9176bd8cb05f23e5adef84cb4b89ed8c6f2cacd7e16c2d038f10d",
+              "schemaVersion": "evidence-anchor.v0.1",
+              "sourceBytesDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "question": "产品风险等级和当前可售状态应从哪里取得？",
+      "expectedClause": "第二条",
+      "status": "PASSED",
+      "evidence": [
+        {
+          "clause": "第二条",
+          "quote": "第二条 产品风险等级和当前可售状态必须从产品服务取得。本制度不提供任何客户的实时资料、具体产品数据或持仓事实。",
+          "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+          "chunkId": "73da3410bfd2e01a",
+          "anchors": [
+            {
+              "locator": {
+                "end": 55,
+                "start": 0,
+                "xpath": "/html/body/p[3]/text()[1]"
+              },
+              "locatorKind": "HTML_DOM_TEXT",
+              "mediaType": "text/html",
+              "quote": "第二条 产品风险等级和当前可售状态必须从产品服务取得。本制度不提供任何客户的实时资料、具体产品数据或持仓事实。",
+              "quoteDigest": "f9ecf828b4b9176bd8cb05f23e5adef84cb4b89ed8c6f2cacd7e16c2d038f10d",
+              "schemaVersion": "evidence-anchor.v0.1",
+              "sourceBytesDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e"
+            }
+          ]
+        },
+        {
+          "clause": "第三条",
+          "quote": "第三条 只有客户风险承受等级不低于产品风险等级、客户风险评估有效且产品当前可售时，才能形成合成匹配建议。缺少任一依据时应标记待核实，不得编造缺失事实。本知识服务不执行交易、自动审批或规则核验。",
+          "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+          "chunkId": "f76811a52425c0d7",
+          "anchors": [
+            {
+              "locator": {
+                "end": 96,
+                "start": 0,
+                "xpath": "/html/body/p[4]/text()[1]"
+              },
+              "locatorKind": "HTML_DOM_TEXT",
+              "mediaType": "text/html",
+              "quote": "第三条 只有客户风险承受等级不低于产品风险等级、客户风险评估有效且产品当前可售时，才能形成合成匹配建议。缺少任一依据时应标记待核实，不得编造缺失事实。本知识服务不执行交易、自动审批或规则核验。",
+              "quoteDigest": "b066befdb35d31c0e036ce0d111d5659f85878e2bedcf365277b5cb3e9f46934",
+              "schemaVersion": "evidence-anchor.v0.1",
+              "sourceBytesDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e"
+            }
+          ]
+        },
+        {
+          "clause": "第一条",
+          "quote": "第一条 客户风险承受等级和风险评估有效状态必须从客户管理服务取得。历史对话摘要和模型推断不能代替当前客户事实。",
+          "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+          "chunkId": "bc68570fdab39e3a",
+          "anchors": [
+            {
+              "locator": {
+                "end": 55,
+                "start": 0,
+                "xpath": "/html/body/p[2]/text()[1]"
+              },
+              "locatorKind": "HTML_DOM_TEXT",
+              "mediaType": "text/html",
+              "quote": "第一条 客户风险承受等级和风险评估有效状态必须从客户管理服务取得。历史对话摘要和模型推断不能代替当前客户事实。",
+              "quoteDigest": "eb991395b291ce56263d3eac9f14276d96789ffb27e14ac7e098b0b1f046c587",
+              "schemaVersion": "evidence-anchor.v0.1",
+              "sourceBytesDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "status": "PASSED_LIMITED_NATIVE_CONCURRENCY"
+}

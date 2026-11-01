@@ -1,0 +1,11 @@
+{
+  "files": {
+    "archive/engine-exit.json": "ff8ae5796bcef71911ff9c5c3eaea341819c471f669549e252b830106edd4305",
+    "archive/engine-response.json": "f8f47085819e9728249a1e0ab57de1c1ca53f69ab4a39b1c5d6d24adeda1e875",
+    "archive/receipt.json": "9af7de37a5b24df1418057a68fec803a731632ea0d5d42cc628ae3c2e2a2e7de",
+    "engine-request.json": "bf88cd30b28679c788523f9b147fbfd7de8782f5f4cae30f45e30b9abcb533c9",
+    "numeric-proofs.json": "0cb5121e3942c75e16b01614593a7fe774bb2b3b3434414c383d5a5216371097",
+    "review.json": "304c54cdb82f9059305dd68d5540b143456337813091c06e74247762da3f53b5"
+  },
+  "publicationAllowed": false
+}

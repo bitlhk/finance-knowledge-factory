@@ -1,0 +1,515 @@
+{
+  "engine": "org.flowable:flowable-dmn-engine:8.0.0",
+  "engineCalls": 37,
+  "results": [
+    {
+      "id": "R01",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2a79517-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d29e4645-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "R02",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2a79517-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d29e4645-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "R03",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2a79517-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d29e4645-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "R04",
+      "actual": "UNKNOWN",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "UNKNOWN",
+      "passed": true
+    },
+    {
+      "id": "R05",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "R06",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2a79517-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d29e4645-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "R07",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2a79517-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d29e4645-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "R08",
+      "actual": "UNKNOWN",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "UNKNOWN",
+      "passed": true
+    },
+    {
+      "id": "R09",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2aaa25a-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2a8f4a8-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "f15ac313b136ef2979440d635ba74325c4ad509ec721ae36eeb33e946b80b25b",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "R10",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2aaa25a-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2a8f4a8-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "f15ac313b136ef2979440d635ba74325c4ad509ec721ae36eeb33e946b80b25b",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "R11-false",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "R11-true",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "R12",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "R13",
+      "actual": "UNKNOWN",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "UNKNOWN",
+      "passed": true
+    },
+    {
+      "id": "R14-negative",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "R14-decimal",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "R15",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2acc53d-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2ab65ab-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "416c0adbe32c6058131895e42aa53ff510910a8bec51de87b9a987fca17fb761",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "R16",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2acc53d-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2ab65ab-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "416c0adbe32c6058131895e42aa53ff510910a8bec51de87b9a987fca17fb761",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "R17",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "R18-evaluation-only",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2a79517-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d29e4645-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "b38011431acdf877647eb4e2de92b9e3d4c2bb8b21761145841e06d30d42ebef",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "id": "R19",
+      "actual": "NOT_APPLICABLE",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "NOT_APPLICABLE",
+      "passed": true
+    },
+    {
+      "id": "R20",
+      "actual": "UNKNOWN",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "UNKNOWN",
+      "passed": true
+    },
+    {
+      "id": "R21",
+      "actual": "NOT_APPLICABLE",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "NOT_APPLICABLE",
+      "passed": true
+    },
+    {
+      "id": "invalid-host-date",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "host-override",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "unknown-enum",
+      "actual": "INVALID_INPUT",
+      "executor": "INPUT_SCOPE_GUARD",
+      "expected": "INVALID_INPUT",
+      "passed": true
+    },
+    {
+      "id": "PIN-OLD",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2aaa25a-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2a8f4a8-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "f15ac313b136ef2979440d635ba74325c4ad509ec721ae36eeb33e946b80b25b",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "PIN-NEW",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2ae9a00-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2ad617e-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "4a7dacd988a3c300305382a683b856ca6fefc4f684b1f4375b0738c0133c1a02",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "AST-eq-true",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2b047b3-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2af0f31-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "684d0c00231fbed2c3ca616ca64b0b0293ac27d20f33c517075296b3db25b622",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "AST-eq-false",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2b1ce56-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2b0bce4-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "b9e31efbe09867f745e170ddc6968da4beb9e9214e9bf496c575f77196266239",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "AST-ne-true",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2b354f9-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2b26a97-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "cb62e56f6dd92527640f29b542f8f34358e3d86804e0b5e650b1dce00317a023",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "AST-ne-false",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2b4db9c-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2b3f13a-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "37fe277f0d72886fe6f1fa4957752a5f1f899e5569a0fc016ed304602b7d5d08",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "AST-lt-true",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2b63b2f-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2b550cd-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "2881bfee06dc1921a68a40ea5586399caed829f78e2dd97a745a9131cf72ca6e",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "AST-lt-false",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2b79ac2-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2b6b060-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "da156d076dc859b52259642d04e2fbdc04cd190af4038afb450f61f35c9952dd",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "AST-lte-true",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2b8fa55-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2b80ff3-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "c89f1f010f27577a4cc49e14417ff906dd9962a79aa24460149ddfce66c9b639",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "AST-lte-false",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2ba59e8-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2b99696-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "edbc668e7866f6f7bcfe962b38a2861d19362814180d4557056ee31afaa44f76",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "AST-gt-true",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2bbb97b-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2baf629-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "b3330f8fc4302c9927dc5fb4bd6957e1474fa7eb5abb8248f589cea1b7105307",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "AST-gt-false",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2bccaee-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2bc079c-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "a81df1ca3be208cd8f615c078e181f4230cd53943d7f5d53544337fc2dae5671",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "AST-gte-true",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2be2a81-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2bd672f-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "93dac547345b7075d8340a4e7d7d11866494fc267415460a15f9a6d1bf63fc46",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "AST-gte-false",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2bf6304-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2be9fb2-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "32cc65a2806cd17f2a6b188b4a4d1505060411ae4824533ab102f579e4436110",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "AST-all-true",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2c137c7-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2c07475-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "641dc2d848bf3f0cdb82ef5f657fbdeb1ac9caf1644a2a5e3c24e1ea737c96a8",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "AST-all-false",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2c2704a-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2c1acf8-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "e48be3864e8bd6023590d7db2d31d45ae288b78370132ddf4cc08cbb7f7c3cd1",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "AST-any-true",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2c3a8cd-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2c2e57b-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "4b96e0a93a73eac05859c6e968a69740f3eca5b494a61fb96ef047e94c1ce4eb",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "AST-any-false",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2c4e150-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2c3f6ee-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "f8d3aee62f3b05b161381d659b6bc63b3f0bdaa37fe1d64e062185a854430062",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "AST-not-true",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2c5cbb3-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2c52f71-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "fce90948e6a5eb914345d046b5caa851ad7be79502238f06e8552c3d89f7b361",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "AST-not-false",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2c6dd26-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2c640e4-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "9af02491a36f2a3b50205c2b14c66dbb2cf79fa4d083cc10c5183301aa7d08c5",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "AST-in-true",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2c7ee99-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2c75257-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "ad70332602c364cc3baed01074bea8746885ed2f94dd59f03ad312db954da45b",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "AST-in-false",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2c8d8fc-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2c863ca-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "5b69857061fd48269c14fdd8872aee1de78293f65dea6d7d6b78a470fd60ca7e",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "AST-date-eq",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2c9ea6f-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2c94e2d-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "e4028f54f72cd9db6722ac38f81a176b83f467725c210c08b7e5262aea589a81",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "AST-date-lt",
+      "actual": "NOT_MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2cb22f2-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2ca5fa0-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "87a694a249301316e3900d51baf4d1ef7329ca50474231c62aa967557a4fcb4e",
+      "expected": "NOT_MET",
+      "passed": true
+    },
+    {
+      "id": "AST-string-literal",
+      "actual": "MET",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2cc0d55-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2cb7113-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "319bcc0f45980b2807d99a05866da860516057b8d26c51f767f899da54af6385",
+      "expected": "MET",
+      "passed": true
+    },
+    {
+      "id": "AST-exception-na",
+      "actual": "NOT_APPLICABLE",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2ccf7b8-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2cc8286-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "8dcc3cc33a5c4d75f819f7cec93a938c8966bea4979843b4d057bb0bd7259e9f",
+      "expected": "NOT_APPLICABLE",
+      "passed": true
+    },
+    {
+      "id": "AST-exception-priority",
+      "actual": "REVIEW_REQUIRED",
+      "executor": "FLOWABLE_DMN_8.0.0",
+      "definitionId": "d2cde21b-d40c-11f1-8fb7-6aff75352aa8",
+      "deploymentId": "d2cd45d9-d40c-11f1-8fb7-6aff75352aa8",
+      "parentDeploymentId": "5a27f9cfea5440690cfbd880d93e304267769a3961b08734fae3dc691fbe26f7",
+      "expected": "REVIEW_REQUIRED",
+      "passed": true
+    }
+  ],
+  "referenceFallback": false,
+  "faultResults": [
+    {
+      "id": "zero-hit",
+      "rejected": true,
+      "errorType": "java.lang.IllegalArgumentException",
+      "error": "no rules present in table"
+    },
+    {
+      "id": "multiple-hit",
+      "rejected": true,
+      "errorType": "java.lang.IllegalStateException",
+      "error": "Expected exactly one result"
+    },
+    {
+      "id": "malformed-xml",
+      "rejected": true,
+      "errorType": "org.flowable.dmn.xml.exception.DmnXMLException",
+      "error": "javax.xml.transform.TransformerException: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[1,14]\nMessage: XML document structures must start and end within the same entity."
+    },
+    {
+      "rejected": true,
+      "error": "COMPILED_DIGEST_MISMATCH",
+      "id": "tampered-artifact"
+    }
+  ],
+  "sameEngineRecovery": true
+}
