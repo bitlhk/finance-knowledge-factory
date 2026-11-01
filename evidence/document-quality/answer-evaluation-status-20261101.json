@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "document-answer-evaluation-status.v0.1",
+  "execution": "NOT_RUN",
+  "reason": "The only installed local Harness Agent is active; this branch did not reuse its conversation state or stop it. No controlled-model result is substituted for real DeepSeek.",
+  "requiredNextEvidence": [
+    "isolated Harness instance using the pinned live DeepSeek binding",
+    "all frozen questions with exact retrieval receipt correlation",
+    "fact and citation checks separated from retrieval failures"
+  ],
+  "harnessImplementationChanged": false
+}
