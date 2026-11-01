@@ -39,8 +39,15 @@ class ModelEnvironment:
 def build_openjiuwen_model(environment):
     if version("openjiuwen") != OPENJIUWEN_VERSION:
         raise RuntimeError("OPENJIUWEN_VERSION_MISMATCH")
+    from openjiuwen.core.common.logging.log_config import configure_log_config
     from openjiuwen.core.foundation.llm import Model, ModelClientConfig, \
         ModelRequestConfig
+    # Core owns the durable evaluation record. SDK prompt/answer logs would be
+    # an ungoverned second archive, so the worker disables all SDK sinks.
+    configure_log_config({
+        "backend":"default", "level":"ERROR", "output":[],
+        "interface_output":[], "performance_output":[],
+    })
     return Model(
         model_client_config=ModelClientConfig(
             client_provider="OpenAI", api_key=environment.api_key,
@@ -97,7 +104,8 @@ class OpenJiuwenModelGateway:
                 raise ValueError("EVALUATION_MODEL_RESPONSE_TOO_LARGE")
             usage = _bounded_usage(getattr(response, "usage_metadata", None))
             metadata = getattr(response, "metadata", {}) or {}
-            provider_ref = str(metadata.get("request_id") or request_id)
+            provider_ref = str(metadata.get("request_id") or
+                               f"unavailable:{request_id}")
             return self.core.record_model_invocation(
                 self.actor, self.registration_digest, authorization_digest,
                 request_id, trace_id, started, _now(), "RETURNED", answer,
@@ -106,6 +114,7 @@ class OpenJiuwenModelGateway:
             self.core.record_model_invocation(
                 self.actor, self.registration_digest, authorization_digest,
                 request_id, trace_id, started, _now(), "FAILED", None,
-                request_id, {"errorClass":type(error).__name__},
+                f"unavailable:{request_id}",
+                {"errorClass":type(error).__name__},
                 prepared["requestPayloadDigest"])
             raise

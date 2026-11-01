@@ -268,6 +268,37 @@ def test_fixed_worker_uses_only_core_prepared_outbound_payload(tmp_path):
         core.close()
 
 
+def test_gateway_does_not_mislabel_gateway_id_as_provider_id(tmp_path):
+    core, client, values = prepare(tmp_path)
+
+    class Model:
+        async def invoke(self, messages, **kwargs):
+            return SimpleNamespace(
+                content='根据第一条，合成客服服务时间为每日09:00至17:00。',
+                usage_metadata=None, metadata={})
+
+    try:
+        candidate = core.query_document_candidate_for_evaluation(
+            WORKER, values['assignment'], values['lease'],
+            'quality-service-hours', 'candidate-request-1',
+            'candidate-trace-1', client)
+        authorization = core.authorize_model_egress(
+            MANAGER, 'worker-egress', 1, values['assignment'],
+            candidate['receiptDigest'], 'volcengine', 'deepseek-v4-flash',
+            'b' * 64, 'cn-beijing', 'answer-quality', 'factory-dev', True,
+            'source-only', FUTURE)
+        gateway = OpenJiuwenModelGateway(
+            core, GATEWAY, values['gateway'], Model())
+        receipt_digest = asyncio.run(gateway.invoke(
+            authorization, 'gateway-request-1', 'gateway-trace-1'))
+        receipt = core._get(
+            MANAGER, receipt_digest, 'model-invocation-receipt')
+        assert receipt['providerRequestRef'] == \
+            'unavailable:gateway-request-1'
+    finally:
+        core.close()
+
+
 def test_gateway_rejects_payload_tamper_and_post_query_source_revocation(tmp_path):
     core, client, values = prepare(tmp_path)
     try:
