@@ -10,6 +10,9 @@ from knowledge_core.contracts import Rejected
 
 
 ENGINE = 'infiniflow/ragflow@sha256:141670c7d25b4421f6378152e583a0fe7e5280ed750c42f7507759192d0dad82'
+BASELINE_RETRIEVAL = {'pageSize': 3, 'knnTopK': 64, 'knnCandidates': 128,
+                      'rerankCandidates': 64, 'similarityThresholdBps': 0,
+                      'keywordWeightBps': 7000, 'rerankerId': None}
 
 
 class NoRedirect(request.HTTPRedirectHandler):
@@ -148,15 +151,49 @@ class Ragflow:
             time.sleep(2)
 
     def retrieve(self, dataset, document, question):
-        result,_=self._http('POST','/retrieval',{'dataset_ids':[dataset],'document_ids':[document],
-            'question':question,'page':1,'page_size':3,'knn_top_k':64,'knn_num_candidates':128,
-            'rerank_candidates_count':64,'similarity_threshold':0,'keywords_similarity_weight':0.7,
-            'include_knowledge_compilation':False,'highlight':False})
+        rows = self.retrieve_candidates(dataset, document, question, BASELINE_RETRIEVAL)
+        return [{'id':c['id'],'text':c['text'],'documentId':c['documentId']} for c in rows]
+
+    def retrieve_candidates(self, dataset, document, question, profile):
+        required = {'pageSize', 'knnTopK', 'knnCandidates', 'rerankCandidates',
+                    'similarityThresholdBps', 'keywordWeightBps', 'rerankerId'}
+        if (not isinstance(profile, dict) or set(profile) != required
+                or any(type(profile[key]) is not int for key in required - {'rerankerId'})
+                or not 1 <= profile['pageSize'] <= 64
+                or not 1 <= profile['knnTopK'] <= 1024
+                or not 1 <= profile['knnCandidates'] <= 2048
+                or not 1 <= profile['rerankCandidates'] <= 1024
+                or not 0 <= profile['similarityThresholdBps'] <= 10000
+                or not 0 <= profile['keywordWeightBps'] <= 10000
+                or profile['rerankerId'] is not None and not isinstance(profile['rerankerId'], str)):
+            raise Rejected('RETRIEVAL_PROFILE_INVALID')
+        request_body = {'dataset_ids':[dataset], 'document_ids':[document], 'question':question,
+            'page':1, 'page_size':profile['pageSize'], 'knn_top_k':profile['knnTopK'],
+            'knn_num_candidates':profile['knnCandidates'],
+            'rerank_candidates_count':profile['rerankCandidates'],
+            'similarity_threshold':profile['similarityThresholdBps'] / 10000,
+            'keywords_similarity_weight':profile['keywordWeightBps'] / 10000,
+            'include_knowledge_compilation':False, 'highlight':False}
+        if profile['rerankerId'] is not None:
+            request_body['rerank_id'] = profile['rerankerId']
+        result,_=self._http('POST','/retrieval',request_body)
         try:
             rows=result['chunks']
             if not isinstance(rows,list):raise ValueError()
             if any(c['dataset_id']!=dataset for c in rows):raise Rejected('RAGFLOW_DATASET_MISMATCH')
-            return [{'id':c['id'],'text':c['content'],'documentId':c['document_id']} for c in rows]
+            output = []
+            for rank, candidate in enumerate(rows, 1):
+                scores = []
+                for key in ('similarity', 'term_similarity', 'vector_similarity'):
+                    value = candidate.get(key)
+                    if value is not None and (not isinstance(value, (int, float)) or isinstance(value, bool)
+                                              or not 0 <= value <= 1):
+                        raise ValueError()
+                    scores.append(None if value is None else round(value * 10000))
+                output.append({'id':candidate['id'], 'text':candidate['content'],
+                    'documentId':candidate['document_id'], 'rank':rank,
+                    'scoreBps':scores[0], 'termScoreBps':scores[1], 'vectorScoreBps':scores[2]})
+            return output
         except Rejected:raise
         except (KeyError,TypeError,ValueError):raise Rejected('RAGFLOW_RESPONSE_INVALID') from None
 

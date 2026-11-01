@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "document-quality-comparison.v0.1",
+  "sourceDigest": "d7f6a4a96abf9fa093e4ad4cc8dbdab11623368bf6536c94a214067d09589298",
+  "indexDigest": "7e250942f36cbfb5c42535e5397e66631333bd1e69232bdf3872e17ee8c855ff",
+  "rerankerExperiment": {
+    "status": "NOT_AVAILABLE",
+    "reason": "Pinned setup exposes only BAAI/bge-small-zh-v1.5 and no approved reranker identity"
+  },
+  "tuningDecision": {
+    "selectedProfile": "structure-hybrid-50",
+    "selectionSet": "financial-suitability-tuning-v0-1",
+    "reason": "Only tuning profile with complete Recall@3, Hit@1, MRR and zero no-answer false positives"
+  },
+  "frozenAcceptance": {
+    "baseline": {
+      "recallAt3Bps": 7916,
+      "hitAt1Bps": 6250,
+      "mrrBps": 7152,
+      "noAnswerFalsePositiveBps": 10000,
+      "averageLatencyMs": 88
+    },
+    "candidate": {
+      "recallAt3Bps": 8750,
+      "hitAt1Bps": 8750,
+      "mrrBps": 8958,
+      "noAnswerFalsePositiveBps": 1666,
+      "averageLatencyMs": 45
+    },
+    "decision": "REJECT",
+    "failureCount": 5,
+    "failureClasses": {
+      "RETRIEVAL_MISS": 2,
+      "RANKING_ERROR": 1,
+      "INSUFFICIENT_EVIDENCE": 1,
+      "FALSE_POSITIVE_NO_ANSWER": 1
+    }
+  }
+}

@@ -9,6 +9,35 @@ INDEX = obj({'datasetId': ID, 'documentId': ID, 'buildId': ID,
              'engineIdentity': STR, 'embeddingIdentity': STR, 'chunks': arr(CHUNK, 1)})
 CASE = obj({'question': STR, 'expectedClause': STR})
 SCHEMAS = {
+    'document-quality-profile': versioned('document-quality-profile', {
+        'id': ID, 'revision': REV, 'config': {'type': 'object'}}),
+    'document-quality-test-set': versioned('document-quality-test-set', {
+        'id': ID, 'revision': REV, 'candidateDigest': HASH, 'testSet': {'type': 'object'}}),
+    'document-retrieval-evaluation': versioned('document-retrieval-evaluation', {
+        'candidateDigest': HASH, 'profileDigest': HASH, 'testSetDigest': HASH,
+        'execution': enum('CORE_EXECUTED'), 'report': {'type': 'object'}}),
+    'document-answer-runtime-evidence': obj({
+        'schemaVersion': enum('document-answer-runtime-evidence.v0.1',
+                              'document-answer-runtime-evidence.v0.2'),
+        'candidateDigest': HASH, 'testSetDigest': HASH, 'buildId': ID, 'instanceId': ID,
+        'installationLockDigest': HASH, 'manifestDigest': HASH,
+        'modelIdentity': {'type': 'object'}, 'cases': arr({'type': 'object'}, 1),
+        'stoppedAt': STR, 'verification': enum('CORE_CORRELATED_HARNESS_ARCHIVE')}),
+    'document-answer-evaluation': obj({
+        'schemaVersion': enum('document-answer-evaluation.v0.1',
+                              'document-answer-evaluation.v0.2'),
+        'candidateDigest': HASH, 'profileDigest': HASH, 'testSetDigest': HASH,
+        'retrievalEvaluationDigest': HASH, 'runtimeEvidenceDigest': HASH,
+        'execution': enum('CORE_CORRELATED_HARNESS_ARCHIVE'), 'modelIdentity': {'type': 'object'},
+        'cases': arr({'type': 'object'}, 1), 'metricsBps': {'type': 'object'}}),
+    'document-quality-admission': versioned('document-quality-admission', {
+        'candidateDigest': HASH, 'sourceDigest': HASH, 'indexDigest': HASH,
+        'profileDigest': HASH, 'testSetDigest': HASH, 'retrievalEvaluationDigest': HASH,
+        'answerEvaluationDigest': HASH, 'decision': enum('PASS', 'REJECT'),
+        'checks': {'type': 'object'}, 'gateDigest': HASH}),
+    'document-quality-manifest-admission': versioned('document-quality-manifest-admission', {
+        'id': ID, 'revision': REV, 'manifestDigest': HASH,
+        'qualityAdmissionDigest': HASH, 'candidateDigest': HASH}),
     'document-index': versioned('document-index', {
         'sourceDigest': HASH, 'originalHtml': {'type': 'string', 'maxLength': 1000000},
         'originalDigest': HASH, 'bridge': {'type': 'object'}, 'bridgeDigest': HASH,

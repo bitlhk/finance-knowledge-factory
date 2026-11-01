@@ -1,0 +1,1547 @@
+{
+  "schemaVersion": "document-quality-evaluation.v0.1",
+  "testSetDigest": "d919cdc8f8a7576df5e446271a0d4200b0a630e25167e17f42c6214836566e67",
+  "profile": {
+    "pageSize": 3,
+    "knnTopK": 64,
+    "knnCandidates": 128,
+    "rerankCandidates": 64,
+    "similarityThresholdBps": 0,
+    "keywordWeightBps": 7000,
+    "rerankerId": null
+  },
+  "engineIdentity": "infiniflow/ragflow@sha256:141670c7d25b4421f6378152e583a0fe7e5280ed750c42f7507759192d0dad82",
+  "embeddingIdentity": "BAAI/bge-small-zh-v1.5:3d995819ca6e4f46be2adb76cd4dfe4a",
+  "metricsBps": {
+    "recallAt3": 7916,
+    "hitAt1": 6250,
+    "mrr": 7152,
+    "noAnswerFalsePositive": 10000
+  },
+  "latencyMs": {
+    "total": 2659,
+    "average": 88
+  },
+  "cases": [
+    {
+      "caseId": "canonical-definition",
+      "category": "CANONICAL",
+      "question": "适当性管理是指什么？",
+      "expectedClauses": [
+        "第二条"
+      ],
+      "answerFacts": [
+        "结合产品属性、风险特征和客户情况开展识别、提示、匹配、销售、交易等活动"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "b1e20bb896b4f518",
+          "clauses": [
+            "第二条"
+          ],
+          "scoreBps": 5062,
+          "termScoreBps": 3441,
+          "vectorScoreBps": 8844
+        },
+        {
+          "rank": 2,
+          "chunkId": "9df5ff75b4b1572a",
+          "clauses": [
+            "第三条"
+          ],
+          "scoreBps": 4685,
+          "termScoreBps": 3441,
+          "vectorScoreBps": 7589
+        },
+        {
+          "rank": 3,
+          "chunkId": "29717eec2051565e",
+          "clauses": [
+            "第二十五条"
+          ],
+          "scoreBps": 4290,
+          "termScoreBps": 2487,
+          "vectorScoreBps": 8496
+        }
+      ],
+      "selectedClauses": [
+        "第二条",
+        "第三条",
+        "第二十五条"
+      ],
+      "latencyMs": 178,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "canonical-unsuitable-sale",
+      "category": "CANONICAL",
+      "question": "金融机构是否可以向客户销售不具备适当性的产品？",
+      "expectedClauses": [
+        "第十二条"
+      ],
+      "answerFacts": [
+        "除第三十八条规定情形外不得销售"
+      ],
+      "forbiddenClaims": [
+        "可以无条件销售"
+      ],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "b5e66ebdbe23286e",
+          "clauses": [
+            "第十二条"
+          ],
+          "scoreBps": 5362,
+          "termScoreBps": 3716,
+          "vectorScoreBps": 9203
+        },
+        {
+          "rank": 2,
+          "chunkId": "9c259fa5a6a58ac0",
+          "clauses": [
+            "第二十一条"
+          ],
+          "scoreBps": 5017,
+          "termScoreBps": 3559,
+          "vectorScoreBps": 8420
+        },
+        {
+          "rank": 3,
+          "chunkId": "1fddf72cb6d6f3d4",
+          "clauses": [
+            "第十三条"
+          ],
+          "scoreBps": 4987,
+          "termScoreBps": 3522,
+          "vectorScoreBps": 8403
+        }
+      ],
+      "selectedClauses": [
+        "第十二条",
+        "第二十一条",
+        "第十三条"
+      ],
+      "latencyMs": 124,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "canonical-record-retention",
+      "category": "CANONICAL",
+      "question": "适当性管理重点环节资料至少保存多久？",
+      "expectedClauses": [
+        "第十七条"
+      ],
+      "answerFacts": [
+        "不低于机构与客户合同关系终止后五年"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "ff8c48eeddd9080c",
+          "clauses": [
+            "第十七条"
+          ],
+          "scoreBps": 4894,
+          "termScoreBps": 3227,
+          "vectorScoreBps": 8785
+        },
+        {
+          "rank": 2,
+          "chunkId": "2ac4d02f74ca0910",
+          "clauses": [
+            "第三十一条"
+          ],
+          "scoreBps": 3686,
+          "termScoreBps": 1882,
+          "vectorScoreBps": 7895
+        },
+        {
+          "rank": 3,
+          "chunkId": "b1e20bb896b4f518",
+          "clauses": [
+            "第二条"
+          ],
+          "scoreBps": 3362,
+          "termScoreBps": 1360,
+          "vectorScoreBps": 8033
+        }
+      ],
+      "selectedClauses": [
+        "第十七条",
+        "第三十一条",
+        "第二条"
+      ],
+      "latencyMs": 86,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "canonical-elderly-duty",
+      "category": "CANONICAL",
+      "question": "向六十五周岁以上客户销售高风险产品应履行什么义务？",
+      "expectedClauses": [
+        "第十八条"
+      ],
+      "answerFacts": [
+        "履行特别注意义务",
+        "线上流程应具备适老性、易用性和安全性"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "122f7b532f8b3f4b",
+          "clauses": [
+            "第十八条"
+          ],
+          "scoreBps": 4902,
+          "termScoreBps": 3181,
+          "vectorScoreBps": 8919
+        },
+        {
+          "rank": 2,
+          "chunkId": "9f21c099499eba22",
+          "clauses": [
+            "第十四条"
+          ],
+          "scoreBps": 4106,
+          "termScoreBps": 2549,
+          "vectorScoreBps": 7740
+        },
+        {
+          "rank": 3,
+          "chunkId": "9c259fa5a6a58ac0",
+          "clauses": [
+            "第二十一条"
+          ],
+          "scoreBps": 3511,
+          "termScoreBps": 1625,
+          "vectorScoreBps": 7911
+        }
+      ],
+      "selectedClauses": [
+        "第十八条",
+        "第十四条",
+        "第二十一条"
+      ],
+      "latencyMs": 100,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "canonical-product-risk-levels",
+      "category": "CANONICAL",
+      "question": "投资型产品风险等级至少应划分为几级？",
+      "expectedClauses": [
+        "第二十二条"
+      ],
+      "answerFacts": [
+        "由低到高至少包括一级至五级"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "8ff429136c6d4d33",
+          "clauses": [
+            "第二十三条"
+          ],
+          "scoreBps": 5330,
+          "termScoreBps": 3779,
+          "vectorScoreBps": 8950
+        },
+        {
+          "rank": 2,
+          "chunkId": "fdeeee02795e2119",
+          "clauses": [
+            "第二十四条"
+          ],
+          "scoreBps": 4856,
+          "termScoreBps": 3172,
+          "vectorScoreBps": 8784
+        },
+        {
+          "rank": 3,
+          "chunkId": "5a643062d195bd3e",
+          "clauses": [
+            "第二十二条"
+          ],
+          "scoreBps": 4730,
+          "termScoreBps": 2898,
+          "vectorScoreBps": 9004
+        }
+      ],
+      "selectedClauses": [
+        "第二十三条",
+        "第二十四条",
+        "第二十二条"
+      ],
+      "latencyMs": 91,
+      "passed": false,
+      "failureClassifications": [
+        "RANKING_ERROR"
+      ]
+    },
+    {
+      "caseId": "canonical-assessment-frequency",
+      "category": "CANONICAL",
+      "question": "投资者十二个月内最多可以进行多少次风险承受能力评估？",
+      "expectedClauses": [
+        "第二十九条"
+      ],
+      "answerFacts": [
+        "十二个月内累计不得超过八次"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "738e581fbe39f907",
+          "clauses": [
+            "第二十九条"
+          ],
+          "scoreBps": 4533,
+          "termScoreBps": 2611,
+          "vectorScoreBps": 9019
+        },
+        {
+          "rank": 2,
+          "chunkId": "29717eec2051565e",
+          "clauses": [
+            "第二十五条"
+          ],
+          "scoreBps": 4349,
+          "termScoreBps": 2851,
+          "vectorScoreBps": 7846
+        },
+        {
+          "rank": 3,
+          "chunkId": "3df3444c11990102",
+          "clauses": [
+            "第二十七条"
+          ],
+          "scoreBps": 4228,
+          "termScoreBps": 2657,
+          "vectorScoreBps": 7893
+        }
+      ],
+      "selectedClauses": [
+        "第二十九条",
+        "第二十五条",
+        "第二十七条"
+      ],
+      "latencyMs": 90,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "paraphrase-definition",
+      "category": "PARAPHRASE",
+      "question": "监管文件怎么界定产品和客户匹配这件事？",
+      "expectedClauses": [
+        "第二条"
+      ],
+      "answerFacts": [
+        "适当性管理考虑产品和客户因素"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "c8b2c60415411092",
+          "clauses": [
+            "第九条"
+          ],
+          "scoreBps": 3620,
+          "termScoreBps": 1735,
+          "vectorScoreBps": 8019
+        },
+        {
+          "rank": 2,
+          "chunkId": "84041e063712cff4",
+          "clauses": [
+            "第五条"
+          ],
+          "scoreBps": 3495,
+          "termScoreBps": 1382,
+          "vectorScoreBps": 8425
+        },
+        {
+          "rank": 3,
+          "chunkId": "b1e20bb896b4f518",
+          "clauses": [
+            "第二条"
+          ],
+          "scoreBps": 3411,
+          "termScoreBps": 1382,
+          "vectorScoreBps": 8145
+        }
+      ],
+      "selectedClauses": [
+        "第九条",
+        "第五条",
+        "第二条"
+      ],
+      "latencyMs": 39,
+      "passed": false,
+      "failureClassifications": [
+        "RANKING_ERROR"
+      ]
+    },
+    {
+      "caseId": "paraphrase-client-refuses-info",
+      "category": "PARAPHRASE",
+      "question": "客户不肯提供购买产品所需资料，机构能否拒绝销售？",
+      "expectedClauses": [
+        "第十条"
+      ],
+      "answerFacts": [
+        "可以拒绝销售或者交易该产品"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "b5e66ebdbe23286e",
+          "clauses": [
+            "第十二条"
+          ],
+          "scoreBps": 3863,
+          "termScoreBps": 1866,
+          "vectorScoreBps": 8523
+        },
+        {
+          "rank": 2,
+          "chunkId": "bb76faab62b7fa84",
+          "clauses": [
+            "第十条"
+          ],
+          "scoreBps": 3732,
+          "termScoreBps": 1810,
+          "vectorScoreBps": 8216
+        },
+        {
+          "rank": 3,
+          "chunkId": "9c259fa5a6a58ac0",
+          "clauses": [
+            "第二十一条"
+          ],
+          "scoreBps": 3642,
+          "termScoreBps": 1799,
+          "vectorScoreBps": 7940
+        }
+      ],
+      "selectedClauses": [
+        "第十二条",
+        "第十条",
+        "第二十一条"
+      ],
+      "latencyMs": 153,
+      "passed": false,
+      "failureClassifications": [
+        "RANKING_ERROR"
+      ]
+    },
+    {
+      "caseId": "paraphrase-online-process",
+      "category": "PARAPHRASE",
+      "question": "手机渠道卖产品时怎样落实适当性要求？",
+      "expectedClauses": [
+        "第十四条"
+      ],
+      "answerFacts": [
+        "将适当性管理嵌入线上流程",
+        "保障知情权和自主选择权"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "1fddf72cb6d6f3d4",
+          "clauses": [
+            "第十三条"
+          ],
+          "scoreBps": 3708,
+          "termScoreBps": 1994,
+          "vectorScoreBps": 7708
+        },
+        {
+          "rank": 2,
+          "chunkId": "a0b6057061d11aa9",
+          "clauses": [
+            "第四条"
+          ],
+          "scoreBps": 3643,
+          "termScoreBps": 1814,
+          "vectorScoreBps": 7911
+        },
+        {
+          "rank": 3,
+          "chunkId": "9c259fa5a6a58ac0",
+          "clauses": [
+            "第二十一条"
+          ],
+          "scoreBps": 3620,
+          "termScoreBps": 1775,
+          "vectorScoreBps": 7925
+        }
+      ],
+      "selectedClauses": [
+        "第十三条",
+        "第四条",
+        "第二十一条"
+      ],
+      "latencyMs": 97,
+      "passed": false,
+      "failureClassifications": [
+        "RETRIEVAL_MISS"
+      ]
+    },
+    {
+      "caseId": "paraphrase-sales-training",
+      "category": "PARAPHRASE",
+      "question": "销售人员是否需要持续接受产品和风险培训？",
+      "expectedClauses": [
+        "第十六条"
+      ],
+      "answerFacts": [
+        "应持续培训并充分了解产品属性和风险"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "1fef28ebd5bd02ef",
+          "clauses": [
+            "第十六条"
+          ],
+          "scoreBps": 4541,
+          "termScoreBps": 2993,
+          "vectorScoreBps": 8152
+        },
+        {
+          "rank": 2,
+          "chunkId": "29717eec2051565e",
+          "clauses": [
+            "第二十五条"
+          ],
+          "scoreBps": 3788,
+          "termScoreBps": 2150,
+          "vectorScoreBps": 7609
+        },
+        {
+          "rank": 3,
+          "chunkId": "8ff429136c6d4d33",
+          "clauses": [
+            "第二十三条"
+          ],
+          "scoreBps": 3774,
+          "termScoreBps": 2177,
+          "vectorScoreBps": 7500
+        }
+      ],
+      "selectedClauses": [
+        "第十六条",
+        "第二十五条",
+        "第二十三条"
+      ],
+      "latencyMs": 97,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "paraphrase-agency-duties",
+      "category": "PARAPHRASE",
+      "question": "委托代销后，客户评估和匹配义务由谁履行？",
+      "expectedClauses": [
+        "第二十一条"
+      ],
+      "answerFacts": [
+        "代理销售机构履行客户评估和适当性匹配义务",
+        "委托机构提供标准和要求"
+      ],
+      "forbiddenClaims": [
+        "委托后双方均无责任"
+      ],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "9c259fa5a6a58ac0",
+          "clauses": [
+            "第二十一条"
+          ],
+          "scoreBps": 4194,
+          "termScoreBps": 2406,
+          "vectorScoreBps": 8367
+        },
+        {
+          "rank": 2,
+          "chunkId": "bb76faab62b7fa84",
+          "clauses": [
+            "第十条"
+          ],
+          "scoreBps": 3435,
+          "termScoreBps": 1552,
+          "vectorScoreBps": 7830
+        },
+        {
+          "rank": 3,
+          "chunkId": "122f7b532f8b3f4b",
+          "clauses": [
+            "第十八条"
+          ],
+          "scoreBps": 3267,
+          "termScoreBps": 1360,
+          "vectorScoreBps": 7715
+        }
+      ],
+      "selectedClauses": [
+        "第二十一条",
+        "第十条",
+        "第十八条"
+      ],
+      "latencyMs": 113,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "paraphrase-rating-conflict",
+      "category": "PARAPHRASE",
+      "question": "发行方和销售方给产品的风险评级不一致时采用哪一个？",
+      "expectedClauses": [
+        "第二十二条"
+      ],
+      "answerFacts": [
+        "销售机构按孰高原则采用并披露"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "3df3444c11990102",
+          "clauses": [
+            "第二十七条"
+          ],
+          "scoreBps": 4179,
+          "termScoreBps": 2683,
+          "vectorScoreBps": 7668
+        },
+        {
+          "rank": 2,
+          "chunkId": "5a643062d195bd3e",
+          "clauses": [
+            "第二十二条"
+          ],
+          "scoreBps": 4091,
+          "termScoreBps": 2190,
+          "vectorScoreBps": 8529
+        },
+        {
+          "rank": 3,
+          "chunkId": "1fddf72cb6d6f3d4",
+          "clauses": [
+            "第十三条"
+          ],
+          "scoreBps": 4063,
+          "termScoreBps": 2280,
+          "vectorScoreBps": 8224
+        }
+      ],
+      "selectedClauses": [
+        "第二十七条",
+        "第二十二条",
+        "第十三条"
+      ],
+      "latencyMs": 87,
+      "passed": false,
+      "failureClassifications": [
+        "RANKING_ERROR"
+      ]
+    },
+    {
+      "caseId": "paraphrase-rating-factors",
+      "category": "PARAPHRASE",
+      "question": "给投资产品定风险级别要看哪些维度？",
+      "expectedClauses": [
+        "第二十三条"
+      ],
+      "answerFacts": [
+        "综合考虑投资方向、期限赎回、杠杆、复杂性、募集方式、信用和历史波动等"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "8ff429136c6d4d33",
+          "clauses": [
+            "第二十三条"
+          ],
+          "scoreBps": 3620,
+          "termScoreBps": 1456,
+          "vectorScoreBps": 8668
+        },
+        {
+          "rank": 2,
+          "chunkId": "5a643062d195bd3e",
+          "clauses": [
+            "第二十二条"
+          ],
+          "scoreBps": 3599,
+          "termScoreBps": 1456,
+          "vectorScoreBps": 8597
+        },
+        {
+          "rank": 3,
+          "chunkId": "fdeeee02795e2119",
+          "clauses": [
+            "第二十四条"
+          ],
+          "scoreBps": 3568,
+          "termScoreBps": 1456,
+          "vectorScoreBps": 8496
+        }
+      ],
+      "selectedClauses": [
+        "第二十三条",
+        "第二十二条",
+        "第二十四条"
+      ],
+      "latencyMs": 46,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "paraphrase-investor-info",
+      "category": "PARAPHRASE",
+      "question": "卖投资型产品前应了解投资者哪些必要信息？",
+      "expectedClauses": [
+        "第二十五条"
+      ],
+      "answerFacts": [
+        "了解基本信息、财务状况、风险识别能力、投资需求和风险承受能力等"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "29717eec2051565e",
+          "clauses": [
+            "第二十五条"
+          ],
+          "scoreBps": 4623,
+          "termScoreBps": 2949,
+          "vectorScoreBps": 8529
+        },
+        {
+          "rank": 2,
+          "chunkId": "2ac4d02f74ca0910",
+          "clauses": [
+            "第三十一条"
+          ],
+          "scoreBps": 4441,
+          "termScoreBps": 2652,
+          "vectorScoreBps": 8616
+        },
+        {
+          "rank": 3,
+          "chunkId": "5a643062d195bd3e",
+          "clauses": [
+            "第二十二条"
+          ],
+          "scoreBps": 4345,
+          "termScoreBps": 2652,
+          "vectorScoreBps": 8293
+        }
+      ],
+      "selectedClauses": [
+        "第二十五条",
+        "第三十一条",
+        "第二十二条"
+      ],
+      "latencyMs": 161,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "paraphrase-professional-treatment",
+      "category": "PARAPHRASE",
+      "question": "对专业投资者可以简化哪些适当性环节？",
+      "expectedClauses": [
+        "第二十七条"
+      ],
+      "answerFacts": [
+        "可视情况简化或免于风险承受能力评估和可回溯管理"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "3df3444c11990102",
+          "clauses": [
+            "第二十七条"
+          ],
+          "scoreBps": 4333,
+          "termScoreBps": 2662,
+          "vectorScoreBps": 8231
+        },
+        {
+          "rank": 2,
+          "chunkId": "0c0d7f9689265f3c",
+          "clauses": [
+            "第二十六条"
+          ],
+          "scoreBps": 4159,
+          "termScoreBps": 2324,
+          "vectorScoreBps": 8440
+        },
+        {
+          "rank": 3,
+          "chunkId": "29717eec2051565e",
+          "clauses": [
+            "第二十五条"
+          ],
+          "scoreBps": 4133,
+          "termScoreBps": 2397,
+          "vectorScoreBps": 8184
+        }
+      ],
+      "selectedClauses": [
+        "第二十七条",
+        "第二十六条",
+        "第二十五条"
+      ],
+      "latencyMs": 131,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "paraphrase-assessment-expiry",
+      "category": "PARAPHRASE",
+      "question": "风险承受能力结果过了一年还有效吗？",
+      "expectedClauses": [
+        "第二十九条"
+      ],
+      "answerFacts": [
+        "有效期原则上十二个月",
+        "超过十二个月销售或交易时应重新评估"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "738e581fbe39f907",
+          "clauses": [
+            "第二十九条"
+          ],
+          "scoreBps": 4282,
+          "termScoreBps": 2498,
+          "vectorScoreBps": 8444
+        },
+        {
+          "rank": 2,
+          "chunkId": "33e8dee86e2356d2",
+          "clauses": [
+            "第三十四条"
+          ],
+          "scoreBps": 4236,
+          "termScoreBps": 2779,
+          "vectorScoreBps": 7635
+        },
+        {
+          "rank": 3,
+          "chunkId": "29717eec2051565e",
+          "clauses": [
+            "第二十五条"
+          ],
+          "scoreBps": 4145,
+          "termScoreBps": 2779,
+          "vectorScoreBps": 7331
+        }
+      ],
+      "selectedClauses": [
+        "第二十九条",
+        "第三十四条",
+        "第二十五条"
+      ],
+      "latencyMs": 83,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "paraphrase-insurance-mismatch",
+      "category": "PARAPHRASE",
+      "question": "保险产品和投保人不匹配时机构先要怎么做？",
+      "expectedClauses": [
+        "第三十八条"
+      ],
+      "answerFacts": [
+        "建议投保人终止投保"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "8e5ff6f05796c523",
+          "clauses": [
+            "第三十七条"
+          ],
+          "scoreBps": 4340,
+          "termScoreBps": 2664,
+          "vectorScoreBps": 8250
+        },
+        {
+          "rank": 2,
+          "chunkId": "a37bd562ea2becee",
+          "clauses": [
+            "第三十八条"
+          ],
+          "scoreBps": 4177,
+          "termScoreBps": 2283,
+          "vectorScoreBps": 8596
+        },
+        {
+          "rank": 3,
+          "chunkId": "33e8dee86e2356d2",
+          "clauses": [
+            "第三十四条"
+          ],
+          "scoreBps": 4165,
+          "termScoreBps": 2445,
+          "vectorScoreBps": 8180
+        }
+      ],
+      "selectedClauses": [
+        "第三十七条",
+        "第三十八条",
+        "第三十四条"
+      ],
+      "latencyMs": 101,
+      "passed": false,
+      "failureClassifications": [
+        "RANKING_ERROR"
+      ]
+    },
+    {
+      "caseId": "paraphrase-effective-date",
+      "category": "PARAPHRASE",
+      "question": "这份适当性办法从哪一天开始施行？",
+      "expectedClauses": [
+        "第四十九条"
+      ],
+      "answerFacts": [
+        "2026年2月1日起施行"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "b1e20bb896b4f518",
+          "clauses": [
+            "第二条"
+          ],
+          "scoreBps": 3699,
+          "termScoreBps": 1842,
+          "vectorScoreBps": 8032
+        },
+        {
+          "rank": 2,
+          "chunkId": "29717eec2051565e",
+          "clauses": [
+            "第二十五条"
+          ],
+          "scoreBps": 3632,
+          "termScoreBps": 1842,
+          "vectorScoreBps": 7809
+        },
+        {
+          "rank": 3,
+          "chunkId": "4527d5cc9df8f15a",
+          "clauses": [
+            "第一条"
+          ],
+          "scoreBps": 3599,
+          "termScoreBps": 1842,
+          "vectorScoreBps": 7700
+        }
+      ],
+      "selectedClauses": [
+        "第二条",
+        "第二十五条",
+        "第一条"
+      ],
+      "latencyMs": 104,
+      "passed": false,
+      "failureClassifications": [
+        "RETRIEVAL_MISS"
+      ]
+    },
+    {
+      "caseId": "confusable-product-vs-client-level",
+      "category": "CONFUSABLE",
+      "question": "产品风险级别最低分几级，不是客户测评级别？",
+      "expectedClauses": [
+        "第二十二条"
+      ],
+      "answerFacts": [
+        "投资型产品由低到高至少一级至五级"
+      ],
+      "forbiddenClaims": [
+        "十二个月八次"
+      ],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "b5e66ebdbe23286e",
+          "clauses": [
+            "第十二条"
+          ],
+          "scoreBps": 3416,
+          "termScoreBps": 1372,
+          "vectorScoreBps": 8184
+        },
+        {
+          "rank": 2,
+          "chunkId": "84041e063712cff4",
+          "clauses": [
+            "第五条"
+          ],
+          "scoreBps": 3410,
+          "termScoreBps": 1372,
+          "vectorScoreBps": 8164
+        },
+        {
+          "rank": 3,
+          "chunkId": "1fddf72cb6d6f3d4",
+          "clauses": [
+            "第十三条"
+          ],
+          "scoreBps": 3387,
+          "termScoreBps": 1372,
+          "vectorScoreBps": 8090
+        }
+      ],
+      "selectedClauses": [
+        "第十二条",
+        "第五条",
+        "第十三条"
+      ],
+      "latencyMs": 108,
+      "passed": false,
+      "failureClassifications": [
+        "RETRIEVAL_MISS"
+      ]
+    },
+    {
+      "caseId": "confusable-client-level",
+      "category": "CONFUSABLE",
+      "question": "客户风险承受能力评估分几级，不是产品评级？",
+      "expectedClauses": [
+        "第二十九条"
+      ],
+      "answerFacts": [
+        "投资者风险承受能力评估由低到高至少一级至五级"
+      ],
+      "forbiddenClaims": [
+        "发行机构与销售机构孰高"
+      ],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "1fddf72cb6d6f3d4",
+          "clauses": [
+            "第十三条"
+          ],
+          "scoreBps": 4202,
+          "termScoreBps": 2492,
+          "vectorScoreBps": 8193
+        },
+        {
+          "rank": 2,
+          "chunkId": "b5e66ebdbe23286e",
+          "clauses": [
+            "第十二条"
+          ],
+          "scoreBps": 4073,
+          "termScoreBps": 2285,
+          "vectorScoreBps": 8247
+        },
+        {
+          "rank": 3,
+          "chunkId": "22fc8fae61149a60",
+          "clauses": [
+            "第三十六条"
+          ],
+          "scoreBps": 4060,
+          "termScoreBps": 2296,
+          "vectorScoreBps": 8175
+        }
+      ],
+      "selectedClauses": [
+        "第十三条",
+        "第十二条",
+        "第三十六条"
+      ],
+      "latencyMs": 105,
+      "passed": false,
+      "failureClassifications": [
+        "RETRIEVAL_MISS"
+      ]
+    },
+    {
+      "caseId": "confusable-product-rating-owner",
+      "category": "CONFUSABLE",
+      "question": "产品风险评级可以找第三方做吗，最终责任归谁？",
+      "expectedClauses": [
+        "第二十四条"
+      ],
+      "answerFacts": [
+        "可委托符合资质的第三方提供服务",
+        "金融机构承担最终责任"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "fdeeee02795e2119",
+          "clauses": [
+            "第二十四条"
+          ],
+          "scoreBps": 4630,
+          "termScoreBps": 2921,
+          "vectorScoreBps": 8618
+        },
+        {
+          "rank": 2,
+          "chunkId": "8ff429136c6d4d33",
+          "clauses": [
+            "第二十三条"
+          ],
+          "scoreBps": 3618,
+          "termScoreBps": 1785,
+          "vectorScoreBps": 7894
+        },
+        {
+          "rank": 3,
+          "chunkId": "5a643062d195bd3e",
+          "clauses": [
+            "第二十二条"
+          ],
+          "scoreBps": 3352,
+          "termScoreBps": 1332,
+          "vectorScoreBps": 8065
+        }
+      ],
+      "selectedClauses": [
+        "第二十四条",
+        "第二十三条",
+        "第二十二条"
+      ],
+      "latencyMs": 109,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "confusable-record-vs-assessment-term",
+      "category": "CONFUSABLE",
+      "question": "五年说的是资料保存还是测评有效期？",
+      "expectedClauses": [
+        "第十七条",
+        "第二十九条"
+      ],
+      "answerFacts": [
+        "五年指资料保存下限",
+        "测评有效期原则上十二个月"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "ff8c48eeddd9080c",
+          "clauses": [
+            "第十七条"
+          ],
+          "scoreBps": 3458,
+          "termScoreBps": 1380,
+          "vectorScoreBps": 8306
+        }
+      ],
+      "selectedClauses": [
+        "第十七条"
+      ],
+      "latencyMs": 63,
+      "passed": false,
+      "failureClassifications": [
+        "INSUFFICIENT_EVIDENCE"
+      ]
+    },
+    {
+      "caseId": "confusable-private-publicity",
+      "category": "CONFUSABLE",
+      "question": "私募产品能不能在官网向不特定对象公开推介？",
+      "expectedClauses": [
+        "第三十条"
+      ],
+      "answerFacts": [
+        "不得通过官网等方式向不特定对象宣传推介"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "51fd351022230a57",
+          "clauses": [
+            "第三十条"
+          ],
+          "scoreBps": 4421,
+          "termScoreBps": 2620,
+          "vectorScoreBps": 8621
+        }
+      ],
+      "selectedClauses": [
+        "第三十条"
+      ],
+      "latencyMs": 24,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "confusable-minor-capacity",
+      "category": "CONFUSABLE",
+      "question": "限制民事行为能力人是否一律不能购买任何产品？",
+      "expectedClauses": [
+        "第十九条"
+      ],
+      "answerFacts": [
+        "经法定代理人同意可销售或交易低风险产品"
+      ],
+      "forbiddenClaims": [
+        "一律禁止任何产品"
+      ],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "ed4cc1675d7c5b3f",
+          "clauses": [
+            "第十九条"
+          ],
+          "scoreBps": 5066,
+          "termScoreBps": 3553,
+          "vectorScoreBps": 8596
+        },
+        {
+          "rank": 2,
+          "chunkId": "33e8dee86e2356d2",
+          "clauses": [
+            "第三十四条"
+          ],
+          "scoreBps": 3068,
+          "termScoreBps": 1186,
+          "vectorScoreBps": 7458
+        },
+        {
+          "rank": 3,
+          "chunkId": "2ac4d02f74ca0910",
+          "clauses": [
+            "第三十一条"
+          ],
+          "scoreBps": 3029,
+          "termScoreBps": 1164,
+          "vectorScoreBps": 7380
+        }
+      ],
+      "selectedClauses": [
+        "第十九条",
+        "第三十四条",
+        "第三十一条"
+      ],
+      "latencyMs": 82,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "no-answer-weather",
+      "category": "NO_ANSWER",
+      "question": "明天上海会不会下雨？",
+      "expectedClauses": [],
+      "answerFacts": [],
+      "forbiddenClaims": [
+        "制度规定天气"
+      ],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "2ac4d02f74ca0910",
+          "clauses": [
+            "第三十一条"
+          ],
+          "scoreBps": 2132,
+          "termScoreBps": 440,
+          "vectorScoreBps": 6079
+        }
+      ],
+      "selectedClauses": [
+        "第三十一条"
+      ],
+      "latencyMs": 21,
+      "passed": false,
+      "failureClassifications": [
+        "FALSE_POSITIVE_NO_ANSWER"
+      ]
+    },
+    {
+      "caseId": "no-answer-stock-price",
+      "category": "NO_ANSWER",
+      "question": "某银行股票明天会涨到多少钱？",
+      "expectedClauses": [],
+      "answerFacts": [],
+      "forbiddenClaims": [
+        "保证股价"
+      ],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "2ac4d02f74ca0910",
+          "clauses": [
+            "第三十一条"
+          ],
+          "scoreBps": 2346,
+          "termScoreBps": 308,
+          "vectorScoreBps": 7102
+        },
+        {
+          "rank": 2,
+          "chunkId": "738e581fbe39f907",
+          "clauses": [
+            "第二十九条"
+          ],
+          "scoreBps": 2223,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7411
+        },
+        {
+          "rank": 3,
+          "chunkId": "5a643062d195bd3e",
+          "clauses": [
+            "第二十二条"
+          ],
+          "scoreBps": 2204,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7348
+        }
+      ],
+      "selectedClauses": [
+        "第三十一条",
+        "第二十九条",
+        "第二十二条"
+      ],
+      "latencyMs": 74,
+      "passed": false,
+      "failureClassifications": [
+        "FALSE_POSITIVE_NO_ANSWER"
+      ]
+    },
+    {
+      "caseId": "no-answer-transfer-limit",
+      "category": "NO_ANSWER",
+      "question": "我的银行卡今天转账限额是多少？",
+      "expectedClauses": [],
+      "answerFacts": [],
+      "forbiddenClaims": [
+        "给出账户限额"
+      ],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "8e5ff6f05796c523",
+          "clauses": [
+            "第三十七条"
+          ],
+          "scoreBps": 2598,
+          "termScoreBps": 818,
+          "vectorScoreBps": 6751
+        },
+        {
+          "rank": 2,
+          "chunkId": "b3271abd3aac1f00",
+          "clauses": [
+            "第四十三条"
+          ],
+          "scoreBps": 2229,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7431
+        },
+        {
+          "rank": 3,
+          "chunkId": "4527d5cc9df8f15a",
+          "clauses": [
+            "第一条"
+          ],
+          "scoreBps": 2170,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7234
+        }
+      ],
+      "selectedClauses": [
+        "第三十七条",
+        "第四十三条",
+        "第一条"
+      ],
+      "latencyMs": 25,
+      "passed": false,
+      "failureClassifications": [
+        "FALSE_POSITIVE_NO_ANSWER"
+      ]
+    },
+    {
+      "caseId": "no-answer-loan-rate",
+      "category": "NO_ANSWER",
+      "question": "我现在申请房贷能拿到多少利率？",
+      "expectedClauses": [],
+      "answerFacts": [],
+      "forbiddenClaims": [
+        "给出个人贷款利率"
+      ],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "738e581fbe39f907",
+          "clauses": [
+            "第二十九条"
+          ],
+          "scoreBps": 2254,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7515
+        },
+        {
+          "rank": 2,
+          "chunkId": "51fd351022230a57",
+          "clauses": [
+            "第三十条"
+          ],
+          "scoreBps": 2204,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7346
+        },
+        {
+          "rank": 3,
+          "chunkId": "aaffc58489b0d905",
+          "clauses": [
+            "第三十九条"
+          ],
+          "scoreBps": 2196,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7320
+        }
+      ],
+      "selectedClauses": [
+        "第二十九条",
+        "第三十条",
+        "第三十九条"
+      ],
+      "latencyMs": 73,
+      "passed": false,
+      "failureClassifications": [
+        "FALSE_POSITIVE_NO_ANSWER"
+      ]
+    },
+    {
+      "caseId": "no-answer-product-return",
+      "category": "NO_ANSWER",
+      "question": "哪款理财产品下个月收益最高？",
+      "expectedClauses": [],
+      "answerFacts": [],
+      "forbiddenClaims": [
+        "保证收益最高"
+      ],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "1fddf72cb6d6f3d4",
+          "clauses": [
+            "第十三条"
+          ],
+          "scoreBps": 3168,
+          "termScoreBps": 1511,
+          "vectorScoreBps": 7033
+        },
+        {
+          "rank": 2,
+          "chunkId": "9df5ff75b4b1572a",
+          "clauses": [
+            "第三条"
+          ],
+          "scoreBps": 3087,
+          "termScoreBps": 1211,
+          "vectorScoreBps": 7463
+        },
+        {
+          "rank": 3,
+          "chunkId": "29717eec2051565e",
+          "clauses": [
+            "第二十五条"
+          ],
+          "scoreBps": 3010,
+          "termScoreBps": 1211,
+          "vectorScoreBps": 7205
+        }
+      ],
+      "selectedClauses": [
+        "第十三条",
+        "第三条",
+        "第二十五条"
+      ],
+      "latencyMs": 26,
+      "passed": false,
+      "failureClassifications": [
+        "FALSE_POSITIVE_NO_ANSWER"
+      ]
+    },
+    {
+      "caseId": "no-answer-employee-contact",
+      "category": "NO_ANSWER",
+      "question": "负责我的客户经理手机号码是多少？",
+      "expectedClauses": [],
+      "answerFacts": [],
+      "forbiddenClaims": [
+        "提供手机号码"
+      ],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "d0511905aef310e2",
+          "clauses": [
+            "第四十八条"
+          ],
+          "scoreBps": 2242,
+          "termScoreBps": 239,
+          "vectorScoreBps": 6915
+        },
+        {
+          "rank": 2,
+          "chunkId": "fdeeee02795e2119",
+          "clauses": [
+            "第二十四条"
+          ],
+          "scoreBps": 2226,
+          "termScoreBps": 239,
+          "vectorScoreBps": 6862
+        }
+      ],
+      "selectedClauses": [
+        "第四十八条",
+        "第二十四条"
+      ],
+      "latencyMs": 68,
+      "passed": false,
+      "failureClassifications": [
+        "FALSE_POSITIVE_NO_ANSWER"
+      ]
+    }
+  ]
+}

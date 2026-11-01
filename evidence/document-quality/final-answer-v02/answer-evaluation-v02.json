@@ -1,0 +1,495 @@
+{
+  "digest": "ce0dc890dffbc1ffadc54a34e0deeff34ac2f769afd45edce931f1f64c05c143",
+  "body": {
+    "candidateDigest": "635a7c3c3ddf2f48f7ed1799556ec5cf7578584b0e4dbada7e137138c3cbc799",
+    "cases": [
+      {
+        "answer": "根据查询到的证据，客户风险承受等级的取得方式如下：\n\n**第一条**：客户风险承受等级和风险评估有效状态必须从**客户管理服务**取得。历史对话摘要和模型推断不能代替当前客户事实。\n\n**第二条**（相关区分）：产品风险等级和当前可售状态必须从**产品服务**取得；该制度不提供任何客户的实时资料、具体产品数据或持仓事实。\n\n**第三条**（相关使用前提）：只有客户风险承受等级不低于产品风险等级、客户风险评估有效且产品当前可售时，才能形成合成匹配建议；缺少任一依据时应标记待核实，不得编造缺失事实。该知识服务不执行交易、自动审批或规则核验。\n\n来源：quality-product-policy 知识产品（sourceId=quality-product-policy-source，sourceRevision=1）。\n\n说明：以上仅为隔离文档知识查询结果，不代表真实制度判断或审批结论；本知识服务也不提供任何客户的实时风险承受等级数据。",
+        "answerCitations": [
+          {
+            "answerReference": "第一条",
+            "clause": "第一条",
+            "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+            "retrievedEvidenceDigests": [
+              "69784ddd3077495511617a12fa14a60dc4433276a2b8d1c0580c31e7f8b6c34f"
+            ]
+          },
+          {
+            "answerReference": "第二条",
+            "clause": "第二条",
+            "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+            "retrievedEvidenceDigests": [
+              "2ae892790091e70205089b813cfbaa659e362dbd704dbe6318b8374929ddf2e8"
+            ]
+          },
+          {
+            "answerReference": "第三条",
+            "clause": "第三条",
+            "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+            "retrievedEvidenceDigests": [
+              "d938b0bafb551a384b3ebd78ee3fc885f50077812da321ff0524ed769629880b"
+            ]
+          }
+        ],
+        "answerDigest": "c5eb9a1f061b711678ac9d0e90969f807baa842f492e0feb84fb793fee3bd7a3",
+        "caseId": "independent-customer-source",
+        "citationChecks": [
+          {
+            "clause": "第一条",
+            "passed": true
+          }
+        ],
+        "citedClauses": [
+          "第一条",
+          "第二条",
+          "第三条"
+        ],
+        "classification": "CORRECT",
+        "factChecks": [
+          {
+            "answerContains": true,
+            "fact": "客户管理服务",
+            "passed": true,
+            "supportingClauses": [
+              "第一条"
+            ]
+          }
+        ],
+        "forbiddenClaimChecks": [
+          {
+            "asserted": false,
+            "claim": "历史对话摘要",
+            "passed": true
+          },
+          {
+            "asserted": false,
+            "claim": "模型推断",
+            "passed": true
+          }
+        ],
+        "retrievedEvidence": [
+          {
+            "chunkId": "d75080c85cc5b342",
+            "clause": "第一条",
+            "coreReceiptDigest": "cb8c4b0f48fb01d9c87f1fe2db5ed0065d71f1b4b86d61bfab4c9a3465a11881",
+            "evidenceDigest": "69784ddd3077495511617a12fa14a60dc4433276a2b8d1c0580c31e7f8b6c34f",
+            "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+            "quote": "第一条 客户风险承受等级和风险评估有效状态必须从客户管理服务取得。历史对话摘要和模型推断不能代替当前客户事实。",
+            "quoteDigest": "eb991395b291ce56263d3eac9f14276d96789ffb27e14ac7e098b0b1f046c587",
+            "sourceDigest": "8b9610e8719ef9aae6ec2038ac646c136be195844accc71895adbba41eea18e6"
+          },
+          {
+            "chunkId": "d955a4348eca5a2e",
+            "clause": "第三条",
+            "coreReceiptDigest": "cb8c4b0f48fb01d9c87f1fe2db5ed0065d71f1b4b86d61bfab4c9a3465a11881",
+            "evidenceDigest": "d938b0bafb551a384b3ebd78ee3fc885f50077812da321ff0524ed769629880b",
+            "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+            "quote": "第三条 只有客户风险承受等级不低于产品风险等级、客户风险评估有效且产品当前可售时，才能形成合成匹配建议。缺少任一依据时应标记待核实，不得编造缺失事实。本知识服务不执行交易、自动审批或规则核验。",
+            "quoteDigest": "b066befdb35d31c0e036ce0d111d5659f85878e2bedcf365277b5cb3e9f46934",
+            "sourceDigest": "8b9610e8719ef9aae6ec2038ac646c136be195844accc71895adbba41eea18e6"
+          },
+          {
+            "chunkId": "dfb3c01742fa2402",
+            "clause": "第二条",
+            "coreReceiptDigest": "cb8c4b0f48fb01d9c87f1fe2db5ed0065d71f1b4b86d61bfab4c9a3465a11881",
+            "evidenceDigest": "2ae892790091e70205089b813cfbaa659e362dbd704dbe6318b8374929ddf2e8",
+            "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+            "quote": "第二条 产品风险等级和当前可售状态必须从产品服务取得。本制度不提供任何客户的实时资料、具体产品数据或持仓事实。",
+            "quoteDigest": "f9ecf828b4b9176bd8cb05f23e5adef84cb4b89ed8c6f2cacd7e16c2d038f10d",
+            "sourceDigest": "8b9610e8719ef9aae6ec2038ac646c136be195844accc71895adbba41eea18e6"
+          }
+        ],
+        "unmatchedAnswerCitations": []
+      },
+      {
+        "answer": "根据查询到的证据：\n\n**第二条**：产品风险等级和当前可售状态必须从**产品服务**取得。本制度不提供任何客户的实时资料、具体产品数据或持仓事实。\n\n**第一条**（相关对照）：客户风险承受等级和风险评估有效状态必须从**客户管理服务**取得，历史对话摘要和模型推断不能代替当前客户事实。\n\n**第三条**（相关使用前提）：只有客户风险承受等级不低于产品风险等级、客户风险评估有效且产品当前可售时，才能形成合成匹配建议；缺少任一依据时应标记待核实，不得编造缺失事实。\n\n来源：quality-product-policy 知识产品（sourceId=quality-product-policy-source，sourceRevision=1）。\n\n说明：以上为隔离文档知识查询结果，不代表真实制度判断或审批；本知识服务不提供具体产品数据或实时可售事实。",
+        "answerCitations": [
+          {
+            "answerReference": "第二条",
+            "clause": "第二条",
+            "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+            "retrievedEvidenceDigests": [
+              "154d3b20070ab36595e3c05faef293ac77c1ed96a90a9f8b66fd44565ae57f1e"
+            ]
+          },
+          {
+            "answerReference": "第一条",
+            "clause": "第一条",
+            "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+            "retrievedEvidenceDigests": [
+              "22ab3933f6cf1064844a0c9a6582e88d99bf0151e341dee56d2039e4f77053b0"
+            ]
+          },
+          {
+            "answerReference": "第三条",
+            "clause": "第三条",
+            "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+            "retrievedEvidenceDigests": [
+              "0db7828491f985a5953a0c1d1edbf26b58af60ae18c67962f6dfa9a49b1b5836"
+            ]
+          }
+        ],
+        "answerDigest": "269c934d90c64adf96ac56cede8647e682cbe62721f0f7ab45156be013dadad4",
+        "caseId": "independent-product-source",
+        "citationChecks": [
+          {
+            "clause": "第二条",
+            "passed": true
+          }
+        ],
+        "citedClauses": [
+          "第二条",
+          "第一条",
+          "第三条"
+        ],
+        "classification": "CORRECT",
+        "factChecks": [
+          {
+            "answerContains": true,
+            "fact": "产品服务",
+            "passed": true,
+            "supportingClauses": [
+              "第二条"
+            ]
+          }
+        ],
+        "forbiddenClaimChecks": [],
+        "retrievedEvidence": [
+          {
+            "chunkId": "dfb3c01742fa2402",
+            "clause": "第二条",
+            "coreReceiptDigest": "740a653b6371909597e866cf2ba3885cfff621b1171624e598c63e76a4a60261",
+            "evidenceDigest": "154d3b20070ab36595e3c05faef293ac77c1ed96a90a9f8b66fd44565ae57f1e",
+            "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+            "quote": "第二条 产品风险等级和当前可售状态必须从产品服务取得。本制度不提供任何客户的实时资料、具体产品数据或持仓事实。",
+            "quoteDigest": "f9ecf828b4b9176bd8cb05f23e5adef84cb4b89ed8c6f2cacd7e16c2d038f10d",
+            "sourceDigest": "8b9610e8719ef9aae6ec2038ac646c136be195844accc71895adbba41eea18e6"
+          },
+          {
+            "chunkId": "d955a4348eca5a2e",
+            "clause": "第三条",
+            "coreReceiptDigest": "740a653b6371909597e866cf2ba3885cfff621b1171624e598c63e76a4a60261",
+            "evidenceDigest": "0db7828491f985a5953a0c1d1edbf26b58af60ae18c67962f6dfa9a49b1b5836",
+            "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+            "quote": "第三条 只有客户风险承受等级不低于产品风险等级、客户风险评估有效且产品当前可售时，才能形成合成匹配建议。缺少任一依据时应标记待核实，不得编造缺失事实。本知识服务不执行交易、自动审批或规则核验。",
+            "quoteDigest": "b066befdb35d31c0e036ce0d111d5659f85878e2bedcf365277b5cb3e9f46934",
+            "sourceDigest": "8b9610e8719ef9aae6ec2038ac646c136be195844accc71895adbba41eea18e6"
+          },
+          {
+            "chunkId": "d75080c85cc5b342",
+            "clause": "第一条",
+            "coreReceiptDigest": "740a653b6371909597e866cf2ba3885cfff621b1171624e598c63e76a4a60261",
+            "evidenceDigest": "22ab3933f6cf1064844a0c9a6582e88d99bf0151e341dee56d2039e4f77053b0",
+            "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+            "quote": "第一条 客户风险承受等级和风险评估有效状态必须从客户管理服务取得。历史对话摘要和模型推断不能代替当前客户事实。",
+            "quoteDigest": "eb991395b291ce56263d3eac9f14276d96789ffb27e14ac7e098b0b1f046c587",
+            "sourceDigest": "8b9610e8719ef9aae6ec2038ac646c136be195844accc71895adbba41eea18e6"
+          }
+        ],
+        "unmatchedAnswerCitations": []
+      },
+      {
+        "answer": "根据查询到的证据：\n\n**第三条**：只有以下三个条件**同时满足**时，才能形成合成匹配建议：\n\n1. **客户风险承受等级不低于产品风险等级**；\n2. **客户风险评估有效**；\n3. **产品当前可售**。\n\n同时，该条还规定：缺少任一依据时应标记待核实，不得编造缺失事实；本知识服务不执行交易、自动审批或规则核验。\n\n来源：quality-product-policy 知识产品（sourceId=quality-product-policy-source，sourceRevision=1）。\n\n说明：以上为隔离文档知识查询结果，不代表真实制度判断或审批。",
+        "answerCitations": [
+          {
+            "answerReference": "第三条",
+            "clause": "第三条",
+            "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+            "retrievedEvidenceDigests": [
+              "f077d2fccb7619009bec2a4de8ee6570aeea88a3f806625291d103f6120313c1"
+            ]
+          }
+        ],
+        "answerDigest": "c950f44a39fde60fd4a3ee1fd051bbfb2f1c70767c093d1ca705077132a0fef1",
+        "caseId": "independent-match-conditions",
+        "citationChecks": [
+          {
+            "clause": "第三条",
+            "passed": true
+          }
+        ],
+        "citedClauses": [
+          "第三条"
+        ],
+        "classification": "CORRECT",
+        "factChecks": [
+          {
+            "answerContains": true,
+            "fact": "客户风险承受等级不低于产品风险等级",
+            "passed": true,
+            "supportingClauses": [
+              "第三条"
+            ]
+          },
+          {
+            "answerContains": true,
+            "fact": "客户风险评估有效",
+            "passed": true,
+            "supportingClauses": [
+              "第三条"
+            ]
+          },
+          {
+            "answerContains": true,
+            "fact": "产品当前可售",
+            "passed": true,
+            "supportingClauses": [
+              "第三条"
+            ]
+          }
+        ],
+        "forbiddenClaimChecks": [],
+        "retrievedEvidence": [
+          {
+            "chunkId": "d955a4348eca5a2e",
+            "clause": "第三条",
+            "coreReceiptDigest": "543da1717c0c654f4a21e8ae3f25863d4915db8d2d986b0d63fa6606f69b7c2a",
+            "evidenceDigest": "f077d2fccb7619009bec2a4de8ee6570aeea88a3f806625291d103f6120313c1",
+            "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+            "quote": "第三条 只有客户风险承受等级不低于产品风险等级、客户风险评估有效且产品当前可售时，才能形成合成匹配建议。缺少任一依据时应标记待核实，不得编造缺失事实。本知识服务不执行交易、自动审批或规则核验。",
+            "quoteDigest": "b066befdb35d31c0e036ce0d111d5659f85878e2bedcf365277b5cb3e9f46934",
+            "sourceDigest": "8b9610e8719ef9aae6ec2038ac646c136be195844accc71895adbba41eea18e6"
+          }
+        ],
+        "unmatchedAnswerCitations": []
+      },
+      {
+        "answer": "根据查询到的证据：\n\n**第三条**：形成合成匹配建议必须同时满足三个条件——客户风险承受等级不低于产品风险等级、客户风险评估有效、产品当前可售。**产品当前可售是必要条件之一**。\n\n该条同时明确规定：**缺少任一依据时应标记待核实，不得编造缺失事实**。\n\n因此，缺少产品可售依据时，不能形成合成匹配建议，应标记为待核实。\n\n来源：quality-product-policy 知识产品（sourceId=quality-product-policy-source，sourceRevision=1）。\n\n说明：以上为隔离文档知识查询结果，不代表真实制度判断或审批；本知识服务不执行交易、自动审批或规则核验。",
+        "answerCitations": [
+          {
+            "answerReference": "第三条",
+            "clause": "第三条",
+            "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+            "retrievedEvidenceDigests": [
+              "22c91bcf9653f95a0e9231ffbd0068d0fbea4414e65aa781506de3482a74e3ef"
+            ]
+          }
+        ],
+        "answerDigest": "d3ea9937e8fad2107f613629b6093b0ec4a89a0da140d557236fbb2d272783df",
+        "caseId": "independent-missing-basis",
+        "citationChecks": [
+          {
+            "clause": "第三条",
+            "passed": true
+          }
+        ],
+        "citedClauses": [
+          "第三条"
+        ],
+        "classification": "CORRECT",
+        "factChecks": [
+          {
+            "answerContains": true,
+            "fact": "应标记待核实",
+            "passed": true,
+            "supportingClauses": [
+              "第三条"
+            ]
+          },
+          {
+            "answerContains": true,
+            "fact": "不得编造缺失事实",
+            "passed": true,
+            "supportingClauses": [
+              "第三条"
+            ]
+          }
+        ],
+        "forbiddenClaimChecks": [
+          {
+            "asserted": false,
+            "claim": "可以先给结论",
+            "passed": true
+          }
+        ],
+        "retrievedEvidence": [
+          {
+            "chunkId": "d955a4348eca5a2e",
+            "clause": "第三条",
+            "coreReceiptDigest": "a80db8916f53badd0b73c5cb4c8a47fcd626aa3dc59dfcf10e198ece2773f576",
+            "evidenceDigest": "22c91bcf9653f95a0e9231ffbd0068d0fbea4414e65aa781506de3482a74e3ef",
+            "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+            "quote": "第三条 只有客户风险承受等级不低于产品风险等级、客户风险评估有效且产品当前可售时，才能形成合成匹配建议。缺少任一依据时应标记待核实，不得编造缺失事实。本知识服务不执行交易、自动审批或规则核验。",
+            "quoteDigest": "b066befdb35d31c0e036ce0d111d5659f85878e2bedcf365277b5cb3e9f46934",
+            "sourceDigest": "8b9610e8719ef9aae6ec2038ac646c136be195844accc71895adbba41eea18e6"
+          }
+        ],
+        "unmatchedAnswerCitations": []
+      },
+      {
+        "answer": "根据查询到的证据：\n\n**第二条**：本制度**不提供任何客户的实时资料、具体产品数据或持仓事实**。\n\n**第一条**（相关说明）：客户风险承受等级和风险评估有效状态必须从**客户管理服务**取得，历史对话摘要和模型推断不能代替当前客户事实。\n\n**第三条**（相关说明）：本知识服务不执行交易、自动审批或规则核验。\n\n来源：quality-product-policy 知识产品（sourceId=quality-product-policy-source，sourceRevision=1）。\n\n说明：以上为隔离文档知识查询结果，不代表真实制度判断或审批；如需客户实时资料或持仓事实，应通过对应服务获取，本制度不提供。",
+        "answerCitations": [
+          {
+            "answerReference": "第二条",
+            "clause": "第二条",
+            "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+            "retrievedEvidenceDigests": [
+              "c645a539411d442835631daca3b9174f580617b124c8288f3a595815896b6012"
+            ]
+          },
+          {
+            "answerReference": "第一条",
+            "clause": "第一条",
+            "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+            "retrievedEvidenceDigests": [
+              "bfacb3a0ae8c82c59cd9324dc1a6fd6d2c5704329a69257da2fd0e27c5516572"
+            ]
+          },
+          {
+            "answerReference": "第三条",
+            "clause": "第三条",
+            "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+            "retrievedEvidenceDigests": [
+              "840168abb5930a11aa3fc398c4a93c764f10061580aaed8d06c9397596d4badb"
+            ]
+          }
+        ],
+        "answerDigest": "1ae03690299d8c40ada3089e34f2cde76c13db84e4a870cd031cac6a3d2f71f0",
+        "caseId": "independent-knowledge-boundary",
+        "citationChecks": [
+          {
+            "clause": "第二条",
+            "passed": true
+          }
+        ],
+        "citedClauses": [
+          "第二条",
+          "第一条",
+          "第三条"
+        ],
+        "classification": "CORRECT",
+        "factChecks": [
+          {
+            "answerContains": true,
+            "fact": "不提供任何客户的实时资料、具体产品数据或持仓事实",
+            "passed": true,
+            "supportingClauses": [
+              "第二条"
+            ]
+          }
+        ],
+        "forbiddenClaimChecks": [],
+        "retrievedEvidence": [
+          {
+            "chunkId": "dfb3c01742fa2402",
+            "clause": "第二条",
+            "coreReceiptDigest": "3e95435ea12a9a24483f9ad328f2cca508cff34b3b7cc2f10407d49d16fa7d9a",
+            "evidenceDigest": "c645a539411d442835631daca3b9174f580617b124c8288f3a595815896b6012",
+            "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+            "quote": "第二条 产品风险等级和当前可售状态必须从产品服务取得。本制度不提供任何客户的实时资料、具体产品数据或持仓事实。",
+            "quoteDigest": "f9ecf828b4b9176bd8cb05f23e5adef84cb4b89ed8c6f2cacd7e16c2d038f10d",
+            "sourceDigest": "8b9610e8719ef9aae6ec2038ac646c136be195844accc71895adbba41eea18e6"
+          },
+          {
+            "chunkId": "d75080c85cc5b342",
+            "clause": "第一条",
+            "coreReceiptDigest": "3e95435ea12a9a24483f9ad328f2cca508cff34b3b7cc2f10407d49d16fa7d9a",
+            "evidenceDigest": "bfacb3a0ae8c82c59cd9324dc1a6fd6d2c5704329a69257da2fd0e27c5516572",
+            "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+            "quote": "第一条 客户风险承受等级和风险评估有效状态必须从客户管理服务取得。历史对话摘要和模型推断不能代替当前客户事实。",
+            "quoteDigest": "eb991395b291ce56263d3eac9f14276d96789ffb27e14ac7e098b0b1f046c587",
+            "sourceDigest": "8b9610e8719ef9aae6ec2038ac646c136be195844accc71895adbba41eea18e6"
+          },
+          {
+            "chunkId": "d955a4348eca5a2e",
+            "clause": "第三条",
+            "coreReceiptDigest": "3e95435ea12a9a24483f9ad328f2cca508cff34b3b7cc2f10407d49d16fa7d9a",
+            "evidenceDigest": "840168abb5930a11aa3fc398c4a93c764f10061580aaed8d06c9397596d4badb",
+            "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+            "quote": "第三条 只有客户风险承受等级不低于产品风险等级、客户风险评估有效且产品当前可售时，才能形成合成匹配建议。缺少任一依据时应标记待核实，不得编造缺失事实。本知识服务不执行交易、自动审批或规则核验。",
+            "quoteDigest": "b066befdb35d31c0e036ce0d111d5659f85878e2bedcf365277b5cb3e9f46934",
+            "sourceDigest": "8b9610e8719ef9aae6ec2038ac646c136be195844accc71895adbba41eea18e6"
+          }
+        ],
+        "unmatchedAnswerCitations": []
+      },
+      {
+        "answer": "无法确认。\n\n根据查询到的证据：\n\n**第二条**：产品风险等级和当前可售状态必须从**产品服务**取得；**本制度不提供任何客户的实时资料、具体产品数据或持仓事实**。\n\n**第三条**（相关说明）：本知识服务不执行交易、自动审批或规则核验。\n\n因此，本知识产品中没有可用于回答\"哪款产品预期收益最高\"的具体产品数据，无法确认该问题。该信息应从产品服务等相应数据来源获取。\n\n来源：quality-product-policy 知识产品（sourceId=quality-product-policy-source，sourceRevision=1）。",
+        "answerCitations": [
+          {
+            "answerReference": "第二条",
+            "clause": "第二条",
+            "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+            "retrievedEvidenceDigests": [
+              "000553776ce9d5dacc335b3ff2fbca2fcf7fd7d9305df846a0496b8d40bc1d5e"
+            ]
+          },
+          {
+            "answerReference": "第三条",
+            "clause": "第三条",
+            "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+            "retrievedEvidenceDigests": [
+              "caf64dc02a107bf1af9c42c059ae5ab93c09739e0a67e55a79a55ec1466daace"
+            ]
+          }
+        ],
+        "answerDigest": "45684fd5466298589037bcc093c822a7258a5cf90eec8bb1b40fec13cab55647",
+        "caseId": "independent-no-answer-yield",
+        "citationChecks": [],
+        "citedClauses": [
+          "第二条",
+          "第三条"
+        ],
+        "classification": "CORRECT_REFUSAL",
+        "factChecks": [
+          {
+            "answerContains": true,
+            "fact": "SUPPORTED_REFUSAL",
+            "passed": true,
+            "supportingClauses": [
+              "第二条",
+              "第三条"
+            ]
+          }
+        ],
+        "forbiddenClaimChecks": [
+          {
+            "asserted": false,
+            "claim": "具体产品收益排名",
+            "passed": true
+          }
+        ],
+        "retrievedEvidence": [
+          {
+            "chunkId": "dfb3c01742fa2402",
+            "clause": "第二条",
+            "coreReceiptDigest": "5bb073a4f4b9d7caa9800a3410095a4aa6367a6b90260191da6dfb688e3244d0",
+            "evidenceDigest": "000553776ce9d5dacc335b3ff2fbca2fcf7fd7d9305df846a0496b8d40bc1d5e",
+            "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+            "quote": "第二条 产品风险等级和当前可售状态必须从产品服务取得。本制度不提供任何客户的实时资料、具体产品数据或持仓事实。",
+            "quoteDigest": "f9ecf828b4b9176bd8cb05f23e5adef84cb4b89ed8c6f2cacd7e16c2d038f10d",
+            "sourceDigest": "8b9610e8719ef9aae6ec2038ac646c136be195844accc71895adbba41eea18e6"
+          },
+          {
+            "chunkId": "d955a4348eca5a2e",
+            "clause": "第三条",
+            "coreReceiptDigest": "5bb073a4f4b9d7caa9800a3410095a4aa6367a6b90260191da6dfb688e3244d0",
+            "evidenceDigest": "caf64dc02a107bf1af9c42c059ae5ab93c09739e0a67e55a79a55ec1466daace",
+            "originalDigest": "4442085e7acab3ac44fbf3e9e0fcf832a9937e7f9434fb984c2a24331dcfcf7e",
+            "quote": "第三条 只有客户风险承受等级不低于产品风险等级、客户风险评估有效且产品当前可售时，才能形成合成匹配建议。缺少任一依据时应标记待核实，不得编造缺失事实。本知识服务不执行交易、自动审批或规则核验。",
+            "quoteDigest": "b066befdb35d31c0e036ce0d111d5659f85878e2bedcf365277b5cb3e9f46934",
+            "sourceDigest": "8b9610e8719ef9aae6ec2038ac646c136be195844accc71895adbba41eea18e6"
+          }
+        ],
+        "unmatchedAnswerCitations": []
+      }
+    ],
+    "execution": "CORE_CORRELATED_HARNESS_ARCHIVE",
+    "metricsBps": {
+      "citationAccuracy": 10000,
+      "factAccuracy": 10000,
+      "forbiddenClaimAccuracy": 10000
+    },
+    "modelIdentity": {
+      "configVersion": "sha256:6a6cd803d37867227a0fa178d4aa01172c8da744a05a24dc40eae0d5d4d1d207",
+      "modelName": "deepseek-v4-flash",
+      "modelRef": "model-ea-002",
+      "provider": "OpenAI"
+    },
+    "profileDigest": "9536ac8f979b33d842c5c0300ef5f3c623b44c594cf4841d58bdc2a0ed3cf2a7",
+    "retrievalEvaluationDigest": "399fce51a76fd3185a9aa2817e6ec2686b0820bbdf16d6e40f8e38c65a710f5b",
+    "runtimeEvidenceDigest": "8503d1217311b5a9471ac6076bb2ee916b2e253cfa9a9643c4995cb6e5001a5d",
+    "schemaVersion": "document-answer-evaluation.v0.2",
+    "testSetDigest": "4ef85edbc3fd1ff3ee23a6a8e81931678d6e0f395df8526950c9ea64f80f6b2a"
+  }
+}

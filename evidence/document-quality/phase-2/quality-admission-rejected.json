@@ -1,0 +1,30 @@
+{
+  "digest": "c53f12be4b3f82db375b3033c1f35221549dc361c31ce3dd551f2fcb09698494",
+  "answerEvaluationDigest": "e790d62f57bf29d1d80a79a7ce0811da2bd7b49aecbee573612bdb257b843165",
+  "candidateDigest": "635a7c3c3ddf2f48f7ed1799556ec5cf7578584b0e4dbada7e137138c3cbc799",
+  "checks": {
+    "allAnswerCasesClassified": true,
+    "allRetrievalCasesPass": true,
+    "answerCitationAccuracyComplete": true,
+    "answerFactAccuracyComplete": true,
+    "articleSequenceComplete": true,
+    "hitAt1AtLeast90": true,
+    "indexMapsAllArticles": true,
+    "mrrAtLeast95": true,
+    "noAnswerFalsePositiveZero": true,
+    "parserCoverageComplete": true,
+    "realHarnessAnswerEvaluation": false,
+    "recallAt3Complete": true,
+    "retrievalExecutedByCore": true,
+    "sourceAnchorsExact": true,
+    "sourceStructureComplete": true
+  },
+  "decision": "REJECT",
+  "gateDigest": "444c0ede1129f604666de9c1de64c1c69b1e643e2d304e645f171b0a39e9f3ad",
+  "indexDigest": "856af5b04101fd556e5d6c533c1f457f0eaccefea0391ff7949a0f64f750e1b7",
+  "profileDigest": "9536ac8f979b33d842c5c0300ef5f3c623b44c594cf4841d58bdc2a0ed3cf2a7",
+  "retrievalEvaluationDigest": "399fce51a76fd3185a9aa2817e6ec2686b0820bbdf16d6e40f8e38c65a710f5b",
+  "schemaVersion": "document-quality-admission.v0.1",
+  "sourceDigest": "8b9610e8719ef9aae6ec2038ac646c136be195844accc71895adbba41eea18e6",
+  "testSetDigest": "4ef85edbc3fd1ff3ee23a6a8e81931678d6e0f395df8526950c9ea64f80f6b2a"
+}

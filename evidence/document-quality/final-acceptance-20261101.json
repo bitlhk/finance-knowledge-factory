@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "document-quality-final-acceptance.v0.1",
+  "decision": "ENGINEERING_PATH_PASSED_ANSWER_GATE_FAILED",
+  "runtime": {
+    "knowledgeCommit": "e79d55599b95848592d980b1c5c623dd8bda0267",
+    "builderBuildCommit": "7b9bc0ad566dc9ee1727f69611d0569c4d95da96",
+    "builderHistoryCommit": "9a822259682b4915ade5c33dd92022e68f567c62",
+    "harnessCommit": "1773f63d99e568f4e5fc806a10d5a31dabfd533e",
+    "buildId": "agent-3ebaa283026f4d35",
+    "instanceId": "bdb603f4-8eef-4280-9114-5cb3909de331",
+    "installationLockDigest": "fa6cd409b2af480b227721cd1fde7b0f5aa2df5c592daf3a06ac0a56523bdaa1",
+    "runtimeLockDigest": "ceaaca6ee1eaedcc4e41cf6cf1546c634ebf40575c705114c08cf0133cdf1838",
+    "manifest": "5eb19bb662f311cc91ed5cef0fac20bfbd3b75a9d45c5a7d69b46e24ae570d1b",
+    "modelRef": "model-ea-002",
+    "modelName": "deepseek-v4-flash",
+    "runtimeEvidenceDigest": "6bdf78609d0311ebd3b079a42af2e93713ae412f5abe9bdd80a4c8d59daf3ba4",
+    "runtimeEvidenceVerification": "CORE_CORRELATED_HARNESS_ARCHIVE"
+  },
+  "factoryReceiptDigests": [
+    "cb8c4b0f48fb01d9c87f1fe2db5ed0065d71f1b4b86d61bfab4c9a3465a11881",
+    "740a653b6371909597e866cf2ba3885cfff621b1171624e598c63e76a4a60261",
+    "543da1717c0c654f4a21e8ae3f25863d4915db8d2d986b0d63fa6606f69b7c2a",
+    "a80db8916f53badd0b73c5cb4c8a47fcd626aa3dc59dfcf10e198ece2773f576",
+    "3e95435ea12a9a24483f9ad328f2cca508cff34b3b7cc2f10407d49d16fa7d9a",
+    "5bb073a4f4b9d7caa9800a3410095a4aa6367a6b90260191da6dfb688e3244d0"
+  ],
+  "answerEvaluation": {
+    "decision": "FAIL",
+    "passed": 5,
+    "total": 6,
+    "failedCase": "independent-no-answer-yield",
+    "reason": "The current evaluator treats all retrieved boundary evidence as answer citations; a supported refusal therefore fails its no-citation check.",
+    "goldChanged": false,
+    "thresholdChanged": false
+  },
+  "history": {
+    "authorizedReads": 6,
+    "exactOriginalAnswers": 6,
+    "disabledAuthorityDenials": 6,
+    "disabledAuthorityError": "HISTORY_FORBIDDEN",
+    "runtimeLeaseReused": false,
+    "leasesReclaimed": true,
+    "factoryCoreObjectCountBefore": 37,
+    "factoryCoreObjectCountAfter": 37
+  },
+  "artifactSha256": {
+    "runtimeEvidence": "5d97eecd0a764188e0dbccd8326771f694c545d44db89c7910aac973ca4e70cd",
+    "answerQuality": "76bb480340901f746dec6fd6a7561ee959361d6675e324281637a64bcbc592ef",
+    "authorizedHistory": "8d17877951a254bfa300bed16bd05952010224c19b06fee4b9c09c104a5ca62c",
+    "disabledHistory": "f41d5aeca6b183aaf246a58333ecaf1c4ee75b904fa92cf503e5a8e8aefd75ad",
+    "stoppedReceipt": "dd58744a654656245d8c7f9d85448a7374b6653e040a9e193410a891003e4447",
+    "serviceLock": "fa6cd409b2af480b227721cd1fde7b0f5aa2df5c592daf3a06ac0a56523bdaa1",
+    "modelSelection": "b7d5aeb4bfa570056e04d24b074b6d8c496b5dfa5704569caf8e12583e63aefc"
+  },
+  "scope": {
+    "customerManagerThreeProviderCombination": "NOT_CHANGED",
+    "merged": false,
+    "deployed": false,
+    "existingAgentModified": false
+  }
+}

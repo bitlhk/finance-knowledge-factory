@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "document-quality-test-set.v0.1",
+  "id": "personal-loan-blind-v0-1",
+  "purpose": "BLIND_ACCEPTANCE",
+  "sourceDigest": "a0e10c14b7dbb19631125d4f114d84621170d9a8d4d5cd8df6d7741a0dd6821e",
+  "sourceTitle": "个人贷款管理办法 · 公开制度样例",
+  "cases": [
+    {"caseId":"blind-loan-definition","category":"CANONICAL","question":"个人贷款在本办法中是指什么？","expectedClauses":["第三条"],"answerFacts":["贷款人向符合条件的自然人发放","用于个人消费、生产经营等用途","包括本外币贷款"],"forbiddenClaims":[]},
+    {"caseId":"blind-application-conditions","category":"CANONICAL","question":"申请个人贷款应具备哪些条件？","expectedClauses":["第十二条"],"answerFacts":["借款用途明确合法","申请数额、期限和币种合理","具备还款意愿和还款能力","信用状况良好"],"forbiddenClaims":[]},
+    {"caseId":"blind-investigation-scope","category":"PARAPHRASE","question":"贷前调查通常要了解借款人的哪些情况？","expectedClauses":["第十五条"],"answerFacts":["基本情况","收入情况","借款用途","还款来源、能力及方式","担保情况"],"forbiddenClaims":[]},
+    {"caseId":"blind-consumer-term","category":"PARAPHRASE","question":"用于个人消费的贷款最长一般可以做几年？","expectedClauses":["第八条"],"answerFacts":["不得超过五年"],"forbiddenClaims":["最长十年"]},
+    {"caseId":"blind-onsite-exception","category":"PARAPHRASE","question":"什么情况下个人贷款调查可以简化现场实地调查？","expectedClauses":["第十六条"],"answerFacts":["金额不超过二十万元人民币","非现场手段可有效核实真实性并作出风险评价","不含个人住房用途贷款"],"forbiddenClaims":[]},
+    {"caseId":"blind-third-party-core","category":"CONFUSABLE","question":"贷款调查哪些核心事项不能交给第三方完成？","expectedClauses":["第十七条"],"answerFacts":["真实意思表示","收入水平","债务情况","自有资金来源","外部评估机构准入"],"forbiddenClaims":[]},
+    {"caseId":"blind-auto-approval","category":"PARAPHRASE","question":"线上自动审批是否还需要人工复审机制？","expectedClauses":["第二十一条"],"answerFacts":["应当建立人工复审机制","设定人工复审触发条件"],"forbiddenClaims":[]},
+    {"caseId":"blind-payment-default","category":"CANONICAL","question":"个人贷款资金原则上采用哪种支付方式？","expectedClauses":["第三十三条"],"answerFacts":["贷款人受托支付","第三十六条规定情形除外"],"forbiddenClaims":[]},
+    {"caseId":"blind-autonomous-payment","category":"PARAPHRASE","question":"生产经营贷款单次提款多少以内可以经同意由借款人自主支付？","expectedClauses":["第三十六条"],"answerFacts":["不超过五十万元人民币","须经贷款人同意"],"forbiddenClaims":["不超过三十万元人民币"]},
+    {"caseId":"blind-extension-contrast","category":"CONFUSABLE","question":"一年以内和超过一年的贷款，展期期限上限分别是什么？","expectedClauses":["第四十三条"],"answerFacts":["一年以内累计不得超过原贷款期限","超过一年累计不得超过原贷款期限的一半"],"forbiddenClaims":[]},
+    {"caseId":"blind-credit-card-scope","category":"CONFUSABLE","question":"信用卡透支适用这份个人贷款办法吗？","expectedClauses":["第四十九条"],"answerFacts":["信用卡透支不适用本办法"],"forbiddenClaims":[]},
+    {"caseId":"blind-no-answer-bank-ranking","category":"NO_ANSWER","question":"哪家银行的个人贷款利率最低？","expectedClauses":[],"answerFacts":[],"forbiddenClaims":["具体银行排名","具体最低利率"]}
+  ]
+}

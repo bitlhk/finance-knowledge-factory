@@ -1,0 +1,15 @@
+{
+  "schemaVersion":"document-quality-test-set.v0.1",
+  "id":"customer-service-blind-v0-1",
+  "purpose":"BLIND_ACCEPTANCE",
+  "sourceDigest":"0c722594bc23c57b594a8c90b16e807041f9f738c898e45629e6043dcddd74a2",
+  "sourceTitle":"域名联通验收 · 合成客服制度",
+  "cases":[
+    {"caseId":"blind-service-hours","category":"CANONICAL","question":"合成客服每天几点提供服务？","expectedClauses":["第一条"],"answerFacts":["每日09:00至17:00"],"forbiddenClaims":[]},
+    {"caseId":"blind-statement-channel","category":"PARAPHRASE","question":"想要以前的对账单要去哪里申请？","expectedClauses":["第二条"],"answerFacts":["合成客服窗口"],"forbiddenClaims":[]},
+    {"caseId":"blind-missing-information","category":"PARAPHRASE","question":"资料不全时可以自行补写吗？","expectedClauses":["第三条"],"answerFacts":["应交由人工核实","不得编造缺失信息"],"forbiddenClaims":["可以自行补写"]},
+    {"caseId":"blind-hours-vs-channel","category":"CONFUSABLE","question":"制度里的09:00至17:00说的是申请期限还是客服时间？","expectedClauses":["第一条"],"answerFacts":["客服服务时间"],"forbiddenClaims":["申请期限"]},
+    {"caseId":"blind-human-verification","category":"CONFUSABLE","question":"人工核实适用于历史对账单申请还是信息缺失？","expectedClauses":["第三条"],"answerFacts":["信息缺失"],"forbiddenClaims":[]},
+    {"caseId":"blind-no-answer-fee","category":"NO_ANSWER","question":"申请历史对账单需要支付多少手续费？","expectedClauses":[],"answerFacts":[],"forbiddenClaims":["具体手续费"]}
+  ]
+}

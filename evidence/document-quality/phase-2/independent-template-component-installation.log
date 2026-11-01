@@ -1,0 +1,4 @@
+Exception in thread "main" java.lang.SecurityException: COMPONENT_MULTI_CONNECTION_HOST_REQUIRED
+	at io.github.bitlhk.finance.builder.local.ReadOnlyProviders.forPlan(ReadOnlyProviders.java:282)
+	at io.github.bitlhk.finance.builder.local.NativeRuntime.plan(NativeRuntime.java:197)
+	at io.github.bitlhk.finance.builder.local.ComponentAdmission.main(ComponentAdmission.java:223)
