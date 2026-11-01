@@ -9,6 +9,7 @@ from knowledge_core.core import Actor
 from knowledge_core.documents import DocumentCore
 from evaluation_worker import CandidateEvaluationWorker, OpenJiuwenModelGateway
 from evaluation_worker.gateway import _bounded_usage
+from knowledge_core.documents import _answer_references
 from m2.pipeline import produce
 from tests.support import CONTEXT, ir, policy
 from tests.test_document_quality_publication import (
@@ -33,6 +34,21 @@ def test_model_usage_excludes_floats_and_unbounded_provider_metadata():
         'total_latency':1.25, 'prompt':'sensitive prompt', 'unknown':999})
     assert _bounded_usage(usage) == {
         'inputTokens':12, 'outputTokens':3, 'totalTokens':15}
+
+
+def test_answer_citations_resolve_core_numbered_evidence_and_reject_unknown():
+    retrieved = [
+        {'clause':'第一条', 'evidenceDigest':'a' * 64},
+        {'clause':'第二条', 'evidenceDigest':'b' * 64},
+    ]
+    citations, unmatched = _answer_references(
+        '根据已核验原文[1]可以确认；[9]无对应原文。', retrieved)
+    assert citations == [{
+        'clause':'第一条', 'answerReference':'[1]',
+        'retrievedEvidenceDigests':['a' * 64],
+        'derivation':'ARCHIVED_ANSWER_EVIDENCE_ORDINAL',
+    }]
+    assert unmatched == ['[9]']
 
 
 def evaluation_policy():

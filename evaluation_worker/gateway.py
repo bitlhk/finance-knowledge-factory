@@ -40,14 +40,14 @@ def build_openjiuwen_model(environment):
     if version("openjiuwen") != OPENJIUWEN_VERSION:
         raise RuntimeError("OPENJIUWEN_VERSION_MISMATCH")
     from openjiuwen.core.common.logging.log_config import configure_log_config
-    from openjiuwen.core.foundation.llm import Model, ModelClientConfig, \
-        ModelRequestConfig
     # Core owns the durable evaluation record. SDK prompt/answer logs would be
     # an ungoverned second archive, so the worker disables all SDK sinks.
     configure_log_config({
         "backend":"default", "level":"ERROR", "output":[],
         "interface_output":[], "performance_output":[],
     })
+    from openjiuwen.core.foundation.llm import Model, ModelClientConfig, \
+        ModelRequestConfig
     return Model(
         model_client_config=ModelClientConfig(
             client_provider="OpenAI", api_key=environment.api_key,

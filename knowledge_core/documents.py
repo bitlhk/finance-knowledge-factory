@@ -26,6 +26,7 @@ def normal(text):
 
 
 _CLAUSE_REFERENCE = re.compile(r'第[0-9〇零一二三四五六七八九十百千万两]+条')
+_EVIDENCE_ORDINAL_REFERENCE = re.compile(r'\[([1-9][0-9]*)\]')
 _REFUSAL = re.compile(r'无法|不能|未找到|没有足够|依据不足|无足够')
 _NEGATION = re.compile(r'不|未|无|非|禁止|不得|不能|无法|不应')
 
@@ -53,6 +54,21 @@ def _answer_references(answer, retrieved):
         citations.append({'clause':reference, 'answerReference':reference,
             'retrievedEvidenceDigests':_unique(item['evidenceDigest'] for item in matches),
             'derivation':'ARCHIVED_ANSWER_EXPLICIT_REFERENCE'})
+    cited_clauses = {item['clause'] for item in citations}
+    for value in _unique(_EVIDENCE_ORDINAL_REFERENCE.findall(answer)):
+        reference = f'[{value}]'
+        position = int(value) - 1
+        if position >= len(retrieved):
+            unmatched.append(reference)
+            continue
+        evidence = retrieved[position]
+        clause = evidence['clause']
+        if clause in cited_clauses:
+            continue
+        citations.append({'clause':clause, 'answerReference':reference,
+            'retrievedEvidenceDigests':[evidence['evidenceDigest']],
+            'derivation':'ARCHIVED_ANSWER_EVIDENCE_ORDINAL'})
+        cited_clauses.add(clause)
     return citations, unmatched
 
 
