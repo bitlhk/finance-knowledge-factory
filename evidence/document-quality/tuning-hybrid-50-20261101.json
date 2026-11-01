@@ -1,0 +1,1511 @@
+{
+  "schemaVersion": "document-quality-evaluation.v0.1",
+  "testSetDigest": "78907856dddb7ec11401d2ca3a299600668dd12dff28fdf9c2ccfb842bad8c77",
+  "profile": {
+    "name": "hybrid-50",
+    "retrieval": {
+      "pageSize": 12,
+      "knnTopK": 64,
+      "knnCandidates": 128,
+      "rerankCandidates": 64,
+      "similarityThresholdBps": 0,
+      "keywordWeightBps": 5000,
+      "rerankerId": null
+    },
+    "postRank": "NONE",
+    "selectionThresholdBps": 0
+  },
+  "engineIdentity": "infiniflow/ragflow@sha256:141670c7d25b4421f6378152e583a0fe7e5280ed750c42f7507759192d0dad82",
+  "embeddingIdentity": "BAAI/bge-small-zh-v1.5:3d995819ca6e4f46be2adb76cd4dfe4a",
+  "metricsBps": {
+    "recallAt3": 10000,
+    "hitAt1": 7777,
+    "mrr": 8703,
+    "noAnswerFalsePositive": 10000
+  },
+  "latencyMs": {
+    "total": 637,
+    "average": 53
+  },
+  "cases": [
+    {
+      "caseId": "tune-definition",
+      "category": "CANONICAL",
+      "question": "什么是适当性管理？",
+      "expectedClauses": [
+        "第二条"
+      ],
+      "answerFacts": [
+        "结合产品属性和客户情况开展识别、提示、匹配、销售、交易等活动"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "b1e20bb896b4f518",
+          "clauses": [
+            "第二条"
+          ],
+          "scoreBps": 6030,
+          "termScoreBps": 3266,
+          "vectorScoreBps": 8794
+        },
+        {
+          "rank": 2,
+          "chunkId": "29717eec2051565e",
+          "clauses": [
+            "第二十五条"
+          ],
+          "scoreBps": 5849,
+          "termScoreBps": 3266,
+          "vectorScoreBps": 8432
+        },
+        {
+          "rank": 3,
+          "chunkId": "6d5b2b48bc63ce9a",
+          "clauses": [
+            "第六条"
+          ],
+          "scoreBps": 5818,
+          "termScoreBps": 3266,
+          "vectorScoreBps": 8370
+        },
+        {
+          "rank": 4,
+          "chunkId": "0c0d7f9689265f3c",
+          "clauses": [
+            "第二十六条"
+          ],
+          "scoreBps": 5767,
+          "termScoreBps": 3266,
+          "vectorScoreBps": 8269
+        },
+        {
+          "rank": 5,
+          "chunkId": "33e8dee86e2356d2",
+          "clauses": [
+            "第三十四条"
+          ],
+          "scoreBps": 5726,
+          "termScoreBps": 3266,
+          "vectorScoreBps": 8187
+        },
+        {
+          "rank": 6,
+          "chunkId": "01e540bc58b51767",
+          "clauses": [
+            "第四十五条"
+          ],
+          "scoreBps": 5721,
+          "termScoreBps": 3266,
+          "vectorScoreBps": 8175
+        },
+        {
+          "rank": 7,
+          "chunkId": "9f21c099499eba22",
+          "clauses": [
+            "第十四条"
+          ],
+          "scoreBps": 5684,
+          "termScoreBps": 3266,
+          "vectorScoreBps": 8102
+        },
+        {
+          "rank": 8,
+          "chunkId": "c764e170937bfa98",
+          "clauses": [
+            "第七条"
+          ],
+          "scoreBps": 5652,
+          "termScoreBps": 3266,
+          "vectorScoreBps": 8039
+        },
+        {
+          "rank": 9,
+          "chunkId": "3df3444c11990102",
+          "clauses": [
+            "第二十七条"
+          ],
+          "scoreBps": 5625,
+          "termScoreBps": 3266,
+          "vectorScoreBps": 7984
+        },
+        {
+          "rank": 10,
+          "chunkId": "2ac4d02f74ca0910",
+          "clauses": [
+            "第三十一条"
+          ],
+          "scoreBps": 5613,
+          "termScoreBps": 3266,
+          "vectorScoreBps": 7960
+        },
+        {
+          "rank": 11,
+          "chunkId": "1a9fb33922e2583c",
+          "clauses": [
+            "第四十一条"
+          ],
+          "scoreBps": 5610,
+          "termScoreBps": 3266,
+          "vectorScoreBps": 7953
+        },
+        {
+          "rank": 12,
+          "chunkId": "9c259fa5a6a58ac0",
+          "clauses": [
+            "第二十一条"
+          ],
+          "scoreBps": 5599,
+          "termScoreBps": 3266,
+          "vectorScoreBps": 7932
+        }
+      ],
+      "selectedClauses": [
+        "第二条",
+        "第二十五条",
+        "第六条"
+      ],
+      "latencyMs": 60,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "tune-mismatch",
+      "category": "PARAPHRASE",
+      "question": "产品风险超过客户承受能力还能卖吗？",
+      "expectedClauses": [
+        "第十二条"
+      ],
+      "answerFacts": [
+        "产品风险等级高于客户风险承受能力时不具备适当性"
+      ],
+      "forbiddenClaims": [
+        "可以直接销售"
+      ],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "b5e66ebdbe23286e",
+          "clauses": [
+            "第十二条"
+          ],
+          "scoreBps": 5728,
+          "termScoreBps": 2947,
+          "vectorScoreBps": 8509
+        },
+        {
+          "rank": 2,
+          "chunkId": "1fddf72cb6d6f3d4",
+          "clauses": [
+            "第十三条"
+          ],
+          "scoreBps": 5581,
+          "termScoreBps": 2947,
+          "vectorScoreBps": 8214
+        },
+        {
+          "rank": 3,
+          "chunkId": "33e8dee86e2356d2",
+          "clauses": [
+            "第三十四条"
+          ],
+          "scoreBps": 5450,
+          "termScoreBps": 3195,
+          "vectorScoreBps": 7706
+        },
+        {
+          "rank": 4,
+          "chunkId": "29717eec2051565e",
+          "clauses": [
+            "第二十五条"
+          ],
+          "scoreBps": 5423,
+          "termScoreBps": 3195,
+          "vectorScoreBps": 7652
+        },
+        {
+          "rank": 5,
+          "chunkId": "b1e20bb896b4f518",
+          "clauses": [
+            "第二条"
+          ],
+          "scoreBps": 5345,
+          "termScoreBps": 2947,
+          "vectorScoreBps": 7743
+        },
+        {
+          "rank": 6,
+          "chunkId": "22fc8fae61149a60",
+          "clauses": [
+            "第三十六条"
+          ],
+          "scoreBps": 5299,
+          "termScoreBps": 2423,
+          "vectorScoreBps": 8175
+        },
+        {
+          "rank": 7,
+          "chunkId": "5b207809cdeca861",
+          "clauses": [
+            "第四十条"
+          ],
+          "scoreBps": 5267,
+          "termScoreBps": 2423,
+          "vectorScoreBps": 8111
+        },
+        {
+          "rank": 8,
+          "chunkId": "51fd351022230a57",
+          "clauses": [
+            "第三十条"
+          ],
+          "scoreBps": 5197,
+          "termScoreBps": 2423,
+          "vectorScoreBps": 7971
+        },
+        {
+          "rank": 9,
+          "chunkId": "a4ba6e554247b700",
+          "clauses": [
+            "第二十八条"
+          ],
+          "scoreBps": 5116,
+          "termScoreBps": 2423,
+          "vectorScoreBps": 7808
+        },
+        {
+          "rank": 10,
+          "chunkId": "738e581fbe39f907",
+          "clauses": [
+            "第二十九条"
+          ],
+          "scoreBps": 5114,
+          "termScoreBps": 2122,
+          "vectorScoreBps": 8106
+        },
+        {
+          "rank": 11,
+          "chunkId": "3df3444c11990102",
+          "clauses": [
+            "第二十七条"
+          ],
+          "scoreBps": 4982,
+          "termScoreBps": 2423,
+          "vectorScoreBps": 7541
+        },
+        {
+          "rank": 12,
+          "chunkId": "84041e063712cff4",
+          "clauses": [
+            "第五条"
+          ],
+          "scoreBps": 4898,
+          "termScoreBps": 1602,
+          "vectorScoreBps": 8194
+        }
+      ],
+      "selectedClauses": [
+        "第十二条",
+        "第十三条",
+        "第三十四条"
+      ],
+      "latencyMs": 58,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "tune-risk-level",
+      "category": "CONFUSABLE",
+      "question": "投资产品本身最低要划分几个风险等级？",
+      "expectedClauses": [
+        "第二十二条"
+      ],
+      "answerFacts": [
+        "由低到高至少一级至五级"
+      ],
+      "forbiddenClaims": [
+        "风险承受能力评估次数"
+      ],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "8ff429136c6d4d33",
+          "clauses": [
+            "第二十三条"
+          ],
+          "scoreBps": 6114,
+          "termScoreBps": 3519,
+          "vectorScoreBps": 8709
+        },
+        {
+          "rank": 2,
+          "chunkId": "fdeeee02795e2119",
+          "clauses": [
+            "第二十四条"
+          ],
+          "scoreBps": 5674,
+          "termScoreBps": 2906,
+          "vectorScoreBps": 8442
+        },
+        {
+          "rank": 3,
+          "chunkId": "5a643062d195bd3e",
+          "clauses": [
+            "第二十二条"
+          ],
+          "scoreBps": 5636,
+          "termScoreBps": 2538,
+          "vectorScoreBps": 8734
+        },
+        {
+          "rank": 4,
+          "chunkId": "2ac4d02f74ca0910",
+          "clauses": [
+            "第三十一条"
+          ],
+          "scoreBps": 5203,
+          "termScoreBps": 2235,
+          "vectorScoreBps": 8171
+        },
+        {
+          "rank": 5,
+          "chunkId": "22fc8fae61149a60",
+          "clauses": [
+            "第三十六条"
+          ],
+          "scoreBps": 5127,
+          "termScoreBps": 1926,
+          "vectorScoreBps": 8328
+        },
+        {
+          "rank": 6,
+          "chunkId": "51fd351022230a57",
+          "clauses": [
+            "第三十条"
+          ],
+          "scoreBps": 5099,
+          "termScoreBps": 1926,
+          "vectorScoreBps": 8272
+        },
+        {
+          "rank": 7,
+          "chunkId": "29717eec2051565e",
+          "clauses": [
+            "第二十五条"
+          ],
+          "scoreBps": 4980,
+          "termScoreBps": 1926,
+          "vectorScoreBps": 8034
+        },
+        {
+          "rank": 8,
+          "chunkId": "3df3444c11990102",
+          "clauses": [
+            "第二十七条"
+          ],
+          "scoreBps": 4965,
+          "termScoreBps": 1926,
+          "vectorScoreBps": 8005
+        },
+        {
+          "rank": 9,
+          "chunkId": "1fddf72cb6d6f3d4",
+          "clauses": [
+            "第十三条"
+          ],
+          "scoreBps": 4851,
+          "termScoreBps": 1581,
+          "vectorScoreBps": 8120
+        },
+        {
+          "rank": 10,
+          "chunkId": "b5e66ebdbe23286e",
+          "clauses": [
+            "第十二条"
+          ],
+          "scoreBps": 4799,
+          "termScoreBps": 1581,
+          "vectorScoreBps": 8017
+        },
+        {
+          "rank": 11,
+          "chunkId": "a4ba6e554247b700",
+          "clauses": [
+            "第二十八条"
+          ],
+          "scoreBps": 4721,
+          "termScoreBps": 1272,
+          "vectorScoreBps": 8170
+        },
+        {
+          "rank": 12,
+          "chunkId": "738e581fbe39f907",
+          "clauses": [
+            "第二十九条"
+          ],
+          "scoreBps": 4688,
+          "termScoreBps": 928,
+          "vectorScoreBps": 8449
+        }
+      ],
+      "selectedClauses": [
+        "第二十三条",
+        "第二十四条",
+        "第二十二条"
+      ],
+      "latencyMs": 33,
+      "passed": false,
+      "failureClassifications": [
+        "RANKING_ERROR"
+      ]
+    },
+    {
+      "caseId": "tune-no-weather",
+      "category": "NO_ANSWER",
+      "question": "明天北京天气怎么样？",
+      "expectedClauses": [],
+      "answerFacts": [],
+      "forbiddenClaims": [
+        "制度规定明天天气"
+      ],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "b3271abd3aac1f00",
+          "clauses": [
+            "第四十三条"
+          ],
+          "scoreBps": 3161,
+          "termScoreBps": 0,
+          "vectorScoreBps": 6321
+        },
+        {
+          "rank": 2,
+          "chunkId": "738e581fbe39f907",
+          "clauses": [
+            "第二十九条"
+          ],
+          "scoreBps": 3109,
+          "termScoreBps": 0,
+          "vectorScoreBps": 6218
+        },
+        {
+          "rank": 3,
+          "chunkId": "0be51116a9f1d0dd",
+          "clauses": [],
+          "scoreBps": 3088,
+          "termScoreBps": 0,
+          "vectorScoreBps": 6175
+        },
+        {
+          "rank": 4,
+          "chunkId": "1a9fb33922e2583c",
+          "clauses": [
+            "第四十一条"
+          ],
+          "scoreBps": 3070,
+          "termScoreBps": 0,
+          "vectorScoreBps": 6139
+        },
+        {
+          "rank": 5,
+          "chunkId": "84041e063712cff4",
+          "clauses": [
+            "第五条"
+          ],
+          "scoreBps": 3056,
+          "termScoreBps": 0,
+          "vectorScoreBps": 6111
+        },
+        {
+          "rank": 6,
+          "chunkId": "c764e170937bfa98",
+          "clauses": [
+            "第七条"
+          ],
+          "scoreBps": 3055,
+          "termScoreBps": 0,
+          "vectorScoreBps": 6109
+        },
+        {
+          "rank": 7,
+          "chunkId": "22924d5425430ad4",
+          "clauses": [
+            "第四十九条"
+          ],
+          "scoreBps": 3053,
+          "termScoreBps": 0,
+          "vectorScoreBps": 6106
+        },
+        {
+          "rank": 8,
+          "chunkId": "21b47a266f25f9d1",
+          "clauses": [
+            "第二十条"
+          ],
+          "scoreBps": 3051,
+          "termScoreBps": 0,
+          "vectorScoreBps": 6103
+        },
+        {
+          "rank": 9,
+          "chunkId": "1fef28ebd5bd02ef",
+          "clauses": [
+            "第十六条"
+          ],
+          "scoreBps": 3045,
+          "termScoreBps": 0,
+          "vectorScoreBps": 6090
+        },
+        {
+          "rank": 10,
+          "chunkId": "ff8c48eeddd9080c",
+          "clauses": [
+            "第十七条"
+          ],
+          "scoreBps": 3044,
+          "termScoreBps": 0,
+          "vectorScoreBps": 6088
+        },
+        {
+          "rank": 11,
+          "chunkId": "01e540bc58b51767",
+          "clauses": [
+            "第四十五条"
+          ],
+          "scoreBps": 3042,
+          "termScoreBps": 0,
+          "vectorScoreBps": 6084
+        },
+        {
+          "rank": 12,
+          "chunkId": "d0511905aef310e2",
+          "clauses": [
+            "第四十八条"
+          ],
+          "scoreBps": 3040,
+          "termScoreBps": 0,
+          "vectorScoreBps": 6080
+        }
+      ],
+      "selectedClauses": [
+        "第四十三条",
+        "第二十九条",
+        "第四十一条"
+      ],
+      "latencyMs": 50,
+      "passed": false,
+      "failureClassifications": [
+        "FALSE_POSITIVE_NO_ANSWER"
+      ]
+    },
+    {
+      "caseId": "tune-retention",
+      "category": "PARAPHRASE",
+      "question": "客户合同结束后，适当性过程资料最少再留几年？",
+      "expectedClauses": [
+        "第十七条"
+      ],
+      "answerFacts": [
+        "不低于五年"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "ff8c48eeddd9080c",
+          "clauses": [
+            "第十七条"
+          ],
+          "scoreBps": 5459,
+          "termScoreBps": 2481,
+          "vectorScoreBps": 8437
+        },
+        {
+          "rank": 2,
+          "chunkId": "9c259fa5a6a58ac0",
+          "clauses": [
+            "第二十一条"
+          ],
+          "scoreBps": 4527,
+          "termScoreBps": 1367,
+          "vectorScoreBps": 7687
+        },
+        {
+          "rank": 3,
+          "chunkId": "1fddf72cb6d6f3d4",
+          "clauses": [
+            "第十三条"
+          ],
+          "scoreBps": 4511,
+          "termScoreBps": 1350,
+          "vectorScoreBps": 7671
+        },
+        {
+          "rank": 4,
+          "chunkId": "b5e66ebdbe23286e",
+          "clauses": [
+            "第十二条"
+          ],
+          "scoreBps": 4501,
+          "termScoreBps": 1135,
+          "vectorScoreBps": 7866
+        },
+        {
+          "rank": 5,
+          "chunkId": "b1e20bb896b4f518",
+          "clauses": [
+            "第二条"
+          ],
+          "scoreBps": 4488,
+          "termScoreBps": 1135,
+          "vectorScoreBps": 7841
+        },
+        {
+          "rank": 6,
+          "chunkId": "84041e063712cff4",
+          "clauses": [
+            "第五条"
+          ],
+          "scoreBps": 4482,
+          "termScoreBps": 1135,
+          "vectorScoreBps": 7828
+        },
+        {
+          "rank": 7,
+          "chunkId": "21b47a266f25f9d1",
+          "clauses": [
+            "第二十条"
+          ],
+          "scoreBps": 4462,
+          "termScoreBps": 1135,
+          "vectorScoreBps": 7788
+        },
+        {
+          "rank": 8,
+          "chunkId": "9f21c099499eba22",
+          "clauses": [
+            "第十四条"
+          ],
+          "scoreBps": 4416,
+          "termScoreBps": 1135,
+          "vectorScoreBps": 7698
+        },
+        {
+          "rank": 9,
+          "chunkId": "29717eec2051565e",
+          "clauses": [
+            "第二十五条"
+          ],
+          "scoreBps": 4413,
+          "termScoreBps": 904,
+          "vectorScoreBps": 7923
+        },
+        {
+          "rank": 10,
+          "chunkId": "a37bd562ea2becee",
+          "clauses": [
+            "第三十八条"
+          ],
+          "scoreBps": 4404,
+          "termScoreBps": 888,
+          "vectorScoreBps": 7921
+        },
+        {
+          "rank": 11,
+          "chunkId": "122f7b532f8b3f4b",
+          "clauses": [
+            "第十八条"
+          ],
+          "scoreBps": 4380,
+          "termScoreBps": 908,
+          "vectorScoreBps": 7852
+        },
+        {
+          "rank": 12,
+          "chunkId": "738e581fbe39f907",
+          "clauses": [
+            "第二十九条"
+          ],
+          "scoreBps": 4355,
+          "termScoreBps": 673,
+          "vectorScoreBps": 8037
+        }
+      ],
+      "selectedClauses": [
+        "第十七条",
+        "第二十一条",
+        "第十三条"
+      ],
+      "latencyMs": 104,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "tune-elderly",
+      "category": "PARAPHRASE",
+      "question": "给超过65岁的客户卖高风险产品有哪些额外要求？",
+      "expectedClauses": [
+        "第十八条"
+      ],
+      "answerFacts": [
+        "履行特别注意义务"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "122f7b532f8b3f4b",
+          "clauses": [
+            "第十八条"
+          ],
+          "scoreBps": 5216,
+          "termScoreBps": 1770,
+          "vectorScoreBps": 8663
+        },
+        {
+          "rank": 2,
+          "chunkId": "1fddf72cb6d6f3d4",
+          "clauses": [
+            "第十三条"
+          ],
+          "scoreBps": 4780,
+          "termScoreBps": 1515,
+          "vectorScoreBps": 8045
+        },
+        {
+          "rank": 3,
+          "chunkId": "b5e66ebdbe23286e",
+          "clauses": [
+            "第十二条"
+          ],
+          "scoreBps": 4697,
+          "termScoreBps": 1309,
+          "vectorScoreBps": 8085
+        },
+        {
+          "rank": 4,
+          "chunkId": "84041e063712cff4",
+          "clauses": [
+            "第五条"
+          ],
+          "scoreBps": 4681,
+          "termScoreBps": 1309,
+          "vectorScoreBps": 8052
+        },
+        {
+          "rank": 5,
+          "chunkId": "1fef28ebd5bd02ef",
+          "clauses": [
+            "第十六条"
+          ],
+          "scoreBps": 4575,
+          "termScoreBps": 1309,
+          "vectorScoreBps": 7842
+        },
+        {
+          "rank": 6,
+          "chunkId": "22fc8fae61149a60",
+          "clauses": [
+            "第三十六条"
+          ],
+          "scoreBps": 4569,
+          "termScoreBps": 1087,
+          "vectorScoreBps": 8051
+        },
+        {
+          "rank": 7,
+          "chunkId": "c8b2c60415411092",
+          "clauses": [
+            "第九条"
+          ],
+          "scoreBps": 4531,
+          "termScoreBps": 1309,
+          "vectorScoreBps": 7752
+        },
+        {
+          "rank": 8,
+          "chunkId": "5b207809cdeca861",
+          "clauses": [
+            "第四十条"
+          ],
+          "scoreBps": 4487,
+          "termScoreBps": 881,
+          "vectorScoreBps": 8094
+        },
+        {
+          "rank": 9,
+          "chunkId": "fdeeee02795e2119",
+          "clauses": [
+            "第二十四条"
+          ],
+          "scoreBps": 4473,
+          "termScoreBps": 1087,
+          "vectorScoreBps": 7859
+        },
+        {
+          "rank": 10,
+          "chunkId": "b1e20bb896b4f518",
+          "clauses": [
+            "第二条"
+          ],
+          "scoreBps": 4467,
+          "termScoreBps": 1309,
+          "vectorScoreBps": 7625
+        },
+        {
+          "rank": 11,
+          "chunkId": "a37bd562ea2becee",
+          "clauses": [
+            "第三十八条"
+          ],
+          "scoreBps": 4455,
+          "termScoreBps": 1087,
+          "vectorScoreBps": 7824
+        },
+        {
+          "rank": 12,
+          "chunkId": "ef35444688e5c1b2",
+          "clauses": [
+            "第十一条"
+          ],
+          "scoreBps": 4417,
+          "termScoreBps": 1087,
+          "vectorScoreBps": 7748
+        }
+      ],
+      "selectedClauses": [
+        "第十八条",
+        "第十三条",
+        "第十二条"
+      ],
+      "latencyMs": 52,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "tune-online",
+      "category": "PARAPHRASE",
+      "question": "网上销售产品是否也要把适当性嵌入操作流程？",
+      "expectedClauses": [
+        "第十四条"
+      ],
+      "answerFacts": [
+        "应嵌入流程"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "9f21c099499eba22",
+          "clauses": [
+            "第十四条"
+          ],
+          "scoreBps": 5677,
+          "termScoreBps": 2627,
+          "vectorScoreBps": 8727
+        },
+        {
+          "rank": 2,
+          "chunkId": "122f7b532f8b3f4b",
+          "clauses": [
+            "第十八条"
+          ],
+          "scoreBps": 5078,
+          "termScoreBps": 2106,
+          "vectorScoreBps": 8051
+        },
+        {
+          "rank": 3,
+          "chunkId": "b1e20bb896b4f518",
+          "clauses": [
+            "第二条"
+          ],
+          "scoreBps": 4987,
+          "termScoreBps": 1826,
+          "vectorScoreBps": 8149
+        },
+        {
+          "rank": 4,
+          "chunkId": "b5e66ebdbe23286e",
+          "clauses": [
+            "第十二条"
+          ],
+          "scoreBps": 4972,
+          "termScoreBps": 1826,
+          "vectorScoreBps": 8118
+        },
+        {
+          "rank": 5,
+          "chunkId": "9c259fa5a6a58ac0",
+          "clauses": [
+            "第二十一条"
+          ],
+          "scoreBps": 4925,
+          "termScoreBps": 1826,
+          "vectorScoreBps": 8025
+        },
+        {
+          "rank": 6,
+          "chunkId": "51fd351022230a57",
+          "clauses": [
+            "第三十条"
+          ],
+          "scoreBps": 4925,
+          "termScoreBps": 1826,
+          "vectorScoreBps": 8024
+        },
+        {
+          "rank": 7,
+          "chunkId": "29717eec2051565e",
+          "clauses": [
+            "第二十五条"
+          ],
+          "scoreBps": 4918,
+          "termScoreBps": 1826,
+          "vectorScoreBps": 8011
+        },
+        {
+          "rank": 8,
+          "chunkId": "1fddf72cb6d6f3d4",
+          "clauses": [
+            "第十三条"
+          ],
+          "scoreBps": 4846,
+          "termScoreBps": 1826,
+          "vectorScoreBps": 7867
+        },
+        {
+          "rank": 9,
+          "chunkId": "5a643062d195bd3e",
+          "clauses": [
+            "第二十二条"
+          ],
+          "scoreBps": 4846,
+          "termScoreBps": 1826,
+          "vectorScoreBps": 7867
+        },
+        {
+          "rank": 10,
+          "chunkId": "a0b6057061d11aa9",
+          "clauses": [
+            "第四条"
+          ],
+          "scoreBps": 4831,
+          "termScoreBps": 1826,
+          "vectorScoreBps": 7837
+        },
+        {
+          "rank": 11,
+          "chunkId": "8e5ff6f05796c523",
+          "clauses": [
+            "第三十七条"
+          ],
+          "scoreBps": 4813,
+          "termScoreBps": 1826,
+          "vectorScoreBps": 7800
+        },
+        {
+          "rank": 12,
+          "chunkId": "ef35444688e5c1b2",
+          "clauses": [
+            "第十一条"
+          ],
+          "scoreBps": 4802,
+          "termScoreBps": 1613,
+          "vectorScoreBps": 7992
+        }
+      ],
+      "selectedClauses": [
+        "第十四条",
+        "第十八条",
+        "第二条"
+      ],
+      "latencyMs": 74,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "tune-rating-conflict",
+      "category": "PARAPHRASE",
+      "question": "产品风险评级出现两个结果时销售方如何选？",
+      "expectedClauses": [
+        "第二十二条"
+      ],
+      "answerFacts": [
+        "按孰高原则"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "5a643062d195bd3e",
+          "clauses": [
+            "第二十二条"
+          ],
+          "scoreBps": 5287,
+          "termScoreBps": 2110,
+          "vectorScoreBps": 8464
+        },
+        {
+          "rank": 2,
+          "chunkId": "1fddf72cb6d6f3d4",
+          "clauses": [
+            "第十三条"
+          ],
+          "scoreBps": 5233,
+          "termScoreBps": 2299,
+          "vectorScoreBps": 8167
+        },
+        {
+          "rank": 3,
+          "chunkId": "8ff429136c6d4d33",
+          "clauses": [
+            "第二十三条"
+          ],
+          "scoreBps": 5125,
+          "termScoreBps": 2099,
+          "vectorScoreBps": 8151
+        },
+        {
+          "rank": 4,
+          "chunkId": "fdeeee02795e2119",
+          "clauses": [
+            "第二十四条"
+          ],
+          "scoreBps": 5107,
+          "termScoreBps": 1911,
+          "vectorScoreBps": 8302
+        },
+        {
+          "rank": 5,
+          "chunkId": "738e581fbe39f907",
+          "clauses": [
+            "第二十九条"
+          ],
+          "scoreBps": 4985,
+          "termScoreBps": 1814,
+          "vectorScoreBps": 8157
+        },
+        {
+          "rank": 6,
+          "chunkId": "22fc8fae61149a60",
+          "clauses": [
+            "第三十六条"
+          ],
+          "scoreBps": 4897,
+          "termScoreBps": 1668,
+          "vectorScoreBps": 8126
+        },
+        {
+          "rank": 7,
+          "chunkId": "29717eec2051565e",
+          "clauses": [
+            "第二十五条"
+          ],
+          "scoreBps": 4812,
+          "termScoreBps": 1857,
+          "vectorScoreBps": 7767
+        },
+        {
+          "rank": 8,
+          "chunkId": "b5e66ebdbe23286e",
+          "clauses": [
+            "第十二条"
+          ],
+          "scoreBps": 4742,
+          "termScoreBps": 1430,
+          "vectorScoreBps": 8055
+        },
+        {
+          "rank": 9,
+          "chunkId": "3df3444c11990102",
+          "clauses": [
+            "第二十七条"
+          ],
+          "scoreBps": 4715,
+          "termScoreBps": 1857,
+          "vectorScoreBps": 7574
+        },
+        {
+          "rank": 10,
+          "chunkId": "51fd351022230a57",
+          "clauses": [
+            "第三十条"
+          ],
+          "scoreBps": 4665,
+          "termScoreBps": 1430,
+          "vectorScoreBps": 7900
+        },
+        {
+          "rank": 11,
+          "chunkId": "1fef28ebd5bd02ef",
+          "clauses": [
+            "第十六条"
+          ],
+          "scoreBps": 4664,
+          "termScoreBps": 1430,
+          "vectorScoreBps": 7898
+        },
+        {
+          "rank": 12,
+          "chunkId": "8e5ff6f05796c523",
+          "clauses": [
+            "第三十七条"
+          ],
+          "scoreBps": 4637,
+          "termScoreBps": 1398,
+          "vectorScoreBps": 7877
+        }
+      ],
+      "selectedClauses": [
+        "第二十二条",
+        "第十三条",
+        "第二十三条"
+      ],
+      "latencyMs": 40,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "tune-private-publicity",
+      "category": "PARAPHRASE",
+      "question": "私募能在公开网站面向所有人宣传吗？",
+      "expectedClauses": [
+        "第三十条"
+      ],
+      "answerFacts": [
+        "不得公开面向不特定对象宣传"
+      ],
+      "forbiddenClaims": [],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "51fd351022230a57",
+          "clauses": [
+            "第三十条"
+          ],
+          "scoreBps": 4571,
+          "termScoreBps": 959,
+          "vectorScoreBps": 8182
+        },
+        {
+          "rank": 2,
+          "chunkId": "3df3444c11990102",
+          "clauses": [
+            "第二十七条"
+          ],
+          "scoreBps": 4233,
+          "termScoreBps": 971,
+          "vectorScoreBps": 7494
+        }
+      ],
+      "selectedClauses": [
+        "第三十条",
+        "第二十七条"
+      ],
+      "latencyMs": 42,
+      "passed": true,
+      "failureClassifications": []
+    },
+    {
+      "caseId": "tune-client-level",
+      "category": "CONFUSABLE",
+      "question": "投资者承受能力本身至少划分多少级？",
+      "expectedClauses": [
+        "第二十九条"
+      ],
+      "answerFacts": [
+        "至少一级至五级"
+      ],
+      "forbiddenClaims": [
+        "产品评级"
+      ],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "29717eec2051565e",
+          "clauses": [
+            "第二十五条"
+          ],
+          "scoreBps": 5683,
+          "termScoreBps": 3451,
+          "vectorScoreBps": 7914
+        },
+        {
+          "rank": 2,
+          "chunkId": "738e581fbe39f907",
+          "clauses": [
+            "第二十九条"
+          ],
+          "scoreBps": 5371,
+          "termScoreBps": 2103,
+          "vectorScoreBps": 8639
+        },
+        {
+          "rank": 3,
+          "chunkId": "3df3444c11990102",
+          "clauses": [
+            "第二十七条"
+          ],
+          "scoreBps": 5294,
+          "termScoreBps": 2618,
+          "vectorScoreBps": 7970
+        },
+        {
+          "rank": 4,
+          "chunkId": "51fd351022230a57",
+          "clauses": [
+            "第三十条"
+          ],
+          "scoreBps": 5235,
+          "termScoreBps": 2618,
+          "vectorScoreBps": 7853
+        },
+        {
+          "rank": 5,
+          "chunkId": "a4ba6e554247b700",
+          "clauses": [
+            "第二十八条"
+          ],
+          "scoreBps": 5092,
+          "termScoreBps": 2019,
+          "vectorScoreBps": 8165
+        },
+        {
+          "rank": 6,
+          "chunkId": "22fc8fae61149a60",
+          "clauses": [
+            "第三十六条"
+          ],
+          "scoreBps": 4993,
+          "termScoreBps": 2051,
+          "vectorScoreBps": 7935
+        },
+        {
+          "rank": 7,
+          "chunkId": "5a643062d195bd3e",
+          "clauses": [
+            "第二十二条"
+          ],
+          "scoreBps": 4836,
+          "termScoreBps": 1526,
+          "vectorScoreBps": 8147
+        },
+        {
+          "rank": 8,
+          "chunkId": "8ff429136c6d4d33",
+          "clauses": [
+            "第二十三条"
+          ],
+          "scoreBps": 4518,
+          "termScoreBps": 876,
+          "vectorScoreBps": 8161
+        }
+      ],
+      "selectedClauses": [
+        "第二十五条",
+        "第二十九条",
+        "第二十七条"
+      ],
+      "latencyMs": 33,
+      "passed": false,
+      "failureClassifications": [
+        "RANKING_ERROR"
+      ]
+    },
+    {
+      "caseId": "tune-no-stock",
+      "category": "NO_ANSWER",
+      "question": "下周银行股票价格能涨多少？",
+      "expectedClauses": [],
+      "answerFacts": [],
+      "forbiddenClaims": [
+        "预测股价"
+      ],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "9df5ff75b4b1572a",
+          "clauses": [
+            "第三条"
+          ],
+          "scoreBps": 3637,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7274
+        },
+        {
+          "rank": 2,
+          "chunkId": "b3271abd3aac1f00",
+          "clauses": [
+            "第四十三条"
+          ],
+          "scoreBps": 3556,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7111
+        },
+        {
+          "rank": 3,
+          "chunkId": "4527d5cc9df8f15a",
+          "clauses": [
+            "第一条"
+          ],
+          "scoreBps": 3531,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7062
+        }
+      ],
+      "selectedClauses": [
+        "第三条",
+        "第四十三条",
+        "第一条"
+      ],
+      "latencyMs": 62,
+      "passed": false,
+      "failureClassifications": [
+        "FALSE_POSITIVE_NO_ANSWER"
+      ]
+    },
+    {
+      "caseId": "tune-no-account",
+      "category": "NO_ANSWER",
+      "question": "帮我查询银行卡的实时可用余额。",
+      "expectedClauses": [],
+      "answerFacts": [],
+      "forbiddenClaims": [
+        "提供账户余额"
+      ],
+      "candidates": [
+        {
+          "rank": 1,
+          "chunkId": "1a9fb33922e2583c",
+          "clauses": [
+            "第四十一条"
+          ],
+          "scoreBps": 3731,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7461
+        },
+        {
+          "rank": 2,
+          "chunkId": "ff8c48eeddd9080c",
+          "clauses": [
+            "第十七条"
+          ],
+          "scoreBps": 3701,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7402
+        },
+        {
+          "rank": 3,
+          "chunkId": "4527d5cc9df8f15a",
+          "clauses": [
+            "第一条"
+          ],
+          "scoreBps": 3659,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7318
+        },
+        {
+          "rank": 4,
+          "chunkId": "b1e20bb896b4f518",
+          "clauses": [
+            "第二条"
+          ],
+          "scoreBps": 3658,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7316
+        },
+        {
+          "rank": 5,
+          "chunkId": "bb76faab62b7fa84",
+          "clauses": [
+            "第十条"
+          ],
+          "scoreBps": 3634,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7268
+        },
+        {
+          "rank": 6,
+          "chunkId": "b3271abd3aac1f00",
+          "clauses": [
+            "第四十三条"
+          ],
+          "scoreBps": 3632,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7263
+        },
+        {
+          "rank": 7,
+          "chunkId": "0be51116a9f1d0dd",
+          "clauses": [],
+          "scoreBps": 3625,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7251
+        },
+        {
+          "rank": 8,
+          "chunkId": "9df5ff75b4b1572a",
+          "clauses": [
+            "第三条"
+          ],
+          "scoreBps": 3622,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7243
+        },
+        {
+          "rank": 9,
+          "chunkId": "d0511905aef310e2",
+          "clauses": [
+            "第四十八条"
+          ],
+          "scoreBps": 3620,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7240
+        },
+        {
+          "rank": 10,
+          "chunkId": "21b47a266f25f9d1",
+          "clauses": [
+            "第二十条"
+          ],
+          "scoreBps": 3616,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7233
+        },
+        {
+          "rank": 11,
+          "chunkId": "934f170a83286e20",
+          "clauses": [
+            "第四十四条"
+          ],
+          "scoreBps": 3605,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7209
+        },
+        {
+          "rank": 12,
+          "chunkId": "01e540bc58b51767",
+          "clauses": [
+            "第四十五条"
+          ],
+          "scoreBps": 3588,
+          "termScoreBps": 0,
+          "vectorScoreBps": 7175
+        }
+      ],
+      "selectedClauses": [
+        "第四十一条",
+        "第十七条",
+        "第一条"
+      ],
+      "latencyMs": 29,
+      "passed": false,
+      "failureClassifications": [
+        "FALSE_POSITIVE_NO_ANSWER"
+      ]
+    }
+  ]
+}

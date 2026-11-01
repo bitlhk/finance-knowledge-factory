@@ -7,7 +7,7 @@ from knowledge_core.document_contracts import CASE
 from knowledge_core.documents import normal
 from knowledge_core.rules import validate_scope
 from knowledge_core.evidence.anchor_bridge import build
-from knowledge_core.evidence.html_evidence import locate, verify
+from knowledge_core.evidence.html_evidence import analyze, locate, verify
 
 
 def parse(raw):
@@ -18,11 +18,18 @@ def parse(raw):
         raise Rejected('HTML_REQUIRED')
     tree = html.fromstring(text, parser=html.HTMLParser(no_network=True))
     texts = tree.xpath('//text()[not(ancestor::script) and not(ancestor::style) and not(ancestor::noscript)]')
+    quality = analyze(raw, list(map(str, texts)))
+    if quality['report']['structureCoverageBps'] != 10000:
+        raise Rejected('HTML_STRUCTURE_COVERAGE_INCOMPLETE')
+    if quality['report']['anchorAccuracyBps'] != 10000:
+        raise Rejected('HTML_ANCHOR_ACCURACY_FAILED')
+    if quality['report']['parserCoverageBps'] != 10000:
+        raise Rejected('HTML_PARSER_COVERAGE_INCOMPLETE')
+    if quality['report']['missingArticleNumbers']:
+        raise Rejected('HTML_ARTICLE_SEQUENCE_INCOMPLETE')
     chunks = locate(raw, list(map(str, texts)))
     if not chunks or len(chunks) > 300 or not all(verify(raw, c) for c in chunks):
         raise Rejected('NO_VERIFIABLE_NUMBERED_CLAUSES')
-    if len({c['clause'] for c in chunks}) != len(chunks):
-        raise Rejected('DUPLICATE_CLAUSE_NUMBER')
     return chunks
 
 

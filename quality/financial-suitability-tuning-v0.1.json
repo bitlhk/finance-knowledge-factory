@@ -8,6 +8,14 @@
     {"caseId":"tune-definition","category":"CANONICAL","question":"什么是适当性管理？","expectedClauses":["第二条"],"answerFacts":["结合产品属性和客户情况开展识别、提示、匹配、销售、交易等活动"],"forbiddenClaims":[]},
     {"caseId":"tune-mismatch","category":"PARAPHRASE","question":"产品风险超过客户承受能力还能卖吗？","expectedClauses":["第十二条"],"answerFacts":["产品风险等级高于客户风险承受能力时不具备适当性"],"forbiddenClaims":["可以直接销售"]},
     {"caseId":"tune-risk-level","category":"CONFUSABLE","question":"投资产品本身最低要划分几个风险等级？","expectedClauses":["第二十二条"],"answerFacts":["由低到高至少一级至五级"],"forbiddenClaims":["风险承受能力评估次数"]},
-    {"caseId":"tune-no-weather","category":"NO_ANSWER","question":"明天北京天气怎么样？","expectedClauses":[],"answerFacts":[],"forbiddenClaims":["制度规定明天天气"]}
+    {"caseId":"tune-no-weather","category":"NO_ANSWER","question":"明天北京天气怎么样？","expectedClauses":[],"answerFacts":[],"forbiddenClaims":["制度规定明天天气"]},
+    {"caseId":"tune-retention","category":"PARAPHRASE","question":"客户合同结束后，适当性过程资料最少再留几年？","expectedClauses":["第十七条"],"answerFacts":["不低于五年"],"forbiddenClaims":[]},
+    {"caseId":"tune-elderly","category":"PARAPHRASE","question":"给超过65岁的客户卖高风险产品有哪些额外要求？","expectedClauses":["第十八条"],"answerFacts":["履行特别注意义务"],"forbiddenClaims":[]},
+    {"caseId":"tune-online","category":"PARAPHRASE","question":"网上销售产品是否也要把适当性嵌入操作流程？","expectedClauses":["第十四条"],"answerFacts":["应嵌入流程"],"forbiddenClaims":[]},
+    {"caseId":"tune-rating-conflict","category":"PARAPHRASE","question":"产品风险评级出现两个结果时销售方如何选？","expectedClauses":["第二十二条"],"answerFacts":["按孰高原则"],"forbiddenClaims":[]},
+    {"caseId":"tune-private-publicity","category":"PARAPHRASE","question":"私募能在公开网站面向所有人宣传吗？","expectedClauses":["第三十条"],"answerFacts":["不得公开面向不特定对象宣传"],"forbiddenClaims":[]},
+    {"caseId":"tune-client-level","category":"CONFUSABLE","question":"投资者承受能力本身至少划分多少级？","expectedClauses":["第二十九条"],"answerFacts":["至少一级至五级"],"forbiddenClaims":["产品评级"]},
+    {"caseId":"tune-no-stock","category":"NO_ANSWER","question":"下周银行股票价格能涨多少？","expectedClauses":[],"answerFacts":[],"forbiddenClaims":["预测股价"]},
+    {"caseId":"tune-no-account","category":"NO_ANSWER","question":"帮我查询银行卡的实时可用余额。","expectedClauses":[],"answerFacts":[],"forbiddenClaims":["提供账户余额"]}
   ]
 }

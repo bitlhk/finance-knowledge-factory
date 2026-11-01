@@ -6,7 +6,8 @@ import sqlite3
 import time
 
 from knowledge_core.document_quality import evaluate_retrieval, load_test_set
-from m2.ragflow import BASELINE_RETRIEVAL, Ragflow
+from m2.ragflow import Ragflow
+from quality.retrieval_profiles import PROFILES, rank
 
 
 def main():
@@ -15,6 +16,7 @@ def main():
     parser.add_argument("--index-digest", required=True)
     parser.add_argument("--test-set", type=Path, required=True)
     parser.add_argument("--private-config", type=Path, required=True)
+    parser.add_argument("--profile", choices=sorted(PROFILES), default="baseline")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     database = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True)
@@ -28,17 +30,23 @@ def main():
     test_set = load_test_set(args.test_set, available)
     client = Ragflow(args.private_config / "local-credentials.json",
                      args.private_config / "http-setup.json")
+    experiment = PROFILES[args.profile]
     rows = []
     for case in test_set["cases"]:
         started = time.monotonic()
         candidates = client.retrieve_candidates(document_index["index"]["datasetId"],
-            document_index["index"]["documentId"], case["question"], BASELINE_RETRIEVAL)
+            document_index["index"]["documentId"], case["question"], experiment["retrieval"])
+        candidates = rank(case["question"], candidates, experiment["postRank"])
+        candidates = [item for item in candidates if (item.get("postRankScoreBps", item["scoreBps"] or 0)
+                                                       >= experiment["selectionThresholdBps"])]
         rows.append({"caseId": case["caseId"], "latencyMs": round((time.monotonic() - started) * 1000),
                      "candidates": [{"rank": item["rank"], "chunkId": item["id"],
                          "clauses": clauses_by_chunk.get(item["id"], []),
                          "scoreBps": item["scoreBps"], "termScoreBps": item["termScoreBps"],
-                         "vectorScoreBps": item["vectorScoreBps"]} for item in candidates]})
-    report = evaluate_retrieval(test_set, rows, BASELINE_RETRIEVAL,
+                         "vectorScoreBps": item["vectorScoreBps"],
+                         **({"postRankScoreBps": item["postRankScoreBps"]}
+                            if "postRankScoreBps" in item else {})} for item in candidates]})
+    report = evaluate_retrieval(test_set, rows, {"name": args.profile, **experiment},
                                 document_index["index"]["engineIdentity"],
                                 document_index["index"]["embeddingIdentity"])
     args.output.parent.mkdir(parents=True, exist_ok=True)
