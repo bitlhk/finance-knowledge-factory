@@ -23,7 +23,11 @@ CONFIG = {'retrieval':{**BASELINE_RETRIEVAL, 'pageSize':12, 'keywordWeightBps':5
 
 
 class QualityClient:
-    tamper = False
+    def __init__(self):
+        self.tamper = False
+        self.baseline_calls = 0
+        self.quality_profiles = []
+
     def ingest(self, raw):
         self.chunks = [{'id':f'chunk-{index}', 'text':chunk['text']}
                        for index, chunk in enumerate(parse(raw))]
@@ -32,10 +36,12 @@ class QualityClient:
                 'embeddingIdentity':'NONE', 'chunks':copy.deepcopy(self.chunks)}
 
     def retrieve(self, dataset, document, question):
+        self.baseline_calls += 1
         chunk = self.chunks[0]
         return [{'id':chunk['id'], 'text':chunk['text'], 'documentId':document}]
 
     def retrieve_candidates(self, dataset, document, question, profile):
+        self.quality_profiles.append(copy.deepcopy(profile))
         return [{'id':chunk['id'], 'text':chunk['text'] + ('tampered' if self.tamper else ''), 'documentId':document,
                  'rank':rank, 'scoreBps':9000 - rank, 'termScoreBps':8000,
                  'vectorScoreBps':8000} for rank, chunk in enumerate(self.chunks, 1)]
@@ -106,6 +112,12 @@ def test_quality_enrollment_cannot_bypass_core_recomputed_gate(tmp_path):
         core.activate_source(AUTHOR, data['sourceDigest'], '2026-01-01')
         validation = core.validate_document(AUTHOR, data['candidateDigest'], client)
         approval = core.approve_document(AUTHOR, data['candidateDigest'], validation, 'test')
+        legacy_manifest = core.publish_document(AUTHOR, data['candidateDigest'], validation,
+                                                approval, 1)
+        legacy_body = core._get(AUTHOR, legacy_manifest, 'document-manifest')
+        assert legacy_body['schemaVersion'] == 'document-manifest.v0.1'
+        assert 'qualityAdmissionDigest' not in legacy_body
+        core.bind_document(AUTHOR, legacy_manifest, 0)
         profile = core.register_quality_profile(AUTHOR, 'financial-document-v02', 1, CONFIG)
         test_set = quality_set(data['sourceDigest'])
         test_digest = core.register_quality_test_set(AUTHOR, data['candidateDigest'], test_set, 1)
@@ -126,14 +138,56 @@ def test_quality_enrollment_cannot_bypass_core_recomputed_gate(tmp_path):
                                                  test_digest, retrieval, answer)
         assert core._get(AUTHOR, admission, 'document-quality-admission')['decision'] == 'PASS'
         with pytest.raises(Rejected, match='QUALITY_ADMISSION_REQUIRED'):
-            core.publish_document(AUTHOR, data['candidateDigest'], validation, approval, 1)
+            core.publish_document(AUTHOR, data['candidateDigest'], validation, approval, 2)
+        with pytest.raises(Rejected, match='QUALITY_MANIFEST_ALREADY_EXISTS'):
+            core.publish_quality_document(AUTHOR, data['candidateDigest'], validation,
+                                          approval, admission, 1)
+
+        # Later quality admission must not alter an already published v0.1 product.
+        baseline_calls = client.baseline_calls
+        quality_calls = len(client.quality_profiles)
+        legacy_result = core.query_document(READER, 'faq', legacy_manifest, CONTEXT,
+            '合成客服服务时间是什么？', 'legacy-request', 'legacy-trace', client)
+        assert legacy_result['result']['evidence'][0]['clause'] == '第一条'
+        assert client.baseline_calls == baseline_calls + 1
+        assert len(client.quality_profiles) == quality_calls
+
         manifest = core.publish_quality_document(AUTHOR, data['candidateDigest'], validation,
-                                                  approval, admission, 1)
-        assert core._get(AUTHOR, manifest, 'document-manifest')['schemaVersion'] == 'document-manifest.v0.1'
-        core.bind_document(AUTHOR, manifest, 0)
+                                                  approval, admission, 2)
+        manifest_body = core._get(AUTHOR, manifest, 'document-manifest')
+        assert manifest_body['schemaVersion'] == 'document-manifest.v0.1'
+        assert 'qualityAdmissionDigest' not in manifest_body
+        link_digest = core.db.execute(
+            "SELECT digest FROM identities WHERE tenant=? AND kind=? AND name=? AND revision=1",
+            (AUTHOR.tenant, 'document-quality-manifest-admission', manifest)).fetchone()[0]
+        link = core._get(AUTHOR, link_digest, 'document-quality-manifest-admission')
+        assert link['manifestDigest'] == manifest
+        assert link['candidateDigest'] == data['candidateDigest']
+        assert link['qualityAdmissionDigest'] == admission
+        core.bind_document(AUTHOR, manifest, 1)
         result = core.query_document(READER, 'faq', manifest, CONTEXT,
             '合成客服服务时间是什么？', 'quality-request', 'quality-trace', client)
         assert result['result']['evidence'][0]['clause'] == '第一条'
+        assert client.quality_profiles[-1] == CONFIG['retrieval']
+
+        # A later PASS for the same Candidate is valid evidence for a future release,
+        # but cannot make the existing Manifest ambiguous or change its profile.
+        alternate = {**CONFIG,
+                     'retrieval':{**CONFIG['retrieval'], 'pageSize':11},
+                     'selectionThresholdBps':3200}
+        profile_2 = core.register_quality_profile(AUTHOR, 'financial-document-v02-next', 1,
+                                                  alternate)
+        retrieval_2 = core.evaluate_quality_retrieval(AUTHOR, data['candidateDigest'],
+                                                       profile_2, test_digest, client)
+        answer_2 = core.register_answer_evaluation(AUTHOR, data['candidateDigest'], profile_2,
+            test_digest, retrieval_2, runtime)
+        admission_2 = core.assess_document_quality(AUTHOR, data['candidateDigest'], profile_2,
+                                                   test_digest, retrieval_2, answer_2)
+        assert core._get(AUTHOR, admission_2, 'document-quality-admission')['decision'] == 'PASS'
+        repeated = core.query_document(READER, 'faq', manifest, CONTEXT,
+            '合成客服服务时间是什么？', 'quality-request-2', 'quality-trace-2', client)
+        assert repeated['result']['evidence'][0]['clause'] == '第一条'
+        assert client.quality_profiles[-1] == CONFIG['retrieval']
 
         client.tamper = True
         with pytest.raises(Rejected, match='QUALITY_RETRIEVAL_INDEX_MISMATCH'):

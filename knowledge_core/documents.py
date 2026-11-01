@@ -604,26 +604,42 @@ class DocumentCore(Core):
                 raise Rejected('QUALITY_ADMISSION_FAILED_OR_MISMATCH')
             if self._head(actor, 'recipe', recipe['id'])[1] != digest(recipe):
                 raise Rejected('DRAFT_CHANGED_REVALIDATE')
-            return self._put(actor, 'document-manifest', {
+            manifest = {
                 'schemaVersion':'document-manifest.v0.1', 'id':candidate['productId'], 'revision':revision,
                 'productId':candidate['productId'], 'candidateDigest':candidate_digest,
                 'validationDigest':validation_digest, 'approvalDigest':approval_digest,
                 'indexDigest':candidate['indexDigest'], 'sourceDigest':index['sourceDigest'],
-                'mode':'M2_ISOLATED_DOCUMENT'})
+                'mode':'M2_ISOLATED_DOCUMENT'}
+            manifest_digest = digest(manifest)
+            if self.db.execute('SELECT 1 FROM objects WHERE tenant=? AND digest=?',
+                               (actor.tenant, manifest_digest)).fetchone():
+                raise Rejected('QUALITY_MANIFEST_ALREADY_EXISTS')
+            self._put(actor, 'document-manifest', manifest)
+            self._put(actor, 'document-quality-manifest-admission', {
+                'schemaVersion':'document-quality-manifest-admission.v0.1',
+                'id':manifest_digest, 'revision':1, 'manifestDigest':manifest_digest,
+                'qualityAdmissionDigest':quality_admission_digest,
+                'candidateDigest':candidate_digest})
+            return manifest_digest
 
-    def _quality_profile_for_candidate(self, actor, candidate_digest):
-        admissions = []
-        for admission_digest, body in self.db.execute(
-                "SELECT digest,body FROM objects WHERE tenant=? AND kind='document-quality-admission'",
-                (actor.tenant,)).fetchall():
-            admission = json.loads(body)
-            if admission['candidateDigest'] == candidate_digest and admission['decision'] == 'PASS':
-                admissions.append((admission_digest, admission))
-        if not admissions:
+    def _quality_profile_for_manifest(self, actor, manifest_digest, manifest):
+        row = self.db.execute(
+            "SELECT digest FROM identities WHERE tenant=? AND kind=? AND name=? AND revision=1",
+            (actor.tenant, 'document-quality-manifest-admission', manifest_digest)).fetchone()
+        if not row:
             return None
-        if len(admissions) != 1:
-            raise Rejected('QUALITY_ADMISSION_AMBIGUOUS')
-        return self._get(actor, admissions[0][1]['profileDigest'], 'document-quality-profile')
+        link = self._get(actor, row[0], 'document-quality-manifest-admission')
+        if (link['manifestDigest'] != manifest_digest
+                or link['candidateDigest'] != manifest['candidateDigest']):
+            raise Rejected('QUALITY_MANIFEST_ADMISSION_MISMATCH')
+        admission = self._get(actor, link['qualityAdmissionDigest'],
+                              'document-quality-admission')
+        if (admission['decision'] != 'PASS'
+                or admission['candidateDigest'] != manifest['candidateDigest']
+                or admission['sourceDigest'] != manifest['sourceDigest']
+                or admission['indexDigest'] != manifest['indexDigest']):
+            raise Rejected('QUALITY_MANIFEST_ADMISSION_MISMATCH')
+        return self._get(actor, admission['profileDigest'], 'document-quality-profile')
 
     def bind_document(self, actor, manifest_digest, expected_revision):
         actor.require('binding.manage')
@@ -659,7 +675,7 @@ class DocumentCore(Core):
                 raise Rejected('INVALID_REQUEST_ID')
         with self.tx():
             binding, manifest, index, host = self._query_binding(actor, product_id, manifest_digest, context)
-            profile = self._quality_profile_for_candidate(actor, manifest['candidateDigest'])
+            profile = self._quality_profile_for_manifest(actor, manifest_digest, manifest)
         evidence = self._retrieve(index, question, client, profile)
         with self.tx():
             current, _, _, _ = self._query_binding(actor, product_id, manifest_digest, context)

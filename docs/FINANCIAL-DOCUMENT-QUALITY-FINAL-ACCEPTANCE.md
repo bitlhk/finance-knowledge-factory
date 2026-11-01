@@ -65,6 +65,10 @@ The full local evidence is under `/home/ubuntu/outputs/knowledge-quality-pr11/fi
 
 ## Review conclusion
 
-The implementation is suitable for final Draft review. The normal independent-Agent path, trustworthy runtime correlation, retrieved-evidence/answer-citation separation, and 6/6 replay over the original archives are demonstrated. No published product or external v0.1 query/history contract changed.
+The final publication review found and fixed one correctness defect: runtime used to discover a quality profile by scanning every PASS admission for a Candidate. A later PASS could therefore make an existing Manifest ambiguous or change its retrieval behavior. Quality publication now atomically records one internal, immutable admission link keyed by the exact Manifest digest. Runtime resolves only that link. Existing v0.1 Manifests remain on the baseline path and cannot be retrofitted after publication; a later PASS is available only to a future release.
+
+The external `document-manifest.v0.1` bytes, query authorization, source checks, receipts, and stopped-history contracts remain unchanged. Regression coverage verifies the legacy path after quality enrollment, exact Manifest/Candidate/Admission linkage, rejection of an attempted retrofit, and stable retrieval behavior after a second PASS with a different profile.
+
+The implementation is suitable for Ready for Review. The normal independent-Agent path, trustworthy runtime correlation, retrieved-evidence/answer-citation separation, immutable publication admission, and 6/6 replay over the original archives are demonstrated. No published product or external v0.1 query/history contract changed.
 
 This closes retrieval optimization for the current synthetic regulatory document. A future openJiuwen Python Evaluation Worker is a separate design and must not be added to this PR.

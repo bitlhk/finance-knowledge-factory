@@ -35,6 +35,9 @@ SCHEMAS = {
         'profileDigest': HASH, 'testSetDigest': HASH, 'retrievalEvaluationDigest': HASH,
         'answerEvaluationDigest': HASH, 'decision': enum('PASS', 'REJECT'),
         'checks': {'type': 'object'}, 'gateDigest': HASH}),
+    'document-quality-manifest-admission': versioned('document-quality-manifest-admission', {
+        'id': ID, 'revision': REV, 'manifestDigest': HASH,
+        'qualityAdmissionDigest': HASH, 'candidateDigest': HASH}),
     'document-index': versioned('document-index', {
         'sourceDigest': HASH, 'originalHtml': {'type': 'string', 'maxLength': 1000000},
         'originalDigest': HASH, 'bridge': {'type': 'object'}, 'bridgeDigest': HASH,

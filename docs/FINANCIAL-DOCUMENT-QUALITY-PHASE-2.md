@@ -13,7 +13,7 @@ The quality path is now separate from legacy document publication:
 5. Core recomputes answer fact and citation checks from raw answers and the immutable gold set.
 6. Core recomputes admission from source, index, test set, profile, retrieval evaluation, and answer evaluation digests.
 7. Once a candidate is enrolled in quality evaluation, legacy `publish_document()` fails with `QUALITY_ADMISSION_REQUIRED`. `publish_quality_document()` accepts only a matching PASS admission.
-8. A quality-admitted manifest remains `document-manifest.v0.1`. Runtime authorization, source currency, receipts, and history contracts are unchanged. Runtime retrieval resolves the pinned profile from the admission object; old manifests without admission continue using the baseline path.
+8. All published products remain byte-compatible `document-manifest.v0.1`. Quality-managed publication atomically creates one internal, immutable `document-quality-manifest-admission.v0.1` object keyed by the exact Manifest digest. Runtime resolves only that admission's pinned profile; a pre-existing legacy Manifest cannot be upgraded after publication, and later PASS evaluations for the same Candidate cannot change or break an existing version. Authorization, source currency, receipts, and history contracts are unchanged.
 
 ## Five frozen failures
 
