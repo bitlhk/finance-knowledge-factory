@@ -1,4 +1,13 @@
-# OpenJiuwen Python Evaluation Worker: minimum design
+# OpenJiuwen Python Evaluation Worker
+
+## Implementation status
+
+PR #12 now implements the reviewed minimum design on top of merged PR #11.
+The implementation and real-model acceptance remain Draft and are not deployed.
+The first complete path is covered: Core-authorized candidate retrieval, a real
+OpenJiuwen/DeepSeek invocation, immutable gateway receipts, and Core-owned answer
+evaluation and quality admission. See
+`docs/OPENJIUWEN-PYTHON-EVALUATION-WORKER-ACCEPTANCE.md`.
 
 ## Decision and scope
 
@@ -7,9 +16,8 @@ Knowledge Factory trust boundary to
 execute answer-quality evaluations. The worker is not an Agent product, an Agent
 platform, a publication authority, or a replacement for Core.
 
-This design PR contains no runtime implementation. A later implementation PR may
-add the worker only after PR #11's quality contracts and immutable publication
-admission are available on `main`.
+PR #11's quality contracts and immutable publication admission are available on
+`main`; this PR adds the Worker implementation without workbench or publication UI.
 
 In scope:
 
@@ -343,17 +351,12 @@ The first implementation PR is complete only when it demonstrates:
 Factory workbench scheduling, progress display, and publish controls belong to a
 later, separate PR after this worker and Core acceptance path are reviewed.
 
-## Implementation sequence after design approval
+## Remaining sequence after implementation review
 
-1. Keep this design PR Draft until review resolves the internal contract names and
-   trust boundaries.
-2. After PR #11 is approved and merged, create a new implementation branch from the
-   then-current `main`; do not build the Worker on this design branch.
-3. The first implementation PR contains only the Python 3.12 Worker environment,
-   assignment/lease contracts, candidate-only query and receipt, model gateway
-   receipt, dual evidence adapters, and Core quality acceptance. It preserves raw
-   failures and does not add workbench UI.
-4. A later workbench PR may schedule evaluation and publication. Its end-to-end
+1. Keep PR #12 Draft until the implementation and its retained success/failure
+   evidence are reviewed.
+2. Do not deploy PR #12 to the current Factory service before approval.
+3. A later workbench PR may schedule evaluation and publication. Its end-to-end
    acceptance must prove that a Factory-evaluated and published product is returned
    by the existing Harness refresh interface, can be version-selected and built,
    and is consumed with source evidence. External Manifest, query, authorization,

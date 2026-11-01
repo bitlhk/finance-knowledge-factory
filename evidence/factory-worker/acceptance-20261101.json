@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "factory-worker-acceptance-summary.v0.1",
+  "implementationGitSha": "9b6b2a10cf60a513e0735fd0328461f5e87f7717",
+  "deployed": false,
+  "pullRequestDraft": true,
+  "runtime": {
+    "pythonVersion": "3.12",
+    "openJiuwenVersion": "0.1.17.post1",
+    "provider": "volcengine",
+    "modelRef": "deepseek-v4-flash",
+    "modelConfigDigest": "a672a438bd6004cc725fac7d61b54cb64338bb1ea497848f5753f558e05d0b3e",
+    "workerBuildDigest": "c5a38b6ee1cde632eb14739b6b65c5a68121be1372e58131bd6c09444d022a4d",
+    "requirementsLockDigest": "c5c387248ffb9ac7a67db30d3050f740fcacf1b940d3253b34ca472865743130"
+  },
+  "inputs": {
+    "candidateDigest": "635a7c3c3ddf2f48f7ed1799556ec5cf7578584b0e4dbada7e137138c3cbc799",
+    "testSetDigest": "4ef85edbc3fd1ff3ee23a6a8e81931678d6e0f395df8526950c9ea64f80f6b2a",
+    "qualityProfileDigest": "9536ac8f979b33d842c5c0300ef5f3c623b44c594cf4841d58bdc2a0ed3cf2a7",
+    "retrievalEvaluationDigest": "399fce51a76fd3185a9aa2817e6ec2686b0820bbdf16d6e40f8e38c65a710f5b"
+  },
+  "attempts": [
+    {
+      "decision": "REJECT",
+      "runtimeEvidenceDigest": "7b919061968fe69c578ae29d598964f4a3d25a13d9b93dc670b9f25e9511e1c9",
+      "answerEvaluationDigest": "a7972800545433f5d8bf82638b3a1fa69b708a666c66f9cd8f77c54fd3601efb",
+      "qualityAdmissionDigest": "f5dbe1d0b5d5d4ee6b35fe2efc89d25d5c3be8d956a983ad7df02e7a522fad44",
+      "failedChecks": [
+        "allAnswerCasesClassified",
+        "answerFactAccuracyComplete"
+      ]
+    },
+    {
+      "decision": "PASS",
+      "runtimeEvidenceDigest": "3c065654ec528a0da1f8201bc29033742475d4334bfeabfda850b203cfbb4940",
+      "answerEvaluationDigest": "6abef80c42cb45b1cfe7b0b833bd4656b39e3d895e9c01b7b06e59c86f871b6a",
+      "qualityAdmissionDigest": "6fe8bd951045f932654267c36ae8c33cfbedb0d14d62e9ffd2a9670ea6cc3e2e",
+      "failedChecks": [],
+      "caseCount": 6,
+      "noAnswerCitationCount": 0,
+      "databaseIntegrity": "ok",
+      "sdkLogFileCount": 0
+    }
+  ],
+  "deployedBaselineRegression": {
+    "gitSha": "4b149fb0c0cb7ba327ae6c0f94af9d8ab06d6455",
+    "queryReceiptDigest": "c2cacf57578f4aa3b8a947a7e56280186e7976a7e74135a3c3f33a9f8b1374e7",
+    "evidenceClauses": [
+      "第二十三条",
+      "第二十四条",
+      "第二十二条"
+    ]
+  }
+}
