@@ -74,6 +74,10 @@ def main():
             grants.append({"principal":principal,
                 "resource":"product:boc-wealth-service-amsylj01",
                 "actions":["consume", "history"]})
+        # Reusing an isolated qualification database must not accumulate the
+        # same grants until the active-policy contract limit is exceeded.
+        grants = list({json.dumps(value, sort_keys=True):value
+                       for value in grants}.values())
         core.set_policy(actor, {"schemaVersion":"active-policy.v0.1",
             "revision":revision + 1, "grants":grants}, revision)
 
