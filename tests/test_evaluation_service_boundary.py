@@ -13,6 +13,7 @@ from evaluation_worker import (CandidateEvaluationWorker,
     UnixEvaluationServer, require_distinct_service_users, token_digest)
 from knowledge_core.contracts import Rejected
 from knowledge_core.documents import DocumentCore
+from tests.support import CONTEXT
 from tests.test_factory_evaluation_worker import (DEPLOYMENT, FUTURE, GATEWAY,
     MANAGER, WORKER, prepare)
 
@@ -221,7 +222,7 @@ def test_real_document_core_uses_one_sqlite_connection_per_ipc_request(tmp_path)
         lambda:evidence,
         assignment_digest=values["assignment"], lease_digest=values["lease"],
         gateway_registration_digest=values["gateway"],
-        gateway_deployment_id=DEPLOYMENT.id, purpose="answer-quality",
+        gateway_deployment_id=DEPLOYMENT.id, purpose=CONTEXT.purpose,
         redaction_profile="source-only", authorization_expires_at=FUTURE,
         candidate_digest=values["candidateDigest"],
         profile_digest=values["profile"], test_set_digest=values["tests"],

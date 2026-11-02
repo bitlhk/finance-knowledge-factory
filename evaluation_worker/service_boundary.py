@@ -144,7 +144,7 @@ class EvaluationCoreBoundary:
             if operation == "model.record":
                 expected = {"authorizationDigest", "attemptDigest", "startedAt",
                             "endedAt", "outcome", "response",
-                            "providerRequestRef", "usage"}
+                            "providerRequestRef", "usage", "failure"}
                 if set(payload) != expected:
                     raise Rejected("EVALUATION_SERVICE_REQUEST_INVALID")
                 return core.record_model_invocation(
@@ -152,7 +152,7 @@ class EvaluationCoreBoundary:
                     payload["authorizationDigest"], payload["attemptDigest"],
                     payload["startedAt"], payload["endedAt"], payload["outcome"],
                     payload["response"], payload["providerRequestRef"],
-                    payload["usage"])
+                    payload["usage"], payload["failure"])
             if set(payload) != {"runs"} or not isinstance(payload["runs"], list):
                 raise Rejected("EVALUATION_SERVICE_REQUEST_INVALID")
             runtime = core.register_factory_evaluation_runtime_evidence(
@@ -346,9 +346,11 @@ class IpcCoreModelGatewayClient:
             "requestId":request_id, "traceId":trace_id})
 
     def record(self, authorization_digest, attempt_digest, started_at,
-               ended_at, outcome, response, provider_request_ref, usage):
+               ended_at, outcome, response, provider_request_ref, usage,
+               failure=None):
         return self._client.call("model.record", {
             "authorizationDigest":authorization_digest,
             "attemptDigest":attempt_digest, "startedAt":started_at,
             "endedAt":ended_at, "outcome":outcome, "response":response,
-            "providerRequestRef":provider_request_ref, "usage":usage})
+            "providerRequestRef":provider_request_ref, "usage":usage,
+            "failure":failure})

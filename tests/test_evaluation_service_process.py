@@ -19,8 +19,22 @@ class FakeWorker:
 
 def configure_worker(monkeypatch):
     monkeypatch.setattr(service_process, "_json", lambda _: {
+        "tenant":"tenant-a",
+        "actors":{
+            "host":{"principal":"host", "authority":"host-authority"},
+            "worker":{"principal":"worker", "authority":"worker-authority"},
+            "gateway":{"principal":"gateway", "authority":"gateway-authority"},
+        },
+        "serviceCredentials":{
+            role:{"uid":position + 1000, "tokenDigest":"a" * 64}
+            for position, role in enumerate(("host", "worker", "gateway"))},
         "workerTokenFile":"unused", "coreSocket":"core.sock",
         "gatewaySocket":"gateway.sock", "caseIds":["case-1"]})
+    monkeypatch.setattr(service_process, "_load_task", lambda config, path: {
+        "caseIds":["case-1"], "pythonVersion":"3.12",
+        "openJiuwenVersion":"0.1.17.post1"})
+    monkeypatch.setattr(service_process, "managed_runtime_versions",
+                        lambda:("3.12", "0.1.17.post1"))
     monkeypatch.setattr(service_process, "_token", lambda _: "x" * 64)
     monkeypatch.setattr(service_process, "UnixEvaluationClient",
                         lambda *args: object())
@@ -32,7 +46,8 @@ def test_worker_writes_group_readable_host_handoff(monkeypatch, tmp_path):
     handoff = tmp_path / "handoff"
     handoff.mkdir(mode=0o750)
     output = handoff / "runs.json"
-    service_process.run_worker(SimpleNamespace(config="unused", output=output))
+    service_process.run_worker(SimpleNamespace(
+        config="unused", task="task.json", output=output))
     assert output.stat().st_mode & 0o777 == 0o640
     assert '"caseId": "case-1"' in output.read_text(encoding="utf-8")
 
@@ -43,4 +58,4 @@ def test_worker_rejects_uncontrolled_handoff_directory(monkeypatch, tmp_path):
     handoff.mkdir(mode=0o757)
     with pytest.raises(ValueError, match="HANDOFF_DIRECTORY_INVALID"):
         service_process.run_worker(SimpleNamespace(
-            config="unused", output=handoff / "runs.json"))
+            config="unused", task="task.json", output=handoff / "runs.json"))
