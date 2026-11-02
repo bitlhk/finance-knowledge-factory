@@ -69,7 +69,7 @@ def test_semantic_paraphrase_passes_only_with_cited_support():
         gold(['产品说明书/费用'], ['固定投资管理费率0.2%年率']),
         runtime_case('固定管理费的年费率为0.2%。', []))
     assert accepted['classification'] == 'CORRECT'
-    assert accepted['factChecks'][0]['method'] == 'DETERMINISTIC_FACT_SUPPORT_V0_2'
+    assert accepted['factChecks'][0]['method'] == 'DETERMINISTIC_FACT_SUPPORT_V0_3'
     assert unsupported['classification'] == 'ANSWER_FACT_ERROR'
 
 
@@ -164,6 +164,28 @@ def test_business_logic_accepts_explicit_not_mandatory_scope():
     assert result['classification'] == 'CORRECT'
 
 
+def test_business_logic_rejects_unqualified_forced_outcome_despite_later_caveat():
+    retrieved = [evidence('产品说明书/部分赎回',
+                          '余额低于1万份时，管理人有权办理强制全部赎回。')]
+    result = _evaluate_answer_case(
+        gold(['产品说明书/部分赎回'],
+             ['管理人有权将低于1万份的部分赎回申请办理为强制全部赎回']),
+        runtime_case('依据[1]，该申请将导致余额被强制赎回；但管理人只是有权，不是必须。',
+                     retrieved))
+    assert result['classification'] == 'ANSWER_FACT_ERROR'
+
+
+def test_business_logic_accepts_forced_outcome_conditioned_on_exercised_right():
+    retrieved = [evidence('产品说明书/部分赎回',
+                          '余额低于1万份时，管理人有权办理强制全部赎回。')]
+    result = _evaluate_answer_case(
+        gold(['产品说明书/部分赎回'],
+             ['管理人有权将低于1万份的部分赎回申请办理为强制全部赎回']),
+        runtime_case('依据[1]，管理人有权而非必须将低于1万份的部分赎回申请办理为强制全部赎回；如果管理人行使该权利，将导致余额被强制赎回。',
+                     retrieved))
+    assert result['classification'] == 'CORRECT'
+
+
 def test_business_logic_accepts_not_certain_without_treating_it_as_duty():
     retrieved = [evidence('产品说明书/大额赎回',
                           '管理人有权暂停接受当日申请，下一交易日继续接受。')]
@@ -237,6 +259,24 @@ def test_negated_customer_suitability_claim_is_not_a_false_positive():
         runtime_case('依据[1]，产品适合投资者包括稳健型；该规则不能证明客户已通过购买审核，仍需实时核实。',
                      retrieved))
     assert result['classification'] == 'CORRECT'
+
+
+def test_long_negated_customer_suitability_claim_is_not_a_false_positive():
+    retrieved = [evidence('产品说明书/适当性', '本产品适合稳健型投资者。')]
+    result = _evaluate_answer_case(
+        gold(['产品说明书/适当性'], ['产品适合投资者包括稳健型']),
+        runtime_case('依据[1]，产品适合投资者包括稳健型；文件并未载明某位客户的实际评级或已通过购买审核。',
+                     retrieved))
+    assert result['classification'] == 'CORRECT'
+
+
+def test_contrast_resets_negated_customer_suitability_scope():
+    retrieved = [evidence('产品说明书/适当性', '本产品适合稳健型投资者。')]
+    result = _evaluate_answer_case(
+        gold(['产品说明书/适当性'], ['产品适合投资者包括稳健型']),
+        runtime_case('依据[1]，文件未说明个人评级，但该客户已通过购买审核。',
+                     retrieved))
+    assert result['classification'] == 'ANSWER_FACT_ERROR'
 
 
 def test_calendar_boundary_rejects_unverified_certain_weekday():

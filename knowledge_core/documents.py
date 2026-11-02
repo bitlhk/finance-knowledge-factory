@@ -98,7 +98,15 @@ def _strict_values(value):
 
 
 _NEGATED_CLAIM_PREFIX = re.compile(
-    r'(?:不|未|无|非|不是|并非|并不|不能|无法|不足以).{0,8}$')
+    r'(?:不|未|无|非|不是|并非|并不|不能|无法|不足以).{0,32}$')
+
+
+def _claim_prefix(value, start):
+    """Return the local claim prefix without an earlier contrast clause."""
+    prefix = value[max(0, start - 48):start]
+    contrast = max(prefix.rfind(term) for term in ('但是', '然而', '不过', '但'))
+    return prefix[contrast + (2 if prefix[contrast:contrast + 2] in
+                              ('但是', '然而', '不过') else 1):] if contrast >= 0 else prefix
 
 
 def _term_polarity(value, terms):
@@ -106,7 +114,7 @@ def _term_polarity(value, terms):
     affirmed = negated = False
     for term in terms:
         for match in re.finditer(re.escape(term), value):
-            prefix = value[max(0, match.start() - 12):match.start()]
+            prefix = _claim_prefix(value, match.start())
             if _NEGATED_CLAIM_PREFIX.search(prefix):
                 negated = True
             else:
@@ -116,9 +124,20 @@ def _term_polarity(value, terms):
 
 def _affirmed_pattern(value, pattern):
     for match in re.finditer(pattern, value):
-        prefix = value[max(0, match.start() - 12):match.start()]
+        prefix = _claim_prefix(value, match.start())
         if not _NEGATED_CLAIM_PREFIX.search(prefix):
             return True
+    return False
+
+
+def _unqualified_pattern(value, pattern):
+    """Return true for an affirmed outcome that is not scoped by a condition."""
+    for match in re.finditer(pattern, value):
+        prefix = _claim_prefix(value, match.start())
+        if (_NEGATED_CLAIM_PREFIX.search(prefix)
+                or re.search(r'(?:若|如果|一旦).{0,24}$', prefix)):
+            continue
+        return True
     return False
 
 
@@ -137,6 +156,8 @@ def _logical_fact_checks(fact, answer):
             normalized_answer, ('有权', '可以', '可能'))
         imposes_duty, rejects_duty = _term_polarity(
             normalized_answer, ('必须', '一定', '必然', '应当强制'))
+        imposes_duty = imposes_duty or _unqualified_pattern(
+            normalized_answer, r'(?:将导致|将会|会被).{0,16}强制')
         has_discretion = discretion or rejects_duty
         add('RIGHT_NOT_OBLIGATION', has_discretion and not imposes_duty,
             '回答将“有权”扩大为必须或必然执行')
@@ -234,7 +255,7 @@ def _fact_check(fact, answer, cited_evidence):
     return {'fact':fact, 'answerContains':answer_semantic,
             'supportingClauses':supporting, 'passed':passed,
             'method':('LIVE_SYSTEM_BOUNDARY_V0_1' if live_boundary
-                      else 'DETERMINISTIC_FACT_SUPPORT_V0_2'),
+                      else 'DETERMINISTIC_FACT_SUPPORT_V0_3'),
             'answerSemanticRecallBps':answer_score,
             'evidenceSemanticRecallBps':evidence_score,
             'strictValues':strict, 'missingAnswerValues':missing_answer,
