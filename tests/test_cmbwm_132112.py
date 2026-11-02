@@ -51,8 +51,11 @@ def test_quality_set_is_bound_to_source_and_preserves_business_boundaries():
     assert by_id["cmbwm-live-sale"]["expectedClauses"] == []
     assert "当前一定在售" in by_id["cmbwm-live-sale"]["forbiddenClaims"]
     assert by_id["cmbwm-large-redemption"]["expectedClauses"] == [
-        "第八条", "第六条", "第七条"]
+        "第八条", "第六条"]
     assert "完全没有任何费用" in by_id["cmbwm-all-fees"]["forbiddenClaims"]
+    bundle = product.build_bundle(values())
+    amount = next(item for item in bundle["chunks"] if item["clause"] == "第二条")
+    assert "N份额：首笔0.01元" in amount["text"]
 
 
 def test_upload_rejects_missing_changed_or_renamed_official_file():
