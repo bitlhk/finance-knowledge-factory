@@ -516,8 +516,19 @@ class FactoryEvaluationMixin:
                                    'document-evaluation-assignment')
             lease = self._get(actor, lease_digest, 'knowledge-evaluation-lease')
             if (lease['assignmentDigest'] != assignment_digest
-                    or lease['workerBuildDigest'] != worker_build_digest):
+                    or lease['tenant'] != actor.tenant
+                    or lease['workerBuildDigest'] != worker_build_digest
+                    or set(lease['caseIds']) != set(assignment['caseIds'])):
                 raise Rejected('QUALITY_RUNTIME_BINDING_MISMATCH')
+            if (_timestamp(lease['expiresAt']) <= _now()
+                    or _timestamp(assignment['expiresAt']) <= _now()):
+                raise Rejected('EVALUATION_LEASE_EXPIRED')
+            if self.db.execute(
+                    "SELECT 1 FROM objects WHERE tenant=? AND kind=? "
+                    "AND json_extract(body,'$.leaseDigest')=?",
+                    (actor.tenant, 'knowledge-evaluation-lease-revocation',
+                     lease_digest)).fetchone():
+                raise Rejected('EVALUATION_LEASE_REVOKED')
             by_id = {item.get('caseId'):item for item in runs if isinstance(item, dict)}
             if set(by_id) != set(assignment['caseIds']) or len(by_id) != len(runs):
                 raise Rejected('QUALITY_RUNTIME_CASE_MISMATCH')

@@ -423,6 +423,24 @@ def test_runtime_evidence_requires_lease_bound_worker_build(tmp_path):
         core.close()
 
 
+def test_runtime_evidence_rejects_revoked_worker_lease(tmp_path):
+    core, client, values = prepare(tmp_path)
+    try:
+        candidate, _, model_receipt = run_candidate(core, client, values)
+        core.revoke_evaluation_lease(
+            MANAGER, values['lease'], 'runtime-lease-revocation')
+        with pytest.raises(Rejected, match='EVALUATION_LEASE_REVOKED'):
+            core.register_factory_evaluation_runtime_evidence(
+                MANAGER, values['assignment'], values['lease'], 'a' * 64,
+                '3.12', '0.1.17.post1', [{
+                    'caseId':'quality-service-hours',
+                    'candidateReceiptDigest':candidate['receiptDigest'],
+                    'modelReceiptDigest':model_receipt,
+                }])
+    finally:
+        core.close()
+
+
 def test_endpoint_mismatch_is_rejected_before_model_or_observer(tmp_path):
     core, client, values = prepare(tmp_path)
     calls, outbound = [], []
