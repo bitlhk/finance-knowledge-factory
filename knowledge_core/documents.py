@@ -97,6 +97,31 @@ def _strict_values(value):
     return _unique(values)
 
 
+_NEGATED_CLAIM_PREFIX = re.compile(
+    r'(?:不|未|无|非|不是|并非|并不|不能|无法|不足以).{0,8}$')
+
+
+def _term_polarity(value, terms):
+    """Return whether terms occur as affirmed or locally negated claims."""
+    affirmed = negated = False
+    for term in terms:
+        for match in re.finditer(re.escape(term), value):
+            prefix = value[max(0, match.start() - 12):match.start()]
+            if _NEGATED_CLAIM_PREFIX.search(prefix):
+                negated = True
+            else:
+                affirmed = True
+    return affirmed, negated
+
+
+def _affirmed_pattern(value, pattern):
+    for match in re.finditer(pattern, value):
+        prefix = value[max(0, match.start() - 12):match.start()]
+        if not _NEGATED_CLAIM_PREFIX.search(prefix):
+            return True
+    return False
+
+
 def _logical_fact_checks(fact, answer):
     """Reject high-overlap answers that reverse a material business meaning."""
     normalized_fact = _semantic_normal(fact)
@@ -108,15 +133,16 @@ def _logical_fact_checks(fact, answer):
                        'reason':None if passed else reason})
 
     if '有权' in normalized_fact:
-        has_discretion = any(value in normalized_answer
-                             for value in ('有权', '可以', '可', '可能'))
-        imposes_duty = any(value in normalized_answer
-                           for value in ('必须', '一定', '必然', '应当强制'))
+        discretion, _ = _term_polarity(
+            normalized_answer, ('有权', '可以', '可能'))
+        imposes_duty, rejects_duty = _term_polarity(
+            normalized_answer, ('必须', '一定', '必然', '应当强制'))
+        has_discretion = discretion or rejects_duty
         add('RIGHT_NOT_OBLIGATION', has_discretion and not imposes_duty,
             '回答将“有权”扩大为必须或必然执行')
     if ('t+1' in normalized_fact
-            and any(value in normalized_answer
-                    for value in ('当日到账', '实时到账', '立即到账'))):
+            and _term_polarity(normalized_answer,
+                               ('当日到账', '实时到账', '立即到账'))[0]):
         add('T_PLUS_ONE_NOT_SAME_DAY', False,
             '回答将T+1到账改成当日或实时到账')
     if '提前终止整个产品' in normalized_fact and '正常赎回' in normalized_fact:
@@ -127,23 +153,36 @@ def _logical_fact_checks(fact, answer):
             '回答未区分整个产品提前终止与正常赎回')
     if ('申购和赎回费率均为0' in normalized_fact
             or '无申购赎回费' in normalized_fact):
-        scoped_zero = (('申购' in normalized_answer and '赎回' in normalized_answer)
-                       and any(value in normalized_answer for value in ('均为0', '费率0', '无申购赎回费')))
-        denies_all_fees = any(value in normalized_answer
-                              for value in ('完全没有任何费用', '不收取任何费用', '没有其他费用'))
+        scoped_zero = (
+            '申购' in normalized_answer and '赎回' in normalized_answer
+            and (any(value in normalized_answer
+                     for value in ('均为0', '费率0', '无申购赎回费'))
+                 or ('无申购费' in normalized_answer
+                     and '无赎回费' in normalized_answer)))
+        denies_all_fees = _term_polarity(
+            normalized_answer,
+            ('完全没有任何费用', '不收取任何费用', '没有其他费用'))[0]
         add('ZERO_FEE_SCOPE', scoped_zero and not denies_all_fees,
             '回答没有将零费率限定于申购费和赎回费')
     if ('历史收益' in normalized_fact or '过往业绩' in normalized_fact):
-        claims_current = any(value in normalized_answer
-                             for value in ('当前收益率就是', '今天的收益率是', '现行收益率为'))
+        claims_current = _term_polarity(
+            normalized_answer,
+            ('当前收益率就是', '今天的收益率是', '现行收益率为'))[0]
         add('HISTORICAL_NOT_CURRENT_YIELD', not claims_current,
             '回答将历史或示例收益率当作当前收益率')
     if (('风险要求' in normalized_fact or '适合投资者' in normalized_fact
          or '适合客户' in normalized_fact)
-            and any(value in normalized_answer
-                    for value in ('已完成适当性审核', '已通过适当性判断'))):
+            and _term_polarity(
+                normalized_answer,
+                ('已完成适当性审核', '已通过适当性判断', '已通过购买审核'))[0]):
         add('PRODUCT_RULE_NOT_CUSTOMER_DECISION', False,
             '回答将产品要求冒充为已完成客户适当性审核')
+    if ('交易日历' in normalized_fact or '确定到账日期' in normalized_fact):
+        claims_date = _affirmed_pattern(
+            normalized_answer,
+            r'(?:本周|下周)?[一二三四五六日天](?:必然|一定|确定)?到账')
+        add('CALENDAR_NOT_INFERRED', not claims_date,
+            '回答未经授权交易日历核实推断确定到账日期')
     return checks
 
 
@@ -172,7 +211,9 @@ def _fact_check(fact, answer, cited_evidence):
     live_boundary = fact.startswith('需要核实')
     if live_boundary:
         boundary_language = bool(re.search(r'需要核实|需核实|无法确认|无法确定|需以.{0,20}为准|未提供', answer))
-        boundary_terms = [value for value in ('风险', '评级', '有效', '销售', '收益', '公告', '渠道')
+        boundary_terms = [value for value in (
+            '风险', '评级', '有效', '销售', '收益', '公告', '渠道',
+            '交易日历', '到账', '日期')
                           if value in fact]
         answer_semantic = boundary_language and any(value in answer for value in boundary_terms)
     passed = (answer_semantic and not missing_answer

@@ -39,6 +39,12 @@ def query_variants(question, mode):
             (r"首次购买|首次申购", "首次申购 起点金额"),
             (r"追加购买|追加申购", "追加申购 金额要求"),
             (r"费用|费率", "申购赎回费率 投资管理费 托管费 税费"),
+            (r"完全不收费|其他费用|还.{0,4}(?:收费|费用)",
+             "申购赎回费率 固定投资管理费 托管费 浮动投资管理费 其他税费"),
+            (r"\d{1,2}[:：]\d{2}|受理时间|挂单时间",
+             "受理时间 挂单时间 赎回到账 交易日历"),
+            (r"(?:三个月|未来|将来|到时).{0,8}(?:用钱|赎回|流动性)",
+             "正常赎回 暂停赎回 提前终止 交易日 赎回到账"),
             (r"C[1-5].{0,12}(?:购买|适合|可以)",
              "产品风险级别 适合购买的投资者"),
         )
@@ -98,16 +104,31 @@ def _evidence_concepts(question, text):
          r'每个交易日开放申购和赎回'),
         ('normal-redemption', r'赎回', r'开放申购和赎回|提出申购或赎回'),
         ('redemption-arrival', r'赎回|到账|用钱', r'T\+?1日到账|赎回到账'),
+        ('future-liquidity-timing',
+         r'(?:三个月|未来|将来|到时).{0,8}(?:用钱|赎回|流动性)',
+         r'受理时间.{0,400}T\+?1日到账'),
         ('early-termination', r'提前赎回|提前终止', r'提前终止'),
+        ('future-termination-distinction',
+         r'(?:三个月|未来|将来|到时).{0,8}(?:用钱|赎回|流动性)|提前赎回',
+         r'(?:客户|投资者).{0,8}无提前终止权'),
         ('partial-redemption', r'部分赎回|剩余.{0,4}(?:份|份额)',
          r'部分赎回后.{0,30}剩余份额|强制性?全部赎回'),
         ('large-redemption', r'大额赎回', r'大额赎回.{0,60}暂停|暂停接受当日赎回'),
+        ('large-redemption-followup', r'大额赎回|暂停.{0,8}赎回',
+         r'下一交易日继续接受赎回申请'),
+        ('redemption-suspension',
+         r'(?:三个月|未来|将来|到时).{0,8}(?:用钱|赎回|流动性)|暂停.{0,8}赎回',
+         r'暂停.{0,16}(?:申购或赎回|赎回)|赎回应在暂停情形消灭'),
         ('trading-day', r'周末|交易日', r'周六、周日|交易日'),
         ('order-time', r'周末|挂单|什么时候处理', r'挂单交易|下一受理时间'),
         ('zero-subscription-redemption-fees', r'申购.{0,6}费|赎回.{0,6}费|费用|费率',
          r'无申购、赎回费|申购和赎回的费率均为0'),
         ('basic-fees', r'费用|费率', r'固定投资管理费率|无申购、赎回费'),
         ('complete-fees', r'费用|费率|税费', r'其他税费'),
+        ('full-fee-schedule', r'完全不收费|其他费用|还.{0,4}(?:收费|费用)|税费',
+         r'固定投资管理费.{0,160}托管费.{0,220}(?:其他税费|浮动投资管理费)'),
+        ('order-window', r'\d{1,2}[:：]\d{2}|受理时间|挂单时间',
+         r'8[：:]30-15[：:]30.{0,180}15[：:]45-24[：:]00'),
         ('principal-and-yield-risk', r'保本|保证.{0,4}收益|收益.{0,4}保证',
          r'不保证.{0,8}(?:本金|资金本金).{0,8}收益|不保证本金和收益'),
         ('non-own-funds', r'借款|贷款资金|非自有资金',
@@ -154,7 +175,12 @@ def rank(question, candidates, mode):
             # many broad query variants. No clause id or case id is consulted.
             weights = {
                 'partial-redemption':5000, 'large-redemption':5000,
+                'large-redemption-followup':5000,
+                'redemption-suspension':5000,
+                'future-liquidity-timing':5000,
+                'future-termination-distinction':5000,
                 'complete-fees':4800, 'rating-mismatch-redemption':4800,
+                'full-fee-schedule':5000, 'order-window':5000,
                 'early-termination':4200, 'order-time':4200,
                 'normal-redemption-opening':4800,
                 'zero-subscription-redemption-fees':5000,
@@ -199,7 +225,12 @@ def _select(candidates, limit, mode):
             text = _bigrams(candidate.get("text", ""))
             concept_weights = {
                 'partial-redemption':5200, 'large-redemption':5200,
+                'large-redemption-followup':5200,
+                'redemption-suspension':5200,
+                'future-liquidity-timing':5200,
+                'future-termination-distinction':5200,
                 'complete-fees':5000, 'rating-mismatch-redemption':5000,
+                'full-fee-schedule':5200, 'order-window':5200,
                 'early-termination':4500, 'order-time':4500,
                 'normal-redemption-opening':5000,
                 'zero-subscription-redemption-fees':5200,
@@ -236,7 +267,7 @@ def support_decision(question, text, mode):
         supported = bool(re.search(r"(?:至少包括|划分为|分为).{0,40}(?:一|二|三|四|五|六|七|八|九|十|\d)+级", normalized))
         return supported, "quantitative level request requires an explicit level statement"
     if re.search(r"多少(?:元|钱|费用|手续费)|收费|费用是多少|手续费", question):
-        supported = bool(re.search(r"手续费|收费|费用|金额|人民币|(?:元|角|分)(?:。|；|，)", normalized))
+        supported = bool(re.search(r"手续费|收费|费用|费率|金额|人民币|(?:元|角|分)(?:。|；|，)", normalized))
         return supported, "monetary request requires explicit fee or amount evidence"
     if re.search(r"界定|什么是|是指什么", question):
         supported = bool(re.search(r"所称.{0,30}是指|是指", normalized))

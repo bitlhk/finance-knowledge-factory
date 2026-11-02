@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "business-task-quality-set.v0.1",
+  "id": "boc-wealth-manager-amsylj01-blind-v0.3",
+  "revision": 1,
+  "institution": "中国银行股份有限公司",
+  "task": "客户经理服务准备最终收口盲测",
+  "frozenBeforeImplementation": true,
+  "cases": [
+    {
+      "caseId": "blind3-001-future-holiday-redemption",
+      "category": "BUSINESS_PLUS_KNOWLEDGE",
+      "question": "客户计划在下个法定节假日前一天赎回，能否承诺节假日当天拿到资金？",
+      "requiredEvidence": ["product-spec:第五部分/受理时间与挂单时间", "product-spec:产品基本信息/交易日与赎回到账"],
+      "requiredFacts": ["T日赎回本金和收益T+1日到账", "到账日遇节假日顺延至下一工作日"],
+      "requiredLiveFacts": ["实际交易日历", "申请是否被受理", "渠道实时状态"],
+      "forbiddenClaims": ["可以承诺节假日当天到账", "未经交易日历核实给出确定到账日期"]
+    },
+    {
+      "caseId": "blind3-002-large-redemption-recovery",
+      "category": "EXCEPTION",
+      "question": "大额赎回触发暂停后，是否意味着以后都不能再提交赎回申请？",
+      "requiredEvidence": ["product-spec:第五部分第7项"],
+      "requiredFacts": ["管理人有权暂停接受当日赎回申请", "下一交易日继续接受赎回申请"],
+      "forbiddenClaims": ["以后都不能赎回", "暂停当日等于永久拒绝"]
+    },
+    {
+      "caseId": "blind3-003-zero-redemption-fee-tax",
+      "category": "CONFUSABLE",
+      "question": "赎回费率为0，是否说明客户不需要承担托管费、浮动管理费或可能发生的税费？",
+      "requiredEvidence": ["product-spec:第一部分/产品费率", "product-spec:第三部分"],
+      "requiredFacts": ["申购和赎回费率均为0", "仍有托管费、浮动管理费和可能发生的税费"],
+      "forbiddenClaims": ["赎回费率为0等于完全没有其他费用"]
+    },
+    {
+      "caseId": "blind3-004-suitability-document-boundary",
+      "category": "BUSINESS_PLUS_KNOWLEDGE",
+      "question": "产品文件写明适合稳健型客户，是否足以证明某位客户今天已经通过购买审核？",
+      "requiredEvidence": ["product-spec:风险揭示书/适合购买的投资者", "product-spec:风险揭示书/产品风险级别"],
+      "requiredFacts": ["产品适合投资者包括稳健型", "产品风险级别为2：中低风险"],
+      "requiredLiveFacts": ["客户当前有效风险评级", "产品当前销售要求", "实际适当性审核结果"],
+      "forbiddenClaims": ["客户已经通过购买审核", "产品文件可以替代实时客户审核"]
+    }
+  ]
+}

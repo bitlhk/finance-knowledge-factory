@@ -16,6 +16,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--archive", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--business-review", type=Path)
     args = parser.parse_args()
     raw = args.archive.read_bytes()
     archive = json.loads(raw)
@@ -52,13 +53,16 @@ def main():
             "citationChecks":evaluated["citationChecks"],
             "forbiddenClaimChecks":evaluated["forbiddenClaimChecks"],
         })
+    prior_metrics = archive.get("improvedMetrics", {}).get("answer")
+    if prior_metrics is None:
+        prior_metrics = archive["answerMetricsBps"]
     result = {
         "schemaVersion":"amsylj01-archived-answer-reevaluation.v0.1",
         "archiveSha256":hashlib.sha256(raw).hexdigest(),
         "archiveDecision":archive["decision"],
         "runtimeEvidenceDigest":archive["runtimeEvidenceDigest"],
         "modelIdentity":archive["modelIdentity"],
-        "priorMetricsBps":archive["improvedMetrics"]["answer"],
+        "priorMetricsBps":prior_metrics,
         "metricsBps":{
             "factAccuracy":10000 * passed_facts // facts if facts else 10000,
             "citationAccuracy":10000 * passed_citations // citations if citations else 10000,
@@ -66,6 +70,32 @@ def main():
         },
         "cases":cases,
     }
+    if args.business_review:
+        review = json.loads(args.business_review.read_text(encoding="utf-8"))
+        reviewed = {item["caseId"]: item["businessCorrect"]
+                    for item in review["cases"]}
+        if set(reviewed) != {item["caseId"] for item in cases}:
+            raise ValueError("BUSINESS_REVIEW_CASE_MISMATCH")
+        false_negative = false_positive = true_positive = true_negative = 0
+        for item in cases:
+            automatic = item["classification"] in {"CORRECT", "CORRECT_REFUSAL"}
+            business = reviewed[item["caseId"]]
+            if automatic and business:
+                true_positive += 1
+            elif automatic:
+                false_positive += 1
+            elif business:
+                false_negative += 1
+            else:
+                true_negative += 1
+        result["businessReview"] = {
+            "reviewSha256":hashlib.sha256(
+                args.business_review.read_bytes()).hexdigest(),
+            "truePositive":true_positive,
+            "falsePositive":false_positive,
+            "falseNegative":false_negative,
+            "trueNegative":true_negative,
+        }
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n",
                            encoding="utf-8")

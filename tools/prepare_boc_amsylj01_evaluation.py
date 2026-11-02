@@ -109,8 +109,11 @@ def main():
             ["volcengine"], ["cn-beijing"], ["factory-dev"])
         prompt = core.register_evaluation_prompt_template(
             actor, "boc-amsylj01-grounded-answer-" + args.id_suffix, 1,
-            "仅根据提供的中国银行公开资料原文回答；证据不足或涉及实时状态时明确说明需要核实。",
-            "先给直接结论，再列依据编号；不得补造当前客户评级、在售状态、收益率或渠道状态。")
+            "仅根据提供的中国银行公开资料原文回答；证据不足或涉及实时状态时明确说明需要核实。"
+            "必须保留原文中的权利强度、限制条件、例外和后续处理，不得把有权或可能改成必须或一定。",
+            "先给直接结论，再列依据编号；回答是否、能否、何时等问题时，须覆盖证据中直接相关的限制和后续处理。"
+            "正常赎回不得与提前终止整个产品混同；零申购或赎回费不得扩大为无其他费用；"
+            "没有授权交易日历或实时渠道状态时不得推断确定日期。不得补造当前客户评级、在售状态、收益率或渠道状态。")
         expires = (datetime.now(timezone.utc)
                    + timedelta(minutes=args.lifetime_minutes)).isoformat()
         context = BusinessContext(

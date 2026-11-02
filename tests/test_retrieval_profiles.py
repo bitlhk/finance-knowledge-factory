@@ -93,7 +93,7 @@ def test_redemption_concepts_keep_termination_and_normal_redemption_distinct():
     termination = _evidence_concepts(question, "理财客户无提前终止权")
     arrival = _evidence_concepts(question, "T日赎回，本金和收益T+1日到账")
     assert normal == ["normal-redemption-opening", "normal-redemption"]
-    assert termination == ["early-termination"]
+    assert termination == ["early-termination", "future-termination-distinction"]
     assert arrival == ["redemption-arrival"]
 
 
@@ -103,6 +103,42 @@ def test_fee_selection_keeps_zero_rates_and_other_charges_as_separate_evidence()
     charges = _evidence_concepts(question, "固定投资管理费率0.2%，可能发生其他税费。")
     assert "zero-subscription-redemption-fees" in zero
     assert "complete-fees" in charges
+
+
+def test_complete_fee_scope_and_exact_order_window_are_independent_concepts():
+    fee_question = "申购费和赎回费都是0，是否代表完全不收费？"
+    fee_text = ("固定投资管理费0.2%，托管费0.03%，其他税费按实际发生额支付，"
+                "并可能收取浮动投资管理费。")
+    assert "full-fee-schedule" in _evidence_concepts(fee_question, fee_text)
+    time_question = "客户周五15:40提交赎回，什么时候受理？"
+    time_text = "受理时间8:30-15:30，挂单时间15:45-24:00。"
+    assert "order-window" in _evidence_concepts(time_question, time_text)
+
+
+def test_future_redemption_question_keeps_suspension_evidence():
+    question = "客户三个月后用钱，届时能否赎回？"
+    text = "发生流动性风险时，管理人有权暂停申购或赎回。"
+    assert "redemption-suspension" in _evidence_concepts(question, text)
+    timing = "投资者可在受理时间内提出赎回，赎回本金和收益T+1日到账。"
+    assert "future-liquidity-timing" in _evidence_concepts(question, timing)
+    termination = "理财客户无提前终止权。"
+    assert "future-termination-distinction" in _evidence_concepts(
+        question, termination)
+
+
+def test_large_redemption_concept_includes_next_trading_day_handling():
+    question = "发生大额赎回后还能提交申请吗？"
+    text = "管理人有权暂停接受当日赎回申请，下一交易日继续接受赎回申请。"
+    concepts = _evidence_concepts(question, text)
+    assert "large-redemption" in concepts
+    assert "large-redemption-followup" in concepts
+
+
+def test_support_policy_treats_explicit_fee_rate_as_fee_evidence():
+    supported, _ = support_decision(
+        "是否完全不收费？", "固定投资管理费率0.2%，赎回费率为0。",
+        "EVIDENCE_SUPPORT_V0_1")
+    assert supported is True
 
 
 def test_business_rank_prefers_product_source_for_product_specific_question():

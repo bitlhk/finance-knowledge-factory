@@ -153,6 +153,28 @@ def test_business_logic_rejects_right_as_mandatory_action():
     assert result['factChecks'][0]['logicalChecks'][0]['check'] == 'RIGHT_NOT_OBLIGATION'
 
 
+def test_business_logic_accepts_explicit_not_mandatory_scope():
+    retrieved = [evidence('产品说明书/部分赎回',
+                          '余额低于1万份时，管理人有权办理强制全部赎回。')]
+    result = _evaluate_answer_case(
+        gold(['产品说明书/部分赎回'],
+             ['管理人有权而非必须办理强制全部赎回']),
+        runtime_case('依据[1]，管理人有权办理强制全部赎回，但这不是必须操作。',
+                     retrieved))
+    assert result['classification'] == 'CORRECT'
+
+
+def test_business_logic_accepts_not_certain_without_treating_it_as_duty():
+    retrieved = [evidence('产品说明书/大额赎回',
+                          '管理人有权暂停接受当日申请，下一交易日继续接受。')]
+    result = _evaluate_answer_case(
+        gold(['产品说明书/大额赎回'],
+             ['管理人有权暂停当日申请，下一交易日继续接受']),
+        runtime_case('依据[1]，申请不一定在当天受理；管理人有权暂停，下一交易日继续接受。',
+                     retrieved))
+    assert result['classification'] == 'CORRECT'
+
+
 def test_business_logic_rejects_same_day_for_t_plus_one():
     retrieved = [evidence('产品说明书/赎回',
                           'T日赎回，本金和收益T+1日到账。')]
@@ -182,6 +204,16 @@ def test_business_logic_limits_zero_rate_to_subscription_and_redemption_fees():
     assert result['classification'] == 'ANSWER_FACT_ERROR'
 
 
+def test_business_logic_accepts_zero_fees_with_other_charges_preserved():
+    retrieved = [evidence('产品说明书/费率',
+                          '申购和赎回的费率均为0，另有管理费、托管费和税费。')]
+    result = _evaluate_answer_case(
+        gold(['产品说明书/费率'], ['申购和赎回费率均为0']),
+        runtime_case('依据[1]，申购和赎回费率均为0，但仍有管理费、托管费和税费。',
+                     retrieved))
+    assert result['classification'] == 'CORRECT'
+
+
 def test_business_logic_rejects_historical_yield_as_current():
     retrieved = [evidence('产品说明书/收益', '过往业绩不代表未来表现。')]
     result = _evaluate_answer_case(
@@ -196,3 +228,28 @@ def test_product_rule_does_not_prove_completed_customer_suitability():
         gold(['产品说明书/适当性'], ['产品适合投资者包括稳健型']),
         runtime_case('依据[1]，该客户已完成适当性审核。', retrieved))
     assert result['classification'] == 'ANSWER_FACT_ERROR'
+
+
+def test_negated_customer_suitability_claim_is_not_a_false_positive():
+    retrieved = [evidence('产品说明书/适当性', '本产品适合稳健型投资者。')]
+    result = _evaluate_answer_case(
+        gold(['产品说明书/适当性'], ['产品适合投资者包括稳健型']),
+        runtime_case('依据[1]，产品适合投资者包括稳健型；该规则不能证明客户已通过购买审核，仍需实时核实。',
+                     retrieved))
+    assert result['classification'] == 'CORRECT'
+
+
+def test_calendar_boundary_rejects_unverified_certain_weekday():
+    retrieved = [evidence('产品说明书/到账',
+                          'T日赎回后T+1日到账，遇节假日顺延。')]
+    gold_case = gold(['产品说明书/到账'],
+                     ['需要核实实际交易日历，不得推断确定到账日期'])
+    wrong = _evaluate_answer_case(
+        gold_case,
+        runtime_case('依据[1]，资金确定下周一到账。', retrieved))
+    accepted = _evaluate_answer_case(
+        gold_case,
+        runtime_case('依据[1]，需要核实实际交易日历，不能确定下周一到账。',
+                     retrieved))
+    assert wrong['classification'] == 'ANSWER_FACT_ERROR'
+    assert accepted['classification'] == 'CORRECT'
