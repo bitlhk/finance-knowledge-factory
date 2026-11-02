@@ -14,6 +14,22 @@
   },
   "goldChanges": [
     {
+      "caseId": "wm-001-risk-level",
+      "reason": "风险揭示书已分别完整给出产品级别和适合投资者，移除内容重复的说明书投资者类型单元。",
+      "before": {
+        "requiredEvidence": [
+          "product-spec:风险揭示书/产品风险级别",
+          "product-spec:产品说明书/产品基本信息/投资者类型"
+        ]
+      },
+      "after": {
+        "requiredEvidence": [
+          "product-spec:风险揭示书/产品风险级别",
+          "product-spec:风险揭示书/适合购买的投资者"
+        ]
+      }
+    },
+    {
       "caseId": "wm-002-c1-suitability",
       "reason": "公开资料没有定义C1代码映射；产品要求与实时客户映射分开验收。",
       "before": {
@@ -51,6 +67,55 @@
           "product-spec:第五部分第5项"
         ]
       }
+    },
+    {
+      "caseId": "wm-008-fees",
+      "reason": "产品费率和费用明细两处已覆盖申赎、管理、托管、浮动费用及税费，移除重复费率单元。",
+      "before": {
+        "requiredEvidence": [
+          "product-spec:第一部分/产品费率",
+          "product-spec:第三部分",
+          "product-spec:第五部分第6项"
+        ]
+      },
+      "after": {
+        "requiredEvidence": [
+          "product-spec:第一部分/产品费率",
+          "product-spec:第三部分"
+        ]
+      }
+    },
+    {
+      "caseId": "wm-009-principal-guarantee",
+      "reason": "风险揭示书两处已支持不保本、不保证收益和不构成承诺，通用协议为重复依据。",
+      "before": {
+        "requiredEvidence": [
+          "product-spec:风险揭示书/风险揭示内容",
+          "product-spec:特别提示",
+          "sales-agreement:第二部分"
+        ]
+      },
+      "after": {
+        "requiredEvidence": [
+          "product-spec:风险揭示书/风险揭示内容",
+          "product-spec:特别提示"
+        ]
+      }
+    },
+    {
+      "caseId": "wm-010-non-own-funds",
+      "reason": "投资者权益须知已完整陈述自有资金和禁止贷款资金要求，协议证据重复。",
+      "before": {
+        "requiredEvidence": [
+          "sales-agreement:第四部分第一项",
+          "investor-rights:风险提示"
+        ]
+      },
+      "after": {
+        "requiredEvidence": [
+          "investor-rights:风险提示"
+        ]
+      }
     }
   ],
   "cases": [
@@ -60,7 +125,7 @@
       "question": "中银日积月累-收益累进的风险等级和适合客户类型是什么？",
       "requiredEvidence": [
         "product-spec:风险揭示书/产品风险级别",
-        "product-spec:产品说明书/产品基本信息/投资者类型"
+        "product-spec:风险揭示书/适合购买的投资者"
       ],
       "requiredFacts": [
         "风险级别为2：中低风险",
@@ -196,8 +261,7 @@
       "question": "这款产品申购、赎回和管理费用如何收取？",
       "requiredEvidence": [
         "product-spec:第一部分/产品费率",
-        "product-spec:第三部分",
-        "product-spec:第五部分第6项"
+        "product-spec:第三部分"
       ],
       "requiredFacts": [
         "申购和赎回费率均为0",
@@ -215,8 +279,7 @@
       "question": "这款产品是否保本，预期收益能否保证？",
       "requiredEvidence": [
         "product-spec:风险揭示书/风险揭示内容",
-        "product-spec:特别提示",
-        "sales-agreement:第二部分"
+        "product-spec:特别提示"
       ],
       "requiredFacts": [
         "不保证本金和收益",
@@ -233,7 +296,6 @@
       "category": "PROHIBITION",
       "question": "客户可以借款购买这款理财产品吗？",
       "requiredEvidence": [
-        "sales-agreement:第四部分第一项",
         "investor-rights:风险提示"
       ],
       "requiredFacts": [

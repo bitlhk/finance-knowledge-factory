@@ -89,3 +89,11 @@ def test_redemption_concepts_keep_termination_and_normal_redemption_distinct():
     assert normal == ["normal-redemption"]
     assert termination == ["early-termination"]
     assert arrival == ["redemption-arrival"]
+
+
+def test_live_channel_state_is_not_supported_by_static_product_evidence():
+    supported, reason = support_decision(
+        "今天手机银行是否可以提交申购？", "说明书提到手机银行渠道",
+        "EVIDENCE_SUPPORT_V0_1")
+    assert supported is False
+    assert "authorized product service" in reason

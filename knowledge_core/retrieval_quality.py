@@ -88,17 +88,24 @@ def _evidence_concepts(question, text):
     """Identify independently required evidence concepts from its own text."""
     concepts = []
     checks = (
-        ('product-risk-level', r'风险等级|风险级别',
+        ('product-risk-level', r'风险等级|风险级别|C[1-5].{0,8}(?:购买|适合)',
          r'风险(?:等级|级别)\s*(?:为|是|：|:)?\s*[1-5]'),
-        ('suitable-investor', r'适合.{0,4}(?:客户|投资者)|客户类型',
+        ('suitable-investor', r'适合.{0,4}(?:客户|投资者|购买)|客户类型|C[1-5].{0,8}购买',
          r'适合购买的投资者|投资者类型'),
         ('normal-redemption', r'赎回', r'开放申购和赎回|提出申购或赎回'),
         ('redemption-arrival', r'赎回|到账|用钱', r'T\+?1日到账|赎回到账'),
         ('early-termination', r'提前赎回|提前终止', r'提前终止'),
+        ('partial-redemption', r'部分赎回|剩余.{0,4}(?:份|份额)',
+         r'部分赎回后.{0,30}剩余份额|强制性?全部赎回'),
+        ('large-redemption', r'大额赎回', r'大额赎回.{0,60}暂停|暂停接受当日赎回'),
         ('trading-day', r'周末|交易日', r'周六、周日|交易日'),
         ('order-time', r'周末|挂单|什么时候处理', r'挂单交易|下一受理时间'),
         ('basic-fees', r'费用|费率', r'固定投资管理费率|无申购、赎回费'),
-        ('complete-fees', r'费用|费率|税费', r'其他税费|浮动投资管理费'),
+        ('complete-fees', r'费用|费率|税费', r'其他税费'),
+        ('principal-and-yield-risk', r'保本|保证.{0,4}收益|收益.{0,4}保证',
+         r'不保证.{0,8}(?:本金|资金本金).{0,8}收益|不保证本金和收益'),
+        ('non-own-funds', r'借款|贷款资金|非自有资金',
+         r'自有资金|非自有资金'),
     )
     for name, question_pattern, evidence_pattern in checks:
         if re.search(question_pattern, question) and re.search(evidence_pattern, text):
@@ -174,6 +181,9 @@ def support_decision(question, text, mode):
     if mode != "EVIDENCE_SUPPORT_V0_1":
         raise ValueError("UNKNOWN_SUPPORT_POLICY")
     normalized = re.sub(r"\s+", "", text)
+    if (re.search(r"今天|当前|现在", question)
+            and re.search(r"在售|额度|渠道|提交.{0,5}(?:申购|购买)", question)):
+        return False, "live sale, quota, and channel state require an authorized product service"
     if re.search(r"哪款|哪个|哪一个|哪家", question) and re.search(r"最高|最低|最好|最优", question):
         supported = bool(re.search(r"(?:产品名称|名称为|分别为).{0,80}(?:最高|最低|排序|比较)", normalized))
         return supported, "comparative product request requires named comparative evidence"
