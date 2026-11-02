@@ -87,6 +87,9 @@ def handler(service):
                 elif path == '/api/business-samples/boc-amsylj01' and getattr(service,'m2',False):
                     result = service.business_sample('boc-amsylj01',
                         service.authorities.authenticate('candidate.produce', self.headers))
+                elif path == '/api/business-products/cmbwm-132112/import' and getattr(service,'m2',False):
+                    result = service.import_business_product(data,
+                        service.authorities.authenticate('candidate.produce', self.headers))
                 elif path == '/api/sources' and set(data) in ({'title', 'html'},
                         {'title', 'html', 'metadata'}):
                     authority = (service.authorities.authenticate('candidate.produce', self.headers)

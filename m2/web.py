@@ -15,6 +15,7 @@ from http.server import ThreadingHTTPServer
 from knowledge_core.contracts import Rejected, digest
 from knowledge_core.documents import DocumentCore
 from business_knowledge.boc_amsylj01 import build_bundle, verify_bundle
+from business_knowledge import cmbwm_132112
 from m2.workbench_authority import WorkbenchAuthorities
 from m2.pipeline import produce, parse
 from m2.ragflow import Ragflow
@@ -86,6 +87,48 @@ class DocumentProduction(Production):
         return {'source':source,'tests':tests,
                 'qualityCaseCount':len(business['cases'])}
 
+    def import_business_product(self, data, authority=None):
+        authority=authority or self.authorities.authenticate('candidate.produce')
+        if (not isinstance(data,dict) or set(data)!={'registrationId','files'}
+                or data['registrationId']!=cmbwm_132112.REGISTRATION_ID):
+            raise Rejected('BUSINESS_PRODUCT_REGISTRATION_INVALID')
+        values=cmbwm_132112.decode_uploads(data['files'])
+        bundle=cmbwm_132112.build_bundle(values)
+        metadata={
+            'officialUrl':cmbwm_132112.SOURCES['sales-documents']['url'],
+            'institution':'南京银行（销售文件披露渠道）/招银理财（管理人）',
+            'documentDate':'2026-10-30',
+            'version':'132112 · 2026-10-30 固定资料包',
+            'authorityStatus':'PUBLIC_SOURCE_REQUIRES_CURRENT_BUSINESS_REVALIDATION'}
+        source=self.source(cmbwm_132112.TITLE,bundle['html'].decode(),metadata)
+        import_root=self.state/'imports'/source['id']
+        import_root.mkdir(parents=True,exist_ok=True,mode=0o700)
+        for source_id,value in values.items():
+            target=import_root/cmbwm_132112.SOURCES[source_id]['filename']
+            if target.exists() and hashlib.sha256(target.read_bytes()).hexdigest()!=hashlib.sha256(value).hexdigest():
+                raise Rejected('BUSINESS_SOURCE_STORAGE_CHANGED')
+            target.write_bytes(value)
+            target.chmod(0o600)
+        with self.lock:
+            stored=self.sources[source['id']]
+            stored['businessProduct']={
+                'registrationId':cmbwm_132112.REGISTRATION_ID,
+                'productId':cmbwm_132112.PRODUCT_ID,
+                'productCode':'132112',
+                'salesCodes':['132112D','132112MS','132112N'],
+                'sourceCount':len(cmbwm_132112.SOURCES),
+                'qualityCaseCount':len(bundle['tests']),
+                'provenanceDigest':bundle['provenance']['provenanceDigest'],
+                'sourceDigests':[item['sha256'] for item in bundle['provenance']['sourceFiles']],
+                'sourceFiles':bundle['provenance']['sourceFiles'],
+                'sourceReferences':bundle['sourceReferences'],
+                'currentSaleStatus':'REQUIRES_LIVE_PRODUCT_SYSTEM'}
+            stored['importedBy']=self.authorities.audit(authority)
+            persist(self.state/('source-'+source['id']+'.json'),stored)
+            source=self.public_source(stored)
+        return {'source':source,'tests':bundle['tests'],
+                'qualityCaseCount':len(bundle['tests'])}
+
     def submit(self, data, authority=None):
         authority=authority or self.authorities.authenticate('candidate.produce')
         if data.get('rules') is not False or data.get('clauses') or data.get('modelConsent') is not False:
@@ -133,11 +176,13 @@ class DocumentProduction(Production):
             self.stage(job,'parse','COMPLETED',clauseCount=len(clauses))
             self.stage(job,'documents','RUNNING',executor='RAGFLOW_NATIVE_HTTP')
             client=self.client_factory()
-            objects=produce(core,self.producer,run_id,1,raw,self.scope,job['recipe']['tests'],[self.reader.principal],client)
+            business=self.sources[job['sourceId']].get('businessProduct') or {}
+            objects=produce(core,self.producer,run_id,1,raw,self.scope,job['recipe']['tests'],
+                [self.reader.principal],client,business.get('sourceReferences'))
             index=core._get(self.producer,objects['indexDigest'],'document-index')
             with self.lock:
                 job['coreObjects']=objects
-                job['nativeOperations']=copy.deepcopy(client.operations)
+                job['nativeOperations']=copy.deepcopy(getattr(client,'operations',[]))
                 self.save(job)
             self.stage(job,'documents','COMPLETED',datasetId=index['index']['datasetId'],
                        documentId=index['index']['documentId'],chunkCount=len(index['index']['chunks']))
@@ -159,7 +204,7 @@ class DocumentProduction(Production):
         except Exception as exc:
             with self.lock:
                 job.update(status='FAILED',error=getattr(exc,'code',type(exc).__name__),finishedAt=now(),
-                           nativeOperations=copy.deepcopy(client.operations) if client else [])
+                           nativeOperations=copy.deepcopy(getattr(client,'operations',[])) if client else [])
                 self.save(job)
         finally:
             core.close()

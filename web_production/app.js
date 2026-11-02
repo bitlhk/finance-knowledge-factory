@@ -80,6 +80,7 @@ function dialog(title, body) {
 function dispatch(command) {
   if(m2Mode()&&command==='document-demo')return window.m2.startDemo();
   if(m2Mode()&&command==='boc-business-sample')return window.m2.startBusinessSample();
+  if(m2Mode()&&command==='cmbwm-product-upload')return window.m2.startProductUpload();
   if(m2Mode()&&command==='evaluate-document')return window.m2.evaluate();
   if(m2Mode()&&['activate-document-source','approve-document','publish-document'].includes(command))return window.m2.release(command);
   if(command==='catalog'){workshopOpen=false;page='production';render();return;}

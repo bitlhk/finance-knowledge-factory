@@ -25,6 +25,11 @@ window.m2 = {
       wizard=0;showWizard();
     });
   },
+  startProductUpload(){
+    dialog('导入招银理财 132112 官方资料',`<form id="cmbwm-upload-form"><div class="hint">本入口仅验收已登记的三份南京银行官方 PDF。系统逐份校验文件摘要，并保留原件、页码和公告版本；当前可售、额度及客户适当性仍由业务系统核验。</div><div class="field"><label for="sales-documents">2026-10-12 产品销售文件</label><input id="sales-documents" type="file" accept="application/pdf,.pdf" required></div><div class="field"><label for="contract-adjustment">2026-10-12 合同条款调整公告</label><input id="contract-adjustment" type="file" accept="application/pdf,.pdf" required></div><div class="field"><label for="fee-discount">2026-10-30 费率优惠公告</label><input id="fee-discount" type="file" accept="application/pdf,.pdf" required></div><button class="btn primary">校验并导入资料</button></form>`);
+    const encoded=file=>new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=()=>reject(new Error('文件读取失败'));reader.onload=()=>resolve(String(reader.result).split(',',2)[1]);reader.readAsDataURL(file)});
+    $('#cmbwm-upload-form').onsubmit=async event=>{event.preventDefault();const ids=['sales-documents','contract-adjustment','fee-discount'];const files=[];for(const sourceId of ids){const file=$('#'+sourceId).files[0];if(!file||file.size>1500000){throw new Error('资料缺失或单份文件超过 1.5 MB')}files.push({sourceId,filename:file.name,contentBase64:await encoded(file)})}$('#modal-root').replaceChildren();await action(async()=>{const loaded=await api('/api/business-products/cmbwm-132112/import',{registrationId:'cmbwm-132112-njcb-202610',files});state=await api('/api/state');sourceId=loaded.source.id;run=null;recipe=null;queryResult=testResult=null;activeClause=null;selection='parse';workshopOpen=true;page='production';localStorage.removeItem('production-run');wizardDraft={sourceId,rules:false,clauses:[],modelConsent:false,tests:loaded.tests};wizard=0;showWizard()})};
+  },
   nextAction(){
     if(!src())return null;
     if(activeRun())return ['','生产进行中'];
@@ -38,7 +43,7 @@ window.m2 = {
   },
   releaseLabel(){return {NO_CANDIDATE:'等待生产',REVIEW_REQUIRED:'候选验证未通过',EVALUATION_REQUIRED:'候选就绪，待质量评测',EVALUATION_RUNNING:'质量评测执行中',EVALUATION_FAILED:'质量评测执行失败',QUALITY_REJECTED:'质量未通过',QUALITY_PASSED:'质量通过，待独立审批',APPROVED:'已审批，待发布',ISOLATED_PUBLISHED:'固定版本已发布'}[run?.release?.state]||'等待生产';},
   home(){
-    return `${heading('KNOWLEDGE PRODUCTION / 工作台','知识生产','文档知识 · 隔离测试工作区','<button class="btn" data-do="boc-business-sample">载入中行 AMSYLJ01 样本</button><button class="btn secondary" data-do="document-demo">体验合成样本</button><button class="btn secondary" data-do="new-product">＋ 新建试产</button>')}
+    return `${heading('KNOWLEDGE PRODUCTION / 工作台','知识生产','文档知识 · 隔离测试工作区','<button class="btn" data-do="cmbwm-product-upload">导入招银理财 132112 资料</button><button class="btn secondary" data-do="document-demo">体验合成样本</button><button class="btn secondary" data-do="new-product">＋ 新建试产</button>')}
     <div class="v15-hero"><div><strong>五条专业知识生产线</strong><small>当前执行：文档知识</small></div><div class="v15-icons">${crafts.map((c,i)=>`<span class="v15-token ${i===0?'active':''}">${E(c)}</span>`).join('')}<button class="btn secondary sm" data-do="crafts">工艺目录</button></div></div>
     <div class="v14-summary"><b>${state.sources.length}</b> 份原料 · <b>${state.runs.length}</b> 次生产 · <b>${state.isolatedReleases.length}</b> 个隔离快照</div>
     <section class="pending-section"><div class="sectiontitle">生产记录</div>${state.runs.slice(0,5).map(r=>`<div class="v14-task"><div><b>${E(r.title)}</b><div class="small textmuted">${E(label(r.status))} · ${E(new Date(r.createdAt).toLocaleString())}</div></div><button class="btn secondary sm" data-run="${E(r.id)}">查看记录</button></div>`).join('')||'<div class="hint">尚无生产任务</div>'}</section>
@@ -93,18 +98,18 @@ window.m2 = {
         if(next[0]==='start')button.dataset.do='start';
         $('.heading [data-do="start"]').replaceWith(button);
       }
-      const technology=$('.v15-hero small');if(technology)technology.textContent='原生 HTML 锚点 · RAGFlow 索引与检索 · Core 验证';
+      const technology=$('.v15-hero small');if(technology)technology.textContent=src()?.businessProduct?'受控 PDF 原件 · 页码映射 · RAGFlow 索引 · Core 验证':'原生 HTML 锚点 · RAGFlow 索引与检索 · Core 验证';
       const output=$('.outcol .colhead .badge');if(output)output.textContent=run?.release?.state==='ISOLATED_PUBLISHED'?'隔离快照':'候选知识';
     }
   },
   wizard(step){
     if(step===0){const target=$('.modal select');if(target)target.options[0].textContent='文档条款证据候选';}
     if(step===1){$('#rules-check').disabled=true;$('#rules-check').checked=false;wizardDraft.rules=false;wizardDraft.clauses=[];
-      $('#component-config').innerHTML='<div class="v14-config"><div class="v14-configtitle">文档知识组件</div><p>原生 HTML 锚点 → RAGFlow 真实解析与索引 → 检索验证 → Core 候选登记</p><p>固定 RAGFlow 镜像与 BGE 中文索引模型；PDF、Word、规则产线本轮不执行。</p></div>';}
+      $('#component-config').innerHTML=`<div class="v14-config"><div class="v14-configtitle">文档知识组件</div><p>${src()?.businessProduct?'已登记 PDF 原件 → 固定页码证据 → 派生 HTML 锚点':'原生 HTML 锚点'} → RAGFlow 索引 → Core 候选</p><p>${src()?.businessProduct?'本入口只处理已登记资料包，不代表通用 PDF 上传能力。':'PDF、Word 和规则产线未接入普通上传。'}</p></div>`;}
     if(step===3){$('.wizardgrid').innerHTML='<div class="field"><label>交付用途</label><input readonly value="业务知识质量评测与固定版本发布"></div><div class="field"><label>版本策略</label><input readonly value="固定 Manifest，不自动跟随新上传"></div><div class="field"><label>消费身份</label><input readonly value="由服务端授权策略确定"></div><div class="field"><label>审批方式</label><input readonly value="质量通过后独立审批"></div>';
       const hint=$('.modal .hint');if(hint)hint.textContent='评测、审批和发布相互独立；浏览器不能指定模型身份、质量结论或审批人。';}
   },
   crafts(){dialog('五条专业工艺',crafts.map((c,i)=>`<div class="v14-releaseitem"><h3>${E(c)}</h3><p>${i===0?'HTML 原文锚点、RAGFlow 索引检索、Core 隔离发布':'本轮不执行，不参与发布'}</p></div>`).join(''));}
 };
-Object.assign(errors,{DOCUMENT_NOT_PUBLISHED:'该候选尚未发布固定版本。',DOCUMENT_APPROVAL_REQUIRED:'请先完成独立发布审批。',QUALITY_ADMISSION_REQUIRED:'质量评测尚未通过。',EVALUATION_SERVICE_NOT_READY:'可信评测服务尚未接入当前工作台。',QUALITY_EVALUATION_BUSY:'质量评测正在执行。',RETRIEVAL_GOLD_REQUIRED:'至少需要一条检索测试题。',DOCUMENT_ONLY_REQUIRED:'本轮仅开放文档知识。',RAGFLOW_UNAVAILABLE:'RAGFlow 暂不可用，未返回替代结果。'});
+Object.assign(errors,{DOCUMENT_NOT_PUBLISHED:'该候选尚未发布固定版本。',DOCUMENT_APPROVAL_REQUIRED:'请先完成独立发布审批。',QUALITY_ADMISSION_REQUIRED:'质量评测尚未通过。',EVALUATION_SERVICE_NOT_READY:'可信评测服务尚未接入当前工作台。',QUALITY_EVALUATION_BUSY:'质量评测正在执行。',RETRIEVAL_GOLD_REQUIRED:'至少需要一条检索测试题。',DOCUMENT_ONLY_REQUIRED:'本轮仅开放文档知识。',RAGFLOW_UNAVAILABLE:'RAGFlow 暂不可用，未返回替代结果。',BUSINESS_SOURCE_SET_INCOMPLETE:'请完整选择三份官方 PDF。',BUSINESS_SOURCE_UPLOAD_INVALID:'文件名或上传格式与登记资料不一致。',BUSINESS_SOURCE_DIGEST_MISMATCH:'文件内容与登记的官方资料摘要不一致。',PDF_PAGE_COUNT_MISMATCH:'PDF 页数与登记版本不一致。'});
 init();

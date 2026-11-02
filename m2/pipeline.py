@@ -32,7 +32,8 @@ def parse(raw):
     return chunks
 
 
-def produce(core, actor, product_id, revision, raw, scope, tests, consumers, client):
+def produce(core, actor, product_id, revision, raw, scope, tests, consumers, client,
+            source_references=None):
     actor.require('artifact.produce')
     validate_scope(scope)
     if not isinstance(tests,list) or not 1 <= len(tests) <= 30 or any(
@@ -58,7 +59,8 @@ def produce(core, actor, product_id, revision, raw, scope, tests, consumers, cli
         chunk['textDigest'] = text_digest(chunk['text'])
         chunk['clauses'] = [labels[unit_id] for unit_id in mapped_by_id.get(chunk['id'], {}).get('unitIds', [])]
     index_sha = core.register_document_index(actor, source_sha, raw, bridge, index,
-                                            [{'clause':c['clause'],'text':c['text']} for c in chunks])
+                                            [{'clause':c['clause'],'text':c['text']} for c in chunks],
+                                            source_references)
     refs = []
     lines = source['content'].splitlines()
     for clause in chunks:
