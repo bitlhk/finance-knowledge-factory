@@ -137,6 +137,11 @@ def test_quality_enrollment_cannot_bypass_core_recomputed_gate(tmp_path):
         admission = core.assess_document_quality(AUTHOR, data['candidateDigest'], profile,
                                                  test_digest, retrieval, answer)
         assert core._get(AUTHOR, admission, 'document-quality-admission')['decision'] == 'PASS'
+        quality_approval = core.approve_quality_document(
+            AUTHOR, data['candidateDigest'], validation, admission, 'quality release review')
+        quality_approval_body = core._get(AUTHOR, quality_approval, 'document-approval')
+        assert quality_approval_body['schemaVersion'] == 'document-approval.v0.2'
+        assert quality_approval_body['qualityAdmissionDigest'] == admission
         with pytest.raises(Rejected, match='QUALITY_ADMISSION_REQUIRED'):
             core.publish_document(AUTHOR, data['candidateDigest'], validation, approval, 2)
         with pytest.raises(Rejected, match='QUALITY_MANIFEST_ALREADY_EXISTS'):
@@ -184,6 +189,9 @@ def test_quality_enrollment_cannot_bypass_core_recomputed_gate(tmp_path):
         admission_2 = core.assess_document_quality(AUTHOR, data['candidateDigest'], profile_2,
                                                    test_digest, retrieval_2, answer_2)
         assert core._get(AUTHOR, admission_2, 'document-quality-admission')['decision'] == 'PASS'
+        with pytest.raises(Rejected, match='DOCUMENT_APPROVAL_MISMATCH'):
+            core.publish_quality_document(AUTHOR, data['candidateDigest'], validation,
+                                          quality_approval, admission_2, 3)
         repeated = core.query_document(READER, 'faq', manifest, CONTEXT,
             '合成客服服务时间是什么？', 'quality-request-2', 'quality-trace-2', client)
         assert repeated['result']['evidence'][0]['clause'] == '第一条'

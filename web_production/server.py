@@ -82,12 +82,15 @@ def handler(service):
                 path = urlsplit(self.path).path
                 if path == '/api/sample':
                     result = service.source('个人贷款管理办法 · 公开制度样例', SAMPLE.read_text())
-                elif path == '/api/sources' and set(data) == {'title', 'html'}:
-                    result = service.source(data['title'], data['html'])
+                elif path == '/api/sources' and set(data) in ({'title', 'html'},
+                        {'title', 'html', 'metadata'}):
+                    result = service.source(data['title'], data['html'],data.get('metadata'))
                 elif path == '/api/runs':
                     result = service.submit(data)
                 elif path == '/api/search' and set(data) == {'runId', 'query'}:
                     result = service.search(data['runId'], data['query'])
+                elif path == '/api/document-evaluate' and getattr(service,'m2',False):
+                    result = service.start_evaluation(data)
                 elif path in {'/api/document-approve','/api/document-publish'} and getattr(service,'m2',False):
                     result = service.release_action(path, data)
                 elif path == '/api/rule-test' and set(data) == {'runId', 'clause', 'ruleId', 'inputs'}:

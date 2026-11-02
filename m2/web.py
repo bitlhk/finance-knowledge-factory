@@ -14,7 +14,7 @@ from http.server import ThreadingHTTPServer
 
 from knowledge_core.contracts import Rejected, digest
 from knowledge_core.documents import DocumentCore
-from m2.synthetic_context import AUTHOR, READER, CONTEXT, SCOPE
+from m2.synthetic_context import AUTHOR, READER, REVIEWER, CONTEXT, SCOPE
 from m2.pipeline import produce, parse
 from m2.ragflow import Ragflow
 from web_production.engine import Production, now
@@ -24,9 +24,10 @@ from web_production.server import handler
 class DocumentProduction(Production):
     m2 = True
 
-    def __init__(self, state, client_factory):
+    def __init__(self, state, client_factory, evaluation_launcher=None):
         self.database=Path(state)/'core.sqlite'
         self.client_factory=client_factory
+        self.evaluation_launcher=evaluation_launcher
         super().__init__(state, caller=lambda _: (_ for _ in ()).throw(Rejected('DOCUMENT_ONLY_REQUIRED')))
         self.core().close()
 
@@ -51,7 +52,7 @@ class DocumentProduction(Production):
     def _grant_product(self, core, product):
         revision,sha=core._head(AUTHOR,'policy','current')
         grants=core._get(AUTHOR,sha,'active-policy')['grants'] if sha else []
-        for principal in (AUTHOR.principal,READER.principal):
+        for principal in (AUTHOR.principal,READER.principal,REVIEWER.principal):
             grants += [{'principal':principal,'resource':'product:'+product,'actions':['consume','history']},
                        {'principal':principal,'resource':'source:'+product+'-source','actions':['source_read']}]
         core.set_policy(AUTHOR,{'schemaVersion':'active-policy.v0.1','revision':revision+1,'grants':grants},revision)
@@ -110,6 +111,111 @@ class DocumentProduction(Production):
                             (AUTHOR.tenant,kind,candidate)).fetchall()
         return rows[0][0] if rows else None
 
+    @staticmethod
+    def _quality_report(core, candidate, admission_digest):
+        admission=core._get(AUTHOR,admission_digest,'document-quality-admission')
+        if admission['candidateDigest']!=candidate:
+            raise Rejected('QUALITY_ADMISSION_FAILED_OR_MISMATCH')
+        answer=core._get(AUTHOR,admission['answerEvaluationDigest'],'document-answer-evaluation')
+        runtime_kind=core.db.execute('SELECT kind FROM objects WHERE tenant=? AND digest=?',
+            (AUTHOR.tenant,answer['runtimeEvidenceDigest'])).fetchone()
+        if not runtime_kind or runtime_kind[0] not in {
+                'document-answer-runtime-evidence','document-factory-evaluation-runtime-evidence'}:
+            raise Rejected('QUALITY_RUNTIME_EVIDENCE_INVALID')
+        runtime=core._get(AUTHOR,answer['runtimeEvidenceDigest'],runtime_kind[0])
+        retrieval=core._get(AUTHOR,admission['retrievalEvaluationDigest'],
+                            'document-retrieval-evaluation')
+        return {'decision':admission['decision'],'admissionDigest':admission_digest,
+            'profileDigest':admission['profileDigest'],'testSetDigest':admission['testSetDigest'],
+            'retrievalEvaluationDigest':admission['retrievalEvaluationDigest'],
+            'answerEvaluationDigest':admission['answerEvaluationDigest'],
+            'runtimeEvidenceDigest':answer['runtimeEvidenceDigest'],
+            'evidenceAuthority':answer.get('evidenceAuthority','HARNESS_ARCHIVE'),
+            'modelIdentity':answer['modelIdentity'],'metricsBps':answer['metricsBps'],
+            'checks':admission['checks'],'retrieval':retrieval['report'],
+            'cases':answer['cases'],'runtimeCases':runtime['cases']}
+
+    def _evaluation(self, core, job):
+        saved=job.get('qualityEvaluation')
+        if not saved:
+            return {'state':'NOT_STARTED'}
+        result={key:value for key,value in saved.items() if key!='digests'}
+        result['state']=result.pop('status')
+        if saved.get('status')=='COMPLETED':
+            digests=saved.get('digests') or {}
+            if set(digests)!={'runtimeEvidenceDigest','answerEvaluationDigest',
+                              'qualityAdmissionDigest'}:
+                raise Rejected('QUALITY_EVALUATION_RESULT_INVALID')
+            report=self._quality_report(core,job['coreObjects']['candidateDigest'],
+                                        digests['qualityAdmissionDigest'])
+            if (report['runtimeEvidenceDigest']!=digests['runtimeEvidenceDigest']
+                    or report['answerEvaluationDigest']!=digests['answerEvaluationDigest']):
+                raise Rejected('QUALITY_EVALUATION_RESULT_INVALID')
+            result['report']=report
+        return result
+
+    def _run_evaluation(self, run_id, evaluation_id):
+        try:
+            with self.lock:
+                job=self.jobs[run_id]
+                if job.get('qualityEvaluation',{}).get('id')!=evaluation_id:
+                    return
+                job['qualityEvaluation'].update(status='RUNNING',startedAt=now())
+                self.save(job)
+            result=self.evaluation_launcher.evaluate(
+                database=self.database,job=copy.deepcopy(job),
+                client_factory=self.client_factory)
+            if not isinstance(result,dict) or set(result)!={
+                    'runtimeEvidenceDigest','answerEvaluationDigest','qualityAdmissionDigest'}:
+                raise Rejected('QUALITY_EVALUATION_RESULT_INVALID')
+            core=self.core()
+            try:
+                report=self._quality_report(core,job['coreObjects']['candidateDigest'],
+                                            result['qualityAdmissionDigest'])
+                if (report['runtimeEvidenceDigest']!=result['runtimeEvidenceDigest']
+                        or report['answerEvaluationDigest']!=result['answerEvaluationDigest']):
+                    raise Rejected('QUALITY_EVALUATION_RESULT_INVALID')
+            finally:core.close()
+            with self.lock:
+                current=self.jobs[run_id]['qualityEvaluation']
+                if current['id']==evaluation_id:
+                    current.update(status='COMPLETED',finishedAt=now(),digests=result)
+                    self.save(self.jobs[run_id])
+        except Exception as exc:
+            with self.lock:
+                current=self.jobs[run_id].get('qualityEvaluation',{})
+                if current.get('id')==evaluation_id:
+                    current.update(status='FAILED',finishedAt=now(),
+                                   error=getattr(exc,'code',type(exc).__name__))
+                    self.save(self.jobs[run_id])
+
+    def start_evaluation(self, data):
+        if set(data)!={'runId','candidateDigest'}:
+            raise Rejected('QUALITY_EVALUATION_REQUEST_INVALID')
+        if self.evaluation_launcher is None:
+            raise Rejected('EVALUATION_SERVICE_NOT_READY')
+        with self.lock:
+            job=self.jobs.get(data['runId'])
+            if not job:
+                raise Rejected('RUN_NOT_FOUND')
+            candidate=job.get('coreObjects',{}).get('candidateDigest')
+            if candidate!=data['candidateDigest']:
+                raise Rejected('CANDIDATE_MISMATCH')
+            if job['status']!='COMPLETED':
+                raise Rejected('CANDIDATE_NOT_VALIDATED')
+            current=job.get('qualityEvaluation')
+            if current and current['status'] in {'QUEUED','RUNNING'}:
+                raise Rejected('QUALITY_EVALUATION_BUSY')
+            if current and current['status']=='COMPLETED':
+                core=self.core()
+                try:return self._evaluation(core,job)
+                finally:core.close()
+            evaluation_id='evaluation-'+os.urandom(16).hex()
+            job['qualityEvaluation']={'id':evaluation_id,'status':'QUEUED','createdAt':now()}
+            self.save(job)
+            self.pool.submit(self._run_evaluation,job['id'],evaluation_id)
+            return copy.deepcopy(job['qualityEvaluation'])
+
     def _release(self, core, job):
         objects=job.get('coreObjects')
         if not objects:return {'state':'NO_CANDIDATE'}
@@ -128,10 +234,20 @@ class DocumentProduction(Production):
         elif approval and core._get(AUTHOR,approval,'document-approval')['validationDigest']!=val:
             approval=None
         valid=core._get(AUTHOR,val,'document-validation')['passed'] if val else False
-        return {'state':'ISOLATED_PUBLISHED' if published else 'APPROVED' if approval else 'VALIDATED' if valid else 'REVIEW_REQUIRED',
+        evaluation=self._evaluation(core,job)
+        quality=evaluation.get('report')
+        quality_passed=quality and quality['decision']=='PASS'
+        state=('ISOLATED_PUBLISHED' if published else 'APPROVED' if approval
+               else 'QUALITY_PASSED' if quality_passed
+               else 'QUALITY_REJECTED' if quality
+               else 'EVALUATION_RUNNING' if evaluation['state'] in {'QUEUED','RUNNING'}
+               else 'EVALUATION_FAILED' if evaluation['state']=='FAILED'
+               else 'EVALUATION_REQUIRED' if valid else 'REVIEW_REQUIRED')
+        return {'state':state,
                 'candidateDigest':candidate,'validationDigest':val,'approvalDigest':approval,
                 'approvalReason':core._get(AUTHOR,approval,'document-approval')['reason'] if approval else None,
                 'manifestDigest':manifest,'bindingDigest':binding_sha,'productId':job['id'],
+                'qualityAdmissionDigest':quality['admissionDigest'] if quality else None,
                 'authority':'ISOLATED_TEST_ONLY','scope':SCOPE,'businessContext':CONTEXT.facts()}
 
     def get(self, run_id):
@@ -139,6 +255,7 @@ class DocumentProduction(Production):
         core=self.core()
         try:
             job['release']=self._release(core,job)
+            job['qualityEvaluation']=self._evaluation(core,job)
             rows=core.db.execute("SELECT digest FROM objects WHERE tenant=? AND kind='document-receipt' AND json_extract(body,'$.productId')=? ORDER BY rowid",(READER.tenant,run_id))
             job['consumptionReceipts']=[self._receipt(core.replay_document(READER,row[0]),run_id) for row in rows.fetchall()]
             return job
@@ -161,7 +278,8 @@ class DocumentProduction(Production):
                 if release['state']=='ISOLATED_PUBLISHED':
                     releases.append({'runId':job['id'],'title':job['title'],'sourceId':job['sourceId'],**release})
         finally:core.close()
-        return {**state,'m2':True,'modelReady':False,'engineReady':False,'mode':'M2_ISOLATED_DOCUMENT',
+        return {**state,'m2':True,'modelReady':self.evaluation_launcher is not None,
+                'engineReady':self.evaluation_launcher is not None,'mode':'M2_ISOLATED_DOCUMENT',
                 'isolatedReleases':releases,'isolatedApprovalAllowed':True,'parameters':{},'recipe':'m2-document-core'}
 
     def release_action(self, path, data):
@@ -176,8 +294,14 @@ class DocumentProduction(Production):
                 release=self._release(core,job)
                 if release.get('candidateDigest')!=data['candidateDigest']:raise Rejected('CANDIDATE_MISMATCH')
                 if path=='/api/document-approve':
+                    if release['state']=='ISOLATED_PUBLISHED':
+                        return release
+                    admission=release.get('qualityAdmissionDigest')
+                    if release['state']!='QUALITY_PASSED' or not admission:
+                        raise Rejected('QUALITY_ADMISSION_REQUIRED')
                     if release['state']!='ISOLATED_PUBLISHED':
-                        core.approve_document(AUTHOR,data['candidateDigest'],release['validationDigest'],data['reason'])
+                        core.approve_quality_document(REVIEWER,data['candidateDigest'],
+                            release['validationDigest'],admission,data['reason'])
                 else:
                     if not release.get('approvalDigest'):raise Rejected('DOCUMENT_APPROVAL_REQUIRED')
                     if data['reason']!=release['approvalReason']:raise Rejected('APPROVAL_REASON_MISMATCH')
@@ -186,7 +310,13 @@ class DocumentProduction(Production):
                         except Rejected as exc:
                             if exc.code!='SOURCE_NOT_EFFECTIVE':raise
                             core.activate_source(AUTHOR,job['coreObjects']['sourceDigest'],CONTEXT.business_date)
-                        manifest=core.publish_document(AUTHOR,data['candidateDigest'],release['validationDigest'],release['approvalDigest'],1)
+                        approval=core._get(AUTHOR,release['approvalDigest'],'document-approval')
+                        admission=release.get('qualityAdmissionDigest')
+                        if (approval['schemaVersion']!='document-approval.v0.2'
+                                or approval['qualityAdmissionDigest']!=admission):
+                            raise Rejected('DOCUMENT_APPROVAL_MISMATCH')
+                        manifest=core.publish_quality_document(AUTHOR,data['candidateDigest'],
+                            release['validationDigest'],release['approvalDigest'],admission,1)
                         core.bind_document(AUTHOR,manifest,0)
                 return self._release(core,job)
             finally:core.close()
@@ -200,6 +330,7 @@ class DocumentProduction(Production):
             factory=self.client_factory
             class Retrieval:
                 def retrieve(self,*args):return factory().retrieve(*args)
+                def retrieve_candidates(self,*args):return factory().retrieve_candidates(*args)
             import uuid
             receipt=core.query_document(READER,run_id,job['release']['manifestDigest'],CONTEXT,query,
                 'request-'+uuid.uuid4().hex,'trace-'+uuid.uuid4().hex,Retrieval())

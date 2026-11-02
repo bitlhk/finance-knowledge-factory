@@ -10,6 +10,9 @@ AUTHOR = Actor('m2-isolated','producer','synthetic-authority-not-bank-approved',
     'policy.manage','source.register','source.activate','gold.manage','recipe.edit',
     'artifact.produce','candidate.validate','document.approve','manifest.publish','binding.manage'}))
 READER = Actor('m2-isolated','knowledge-agent','synthetic-host-not-production')
+REVIEWER = Actor('m2-isolated','quality-release-reviewer',
+                 'synthetic-review-authority-not-bank-approved',
+                 frozenset({'document.approve'}))
 CONTEXT = BusinessContext('2026-10-30','CN-BJ','synthetic-bank','customer-service','evidence-query','frozen-synthetic-clock')
 SCOPE = {'regions':['CN-BJ'],'institutions':['synthetic-bank'],'products':['customer-service'],
          'purposes':['evidence-query'],'validFrom':'2026-01-01','validTo':None,'timezone':'Asia/Shanghai'}

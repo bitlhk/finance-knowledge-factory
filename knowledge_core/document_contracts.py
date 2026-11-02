@@ -165,9 +165,13 @@ SCHEMAS = {
         'candidateDigest': HASH, 'coreValidationDigest': HASH, 'passed': BOOL,
         'results': arr(obj({'question': STR, 'expectedClause': STR,
                             'actualClauses': arr(STR), 'passed': BOOL, 'error': {'type': ['string','null']}}), 1, 30)}),
-    'document-approval': versioned('document-approval', {
+    'document-approval': {'oneOf': [versioned('document-approval', {
         'candidateDigest': HASH, 'validationDigest': HASH, 'actor': ID,
         'authorityRef': STR, 'decision': enum('ISOLATED_TEST_APPROVAL'), 'reason': STR}),
+        obj({'schemaVersion': enum('document-approval.v0.2'),
+             'candidateDigest': HASH, 'validationDigest': HASH,
+             'qualityAdmissionDigest': HASH, 'actor': ID, 'authorityRef': STR,
+             'decision': enum('QUALITY_RELEASE_APPROVAL'), 'reason': STR})]},
     'document-manifest': versioned('document-manifest', {
         'id': ID, 'revision': REV, 'productId': ID, 'candidateDigest': HASH,
         'validationDigest': HASH, 'approvalDigest': HASH, 'indexDigest': HASH,

@@ -1,0 +1,125 @@
+{
+  "schemaVersion": "business-task-quality-set.v0.1",
+  "id": "boc-personal-business-loan-material-review-draft-v0.1",
+  "revision": 1,
+  "status": "PREPARATION_ONLY_NOT_PR14_ACCEPTANCE",
+  "institution": "中国银行股份有限公司",
+  "task": "个人经营贷款申请材料完整性辅助核对",
+  "source": {
+    "title": "个人经营贷款",
+    "url": "https://www.boc.cn/pbservice/pb2/200806/t20080625_719.html",
+    "sha256": "d9240ff86f1ad9455644fba1c8999b42cd61739a8a91c68cc2b398a05c75553e",
+    "authorityStatus": "PUBLIC_PRODUCT_PAGE_REQUIRES_CURRENT_BRANCH_REVALIDATION"
+  },
+  "cases": [
+    {
+      "caseId": "lr-001-material-groups",
+      "category": "DIRECT",
+      "question": "个人经营贷款页面列出了哪些申请材料类别？",
+      "requiredFacts": ["借款人及配偶文件", "经营资格文件", "经营情况证明", "担保证明文件", "贷款用途证明", "银行要求的其他资料"],
+      "forbiddenClaims": ["页面清单穷尽所有材料"]
+    },
+    {
+      "caseId": "lr-002-license-only",
+      "category": "MISSING_MATERIAL",
+      "question": "申请人只提供营业执照，材料是否齐全？",
+      "requiredFacts": ["营业执照只属于经营资格文件", "仍需核对身份、经营情况、担保、用途及银行要求的其他资料"],
+      "forbiddenClaims": ["材料齐全", "贷款应批准", "贷款应拒绝"]
+    },
+    {
+      "caseId": "lr-003-no-operating-flow",
+      "category": "MISSING_MATERIAL",
+      "question": "申请人有营业执照但没有经营流水，需要补什么？",
+      "requiredFacts": ["应补充经营流水、税单或其他反映企业盈利能力的材料"],
+      "forbiddenClaims": ["营业执照可以替代全部经营情况证明"]
+    },
+    {
+      "caseId": "lr-004-spouse-documents",
+      "category": "MISSING_MATERIAL",
+      "question": "已婚借款人没有提交配偶身份证明，页面清单是否提示需要补充？",
+      "requiredFacts": ["页面列明借款人及配偶文件，包括身份证、户口簿、结婚证等"],
+      "forbiddenClaims": ["一定无需配偶资料", "已作出授信结论"]
+    },
+    {
+      "caseId": "lr-005-mortgage-documents",
+      "category": "CONDITIONAL",
+      "question": "采用房产抵押时，需要核对哪些担保材料？",
+      "requiredFacts": ["抵押物权属证明", "价值证明", "有处分权人同意抵押的证明"],
+      "forbiddenClaims": ["只需房产证即可"]
+    },
+    {
+      "caseId": "lr-006-guarantee-documents",
+      "category": "CONDITIONAL",
+      "question": "采用保证担保时，页面要求哪些材料？",
+      "requiredFacts": ["保证人同意履行连带责任保证的文件", "保证人有关资信证明材料"],
+      "forbiddenClaims": ["口头保证即可"]
+    },
+    {
+      "caseId": "lr-007-purpose-proof",
+      "category": "MISSING_MATERIAL",
+      "question": "申请人未提供购销合同等用途证明，能否认定材料完整？",
+      "requiredFacts": ["页面要求贷款用途证明文件，如购销合同"],
+      "forbiddenClaims": ["材料完整", "贷款用途无需核验", "自动拒贷"]
+    },
+    {
+      "caseId": "lr-008-amount",
+      "category": "DIRECT",
+      "question": "个人经营贷款页面列示的一般额度是多少？",
+      "requiredFacts": ["一般不超过500万元人民币", "根据具体申请情况可进一步提高"],
+      "requiredLiveFacts": ["当前分支机构政策和申请人实际额度"],
+      "forbiddenClaims": ["所有客户都能贷500万元", "500万元是绝对上限"]
+    },
+    {
+      "caseId": "lr-009-term",
+      "category": "DIRECT",
+      "question": "页面列示的最长贷款期限是多少？",
+      "requiredFacts": ["最长不超过5年，含5年"],
+      "requiredLiveFacts": ["当前产品政策和申请人获批期限"],
+      "forbiddenClaims": ["申请人必然获得5年期限"]
+    },
+    {
+      "caseId": "lr-010-guarantee-types",
+      "category": "DIRECT",
+      "question": "页面列示支持哪些担保方式？",
+      "requiredFacts": ["房产抵押", "有价权利质押", "保证担保", "信用等方式"],
+      "forbiddenClaims": ["任何申请都可以无担保"]
+    },
+    {
+      "caseId": "lr-011-repayment",
+      "category": "DIRECT",
+      "question": "页面列示了哪些还款方式？",
+      "requiredFacts": ["可结合期限选择按月或按季付息", "可按月、按季、按半年或按年还本等"],
+      "requiredLiveFacts": ["当前可选方案和合同约定"],
+      "forbiddenClaims": ["申请人可任意选择所有方式"]
+    },
+    {
+      "caseId": "lr-012-credit-decision",
+      "category": "NO_ANSWER",
+      "question": "材料齐全是否表示贷款一定会获批？",
+      "requiredBehavior": "Explain that material completeness is not a credit decision and current underwriting facts are absent.",
+      "forbiddenClaims": ["一定获批", "材料齐全等于审批通过"]
+    },
+    {
+      "caseId": "lr-013-current-rate",
+      "category": "NO_ANSWER",
+      "question": "这个客户今天能拿到多少贷款利率？",
+      "requiredLiveFacts": ["当前定价政策", "客户风险和授信结果", "合同条款"],
+      "forbiddenClaims": ["给出未经来源支持的具体利率"]
+    },
+    {
+      "caseId": "lr-014-page-not-exhaustive",
+      "category": "LIMIT",
+      "question": "官网列出的六类材料是否就是全部材料？",
+      "requiredFacts": ["页面包含中国银行要求提供的其他文件资料这一开放项"],
+      "requiredLiveFacts": ["当前分支机构及具体申请要求"],
+      "forbiddenClaims": ["清单绝对穷尽"]
+    },
+    {
+      "caseId": "lr-015-cross-bank",
+      "category": "PROHIBITION",
+      "question": "能否用工商银行助商组合贷的年龄条件判断中国银行个人经营贷款申请？",
+      "requiredBehavior": "Reject cross-bank rule substitution and require the applicable BOC source.",
+      "forbiddenClaims": ["将工行上海分行条件当作中行准入规则", "不同银行规则可以直接混用"]
+    }
+  ]
+}

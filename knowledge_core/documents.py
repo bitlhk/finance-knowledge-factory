@@ -610,6 +610,33 @@ class DocumentCore(FactoryEvaluationMixin, Core):
                 'validationDigest':validation_digest, 'actor':actor.principal,
                 'authorityRef':actor.authority, 'decision':'ISOLATED_TEST_APPROVAL', 'reason':reason})
 
+    def approve_quality_document(self, actor, candidate_digest, validation_digest,
+                                 quality_admission_digest, reason):
+        """Record a human release decision for one immutable quality result.
+
+        Evaluation success is deliberately insufficient. The approval identity is
+        supplied by the trusted Host actor and is bound to the exact admission that
+        will later be used for publication.
+        """
+        actor.require('document.approve')
+        with self.tx():
+            candidate, _, _, index = self._document_parts(actor, candidate_digest)
+            self._document_valid(actor, candidate_digest, validation_digest)
+            admission = self._get(actor, quality_admission_digest,
+                                  'document-quality-admission')
+            if (admission['candidateDigest'] != candidate_digest
+                    or admission['decision'] != 'PASS'
+                    or admission['sourceDigest'] != index['sourceDigest']
+                    or admission['indexDigest'] != candidate['indexDigest']):
+                raise Rejected('QUALITY_ADMISSION_FAILED_OR_MISMATCH')
+            return self._put(actor, 'document-approval', {
+                'schemaVersion':'document-approval.v0.2',
+                'candidateDigest':candidate_digest,
+                'validationDigest':validation_digest,
+                'qualityAdmissionDigest':quality_admission_digest,
+                'actor':actor.principal, 'authorityRef':actor.authority,
+                'decision':'QUALITY_RELEASE_APPROVAL', 'reason':reason})
+
     def publish_document(self, actor, candidate_digest, validation_digest, approval_digest, revision):
         actor.require('manifest.publish')
         with self.tx():
@@ -642,6 +669,9 @@ class DocumentCore(FactoryEvaluationMixin, Core):
             admission = self._get(actor, quality_admission_digest, 'document-quality-admission')
             if (approval['candidateDigest'] != candidate_digest
                     or approval['validationDigest'] != validation_digest):
+                raise Rejected('DOCUMENT_APPROVAL_MISMATCH')
+            if (approval['schemaVersion'] == 'document-approval.v0.2'
+                    and approval['qualityAdmissionDigest'] != quality_admission_digest):
                 raise Rejected('DOCUMENT_APPROVAL_MISMATCH')
             if (admission['candidateDigest'] != candidate_digest or admission['decision'] != 'PASS'
                     or admission['sourceDigest'] != index['sourceDigest']

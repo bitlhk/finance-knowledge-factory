@@ -9,6 +9,7 @@ import uuid
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from lxml import html
 from knowledge_core.contracts import Rejected
@@ -22,6 +23,8 @@ SAMPLE_SHA = hashlib.sha256(SAMPLE.read_bytes()).hexdigest()
 PARAMETERS = dict(model='deepseek-v4-flash', temperature=0.1, top_p=1,
                   max_tokens=4096, thinking={'type': 'disabled'}, stream=False)
 TERMINAL = {'COMPLETED', 'PARTIAL', 'FAILED', 'INTERRUPTED'}
+SOURCE_AUTHORITY = {'PUBLIC_SOURCE_REQUIRES_CURRENT_BUSINESS_REVALIDATION',
+                    'AUTHORIZED_INTERNAL_SOURCE', 'UNVERIFIED'}
 
 
 def now():
@@ -80,18 +83,40 @@ class Production:
     def save(self, job):
         persist(self.state / (job['id'] + '.json'), job)
 
-    def source(self, title, text):
+    @staticmethod
+    def source_metadata(value):
+        if value is None:
+            return None
+        expected={'officialUrl','institution','documentDate','version','authorityStatus'}
+        if not isinstance(value,dict) or set(value)!=expected:
+            raise Rejected('SOURCE_METADATA_INVALID')
+        if any(not isinstance(value[key],str) or not 1<=len(value[key].strip())<=200
+               for key in expected-{'officialUrl'}):
+            raise Rejected('SOURCE_METADATA_INVALID')
+        url=urlsplit(value['officialUrl'])
+        if (url.scheme!='https' or not url.netloc or url.username or url.password
+                or len(value['officialUrl'])>2048
+                or value['authorityStatus'] not in SOURCE_AUTHORITY
+                or not re.fullmatch(r'\d{4}-\d{2}-\d{2}',value['documentDate'])):
+            raise Rejected('SOURCE_METADATA_INVALID')
+        return {key:value[key].strip() for key in expected}
+
+    def source(self, title, text, metadata=None):
         if not isinstance(title, str) or not 1 <= len(title.strip()) <= 120 or not isinstance(text, str):
             raise Rejected('INVALID_SOURCE')
+        metadata=self.source_metadata(metadata)
         raw = text.encode()
         chunks = parse(raw)
         sha = hashlib.sha256(raw).hexdigest()
         with self.lock:
+            if sha in self.sources and metadata is not None and self.sources[sha].get('metadata')!=metadata:
+                raise Rejected('SOURCE_METADATA_MISMATCH')
             if sha not in self.sources:
                 if len(self.sources) >= 40:
                     raise Rejected('PREVIEW_SOURCE_LIMIT')
                 obj = dict(id=sha, title=title.strip(), importedAt=now(), html=text,
-                           clauses=chunks, parser='native-html-dom-v0.1', authoritative=False)
+                           clauses=chunks, parser='native-html-dom-v0.1', authoritative=False,
+                           metadata=metadata)
                 persist(self.state / ('source-' + sha + '.json'), obj)
                 self.sources[sha] = obj
             return self.public_source(self.sources[sha])

@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "business-knowledge-source-register.v0.1",
+  "productId": "boc-wealth-service-amsylj01",
+  "title": "中国银行中银日积月累-收益累进客户经理服务知识",
+  "institution": "中国银行股份有限公司",
+  "intendedTask": "客户经理服务准备与产品条款说明",
+  "authorityStatus": "PUBLIC_SOURCE_REQUIRES_CURRENT_BUSINESS_REVALIDATION",
+  "capturedAt": "2026-11-02T00:00:00+08:00",
+  "sources": [
+    {
+      "sourceId": "boc-amsylj01-product-spec-20250228",
+      "title": "中银日积月累-收益累进（AMSYLJ01）产品说明书及风险揭示书",
+      "sourceType": "OFFICIAL_PDF",
+      "url": "https://pic.bankofchina.com/bocappd/wealth/cs84/202502/P020250228615921167401.pdf",
+      "documentDate": "2025-02-28",
+      "sha256": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+      "pageCount": 9,
+      "role": "PRODUCT_TERMS",
+      "notes": [
+        "Original PDF is authoritative; a derived HTML representation requires deterministic conversion and page-anchor verification.",
+        "The PDF metadata title is not trusted as the document identity; identity is established from official URL, bytes, hash, and visible document content.",
+        "Current sale status, current yield, quota, and channel availability require live product-system verification."
+      ]
+    },
+    {
+      "sourceId": "boc-self-managed-wealth-agreement-2023",
+      "title": "中国银行股份有限公司个人客户自营理财产品协议书（2023年版）",
+      "sourceType": "OFFICIAL_HTML",
+      "url": "https://www.boc.cn/fimarkets/cs8/202212/t20221230_22348757.html",
+      "documentDate": "2023-12-01",
+      "sha256": "60dc1e97e6ec744b9e804316c9ccc0026b9caedf20a9ba6a62b00d58e9c989dd",
+      "role": "SALES_AGREEMENT",
+      "notes": [
+        "The product specification prevails if this agreement conflicts with product-specific terms.",
+        "The page is public evidence, not proof that every term remains the current internal operating rule."
+      ]
+    },
+    {
+      "sourceId": "boc-investor-rights-20230511",
+      "title": "中国银行股份有限公司个人客户理财产品投资者权益须知",
+      "sourceType": "OFFICIAL_HTML",
+      "url": "https://www.boc.cn/fimarkets/cs8/201911/t20191124_18550501.html",
+      "documentDate": "2023-05-11",
+      "sha256": "96682c229889c377316cadb827f9a10d42e112f5c9e351f0ffdf80581d3562d7",
+      "role": "SUITABILITY_AND_CUSTOMER_RIGHTS",
+      "notes": [
+        "Customer risk assessment and product risk are described in five levels.",
+        "The customer's current rating and validity must be read from an authorized business system."
+      ]
+    }
+  ],
+  "excludedSources": [
+    {
+      "sourceId": "icbc-shanghai-business-combination-loan",
+      "reason": "Different bank and branch-specific product; must not be mixed into a BOC wealth knowledge product."
+    }
+  ]
+}
