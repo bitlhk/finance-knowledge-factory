@@ -171,6 +171,7 @@ class Core:
         event = self._get(actor, row[0], "source-activation")
         if event["state"] != "ACTIVE" or event["sourceDigest"] != source_digest:
             raise Rejected("SOURCE_SUPERSEDED_OR_REVOKED")
+        return row[0]
 
     def _evidence(self, actor, ref):
         source = self._source_access(actor, ref["sourceDigest"])
