@@ -27,7 +27,10 @@ def _safe_failure(error):
         return {"stage":"UPSTREAM", "code":"UPSTREAM_DISCONNECTED"}
     if type(error).__name__ in {
             "APIConnectionError", "APIError", "APIStatusError",
-            "HTTPStatusError", "ServiceUnavailableError"}:
+            "AuthenticationError", "BadRequestError", "HTTPStatusError",
+            "InternalServerError", "NotFoundError", "PermissionDeniedError",
+            "RateLimitError", "ServiceUnavailableError",
+            "UnprocessableEntityError"}:
         return {"stage":"UPSTREAM", "code":"UPSTREAM_SERVICE_ERROR"}
     if isinstance(error, (ValueError, TypeError, KeyError, AttributeError,
                           UnicodeError)):
