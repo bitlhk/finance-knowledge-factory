@@ -41,6 +41,20 @@ def test_official_upload_bundle_has_fixed_bytes_pages_and_business_cases():
         assert hashlib.sha256(values()[key]).hexdigest() == metadata["sha256"]
 
 
+def test_quality_set_is_bound_to_source_and_preserves_business_boundaries():
+    source_digest = "a" * 64
+    test_set = product.quality_test_set(source_digest)
+    assert test_set["sourceDigest"] == source_digest
+    assert test_set["purpose"] == "BLIND_ACCEPTANCE"
+    assert len(test_set["cases"]) == 15
+    by_id = {case["caseId"]:case for case in test_set["cases"]}
+    assert by_id["cmbwm-live-sale"]["expectedClauses"] == []
+    assert "当前一定在售" in by_id["cmbwm-live-sale"]["forbiddenClaims"]
+    assert by_id["cmbwm-large-redemption"]["expectedClauses"] == [
+        "第八条", "第六条", "第七条"]
+    assert "完全没有任何费用" in by_id["cmbwm-all-fees"]["forbiddenClaims"]
+
+
 def test_upload_rejects_missing_changed_or_renamed_official_file():
     body = upload_body()
     with pytest.raises(Rejected, match="BUSINESS_SOURCE_SET_INCOMPLETE"):
