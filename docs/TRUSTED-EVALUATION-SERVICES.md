@@ -61,9 +61,31 @@ Admission. A later workbench integration must require a separate authenticated
 human publication action and call the existing quality publication path outside
 these services.
 
-## Remaining deployment acceptance
+## Managed task contract
 
-This PR is still Draft until an isolated environment proves all of the following:
+The Host creates `factory-evaluation-service-task.v0.1` with
+`python -m tools.prepare_evaluation_service_task`. The task is derived from the
+stored Assignment, Lease, source classification policy, registered Gateway and
+the installed Python/OpenJiuwen runtime. It includes the fixed purpose,
+redaction profile and an authorization expiry no later than either the
+Assignment or Lease expiry. Browser and Worker input cannot supply these
+values.
+
+Core validates the closed task schema, exact runtime versions, and an exact
+recomputed database binding before it creates its socket. Worker consumes the
+same file and cannot substitute case IDs. Missing fields, unknown fields,
+unsupported versions, expired authority and binding changes fail closed.
+
+Gateway failures are recorded with only a bounded stage and code. The allowed
+classes distinguish request/config validation, SDK parameter or response
+handling, empty or oversized model output, upstream timeout/disconnect/service
+failure, and an unclassified runtime failure. OpenJiuwen wrapper exceptions are
+classified from their structured status and bounded cause type; exception text,
+model credentials, private prompts and request bodies are not persisted.
+
+## Deployment acceptance boundary
+
+The isolated development-host acceptance proves all of the following:
 
 1. Separate system users and filesystem views for Core, Worker, and Gateway.
 2. Core is the only process with the database and candidate retrieval config.
@@ -76,5 +98,7 @@ This PR is still Draft until an isolated environment proves all of the following
    closed.
 7. No current `zhishi.linggan.top` service or historical product is modified.
 
-Only after this acceptance may PR #14 expose a real-model evaluation action in
-the workbench.
+Production enablement remains a separate deployment gate. It must provision the
+documented identities, role credentials, directories and qualified model
+registration, then repeat the service acceptance. PR #14 must keep the real
+model action disabled until that gate and independent review are complete.

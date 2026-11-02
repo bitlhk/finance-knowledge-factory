@@ -1,4 +1,5 @@
 """Host-owned model gateway for the fixed evaluation flow."""
+import asyncio
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from importlib.metadata import version
@@ -9,6 +10,62 @@ from knowledge_core.contracts import digest
 
 
 OPENJIUWEN_VERSION = "0.1.17.post1"
+
+
+class _GatewayFailure(RuntimeError):
+    def __init__(self, stage, code):
+        self.failure = {"stage":stage, "code":code}
+        super().__init__(code)
+
+
+def _safe_failure(error):
+    current = error
+    visited = set()
+    for _ in range(4):
+        if current is None or id(current) in visited:
+            break
+        visited.add(id(current))
+        if isinstance(current, _GatewayFailure):
+            return current.failure
+        if isinstance(current, (asyncio.TimeoutError, TimeoutError)):
+            return {"stage":"UPSTREAM", "code":"UPSTREAM_TIMEOUT"}
+        if isinstance(current, ConnectionError):
+            return {"stage":"UPSTREAM", "code":"UPSTREAM_DISCONNECTED"}
+        if type(current).__name__ in {
+                "APIConnectionError", "APIError", "APIStatusError",
+                "AuthenticationError", "BadRequestError", "HTTPStatusError",
+                "InternalServerError", "NotFoundError",
+                "PermissionDeniedError", "RateLimitError",
+                "ServiceUnavailableError", "UnprocessableEntityError"}:
+            return {"stage":"UPSTREAM", "code":"UPSTREAM_SERVICE_ERROR"}
+
+        status = getattr(current, "status", None)
+        status_name = getattr(status, "name", None)
+        if isinstance(status_name, str):
+            if "TIMEOUT" in status_name:
+                return {"stage":"UPSTREAM", "code":"UPSTREAM_TIMEOUT"}
+            if "CONNECT" in status_name:
+                return {"stage":"UPSTREAM",
+                        "code":"UPSTREAM_DISCONNECTED"}
+            if status_name in {
+                    "MODEL_CALL_FAILED", "COMPONENT_LLM_INVOKE_CALL_FAILED",
+                    "COMPONENT_INTENT_DETECTION_INVOKE_CALL_FAILED",
+                    "RETRIEVAL_QUERY_REWRITER_LLM_INVOKE_FAILED"}:
+                return {"stage":"UPSTREAM",
+                        "code":"UPSTREAM_SERVICE_ERROR"}
+            if status_name in {
+                    "MODEL_PROVIDER_INVALID", "MODEL_SERVICE_CONFIG_ERROR",
+                    "MODEL_CONFIG_ERROR", "MODEL_INVOKE_PARAM_ERROR",
+                    "MODEL_CLIENT_CONFIG_INVALID"}:
+                return {"stage":"SDK_INVOCATION",
+                        "code":"SDK_PARAMETER_OR_RESPONSE_INVALID"}
+
+        if isinstance(current, (ValueError, TypeError, KeyError,
+                                AttributeError, UnicodeError)):
+            return {"stage":"SDK_INVOCATION",
+                    "code":"SDK_PARAMETER_OR_RESPONSE_INVALID"}
+        current = getattr(current, "cause", None) or current.__cause__
+    return {"stage":"RUNTIME", "code":"RUNTIME_UNCLASSIFIED"}
 
 
 def _now():
@@ -126,11 +183,12 @@ class CoreModelGatewayClient:
             request_id, trace_id, self.__runtime_identity)
 
     def record(self, authorization_digest, attempt_digest, started_at,
-               ended_at, outcome, response, provider_request_ref, usage):
+               ended_at, outcome, response, provider_request_ref, usage,
+               failure=None):
         return self.__core.record_model_invocation(
             self.__actor, self.__registration, authorization_digest,
             attempt_digest, started_at, ended_at, outcome, response,
-            provider_request_ref, usage)
+            provider_request_ref, usage, failure)
 
 
 class OpenJiuwenModelGateway:
@@ -156,24 +214,36 @@ class OpenJiuwenModelGateway:
         started = _now()
         attempt = prepared["invocationAttemptDigest"]
         try:
+            required = {"invocationAttemptDigest", "requestPayloadDigest",
+                        "messages", "model",
+                        "temperature", "maxAnswerCharacters"}
+            if (set(prepared) != required
+                    or not isinstance(prepared["messages"], list)
+                    or not isinstance(prepared["model"], str)
+                    or prepared["temperature"] != 0
+                    or type(prepared["maxAnswerCharacters"]) is not int
+                    or prepared["maxAnswerCharacters"] < 1):
+                raise _GatewayFailure("REQUEST_VALIDATION",
+                                      "REQUEST_OR_CONFIG_INVALID")
             response = await self.__model.invoke(
                 prepared["messages"], model=prepared["model"], temperature=0,
                 max_tokens=2048, timeout=120)
             answer = response.content
             if not isinstance(answer, str) or not answer.strip():
-                raise ValueError("EVALUATION_MODEL_RESPONSE_INVALID")
+                raise _GatewayFailure("RESPONSE_VALIDATION",
+                                      "MODEL_RESPONSE_EMPTY")
             if len(answer) > prepared["maxAnswerCharacters"]:
-                raise ValueError("EVALUATION_MODEL_RESPONSE_TOO_LARGE")
+                raise _GatewayFailure("RESPONSE_VALIDATION",
+                                      "MODEL_RESPONSE_TOO_LARGE")
             usage = _bounded_usage(getattr(response, "usage_metadata", None))
             metadata = getattr(response, "metadata", {}) or {}
             provider_ref = str(metadata.get("request_id") or
                                f"unavailable:{request_id}")
             return self.__core_client.record(
                 authorization_digest, attempt, started, _now(), "RETURNED",
-                answer, provider_ref, usage)
+                answer, provider_ref, usage, None)
         except Exception as error:
             self.__core_client.record(
                 authorization_digest, attempt, started, _now(), "FAILED", None,
-                f"unavailable:{request_id}",
-                {"errorClass":type(error).__name__})
+                f"unavailable:{request_id}", {}, _safe_failure(error))
             raise

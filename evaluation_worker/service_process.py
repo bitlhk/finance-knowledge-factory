@@ -12,6 +12,9 @@ from evaluation_worker.service_boundary import (EvaluationCoreBoundary,
     IpcModelAuthorizationClient, ServiceCredentials, UnixEvaluationClient,
     UnixEvaluationServer)
 from evaluation_worker.worker import CandidateEvaluationWorker
+from evaluation_worker.service_task import (managed_runtime_versions,
+                                             trusted_task_binding,
+                                             validate_service_task)
 from knowledge_core.core import Actor
 from knowledge_core.documents import DocumentCore
 from m2.ragflow import Ragflow
@@ -50,13 +53,75 @@ def _credentials(config):
     return ServiceCredentials(config["serviceCredentials"])
 
 
-def _core_boundary(config):
-    fixed = config["fixedTask"]
+def _validate_config(config, role):
+    common = {"tenant", "actors", "coreSocket", "gatewaySocket",
+              "serviceCredentials"}
+    role_fields = {
+        "core":{"database", "retrievalPrivateConfig"},
+        "gateway":{"gatewayTokenFile", "modelEnvironmentFile"},
+        "worker":{"workerTokenFile"},
+        "host":{"hostTokenFile"},
+    }
+    required = common | role_fields[role]
+    optional = ({"fixedTask"} if role == "core" else
+                {"caseIds"} if role == "worker" else set())
+    if not required <= set(config) <= required | optional:
+        raise ValueError("EVALUATION_SERVICE_CONFIG_INVALID")
+    if (not isinstance(config.get("tenant"), str)
+            or set(config.get("actors", {})) != {"host", "worker", "gateway"}):
+        raise ValueError("EVALUATION_SERVICE_CONFIG_INVALID")
+    for actor in config["actors"].values():
+        if (not isinstance(actor, dict)
+                or set(actor) != {"principal", "authority"}
+                or any(not isinstance(value, str) or not value
+                       for value in actor.values())):
+            raise ValueError("EVALUATION_SERVICE_CONFIG_INVALID")
+    _credentials(config)
+    for field in (required - {"tenant", "actors", "serviceCredentials"}):
+        if not isinstance(config.get(field), str) or not config[field]:
+            raise ValueError("EVALUATION_SERVICE_CONFIG_INVALID")
+    if (role == "worker" and "caseIds" in config
+            and (not isinstance(config["caseIds"], list)
+                 or any(not isinstance(value, str) or not value
+                        for value in config["caseIds"]))):
+        raise ValueError("EVALUATION_SERVICE_CONFIG_INVALID")
+    return config
+
+
+def _load_task(config, task_path=None):
+    if task_path:
+        if "fixedTask" in config:
+            raise ValueError("EVALUATION_SERVICE_CONFIG_INVALID")
+        task = _json(task_path)
+    else:
+        task = config.get("fixedTask")
+    return validate_service_task(task)
+
+
+def _core_boundary(config, fixed):
     private = Path(config["retrievalPrivateConfig"])
+    database = Path(config["database"])
+    required_private = [private / "local-credentials.json",
+                        private / "http-setup.json"]
+    if (database.is_symlink() or not database.is_file()
+            or private.is_symlink() or not private.is_dir()
+            or any(path.is_symlink() or not path.is_file()
+                   for path in required_private)):
+        raise ValueError("EVALUATION_SERVICE_CONFIG_INVALID")
+    versions = managed_runtime_versions()
+    if versions != (fixed["pythonVersion"], fixed["openJiuwenVersion"]):
+        raise ValueError("EVALUATION_SERVICE_RUNTIME_VERSION_MISMATCH")
+    host = _actor(config, "host", {"model.egress.authorize",
+                                    "candidate.validate"})
+    core = DocumentCore(config["database"])
+    try:
+        trusted_task_binding(core, host, fixed)
+    finally:
+        core.close()
     return EvaluationCoreBoundary(
         lambda:DocumentCore(config["database"]),
         _actor(config, "worker", {"evaluation.execute"}),
-        _actor(config, "host", {"model.egress.authorize", "candidate.validate"}),
+        host,
         _actor(config, "gateway", {"model.receipt.record"}),
         lambda:Ragflow(private / "local-credentials.json",
                        private / "http-setup.json"),
@@ -77,9 +142,10 @@ def _core_boundary(config):
 
 
 def serve_core(args):
-    config = _json(args.config)
+    config = _validate_config(_json(args.config), "core")
+    fixed = _load_task(config, args.task)
     server = UnixEvaluationServer(config["coreSocket"], _credentials(config),
-                                  _core_boundary(config))
+                                  _core_boundary(config, fixed))
     try:
         server.serve_forever(poll_interval=0.1)
     finally:
@@ -87,7 +153,7 @@ def serve_core(args):
 
 
 def serve_gateway(args):
-    config = _json(args.config)
+    config = _validate_config(_json(args.config), "gateway")
     token = _token(config["gatewayTokenFile"])
     core = UnixEvaluationClient(config["coreSocket"], "gateway", token)
     environment = ModelEnvironment.from_env_file(config["modelEnvironmentFile"])
@@ -104,14 +170,20 @@ def serve_gateway(args):
 
 
 def run_worker(args):
-    config = _json(args.config)
+    config = _validate_config(_json(args.config), "worker")
+    fixed = _load_task(config, args.task)
+    if "caseIds" in config and config["caseIds"] != fixed["caseIds"]:
+        raise ValueError("EVALUATION_SERVICE_TASK_BINDING_MISMATCH")
+    if managed_runtime_versions() != (fixed["pythonVersion"],
+                                      fixed["openJiuwenVersion"]):
+        raise ValueError("EVALUATION_SERVICE_RUNTIME_VERSION_MISMATCH")
     token = _token(config["workerTokenFile"])
     core = UnixEvaluationClient(config["coreSocket"], "worker", token)
     gateway = UnixEvaluationClient(config["gatewaySocket"], "worker", token)
     worker = CandidateEvaluationWorker(
         IpcCandidateQueryClient(core), IpcModelAuthorizationClient(core),
         IpcGatewayClient(gateway))
-    result = asyncio.run(worker.run(config["caseIds"]))
+    result = asyncio.run(worker.run(fixed["caseIds"]))
     output = Path(args.output)
     if (output.parent.is_symlink() or not output.parent.is_dir()
             or output.parent.stat().st_mode & 0o007):
@@ -122,7 +194,7 @@ def run_worker(args):
 
 
 def finalize(args):
-    config = _json(args.config)
+    config = _validate_config(_json(args.config), "host")
     token = _token(config["hostTokenFile"])
     runs = _json(args.runs)
     client = UnixEvaluationClient(config["coreSocket"], "host", token)
@@ -139,9 +211,12 @@ def main():
     sub = parser.add_subparsers(dest="command", required=True)
     for name, function in (("core", serve_core), ("gateway", serve_gateway)):
         item = sub.add_parser(name); item.add_argument("--config", required=True)
+        if name == "core":
+            item.add_argument("--task")
         item.set_defaults(function=function)
     item = sub.add_parser("worker")
-    item.add_argument("--config", required=True); item.add_argument("--output", required=True)
+    item.add_argument("--config", required=True); item.add_argument("--task", required=True)
+    item.add_argument("--output", required=True)
     item.set_defaults(function=run_worker)
     item = sub.add_parser("finalize")
     item.add_argument("--config", required=True); item.add_argument("--runs", required=True)

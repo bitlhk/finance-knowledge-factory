@@ -7,11 +7,14 @@ import json
 from pathlib import Path
 from uuid import uuid4
 
+from evaluation_worker.service_task import (managed_runtime_versions,
+                                             validate_service_task)
 from knowledge_core.core import Actor, BusinessContext
 from knowledge_core.documents import DocumentCore
 
 
-PRIVILEGES = frozenset({"evaluation.manage", "evaluation.lease.issue"})
+PRIVILEGES = frozenset({"evaluation.manage", "evaluation.lease.issue",
+                        "model.egress.authorize"})
 
 
 def main():
@@ -36,10 +39,7 @@ def main():
     try:
         template = core._get(host, args.template_assignment,
                              "document-evaluation-assignment")
-        gateway = core._get(host, args.gateway_registration,
-                            "model-gateway-registration")
-        if len(gateway["deployments"]) != 1:
-            raise ValueError("ONE_GATEWAY_DEPLOYMENT_REQUIRED")
+        core._get(host, args.gateway_registration, "model-gateway-registration")
         context_values = dict(template["businessContext"])
         context_values["source"] = "trusted-evaluation-service-host"
         allowed = {item.name for item in fields(BusinessContext)}
@@ -59,24 +59,12 @@ def main():
             host, "service-worker-lease-" + suffix, 1, assignment,
             args.worker_principal, args.worker_authority, worker_build, expires,
             "service-nonce-" + suffix)
-        assignment_body = core._get(host, assignment,
-                                    "document-evaluation-assignment")
-        deployment = gateway["deployments"][0]
-        runtime_identity = {**deployment,
-            "gatewayBuildDigest":gateway["buildDigest"],
-            "adapterVersion":gateway["adapterVersion"],
-            "openJiuwenVersion":gateway["openJiuwenVersion"],
-            "qualificationDigest":gateway["qualificationDigest"]}
-        result = {"assignmentDigest":assignment, "leaseDigest":lease,
-            "candidateDigest":template["candidateDigest"],
-            "profileDigest":template["profileDigest"],
-            "testSetDigest":template["testSetDigest"],
-            "retrievalDigest":template["retrievalEvaluationDigest"],
-            "gatewayRegistrationDigest":args.gateway_registration,
-            "gatewayDeploymentId":deployment["id"],
-            "gatewayRuntimeIdentity":runtime_identity,
-            "caseIds":assignment_body["caseIds"],
-            "workerBuildDigest":worker_build, "expiresAt":expires}
+        python_version, openjiuwen_version = managed_runtime_versions()
+        result = {"schemaVersion":"factory-evaluation-service-task.v0.1",
+            **core.evaluation_service_task_binding(
+                host, assignment, lease, args.gateway_registration,
+                python_version, openjiuwen_version)}
+        validate_service_task(result)
         args.output.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
         args.output.write_text(json.dumps(result, ensure_ascii=False,
                                           indent=2) + "\n", encoding="utf-8")
