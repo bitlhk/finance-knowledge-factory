@@ -89,7 +89,7 @@ def main():
         prompt = core.register_evaluation_prompt_template(
             host, "cmbwm-132112-grounded-answer", 1,
             "仅根据已核验的招银理财132112产品文件回答。证据不足或涉及当前在售、额度、客户评级、交易日历及渠道状态时，明确说明需要通过业务系统核实。",
-            "先给直接结论，再列证据编号和原文件位置。严格区分有权与必然、正常赎回与产品终止、零申购赎回费与无其他费用；不得承诺未来到账日期或客户购买资格。")
+            "先给直接结论，再列证据编号和原文件位置。引用时必须原样使用输入中每条证据的编号和条款名，不得根据证据正文中的内部小节自行改名，也不得引用未提供的条款。严格区分有权与必然、正常赎回与产品终止、零申购赎回费与无其他费用；不得承诺未来到账日期或客户购买资格。")
         gateway = core.register_model_gateway(
             host, "cmbwm-132112-openjiuwen-gateway", 1,
             "factory-model-gateway", deployment.gateway_build_digest,
