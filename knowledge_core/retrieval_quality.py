@@ -84,6 +84,28 @@ def _shape_bonus(question, text):
     return bonus
 
 
+def _evidence_concepts(question, text):
+    """Identify independently required evidence concepts from its own text."""
+    concepts = []
+    checks = (
+        ('product-risk-level', r'风险等级|风险级别',
+         r'风险(?:等级|级别)\s*(?:为|是|：|:)?\s*[1-5]'),
+        ('suitable-investor', r'适合.{0,4}(?:客户|投资者)|客户类型',
+         r'适合购买的投资者|投资者类型'),
+        ('normal-redemption', r'赎回', r'开放申购和赎回|提出申购或赎回'),
+        ('redemption-arrival', r'赎回|到账|用钱', r'T\+?1日到账|赎回到账'),
+        ('early-termination', r'提前赎回|提前终止', r'提前终止'),
+        ('trading-day', r'周末|交易日', r'周六、周日|交易日'),
+        ('order-time', r'周末|挂单|什么时候处理', r'挂单交易|下一受理时间'),
+        ('basic-fees', r'费用|费率', r'固定投资管理费率|无申购、赎回费'),
+        ('complete-fees', r'费用|费率|税费', r'其他税费|浮动投资管理费'),
+    )
+    for name, question_pattern, evidence_pattern in checks:
+        if re.search(question_pattern, question) and re.search(evidence_pattern, text):
+            concepts.append(name)
+    return concepts
+
+
 def rank(question, candidates, mode):
     if mode == "NONE":
         return candidates
@@ -112,18 +134,11 @@ def rank(question, candidates, mode):
                 bonus += 1200
         if mode == "STRUCTURE_V0_3":
             text = candidate["text"]
-            if re.search(r"风险等级|风险级别", question) and re.search(
-                    r"风险级别\s*2|产品风险级别|风险等级", text):
-                bonus += 1900
-            if re.search(r"适合.{0,4}(?:客户|投资者)|客户类型", question) and re.search(
-                    r"适合购买的投资者|投资者类型", text):
-                bonus += 1900
-            if "赎回" in question and re.search(r"申购和赎回|开放申购、?赎回|赎回到账", text):
-                bonus += 1800
-            if "提前终止" in question and "提前终止" in text:
-                bonus += 1200
-            # Reward evidence returned for more independently planned concepts.
-            bonus += min(1200, 240 * len(set(candidate.get("queryIndexes", []))))
+            concepts = _evidence_concepts(question, text)
+            # A specific evidence concept is more useful than being returned by
+            # many broad query variants. No clause id or case id is consulted.
+            bonus += min(3200, 1800 * len(concepts))
+            candidate = {**candidate, "evidenceConcepts":concepts}
         score = max(0, min(10000, round(base * 0.6 + lexical * 0.4) + bonus))
         ranked.append({**candidate, "postRankScoreBps": score})
     return sorted(ranked, key=lambda value: (-value["postRankScoreBps"], value["rank"]))
@@ -137,14 +152,17 @@ def _select(candidates, limit, mode):
     while remaining and len(selected) < limit:
         def value(candidate):
             queries = set(candidate.get("queryIndexes", []))
+            concepts = set(candidate.get("evidenceConcepts", []))
             text = _bigrams(candidate.get("text", ""))
-            novelty = len(queries - covered_queries) * 1800
+            novelty = (len(concepts - covered_queries) * 3200
+                       if concepts else len(queries - covered_queries) * 500)
             diversity = len(text - covered_text) * 20
             score = candidate.get("postRankScoreBps", candidate.get("scoreBps") or 0)
             return score + novelty + min(1000, diversity)
         chosen = max(remaining, key=lambda item: (value(item), -item["rank"]))
         selected.append(chosen)
-        covered_queries.update(chosen.get("queryIndexes", []))
+        covered_queries.update(chosen.get("evidenceConcepts", [])
+                               or chosen.get("queryIndexes", []))
         covered_text.update(_bigrams(chosen.get("text", "")))
         remaining.remove(chosen)
     return selected

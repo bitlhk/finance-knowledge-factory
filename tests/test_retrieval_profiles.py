@@ -1,5 +1,5 @@
 from quality.retrieval_profiles import PROFILES, query_variants, rank, support_decision
-from knowledge_core.retrieval_quality import _select
+from knowledge_core.retrieval_quality import _evidence_concepts, _select
 
 
 def candidate(rank_value, score, text):
@@ -70,3 +70,22 @@ def test_diverse_selection_covers_independent_query_variants():
     ]
     selected = _select(candidates, 3, "DIVERSE_QUERY_COVERAGE_V0_1")
     assert {item["id"] for item in selected} == {"general", "risk", "customer"}
+
+
+def test_business_concepts_are_derived_from_evidence_text_not_clause_ids():
+    question = "这款产品风险等级和适合客户类型是什么？"
+    assert _evidence_concepts(question, "风险级别 2：中低风险") == [
+        "product-risk-level"]
+    assert _evidence_concepts(question, "投资者类型：稳健型、平衡型") == [
+        "suitable-investor"]
+    assert _evidence_concepts(question, "我行将产品风险分为五级") == []
+
+
+def test_redemption_concepts_keep_termination_and_normal_redemption_distinct():
+    question = "客户三个月后用钱，是否可以提前赎回？"
+    normal = _evidence_concepts(question, "每个交易日开放申购和赎回")
+    termination = _evidence_concepts(question, "理财客户无提前终止权")
+    arrival = _evidence_concepts(question, "T日赎回，本金和收益T+1日到账")
+    assert normal == ["normal-redemption"]
+    assert termination == ["early-termination"]
+    assert arrival == ["redemption-arrival"]
