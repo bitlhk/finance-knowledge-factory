@@ -102,6 +102,26 @@ def test_risk_level_is_a_strict_value_and_wrong_level_is_rejected():
     assert wrong['factChecks'][0]['missingAnswerValues'] == ['风险等级2级']
 
 
+def test_risk_level_format_variants_match_the_same_strict_value():
+    retrieved = [evidence('产品说明书/风险', '产品风险级别 2：中低风险。')]
+    result = _evaluate_answer_case(
+        gold(['产品说明书/风险'], ['风险级别为2：中低风险']),
+        runtime_case('依据[1]，产品风险等级为2级，属于中低风险。', retrieved))
+    assert result['classification'] == 'CORRECT'
+
+
+def test_live_system_boundary_requires_answer_but_not_document_support():
+    retrieved = [evidence('产品说明书/适当性', '适合稳健型及以上投资者。')]
+    gold_case = gold(['产品说明书/适当性'], ['需要核实客户当前有效风险评级'])
+    accepted = _evaluate_answer_case(
+        gold_case, runtime_case('依据[1]，仍需要核实客户当前有效风险评级。', retrieved))
+    missing = _evaluate_answer_case(
+        gold_case, runtime_case('依据[1]，产品适合稳健型投资者。', retrieved))
+    assert accepted['classification'] == 'CORRECT'
+    assert accepted['factChecks'][0]['method'] == 'LIVE_SYSTEM_BOUNDARY_V0_1'
+    assert missing['classification'] == 'ANSWER_FACT_ERROR'
+
+
 def test_reordered_forbidden_profit_guarantee_is_rejected():
     retrieved = [evidence('产品说明书/风险', '本产品不保证本金和收益。')]
     gold_case = gold(['产品说明书/风险'], [], ['收益保证'])

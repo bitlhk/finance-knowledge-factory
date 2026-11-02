@@ -33,6 +33,7 @@ _STRICT_VALUE = re.compile(
     r'(?:T\+?\d+|C\d+|\d+(?:\.\d+)?\s*%|\d+(?:\.\d+)?\s*(?:万)?(?:元|份|年|个月|月|日|工作日|交易日|级))',
     re.IGNORECASE)
 _SEMANTIC_REPLACEMENTS = (
+    ('风险级别', '风险等级'),
     ('风险测评', '风险承受能力评估'), ('重新测评', '重新评估'),
     ('申购费', '申购费率'), ('赎回费', '赎回费率'),
     ('固定管理费的年费率', '固定投资管理费率'),
@@ -74,8 +75,11 @@ def _segments(value):
 
 def _strict_values(value):
     values = [_semantic_normal(match.group()) for match in _STRICT_VALUE.finditer(value)]
+    risk_values = []
     for match in re.finditer(r'(?:风险等级|风险级别)\s*(?:为|是|：|:)?\s*([1-9])', value):
-        values.append(f'风险等级{match.group(1)}级')
+        risk_values.append(f'风险等级{match.group(1)}级')
+        values = [item for item in values if item != f'{match.group(1)}级']
+    values.extend(risk_values)
     return _unique(values)
 
 
@@ -88,26 +92,34 @@ def _fact_check(fact, answer, cited_evidence):
     strict = _strict_values(fact)
     answer_text = _semantic_normal(answer)
     evidence_text = _semantic_normal('\n'.join(item['quote'] for item in cited_evidence))
-    missing_answer = [value for value in strict if value not in answer_text]
-    missing_evidence = [value for value in strict if value not in evidence_text]
+    answer_values = set(_strict_values(answer))
+    evidence_values = set(_strict_values('\n'.join(
+        item['quote'] for item in cited_evidence)))
+    missing_answer = [value for value in strict
+                      if value not in answer_text and value not in answer_values]
+    missing_evidence = [value for value in strict
+                        if value not in evidence_text and value not in evidence_values]
     # A summary fact may be shorter than its source sentence. Recall is measured
     # from the gold statement, not from the much longer answer/evidence body.
     answer_semantic = answer_score >= 4800
     evidence_semantic = evidence_score >= 4200
-    passed = answer_semantic and evidence_semantic and not missing_answer and not missing_evidence
+    live_boundary = fact.startswith('需要核实')
+    passed = (answer_semantic and not missing_answer
+              and (live_boundary or (evidence_semantic and not missing_evidence)))
     supporting = _unique(clause for score, clause in evidence_scores if score >= 4200)
     reasons = []
     if not answer_semantic:
         reasons.append('ANSWER_SEMANTIC_COVERAGE_LOW')
-    if not evidence_semantic:
+    if not evidence_semantic and not live_boundary:
         reasons.append('CITED_EVIDENCE_SUPPORT_LOW')
     if missing_answer:
         reasons.append('ANSWER_STRICT_VALUE_MISSING')
-    if missing_evidence:
+    if missing_evidence and not live_boundary:
         reasons.append('EVIDENCE_STRICT_VALUE_MISSING')
     return {'fact':fact, 'answerContains':answer_semantic,
             'supportingClauses':supporting, 'passed':passed,
-            'method':'DETERMINISTIC_FACT_SUPPORT_V0_2',
+            'method':('LIVE_SYSTEM_BOUNDARY_V0_1' if live_boundary
+                      else 'DETERMINISTIC_FACT_SUPPORT_V0_2'),
             'answerSemanticRecallBps':answer_score,
             'evidenceSemanticRecallBps':evidence_score,
             'strictValues':strict, 'missingAnswerValues':missing_answer,
