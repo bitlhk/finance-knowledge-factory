@@ -1,5 +1,9 @@
 # PR #14 AMSYLJ01 isolated acceptance
 
+> This is the initial 18-case acceptance record and is retained unchanged as
+> historical evidence. The bounded 29-case closeout and current admission
+> decisions are recorded in `docs/PR14-FINAL-BUSINESS-QUALITY-REVIEW.md`.
+
 ## Decision
 
 The first real Bank of China business product is structurally reproducible and
@@ -101,4 +105,3 @@ the formal workbench may invoke real evaluation services.
 No formal product, existing Manifest, history, Harness, Builder, PR #9 service,
 or Shanghai environment was changed. The isolated services were stopped after
 the run and the isolated SQLite database passed `PRAGMA integrity_check`.
-

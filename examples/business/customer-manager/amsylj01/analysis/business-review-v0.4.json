@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "business-answer-review.v0.1",
+  "reviewScope": "最终29题真实原始回答；不构成银行产品审批",
+  "archive": "../acceptance/amsylj01-business-quality-final-v04-20261102.json",
+  "cases": [
+    {"caseId": "wm-001-risk-level", "businessCorrect": true},
+    {"caseId": "wm-002-c1-suitability", "businessCorrect": false},
+    {"caseId": "wm-003-assessment-expiry", "businessCorrect": true},
+    {"caseId": "wm-004-three-month-liquidity", "businessCorrect": false},
+    {"caseId": "wm-005-weekend-order", "businessCorrect": true},
+    {"caseId": "wm-006-minimum-subscription", "businessCorrect": true},
+    {"caseId": "wm-007-partial-redemption", "businessCorrect": false},
+    {"caseId": "wm-008-fees", "businessCorrect": true},
+    {"caseId": "wm-009-principal-guarantee", "businessCorrect": true},
+    {"caseId": "wm-010-non-own-funds", "businessCorrect": true},
+    {"caseId": "wm-011-early-termination-distinction", "businessCorrect": true},
+    {"caseId": "wm-012-bank-termination", "businessCorrect": true},
+    {"caseId": "wm-013-large-redemption", "businessCorrect": true},
+    {"caseId": "wm-014-document-conflict", "businessCorrect": true},
+    {"caseId": "wm-015-current-sale-status", "businessCorrect": true},
+    {"caseId": "wm-016-current-customer-rating", "businessCorrect": true},
+    {"caseId": "wm-017-current-yield", "businessCorrect": true},
+    {"caseId": "blind-001-redemption-arrival", "businessCorrect": true},
+    {"caseId": "blind-002-fee-completeness", "businessCorrect": true},
+    {"caseId": "blind-003-rating-change-redemption", "businessCorrect": true},
+    {"caseId": "blind-004-channel-live-state", "businessCorrect": true},
+    {"caseId": "blind2-001-zero-fees-scope", "businessCorrect": true},
+    {"caseId": "blind2-002-friday-late-redemption", "businessCorrect": false},
+    {"caseId": "blind2-003-partial-redemption-discretion", "businessCorrect": true},
+    {"caseId": "blind2-004-product-rule-not-customer-result", "businessCorrect": true},
+    {"caseId": "blind3-001-future-holiday-redemption", "businessCorrect": true},
+    {"caseId": "blind3-002-large-redemption-recovery", "businessCorrect": false},
+    {"caseId": "blind3-003-zero-redemption-fee-tax", "businessCorrect": true},
+    {"caseId": "blind3-004-suitability-document-boundary", "businessCorrect": true}
+  ],
+  "incorrectCaseNotes": {
+    "wm-002-c1-suitability": "把未由文档证明的 C1 映射和客户适当性结果说成确定不能购买。",
+    "wm-004-three-month-liquidity": "先作出三个月后可以赎回的确定承诺，后置实时状态限制未消除前述越界。",
+    "wm-007-partial-redemption": "前文说将导致强制全部赎回，后文又说管理人仅有权而非必须，回答自相矛盾。",
+    "blind2-002-friday-late-redemption": "15:40 既不在受理时间也不在 15:45 开始的挂单时间，但回答仍称可能按挂单处理。",
+    "blind3-002-large-redemption-recovery": "把管理人有权暂停说成大额赎回触发后自动暂停，扩大了管理人义务。"
+  }
+}
