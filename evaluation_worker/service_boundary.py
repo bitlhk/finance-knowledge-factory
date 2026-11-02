@@ -12,6 +12,7 @@ import os
 import socket
 import socketserver
 import struct
+import threading
 from pathlib import Path
 import re
 
@@ -79,18 +80,18 @@ class EvaluationCoreBoundary:
         "evaluation.finalize":"host",
     }
 
-    def __init__(self, core, worker_actor, host_actor, gateway_actor,
-                 evidence_client, *, assignment_digest, lease_digest,
+    def __init__(self, core_factory, worker_actor, host_actor, gateway_actor,
+                 evidence_client_factory, *, assignment_digest, lease_digest,
                  gateway_registration_digest, gateway_deployment_id,
                  purpose, redaction_profile, authorization_expires_at,
                  candidate_digest, profile_digest, test_set_digest,
                  retrieval_digest, worker_build_digest, python_version,
                  openjiuwen_version, gateway_runtime_identity):
-        self._core = core
+        self._core_factory = core_factory
         self._worker = worker_actor
         self._host = host_actor
         self._gateway = gateway_actor
-        self._evidence = evidence_client
+        self._evidence_factory = evidence_client_factory
         self._assignment = assignment_digest
         self._lease = lease_digest
         self._gateway_registration = gateway_registration_digest
@@ -110,69 +111,102 @@ class EvaluationCoreBoundary:
     def dispatch(self, role, operation, payload):
         if self.OPERATIONS.get(operation) != role or not isinstance(payload, dict):
             raise Rejected("EVALUATION_SERVICE_OPERATION_FORBIDDEN")
-        if operation == "candidate.query":
-            if set(payload) != {"caseId", "requestId", "traceId"}:
+        core = self._core_factory()
+        try:
+            if operation == "candidate.query":
+                if set(payload) != {"caseId", "requestId", "traceId"}:
+                    raise Rejected("EVALUATION_SERVICE_REQUEST_INVALID")
+                evidence = self._evidence_factory()
+                try:
+                    return core.query_document_candidate_for_evaluation(
+                        self._worker, self._assignment, self._lease,
+                        payload["caseId"], payload["requestId"],
+                        payload["traceId"], evidence)
+                finally:
+                    close = getattr(evidence, "close", None)
+                    if close:
+                        close()
+            if operation == "model.authorize":
+                if set(payload) != {"candidateReceiptDigest", "authorizationId"}:
+                    raise Rejected("EVALUATION_SERVICE_REQUEST_INVALID")
+                return core.authorize_model_egress(
+                    self._host, payload["authorizationId"], 1,
+                    self._assignment, payload["candidateReceiptDigest"],
+                    self._gateway_registration, self._deployment, self._purpose,
+                    self._redaction, self._authorization_expiry)
+            if operation == "model.prepare":
+                if set(payload) != {"authorizationDigest", "requestId", "traceId"}:
+                    raise Rejected("EVALUATION_SERVICE_REQUEST_INVALID")
+                return core.prepare_model_invocation(
+                    self._gateway, self._gateway_registration,
+                    payload["authorizationDigest"], payload["requestId"],
+                    payload["traceId"], self._runtime_identity)
+            if operation == "model.record":
+                expected = {"authorizationDigest", "attemptDigest", "startedAt",
+                            "endedAt", "outcome", "response",
+                            "providerRequestRef", "usage"}
+                if set(payload) != expected:
+                    raise Rejected("EVALUATION_SERVICE_REQUEST_INVALID")
+                return core.record_model_invocation(
+                    self._gateway, self._gateway_registration,
+                    payload["authorizationDigest"], payload["attemptDigest"],
+                    payload["startedAt"], payload["endedAt"], payload["outcome"],
+                    payload["response"], payload["providerRequestRef"],
+                    payload["usage"])
+            if set(payload) != {"runs"} or not isinstance(payload["runs"], list):
                 raise Rejected("EVALUATION_SERVICE_REQUEST_INVALID")
-            return self._core.query_document_candidate_for_evaluation(
-                self._worker, self._assignment, self._lease,
-                payload["caseId"], payload["requestId"], payload["traceId"],
-                self._evidence)
-        if operation == "model.authorize":
-            if set(payload) != {"candidateReceiptDigest", "authorizationId"}:
-                raise Rejected("EVALUATION_SERVICE_REQUEST_INVALID")
-            return self._core.authorize_model_egress(
-                self._host, payload["authorizationId"], 1,
-                self._assignment, payload["candidateReceiptDigest"],
-                self._gateway_registration, self._deployment, self._purpose,
-                self._redaction, self._authorization_expiry)
-        if operation == "model.prepare":
-            if set(payload) != {"authorizationDigest", "requestId", "traceId"}:
-                raise Rejected("EVALUATION_SERVICE_REQUEST_INVALID")
-            return self._core.prepare_model_invocation(
-                self._gateway, self._gateway_registration,
-                payload["authorizationDigest"], payload["requestId"],
-                payload["traceId"], self._runtime_identity)
-        if operation == "model.record":
-            expected = {"authorizationDigest", "attemptDigest", "startedAt",
-                        "endedAt", "outcome", "response",
-                        "providerRequestRef", "usage"}
-            if set(payload) != expected:
-                raise Rejected("EVALUATION_SERVICE_REQUEST_INVALID")
-            return self._core.record_model_invocation(
-                self._gateway, self._gateway_registration,
-                payload["authorizationDigest"], payload["attemptDigest"],
-                payload["startedAt"], payload["endedAt"], payload["outcome"],
-                payload["response"], payload["providerRequestRef"],
-                payload["usage"])
-        if set(payload) != {"runs"} or not isinstance(payload["runs"], list):
-            raise Rejected("EVALUATION_SERVICE_REQUEST_INVALID")
-        runtime = self._core.register_factory_evaluation_runtime_evidence(
-            self._host, self._assignment, self._lease, self._worker_build,
-            self._python, self._openjiuwen, payload["runs"])
-        answer = self._core.register_answer_evaluation(
-            self._host, self._candidate, self._profile, self._test_set,
-            self._retrieval, runtime)
-        admission = self._core.assess_document_quality(
-            self._host, self._candidate, self._profile, self._test_set,
-            self._retrieval, answer)
-        return {"runtimeEvidenceDigest":runtime,
-                "answerEvaluationDigest":answer,
-                "qualityAdmissionDigest":admission}
+            runtime = core.register_factory_evaluation_runtime_evidence(
+                self._host, self._assignment, self._lease, self._worker_build,
+                self._python, self._openjiuwen, payload["runs"])
+            answer = core.register_answer_evaluation(
+                self._host, self._candidate, self._profile, self._test_set,
+                self._retrieval, runtime)
+            admission = core.assess_document_quality(
+                self._host, self._candidate, self._profile, self._test_set,
+                self._retrieval, answer)
+            return {"runtimeEvidenceDigest":runtime,
+                    "answerEvaluationDigest":answer,
+                    "qualityAdmissionDigest":admission}
+        finally:
+            core.close()
+
+
+class PersistentAsyncRunner:
+    """One event loop owned by the Gateway process for all model calls."""
+
+    def __init__(self):
+        self._loop = asyncio.new_event_loop()
+        self._thread = threading.Thread(target=self._loop.run_forever,
+                                        name="evaluation-gateway-loop", daemon=True)
+        self._thread.start()
+
+    def run(self, coroutine):
+        return asyncio.run_coroutine_threadsafe(coroutine, self._loop).result()
+
+    def close(self):
+        if self._loop.is_running():
+            self._loop.call_soon_threadsafe(self._loop.stop)
+        self._thread.join()
+        self._loop.close()
 
 
 class EvaluationGatewayBoundary:
     """Model gateway facade. Only a Worker may request a prepared invocation."""
 
-    def __init__(self, gateway):
+    def __init__(self, gateway, runner=None):
         self._gateway = gateway
+        self._runner = runner or PersistentAsyncRunner()
 
     def dispatch(self, role, operation, payload):
         if role != "worker" or operation != "model.invoke" or set(payload) != {
                 "authorizationDigest", "requestId", "traceId"}:
             raise Rejected("EVALUATION_SERVICE_OPERATION_FORBIDDEN")
-        return asyncio.run(self._gateway.invoke(
+        return self._runner.run(self._gateway.invoke(
             payload["authorizationDigest"], payload["requestId"],
             payload["traceId"]))
+
+    def close(self):
+        self._runner.close()
 
 
 class _UnixHandler(socketserver.StreamRequestHandler):

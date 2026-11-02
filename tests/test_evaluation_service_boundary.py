@@ -1,6 +1,7 @@
 import asyncio
 import os
 import threading
+from concurrent.futures import ThreadPoolExecutor
 
 import pytest
 
@@ -10,6 +11,9 @@ from evaluation_worker import (CandidateEvaluationWorker,
     IpcModelAuthorizationClient, ServiceCredentials, UnixEvaluationClient,
     UnixEvaluationServer, require_distinct_service_users, token_digest)
 from knowledge_core.contracts import Rejected
+from knowledge_core.documents import DocumentCore
+from tests.test_factory_evaluation_worker import (DEPLOYMENT, FUTURE, GATEWAY,
+    MANAGER, WORKER, prepare)
 
 
 TOKENS = {role:(role + "-credential-") * 3
@@ -69,11 +73,14 @@ class FakeCore:
     def assess_document_quality(self, actor, *args):
         return self._called("admission", actor, *args)
 
+    def close(self):
+        pass
+
 
 def core_boundary():
     core = FakeCore()
-    boundary = EvaluationCoreBoundary(core, "worker-actor", "host-actor",
-        "gateway-actor", "evidence-client", assignment_digest="assignment",
+    boundary = EvaluationCoreBoundary(lambda:core, "worker-actor", "host-actor",
+        "gateway-actor", lambda:"evidence-client", assignment_digest="assignment",
         lease_digest="lease", gateway_registration_digest="registration",
         gateway_deployment_id="deployment", purpose="quality",
         redaction_profile="source-only",
@@ -181,19 +188,89 @@ def test_worker_runs_through_ipc_without_core_or_gateway_objects(tmp_path):
         gateway_server.shutdown(); gateway_server.server_close(); gateway_thread.join()
 
 
+def test_real_document_core_uses_one_sqlite_connection_per_ipc_request(tmp_path):
+    initial, evidence, values = prepare(tmp_path)
+    database = tmp_path / "core.db"
+    initial.close()
+    boundary = EvaluationCoreBoundary(
+        lambda:DocumentCore(database), WORKER, MANAGER, GATEWAY,
+        lambda:evidence,
+        assignment_digest=values["assignment"], lease_digest=values["lease"],
+        gateway_registration_digest=values["gateway"],
+        gateway_deployment_id=DEPLOYMENT.id, purpose="answer-quality",
+        redaction_profile="source-only", authorization_expires_at=FUTURE,
+        candidate_digest=values["candidateDigest"],
+        profile_digest=values["profile"], test_set_digest=values["tests"],
+        retrieval_digest=values["retrieval"], worker_build_digest="a" * 64,
+        python_version="3.12", openjiuwen_version="0.1.17.post1",
+        gateway_runtime_identity={"unused":"in-this-test"})
+    server, thread = running_server(tmp_path / "real-core", boundary)
+    client = UnixEvaluationClient(server.path, "worker", TOKENS["worker"])
+
+    def query(suffix):
+        try:
+            return ("ok", client.call("candidate.query", {
+                "caseId":"quality-service-hours",
+                "requestId":"concurrent-request-" + suffix,
+                "traceId":"concurrent-trace-" + suffix}))
+        except Rejected as error:
+            return ("rejected", error.code)
+
+    try:
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            results = list(pool.map(query, ("one", "two")))
+    finally:
+        server.shutdown(); server.server_close(); thread.join()
+    assert [result[0] for result in results].count("ok") == 1, results
+    assert ("rejected", "EVALUATION_LEASE_REPLAYED") in results
+    check = DocumentCore(database)
+    try:
+        count = check.db.execute(
+            "SELECT count(*) FROM objects WHERE kind=? AND "
+            "json_extract(body,'$.leaseDigest')=?",
+            ("document-candidate-query-receipt", values["lease"])).fetchone()[0]
+        assert count == 1
+        assert check.db.execute("pragma integrity_check").fetchone()[0] == "ok"
+    finally:
+        check.close()
+
+
 class AsyncGateway:
+    def __init__(self):
+        self.loops = []
+
     async def invoke(self, authorization, request_id, trace_id):
+        self.loops.append(id(asyncio.get_running_loop()))
         return {"authorization":authorization, "requestId":request_id,
                 "traceId":trace_id}
 
 
 def test_gateway_boundary_accepts_only_worker_invoke():
-    boundary = EvaluationGatewayBoundary(AsyncGateway())
-    result = boundary.dispatch("worker", "model.invoke", {
-        "authorizationDigest":"authorization", "requestId":"request",
-        "traceId":"trace"})
-    assert result["authorization"] == "authorization"
-    with pytest.raises(Rejected, match="EVALUATION_SERVICE_OPERATION_FORBIDDEN"):
-        boundary.dispatch("host", "model.invoke", {
+    gateway = AsyncGateway()
+    boundary = EvaluationGatewayBoundary(gateway)
+    try:
+        result = boundary.dispatch("worker", "model.invoke", {
             "authorizationDigest":"authorization", "requestId":"request",
             "traceId":"trace"})
+        assert result["authorization"] == "authorization"
+        with pytest.raises(Rejected, match="EVALUATION_SERVICE_OPERATION_FORBIDDEN"):
+            boundary.dispatch("host", "model.invoke", {
+                "authorizationDigest":"authorization", "requestId":"request",
+                "traceId":"trace"})
+    finally:
+        boundary.close()
+
+
+def test_gateway_reuses_one_event_loop_for_six_sequential_calls():
+    gateway = AsyncGateway()
+    boundary = EvaluationGatewayBoundary(gateway)
+    try:
+        for position in range(6):
+            boundary.dispatch("worker", "model.invoke", {
+                "authorizationDigest":f"authorization-{position}",
+                "requestId":f"request-{position}",
+                "traceId":f"trace-{position}"})
+    finally:
+        boundary.close()
+    assert len(gateway.loops) == 6
+    assert len(set(gateway.loops)) == 1

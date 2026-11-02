@@ -1,0 +1,21 @@
+[Unit]
+Description=Knowledge Factory evaluation model Gateway (%i)
+After=knowledge-evaluation-core@%i.service
+Requires=knowledge-evaluation-core@%i.service
+
+[Service]
+Type=simple
+User=kf-eval-gateway
+Group=kf-eval-ipc
+ExecStart=/opt/finance-knowledge-factory/evaluation/bin/python -m evaluation_worker.service_process gateway --config /etc/finance-knowledge-factory/evaluation/%i/gateway.json
+UMask=0007
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadOnlyPaths=/etc/finance-knowledge-factory/evaluation/%i/gateway-token /etc/finance-knowledge-factory/evaluation/%i/model.env
+ReadWritePaths=/run/finance-knowledge-factory/evaluation/%i
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=30
+KillMode=control-group

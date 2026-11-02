@@ -20,6 +20,12 @@ Core owns all actors used by its facade. Caller-provided principal, authority,
 privileges, model endpoint, deployment, Candidate, test set, profile, expiry, and
 quality configuration are not accepted in IPC requests.
 
+The threaded Core socket creates and closes one `DocumentCore` connection per
+request. It does not share a SQLite connection across request threads and does
+not disable SQLite's thread ownership check. Core transactions and immutable
+object checks remain the concurrency boundary. The Gateway owns one persistent
+asyncio event loop for all model invocations in that process.
+
 ## Authentication
 
 The transport is an AF_UNIX socket. Every request is authenticated by both:

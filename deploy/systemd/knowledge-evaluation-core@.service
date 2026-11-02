@@ -1,0 +1,19 @@
+[Unit]
+Description=Knowledge Factory evaluation Core boundary (%i)
+After=network.target
+
+[Service]
+Type=simple
+User=kf-eval-core
+Group=kf-eval-ipc
+ExecStart=/opt/finance-knowledge-factory/evaluation/bin/python -m evaluation_worker.service_process core --config /etc/finance-knowledge-factory/evaluation/%i/core.json
+UMask=0007
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/lib/finance-knowledge-factory/evaluation/%i /run/finance-knowledge-factory/evaluation/%i
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=30
+KillMode=control-group

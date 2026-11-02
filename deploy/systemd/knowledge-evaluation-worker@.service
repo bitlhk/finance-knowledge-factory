@@ -1,0 +1,19 @@
+[Unit]
+Description=Knowledge Factory one-shot evaluation Worker (%i)
+After=knowledge-evaluation-core@%i.service knowledge-evaluation-gateway@%i.service
+Requires=knowledge-evaluation-core@%i.service knowledge-evaluation-gateway@%i.service
+
+[Service]
+Type=oneshot
+User=kf-eval-worker
+Group=kf-eval-ipc
+ExecStart=/opt/finance-knowledge-factory/evaluation/bin/python -m evaluation_worker.service_process worker --config /etc/finance-knowledge-factory/evaluation/%i/worker.json --output /var/lib/finance-knowledge-factory/evaluation/%i/worker-runs.json
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadOnlyPaths=/etc/finance-knowledge-factory/evaluation/%i/worker-token
+ReadWritePaths=/var/lib/finance-knowledge-factory/evaluation/%i /run/finance-knowledge-factory/evaluation/%i
+TimeoutStartSec=900
+KillMode=control-group

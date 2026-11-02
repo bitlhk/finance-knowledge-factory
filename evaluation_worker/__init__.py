@@ -8,7 +8,8 @@ from .service_boundary import (EvaluationCoreBoundary,
     EvaluationGatewayBoundary, IpcCandidateQueryClient,
     IpcCoreModelGatewayClient, IpcGatewayClient,
     IpcModelAuthorizationClient, ServiceCredentials, UnixEvaluationClient,
-    UnixEvaluationServer, require_distinct_service_users, token_digest)
+    UnixEvaluationServer, PersistentAsyncRunner,
+    require_distinct_service_users, token_digest)
 
 __all__ = ["CandidateEvaluationWorker", "CandidateQueryClient",
            "CoreModelGatewayClient", "ModelAuthorizationClient",
@@ -18,4 +19,5 @@ __all__ = ["CandidateEvaluationWorker", "CandidateQueryClient",
            "IpcCoreModelGatewayClient", "IpcGatewayClient",
            "IpcModelAuthorizationClient", "ServiceCredentials",
            "UnixEvaluationClient", "UnixEvaluationServer",
+           "PersistentAsyncRunner",
            "require_distinct_service_users", "token_digest"]
