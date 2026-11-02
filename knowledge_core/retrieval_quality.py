@@ -106,6 +106,8 @@ def _evidence_concepts(question, text):
          r'不保证.{0,8}(?:本金|资金本金).{0,8}收益|不保证本金和收益'),
         ('non-own-funds', r'借款|贷款资金|非自有资金',
          r'自有资金|非自有资金'),
+        ('rating-mismatch-redemption', r'评级|风险承受能力',
+         r'风险承受能力.{0,40}不匹配|无权以风险承受能力不再匹配为由'),
     )
     for name, question_pattern, evidence_pattern in checks:
         if re.search(question_pattern, question) and re.search(evidence_pattern, text):
@@ -144,7 +146,17 @@ def rank(question, candidates, mode):
             concepts = _evidence_concepts(question, text)
             # A specific evidence concept is more useful than being returned by
             # many broad query variants. No clause id or case id is consulted.
-            bonus += min(3200, 1800 * len(concepts))
+            weights = {
+                'partial-redemption':5000, 'large-redemption':5000,
+                'complete-fees':4800, 'rating-mismatch-redemption':4800,
+                'early-termination':4200, 'order-time':4200,
+                'product-risk-level':3800, 'suitable-investor':3800,
+                'trading-day':3200, 'principal-and-yield-risk':3800,
+                'non-own-funds':3800, 'normal-redemption':2400,
+                'redemption-arrival':2400, 'basic-fees':2400,
+            }
+            bonus += min(5200, sum(weights.get(value, 1800)
+                                   for value in concepts))
             candidate = {**candidate, "evidenceConcepts":concepts}
         score = max(0, min(10000, round(base * 0.6 + lexical * 0.4) + bonus))
         ranked.append({**candidate, "postRankScoreBps": score})
@@ -161,7 +173,14 @@ def _select(candidates, limit, mode):
             queries = set(candidate.get("queryIndexes", []))
             concepts = set(candidate.get("evidenceConcepts", []))
             text = _bigrams(candidate.get("text", ""))
-            novelty = (len(concepts - covered_queries) * 3200
+            concept_weights = {
+                'partial-redemption':5200, 'large-redemption':5200,
+                'complete-fees':5000, 'rating-mismatch-redemption':5000,
+                'early-termination':4500, 'order-time':4500,
+                'product-risk-level':4000, 'suitable-investor':4000,
+            }
+            novelty = (sum(concept_weights.get(item, 2800)
+                           for item in concepts - covered_queries)
                        if concepts else len(queries - covered_queries) * 500)
             diversity = len(text - covered_text) * 20
             score = candidate.get("postRankScoreBps", candidate.get("scoreBps") or 0)

@@ -161,5 +161,7 @@ def test_v02_quality_set_preserves_v01_and_separates_platform_authority():
     assert "wm-018-version-change" not in {item["caseId"] for item in improved["cases"]}
     assert {item["caseId"] for item in improved["goldChanges"]} == {
         "wm-001-risk-level", "wm-002-c1-suitability",
+        "wm-004-three-month-liquidity", "wm-005-weekend-order",
         "wm-006-minimum-subscription", "wm-008-fees",
-        "wm-009-principal-guarantee", "wm-010-non-own-funds"}
+        "wm-009-principal-guarantee", "wm-010-non-own-funds",
+        "wm-011-early-termination-distinction"}

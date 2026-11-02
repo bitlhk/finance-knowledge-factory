@@ -54,6 +54,39 @@
       }
     },
     {
+      "caseId": "wm-004-three-month-liquidity",
+      "reason": "第五部分受理与清算条款已同时覆盖正常赎回和T+1到账，和提前终止条款共同构成完整依据。",
+      "before": {
+        "requiredEvidence": [
+          "product-spec:产品基本信息/交易日与赎回到账",
+          "product-spec:第五部分/申购和赎回",
+          "product-spec:产品基本信息/提前终止"
+        ]
+      },
+      "after": {
+        "requiredEvidence": [
+          "product-spec:第五部分/受理时间与挂单时间",
+          "product-spec:产品基本信息/提前终止"
+        ]
+      }
+    },
+    {
+      "caseId": "wm-005-weekend-order",
+      "reason": "第五部分挂单条款与产品基本信息交易日/到账条款共同覆盖周末挂单和下一受理时间。",
+      "before": {
+        "requiredEvidence": [
+          "product-spec:第五部分/受理时间与挂单时间",
+          "product-spec:产品基本信息/交易日"
+        ]
+      },
+      "after": {
+        "requiredEvidence": [
+          "product-spec:第五部分/受理时间与挂单时间",
+          "product-spec:产品基本信息/交易日与赎回到账"
+        ]
+      }
+    },
+    {
       "caseId": "wm-006-minimum-subscription",
       "reason": "第五部分第5项已同时包含首次和追加金额，移除重复证据要求。",
       "before": {
@@ -114,6 +147,22 @@
       "after": {
         "requiredEvidence": [
           "investor-rights:风险提示"
+        ]
+      }
+    },
+    {
+      "caseId": "wm-011-early-termination-distinction",
+      "reason": "提前终止条款与第五部分开放申购赎回条款分别证明两个概念，避免把到账条款当作赎回权依据。",
+      "before": {
+        "requiredEvidence": [
+          "product-spec:产品基本信息/提前终止",
+          "product-spec:第五部分/申购和赎回"
+        ]
+      },
+      "after": {
+        "requiredEvidence": [
+          "product-spec:产品基本信息/提前终止",
+          "product-spec:第五部分/申购和赎回"
         ]
       }
     }
@@ -184,8 +233,7 @@
       "category": "BUSINESS_PLUS_KNOWLEDGE",
       "question": "客户三个月后要用钱，这款产品是否可以提前赎回？",
       "requiredEvidence": [
-        "product-spec:产品基本信息/交易日与赎回到账",
-        "product-spec:第五部分/申购和赎回",
+        "product-spec:第五部分/受理时间与挂单时间",
         "product-spec:产品基本信息/提前终止"
       ],
       "requiredFacts": [
@@ -210,7 +258,7 @@
       "question": "客户周末在手机银行提交赎回，什么时候处理？",
       "requiredEvidence": [
         "product-spec:第五部分/受理时间与挂单时间",
-        "product-spec:产品基本信息/交易日"
+        "product-spec:产品基本信息/交易日与赎回到账"
       ],
       "requiredFacts": [
         "周六、周日及法定节假日不是交易日",

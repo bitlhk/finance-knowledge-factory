@@ -18,6 +18,16 @@ GOLD_CHANGES = {
         "requiredFacts":["本产品风险级别为2：中低风险",
                          "本产品适合投资者不含谨慎型"],
     },
+    "wm-004-three-month-liquidity": {
+        "reason":"第五部分受理与清算条款已同时覆盖正常赎回和T+1到账，和提前终止条款共同构成完整依据。",
+        "requiredEvidence":["product-spec:第五部分/受理时间与挂单时间",
+                            "product-spec:产品基本信息/提前终止"],
+    },
+    "wm-005-weekend-order": {
+        "reason":"第五部分挂单条款与产品基本信息交易日/到账条款共同覆盖周末挂单和下一受理时间。",
+        "requiredEvidence":["product-spec:第五部分/受理时间与挂单时间",
+                            "product-spec:产品基本信息/交易日与赎回到账"],
+    },
     "wm-006-minimum-subscription": {
         "reason":"第五部分第5项已同时包含首次和追加金额，移除重复证据要求。",
         "requiredEvidence":["product-spec:第五部分第5项"],
@@ -35,6 +45,11 @@ GOLD_CHANGES = {
     "wm-010-non-own-funds": {
         "reason":"投资者权益须知已完整陈述自有资金和禁止贷款资金要求，协议证据重复。",
         "requiredEvidence":["investor-rights:风险提示"],
+    },
+    "wm-011-early-termination-distinction": {
+        "reason":"提前终止条款与第五部分开放申购赎回条款分别证明两个概念，避免把到账条款当作赎回权依据。",
+        "requiredEvidence":["product-spec:产品基本信息/提前终止",
+                            "product-spec:第五部分/申购和赎回"],
     },
 }
 
