@@ -88,7 +88,7 @@ QUALITY_GOLD = [
     ("cmbwm-fee-discount", "CANONICAL", QUESTIONS[11], ["D份额", "MS份额", "N份额", "0.05%", "2026年11月1日至2026年11月7日"], ["长期固定优惠"]),
     ("cmbwm-contract-change", "CANONICAL", QUESTIONS[12], ["净值精度应急调整机制", "2026年9月29日"], []),
     ("cmbwm-live-sale", "NO_ANSWER", QUESTIONS[13], [], ["当前一定在售", "当前一定有额度", "客户今天一定可以买"]),
-    ("cmbwm-future-arrival", "CONFUSABLE", ("正常赎回确认后4个交易日内支付，能否据此保证未来某日到账？", "第七条"), ["确认日后4个交易日内", "不能保证未来某日到账"], ["保证未来某日到账"]),
+    ("cmbwm-future-arrival", "CONFUSABLE", ("正常赎回确认后4个交易日内支付，能否据此保证未来某日到账？", "第七条"), ["确认日后4个交易日内"], ["保证未来某日到账"]),
 ]
 
 

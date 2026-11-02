@@ -53,6 +53,8 @@ def test_quality_set_is_bound_to_source_and_preserves_business_boundaries():
     assert by_id["cmbwm-large-redemption"]["expectedClauses"] == [
         "第八条", "第六条"]
     assert "完全没有任何费用" in by_id["cmbwm-all-fees"]["forbiddenClaims"]
+    assert by_id["cmbwm-future-arrival"]["answerFacts"] == ["确认日后4个交易日内"]
+    assert by_id["cmbwm-future-arrival"]["forbiddenClaims"] == ["保证未来某日到账"]
     bundle = product.build_bundle(values())
     amount = next(item for item in bundle["chunks"] if item["clause"] == "第二条")
     assert "N份额：首笔0.01元" in amount["text"]
