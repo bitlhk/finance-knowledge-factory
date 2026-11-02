@@ -1,4 +1,5 @@
 from quality.retrieval_profiles import PROFILES, query_variants, rank, support_decision
+from knowledge_core.retrieval_quality import _select
 
 
 def candidate(rank_value, score, text):
@@ -45,3 +46,27 @@ def test_quality_rank_prefers_explicit_definition_and_action():
     action = [candidate(1, 5000, "应向投保人告知产品基本信息"),
               candidate(2, 4800, "不具备适当性的，应当建议投保人终止投保")]
     assert rank("保险产品不匹配时首先怎么办？", action, "STRUCTURE_V0_2")[0]["rank"] == 2
+
+
+def test_business_profile_decomposes_multi_intent_without_clause_ids():
+    variants = query_variants(
+        "某款理财的风险等级和适合客户类型是什么？",
+        "DETERMINISTIC_FINANCIAL_V0_2")
+    assert "产品风险级别 风险等级" in variants
+    assert "适合购买的投资者 投资者类型 风险承受能力" in variants
+    assert all("第一条" not in value for value in variants)
+
+
+def test_diverse_selection_covers_independent_query_variants():
+    candidates = [
+        {"id":"general", "rank":1, "text":"风险匹配一般原则",
+         "postRankScoreBps":7000, "queryIndexes":[0]},
+        {"id":"risk", "rank":2, "text":"产品风险级别2中低风险",
+         "postRankScoreBps":6500, "queryIndexes":[1]},
+        {"id":"customer", "rank":3, "text":"适合购买的投资者类型",
+         "postRankScoreBps":6400, "queryIndexes":[2]},
+        {"id":"duplicate", "rank":4, "text":"另一段风险匹配一般原则",
+         "postRankScoreBps":6900, "queryIndexes":[0]},
+    ]
+    selected = _select(candidates, 3, "DIVERSE_QUERY_COVERAGE_V0_1")
+    assert {item["id"] for item in selected} == {"general", "risk", "customer"}

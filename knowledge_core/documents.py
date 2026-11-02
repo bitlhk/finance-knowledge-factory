@@ -29,10 +29,89 @@ _CLAUSE_REFERENCE = re.compile(r'第[0-9〇零一二三四五六七八九十百�
 _EVIDENCE_ORDINAL_REFERENCE = re.compile(r'\[([1-9][0-9]*)\]')
 _REFUSAL = re.compile(r'无法|不能|未找到|没有足够|依据不足|无足够')
 _NEGATION = re.compile(r'不|未|无|非|禁止|不得|不能|无法|不应')
+_STRICT_VALUE = re.compile(
+    r'(?:T\+?\d+|C\d+|\d+(?:\.\d+)?\s*%|\d+(?:\.\d+)?\s*(?:万)?(?:元|份|年|个月|月|日|工作日|交易日|级))',
+    re.IGNORECASE)
+_SEMANTIC_REPLACEMENTS = (
+    ('风险测评', '风险承受能力评估'), ('重新测评', '重新评估'),
+    ('申购费', '申购费率'), ('赎回费', '赎回费率'),
+    ('固定管理费的年费率', '固定投资管理费率'),
+    ('固定投资管理费按', '固定投资管理费率'),
+    ('不保本', '不保证本金'), ('不能保证', '不保证'),
+    ('一年', '12个月'), ('一万', '10000'), ('1万', '10000'),
+    ('强制性全部赎回', '强制全部赎回'), ('本人自有资金', '自有资金'),
+    ('使用贷款等非自有资金投资理财产品', '使用贷款资金购买'),
+    ('提前终止整个产品', '提前终止整个理财计划'),
+    ('收益保证', '保证收益'), ('保证本金', '保本'),
+)
 
 
 def _unique(values):
     return list(dict.fromkeys(values))
+
+
+def _semantic_normal(value):
+    value = normal(value).casefold()
+    for source, target in _SEMANTIC_REPLACEMENTS:
+        value = value.replace(source, target)
+    return re.sub(r'[，。；：、“”‘’（）()\[\]【】,.!?！？/或]', '', value)
+
+
+def _bigrams(value):
+    value = _semantic_normal(value)
+    return {value[index:index + 2] for index in range(max(0, len(value) - 1))}
+
+
+def _semantic_recall(reference, candidate):
+    expected = _bigrams(reference)
+    actual = _bigrams(candidate)
+    return 10000 * len(expected & actual) // len(expected) if expected else 0
+
+
+def _segments(value):
+    return [part for part in re.split(r'[\n。；;！!?？]', value) if part.strip()]
+
+
+def _strict_values(value):
+    values = [_semantic_normal(match.group()) for match in _STRICT_VALUE.finditer(value)]
+    for match in re.finditer(r'(?:风险等级|风险级别)\s*(?:为|是|：|:)?\s*([1-9])', value):
+        values.append(f'风险等级{match.group(1)}级')
+    return _unique(values)
+
+
+def _fact_check(fact, answer, cited_evidence):
+    answer_scores = [_semantic_recall(fact, segment) for segment in _segments(answer)]
+    evidence_scores = [(_semantic_recall(fact, evidence['quote']), evidence['clause'])
+                       for evidence in cited_evidence]
+    answer_score = max(answer_scores, default=0)
+    evidence_score = max((score for score, _ in evidence_scores), default=0)
+    strict = _strict_values(fact)
+    answer_text = _semantic_normal(answer)
+    evidence_text = _semantic_normal('\n'.join(item['quote'] for item in cited_evidence))
+    missing_answer = [value for value in strict if value not in answer_text]
+    missing_evidence = [value for value in strict if value not in evidence_text]
+    # A summary fact may be shorter than its source sentence. Recall is measured
+    # from the gold statement, not from the much longer answer/evidence body.
+    answer_semantic = answer_score >= 4800
+    evidence_semantic = evidence_score >= 4200
+    passed = answer_semantic and evidence_semantic and not missing_answer and not missing_evidence
+    supporting = _unique(clause for score, clause in evidence_scores if score >= 4200)
+    reasons = []
+    if not answer_semantic:
+        reasons.append('ANSWER_SEMANTIC_COVERAGE_LOW')
+    if not evidence_semantic:
+        reasons.append('CITED_EVIDENCE_SUPPORT_LOW')
+    if missing_answer:
+        reasons.append('ANSWER_STRICT_VALUE_MISSING')
+    if missing_evidence:
+        reasons.append('EVIDENCE_STRICT_VALUE_MISSING')
+    return {'fact':fact, 'answerContains':answer_semantic,
+            'supportingClauses':supporting, 'passed':passed,
+            'method':'DETERMINISTIC_FACT_SUPPORT_V0_2',
+            'answerSemanticRecallBps':answer_score,
+            'evidenceSemanticRecallBps':evidence_score,
+            'strictValues':strict, 'missingAnswerValues':missing_answer,
+            'missingEvidenceValues':missing_evidence, 'reasons':reasons}
 
 
 def _answer_references(answer, retrieved):
@@ -67,20 +146,26 @@ def _answer_references(answer, retrieved):
             continue
         citations.append({'clause':clause, 'answerReference':reference,
             'retrievedEvidenceDigests':[evidence['evidenceDigest']],
-            'derivation':'ARCHIVED_ANSWER_EVIDENCE_ORDINAL'})
+            'derivation':'ARCHIVED_ANSWER_EVIDENCE_ORDINAL',
+            **({'sourceReference':evidence['sourceReference']}
+               if 'sourceReference' in evidence else {})})
         cited_clauses.add(clause)
     return citations, unmatched
 
 
 def _claim_asserted(answer, claim):
     """Conservative lexical guard: a claim mention is allowed only near negation."""
-    text, needle = normal(answer), normal(claim)
-    start = 0
-    while needle and (position := text.find(needle, start)) >= 0:
-        context = text[max(0, position - 12):position + len(needle) + 20]
-        if not _NEGATION.search(context):
-            return True
-        start = position + len(needle)
+    text = _semantic_normal(answer)
+    needles = {_semantic_normal(claim)}
+    if '保证收益' in needles:
+        needles.add('收益保证')
+    for needle in needles:
+        start = 0
+        while needle and (position := text.find(needle, start)) >= 0:
+            context = text[max(0, position - 12):position + len(needle) + 20]
+            if not _NEGATION.search(context):
+                return True
+            start = position + len(needle)
     return False
 
 
@@ -94,15 +179,9 @@ def _evaluate_answer_case(gold, item):
                      for evidence_digest in citation['retrievedEvidenceDigests']}
     cited_evidence = [evidence for evidence in retrieved
                       if evidence['evidenceDigest'] in cited_digests]
-    normalized = normal(answer)
     fact_checks = []
     for fact in gold['answerFacts']:
-        supporting = _unique(evidence['clause'] for evidence in cited_evidence
-                             if normal(fact) in normal(evidence['quote']))
-        answer_contains = normal(fact) in normalized
-        fact_checks.append({'fact':fact, 'answerContains':answer_contains,
-                            'supportingClauses':supporting,
-                            'passed':answer_contains and bool(supporting)})
+        fact_checks.append(_fact_check(fact, answer, cited_evidence))
     citation_checks = [{'clause':clause, 'passed':clause in cited}
                        for clause in gold['expectedClauses']]
     forbidden_checks = []
@@ -149,7 +228,8 @@ class DocumentCore(FactoryEvaluationMixin, Core):
             self.db.execute('INSERT OR IGNORE INTO identities VALUES(?,?,?,?,?)',(*key,sha))
         return sha
 
-    def register_document_index(self, actor, source_digest, raw, bridge, index, clauses):
+    def register_document_index(self, actor, source_digest, raw, bridge, index, clauses,
+                                source_references=None):
         actor.require('artifact.produce')
         source = self._source_access(actor, source_digest)
         verify_bridge(raw, source, bridge, digest(bridge))
@@ -175,9 +255,18 @@ class DocumentCore(FactoryEvaluationMixin, Core):
             raise Rejected('INDEX_COVERAGE_INCOMPLETE')
         if any(chunk['clauses'] != expected_chunks.get(chunk['id'], []) for chunk in index['chunks']):
             raise Rejected('INDEX_ANCHOR_MISMATCH')
-        body = {'schemaVersion':'document-index.v0.1', 'sourceDigest':source_digest,
+        body = {'schemaVersion':'document-index.v0.2' if source_references
+                                     else 'document-index.v0.1',
+                'sourceDigest':source_digest,
                 'originalHtml':raw.decode('utf-8'), 'originalDigest':hashlib.sha256(raw).hexdigest(),
                 'bridge':bridge, 'bridgeDigest':digest(bridge), 'index':index, 'clauses':clauses}
+        if source_references:
+            clause_names = {item['clause'] for item in clauses}
+            reference_names = [item.get('clause') for item in source_references]
+            if (set(reference_names) != clause_names
+                    or len(reference_names) != len(set(reference_names))):
+                raise Rejected('DOCUMENT_SOURCE_REFERENCE_MISMATCH')
+            body['sourceReferences'] = source_references
         with self.tx():
             return self._put(actor, 'document-index', body)
 
@@ -200,10 +289,15 @@ class DocumentCore(FactoryEvaluationMixin, Core):
     def register_quality_profile(self, actor, profile_id, revision, config):
         actor.require('artifact.produce')
         required = {'retrieval', 'postRank', 'selectionThresholdBps', 'queryPlanner', 'supportPolicy'}
-        if (not isinstance(config, dict) or set(config) != required
-                or config['postRank'] != 'STRUCTURE_V0_2'
-                or config['queryPlanner'] != 'DETERMINISTIC_FINANCIAL_V0_1'
+        allowed = required | {'selectionPolicy'}
+        if (not isinstance(config, dict) or not required.issubset(config)
+                or set(config) - allowed
+                or config['postRank'] not in {'STRUCTURE_V0_2', 'STRUCTURE_V0_3'}
+                or config['queryPlanner'] not in {'DETERMINISTIC_FINANCIAL_V0_1',
+                                                  'DETERMINISTIC_FINANCIAL_V0_2'}
                 or config['supportPolicy'] != 'EVIDENCE_SUPPORT_V0_1'
+                or config.get('selectionPolicy', 'TOP_SCORE') not in {
+                    'TOP_SCORE', 'DIVERSE_QUERY_COVERAGE_V0_1'}
                 or type(config['selectionThresholdBps']) is not int):
             raise Rejected('QUALITY_PROFILE_INVALID')
         # The adapter performs the detailed retrieval-profile validation before use.
@@ -391,6 +485,8 @@ class DocumentCore(FactoryEvaluationMixin, Core):
                     if any(not isinstance(value, str) or not value
                            for value in evidence_body.values()):
                         raise Rejected('QUALITY_RUNTIME_EVIDENCE_MISMATCH', case_id)
+                    if 'sourceReference' in evidence:
+                        evidence_body['sourceReference'] = evidence['sourceReference']
                     evidence_body['evidenceDigest'] = digest(evidence_body)
                     if not any(value['evidenceDigest'] == evidence_body['evidenceDigest']
                                for value in retrieved):
@@ -554,6 +650,8 @@ class DocumentCore(FactoryEvaluationMixin, Core):
             raise Rejected('RETRIEVAL_RESPONSE_INVALID')
         chunks = {c['id']: c for c in pinned['chunks']}
         clauses = {c['clause']: c['text'] for c in index['clauses']}
+        source_references = {item['clause']:item
+                             for item in index.get('sourceReferences', [])}
         found, evidence = set(), []
         for row in rows:
             if not isinstance(row, dict) or set(row) != {'id', 'text', 'documentId'}:
@@ -568,7 +666,9 @@ class DocumentCore(FactoryEvaluationMixin, Core):
                 found.add(clause)
                 evidence.append({'clause':clause, 'quote':clauses[clause],
                     'originalDigest':index['originalDigest'], 'chunkId':chunk['id'],
-                    'anchors':[m['anchor'] for m in index['bridge']['mappings'] if m['clause']==clause]})
+                    'anchors':[m['anchor'] for m in index['bridge']['mappings'] if m['clause']==clause],
+                    **({'sourceReference':source_references[clause]}
+                       if clause in source_references else {})})
         return evidence
 
     def validate_document(self, actor, candidate_digest, client):

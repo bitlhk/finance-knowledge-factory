@@ -154,10 +154,17 @@ SCHEMAS = {
     'document-quality-manifest-admission': versioned('document-quality-manifest-admission', {
         'id': ID, 'revision': REV, 'manifestDigest': HASH,
         'qualityAdmissionDigest': HASH, 'candidateDigest': HASH}),
-    'document-index': versioned('document-index', {
+    'document-index': {'oneOf': [versioned('document-index', {
         'sourceDigest': HASH, 'originalHtml': {'type': 'string', 'maxLength': 1000000},
         'originalDigest': HASH, 'bridge': {'type': 'object'}, 'bridgeDigest': HASH,
         'index': INDEX, 'clauses': arr(obj({'clause': STR, 'text': STR}), 1)}),
+        obj({'schemaVersion': enum('document-index.v0.2'),
+             'sourceDigest': HASH, 'originalHtml': {'type': 'string', 'maxLength': 1000000},
+             'originalDigest': HASH, 'bridge': {'type': 'object'}, 'bridgeDigest': HASH,
+             'index': INDEX, 'clauses': arr(obj({'clause': STR, 'text': STR}), 1),
+             'sourceReferences': arr(obj({
+                 'clause': STR, 'displayLabel': STR, 'documentTitle': STR,
+                 'documentVersion': STR, 'locators': arr({'type':'object'}, 1)}), 1)})]},
     'document-candidate': versioned('document-candidate', {
         'productId': ID, 'coreCandidateDigest': HASH, 'indexDigest': HASH,
         'tests': arr(CASE, 1, 30)}),

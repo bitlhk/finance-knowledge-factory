@@ -10,6 +10,7 @@ from knowledge_core.document_quality import validate_test_set
 from knowledge_core.documents import DocumentCore
 from m2.web import DocumentProduction
 from tests.test_document_quality_publication import AUTHOR, QualityClient
+from tools.build_amsylj01_quality_set_v02 import build as build_quality_set_v02
 
 
 ROOT = Path(__file__).parents[1] / "examples/business/customer-manager/amsylj01"
@@ -133,3 +134,30 @@ def test_workbench_loads_fixed_business_sample_without_enabling_model(monkeypatc
         assert service.snapshot()["modelReady"] is False
     finally:
         service.close()
+
+
+def test_source_references_use_official_locations_not_synthetic_article_numbers(monkeypatch):
+    monkeypatch.setattr(product, "_pdf_pages", lambda unused:committed_pages())
+    bundle = product.build_bundle(SOURCES)
+    references = product.source_references(bundle["provenance"])
+    assert len(references) == 24
+    risk = next(item for item in references if item["clause"] == "第一条")
+    assert "PDF第1页" in risk["displayLabel"]
+    assert "产品说明书及风险揭示书" in risk["documentTitle"]
+    assert "第一条" not in risk["displayLabel"]
+    agreement = next(item for item in references
+                     if item["clause"] == "第十八条")
+    assert agreement["locators"][0]["locatorKind"] == "HTML_DOM_NORMALIZED_TEXT"
+
+
+def test_v02_quality_set_preserves_v01_and_separates_platform_authority():
+    original = json.loads(BUSINESS.read_text(encoding="utf-8"))
+    snapshot = copy.deepcopy(original)
+    blind = json.loads((ROOT / "analysis/blind-business-cases-v0.1.json")
+                       .read_text(encoding="utf-8"))
+    improved = build_quality_set_v02(original, blind)
+    assert original == snapshot
+    assert len(improved["cases"]) == 21
+    assert "wm-018-version-change" not in {item["caseId"] for item in improved["cases"]}
+    assert {item["caseId"] for item in improved["goldChanges"]} == {
+        "wm-002-c1-suitability", "wm-006-minimum-subscription"}

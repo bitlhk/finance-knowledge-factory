@@ -20,4 +20,11 @@ PROFILES = {
                                "postRank": "STRUCTURE_V0_2", "selectionThresholdBps": 3300,
                                "queryPlanner": "DETERMINISTIC_FINANCIAL_V0_1",
                                "supportPolicy": "EVIDENCE_SUPPORT_V0_1"},
+    "financial-business-v03": {"retrieval": {**BASELINE_RETRIEVAL, "pageSize": 16,
+                                               "keywordWeightBps": 5000},
+                               "postRank": "STRUCTURE_V0_3",
+                               "selectionThresholdBps": 3300,
+                               "queryPlanner": "DETERMINISTIC_FINANCIAL_V0_2",
+                               "supportPolicy": "EVIDENCE_SUPPORT_V0_1",
+                               "selectionPolicy": "DIVERSE_QUERY_COVERAGE_V0_1"},
 }

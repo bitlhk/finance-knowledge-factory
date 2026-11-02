@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "business-quality-authority-classification.v0.2",
+  "baselineCaseCount": 18,
+  "classes": [
+    {
+      "id": "BANK_PRODUCT_KNOWLEDGE",
+      "authority": "固定版本的中国银行官方产品说明书、销售协议和投资者权益须知",
+      "caseIds": ["wm-001-risk-level", "wm-003-assessment-expiry", "wm-004-three-month-liquidity", "wm-005-weekend-order", "wm-006-minimum-subscription", "wm-007-partial-redemption", "wm-008-fees", "wm-009-principal-guarantee", "wm-010-non-own-funds", "wm-011-early-termination-distinction", "wm-012-bank-termination", "wm-013-large-redemption", "wm-014-document-conflict", "wm-017-current-yield"]
+    },
+    {
+      "id": "LIVE_BUSINESS_SYSTEM",
+      "authority": "获授权CRM、适当性系统或当前产品服务；固定知识文档只能说明核验要求",
+      "caseIds": ["wm-002-c1-suitability", "wm-015-current-sale-status", "wm-016-current-customer-rating", "wm-017-current-yield"]
+    },
+    {
+      "id": "FACTORY_PLATFORM_GOVERNANCE",
+      "authority": "Knowledge Factory版本、Manifest、评测、审批与发布合同",
+      "caseIds": ["wm-018-version-change"]
+    }
+  ],
+  "scoringRule": "银行产品质量只评价BANK_PRODUCT_KNOWLEDGE结论；涉及实时状态的题同时验证正确拒答或业务系统依赖；平台治理题不得引用银行产品文件作为权威。",
+  "compatibility": "原18题、原金标和原REJECT记录保持不变，本分类仅修订验收维度。"
+}

@@ -33,6 +33,20 @@ SOURCE_FILES = {
     "investor-rights": "investor-rights.html",
 }
 POPPLER_VERSION = "24.02.0"
+SOURCE_METADATA = {
+    "product-spec": {
+        "title":"中银日积月累-收益累进（AMSYLJ01）产品说明书及风险揭示书",
+        "version":"2025-02-28",
+    },
+    "sales-agreement": {
+        "title":"中国银行股份有限公司个人客户自营理财产品协议书（2023年版）",
+        "version":"2023-12-01",
+    },
+    "investor-rights": {
+        "title":"中国银行股份有限公司个人客户理财产品投资者权益须知",
+        "version":"2023-05-11",
+    },
+}
 
 
 def _sha(value: bytes) -> str:
@@ -260,6 +274,35 @@ def verify_bundle(source_directory: Path, html_bytes: bytes,
         raise Rejected("BUSINESS_SOURCE_PROVENANCE_MISMATCH")
 
 
+def source_references(provenance: dict) -> list[dict]:
+    """Return user-facing source positions without exposing synthetic ordinals."""
+    output = []
+    for mapping in provenance["mappings"]:
+        original = mapping["originalAnchors"]
+        source_ids = {item["sourceId"] for item in original}
+        if len(source_ids) != 1:
+            raise Rejected("BUSINESS_SOURCE_REFERENCE_AMBIGUOUS", mapping["clause"])
+        source_id = next(iter(source_ids))
+        metadata = SOURCE_METADATA[source_id]
+        positions = []
+        for item in original:
+            position = {key:item[key] for key in
+                        ("sourceId", "sourceDigest", "mediaType", "locatorKind",
+                         "page", "xpath", "quoteDigest") if key in item}
+            positions.append(position)
+        location = mapping["clause"].split(":", 1)[1]
+        pages = sorted({item["page"] for item in original if "page" in item})
+        page_label = ("，PDF第" + "、".join(map(str, pages)) + "页") if pages else ""
+        output.append({
+            "clause":mapping["coreClause"],
+            "displayLabel":f"{metadata['title']}，{location}{page_label}",
+            "documentTitle":metadata["title"],
+            "documentVersion":metadata["version"],
+            "locators":positions,
+        })
+    return output
+
+
 def compile_quality_set(business_set: dict, source_digest: str,
                         provenance: dict) -> dict:
     categories = {
@@ -290,8 +333,11 @@ def compile_quality_set(business_set: dict, source_digest: str,
                       "question":item["question"], "expectedClauses":evidence,
                       "answerFacts":facts,
                       "forbiddenClaims":list(item.get("forbiddenClaims") or [])})
+    quality_id = ("boc-wealth-manager-amsylj01-core-v0-1"
+                  if business_set.get("id") == "boc-wealth-manager-amsylj01-v0.1"
+                  else "boc-wealth-manager-amsylj01-core-v0-2")
     return {"schemaVersion":"document-quality-test-set.v0.1",
-            "id":"boc-wealth-manager-amsylj01-core-v0-1",
+            "id":quality_id,
             "purpose":"BLIND_ACCEPTANCE", "sourceDigest":source_digest,
             "sourceTitle":business_set["task"], "cases":cases}
 
@@ -336,7 +382,8 @@ def produce_candidate(core, actor, bundle: dict, scope: dict,
     index_digest = core.register_document_index(
         actor, source_digest, raw, bundle["bridge"], index,
         [{"clause":item["clause"], "text":item["text"]}
-         for item in bundle["chunks"]])
+         for item in bundle["chunks"]],
+        source_references(bundle["provenance"]))
     lines = source["content"].splitlines()
     references = []
     for item in bundle["chunks"]:

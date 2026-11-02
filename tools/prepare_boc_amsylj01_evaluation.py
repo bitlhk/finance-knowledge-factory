@@ -42,6 +42,10 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--root", type=Path,
                         default=Path("examples/business/customer-manager"))
+    parser.add_argument("--business-set", type=Path)
+    parser.add_argument("--profile", choices=tuple(PROFILES),
+                        default="financial-document-v02")
+    parser.add_argument("--id-suffix", default="v02")
     parser.add_argument("--lifetime-minutes", type=int, default=120)
     args = parser.parse_args()
     if not 30 <= args.lifetime_minutes <= 240:
@@ -74,8 +78,9 @@ def main():
             "revision":revision + 1, "grants":grants}, revision)
 
         bundle = build_bundle(args.root / "amsylj01/sources")
-        business = json.loads((args.root /
-            "boc-wealth-manager-test-set-v0.1.json").read_text(encoding="utf-8"))
+        business_path = (args.business_set or
+                         args.root / "boc-wealth-manager-test-set-v0.1.json")
+        business = json.loads(business_path.read_text(encoding="utf-8"))
         client = Ragflow(args.private_config / "local-credentials.json",
                          args.private_config / "http-setup.json")
         values = produce_candidate(core, actor, bundle, {
@@ -88,18 +93,18 @@ def main():
         validation = core.validate_document(
             actor, values["candidateDigest"], client)
         profile = core.register_quality_profile(
-            actor, "boc-amsylj01-financial-document-v02", 1,
-            PROFILES["financial-document-v02"])
+            actor, "boc-amsylj01-" + args.profile, 1,
+            PROFILES[args.profile])
         tests = core.register_quality_test_set(
             actor, values["candidateDigest"], values["qualityTestSet"], 1)
         retrieval = core.evaluate_quality_retrieval(
             actor, values["candidateDigest"], profile, tests, client)
         classification = core.register_source_classification(
-            actor, "boc-amsylj01-public-source", 1,
+            actor, "boc-amsylj01-public-source-" + args.id_suffix, 1,
             values["sourceDigest"], "PUBLIC", True,
             ["volcengine"], ["cn-beijing"], ["factory-dev"])
         prompt = core.register_evaluation_prompt_template(
-            actor, "boc-amsylj01-grounded-answer", 1,
+            actor, "boc-amsylj01-grounded-answer-" + args.id_suffix, 1,
             "仅根据提供的中国银行公开资料原文回答；证据不足或涉及实时状态时明确说明需要核实。",
             "先给直接结论，再列依据编号；不得补造当前客户评级、在售状态、收益率或渠道状态。")
         expires = (datetime.now(timezone.utc)
@@ -111,16 +116,16 @@ def main():
             source="trusted-evaluation-service-host",
             timezone="Asia/Shanghai")
         assignment = core.create_evaluation_assignment(
-            actor, "boc-amsylj01-evaluation", 1,
+            actor, "boc-amsylj01-evaluation-" + args.id_suffix, 1,
             values["candidateDigest"], tests, profile, retrieval,
             classification, template["modelSelectionDigest"], prompt,
             context, expires)
         worker_build = hashlib.sha256(
             args.worker_git_sha.encode("ascii")).hexdigest()
         lease = core.issue_evaluation_lease(
-            actor, "boc-amsylj01-worker-lease", 1, assignment,
+            actor, "boc-amsylj01-worker-lease-" + args.id_suffix, 1, assignment,
             "factory-evaluation-worker", "worker-build-pr12",
-            worker_build, expires, "boc-amsylj01-worker-lease-nonce")
+            worker_build, expires, "boc-amsylj01-worker-lease-nonce-" + args.id_suffix)
         deployment = gateway["deployments"][0]
         runtime_identity = {**deployment,
             "gatewayBuildDigest":gateway["buildDigest"],

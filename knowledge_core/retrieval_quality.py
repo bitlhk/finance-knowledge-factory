@@ -10,7 +10,8 @@ def _bigrams(value):
 def query_variants(question, mode):
     if mode in (None, "NONE"):
         return [question]
-    if mode != "DETERMINISTIC_FINANCIAL_V0_1":
+    if mode not in {"DETERMINISTIC_FINANCIAL_V0_1",
+                    "DETERMINISTIC_FINANCIAL_V0_2"}:
         raise ValueError("UNKNOWN_QUERY_PLANNER")
     variants = [question]
     substitutions = (("界定", "所称 是指"), ("手机渠道", "互联网 线上方式"),
@@ -28,7 +29,26 @@ def query_variants(question, mode):
             value = (shared + " " + part).strip(" ？?")
             if value and value not in variants:
                 variants.append(value)
-    return variants[:4]
+    if mode == "DETERMINISTIC_FINANCIAL_V0_2":
+        expansions = []
+        concepts = (
+            (r"风险等级|风险级别", "产品风险级别 风险等级"),
+            (r"适合.{0,4}(?:客户|投资者)|客户类型", "适合购买的投资者 投资者类型 风险承受能力"),
+            (r"提前赎回|赎回", "申购和赎回 交易日 赎回到账"),
+            (r"提前终止", "提前终止 理财计划"),
+            (r"首次购买|首次申购", "首次申购 起点金额"),
+            (r"追加购买|追加申购", "追加申购 金额要求"),
+            (r"费用|费率", "申购赎回费率 投资管理费 托管费 税费"),
+        )
+        for pattern, expansion in concepts:
+            if re.search(pattern, question):
+                expansions.append(expansion)
+        # Multi-intent financial questions need independent evidence for each
+        # concept. These variants are domain terms, not question-to-clause maps.
+        variants.extend(expansions)
+        if re.search(r"是否意味着|是不是意味着|是否等于|是不是等于", question):
+            variants.extend(value for value in expansions if value not in variants)
+    return list(dict.fromkeys(variants))[:8]
 
 
 def merge_candidates(candidate_groups):
@@ -67,9 +87,11 @@ def _shape_bonus(question, text):
 def rank(question, candidates, mode):
     if mode == "NONE":
         return candidates
-    if mode not in ("STRUCTURE_V0_1", "STRUCTURE_V0_2"):
+    if mode not in ("STRUCTURE_V0_1", "STRUCTURE_V0_2", "STRUCTURE_V0_3"):
         raise ValueError("UNKNOWN_POST_RANK_MODE")
-    variants = query_variants(question, "DETERMINISTIC_FINANCIAL_V0_1") if mode == "STRUCTURE_V0_2" else [question]
+    planner = ("DETERMINISTIC_FINANCIAL_V0_2" if mode == "STRUCTURE_V0_3"
+               else "DETERMINISTIC_FINANCIAL_V0_1")
+    variants = query_variants(question, planner) if mode != "STRUCTURE_V0_1" else [question]
     query = _bigrams(variants[1] if len(variants) > 1 else question)
     ranked = []
     for candidate in candidates:
@@ -77,7 +99,7 @@ def rank(question, candidates, mode):
         lexical = round(10000 * len(query & text_tokens) / len(query)) if query else 0
         base = candidate["scoreBps"] or 0
         bonus = _shape_bonus(question, candidate["text"])
-        if mode == "STRUCTURE_V0_2":
+        if mode in {"STRUCTURE_V0_2", "STRUCTURE_V0_3"}:
             if re.search(r"界定|什么是|是指什么", question) and re.search(r"所称.{0,30}是指|是指", candidate["text"]):
                 bonus += 1600
             if "手机渠道" in question and re.search(r"互联网|线上方式", candidate["text"]):
@@ -88,9 +110,44 @@ def rank(question, candidates, mode):
                     r"(?:对于|有下列情形|符合.{0,20}条件).{0,160}(?:可以|可|能够).{0,40}(?:简化|免于|不再)",
                     candidate["text"]):
                 bonus += 1200
+        if mode == "STRUCTURE_V0_3":
+            text = candidate["text"]
+            if re.search(r"风险等级|风险级别", question) and re.search(
+                    r"风险级别\s*2|产品风险级别|风险等级", text):
+                bonus += 1900
+            if re.search(r"适合.{0,4}(?:客户|投资者)|客户类型", question) and re.search(
+                    r"适合购买的投资者|投资者类型", text):
+                bonus += 1900
+            if "赎回" in question and re.search(r"申购和赎回|开放申购、?赎回|赎回到账", text):
+                bonus += 1800
+            if "提前终止" in question and "提前终止" in text:
+                bonus += 1200
+            # Reward evidence returned for more independently planned concepts.
+            bonus += min(1200, 240 * len(set(candidate.get("queryIndexes", []))))
         score = max(0, min(10000, round(base * 0.6 + lexical * 0.4) + bonus))
         ranked.append({**candidate, "postRankScoreBps": score})
     return sorted(ranked, key=lambda value: (-value["postRankScoreBps"], value["rank"]))
+
+
+def _select(candidates, limit, mode):
+    if mode != "DIVERSE_QUERY_COVERAGE_V0_1":
+        return candidates[:limit]
+    selected, covered_queries, covered_text = [], set(), set()
+    remaining = list(candidates)
+    while remaining and len(selected) < limit:
+        def value(candidate):
+            queries = set(candidate.get("queryIndexes", []))
+            text = _bigrams(candidate.get("text", ""))
+            novelty = len(queries - covered_queries) * 1800
+            diversity = len(text - covered_text) * 20
+            score = candidate.get("postRankScoreBps", candidate.get("scoreBps") or 0)
+            return score + novelty + min(1000, diversity)
+        chosen = max(remaining, key=lambda item: (value(item), -item["rank"]))
+        selected.append(chosen)
+        covered_queries.update(chosen.get("queryIndexes", []))
+        covered_text.update(_bigrams(chosen.get("text", "")))
+        remaining.remove(chosen)
+    return selected
 
 
 def support_decision(question, text, mode):
@@ -122,7 +179,7 @@ def trace_select(client, dataset_id, document_id, question, profile):
     retrieved = candidates
     candidates = rank(question, candidates, profile["postRank"])
     ranked = candidates
-    selected = []
+    eligible = []
     filtered = []
     for candidate in candidates:
         score = candidate.get("postRankScoreBps", candidate.get("scoreBps") or 0)
@@ -132,10 +189,8 @@ def trace_select(client, dataset_id, document_id, question, profile):
                          "qualityReasons":[f"score {score} {'>=' if score >= profile['selectionThresholdBps'] else '<'} "
                                            f"threshold {profile['selectionThresholdBps']}", support_reason]})
         if keep:
-            selected.append(candidate)
-        if len(selected) == 3:
-            # Keep recording rejected/retained candidates for a complete trace.
-            continue
+            eligible.append(candidate)
+    selected = _select(eligible, 3, profile.get("selectionPolicy", "TOP_SCORE"))
     return {"queryVariants":questions, "retrieved":retrieved, "ranked":ranked,
             "filtered":filtered, "selected":selected[:3]}
 
