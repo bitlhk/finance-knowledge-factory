@@ -13,7 +13,7 @@ from m2.runtime_protocol import CONTRACT_SHA256 as QUERY_SHA
 SCHEMA_PATH = Path(__file__).resolve().parents[1] / 'contracts/runtime/knowledge-products-v0.1.schema.json'
 SCHEMA = json.loads(SCHEMA_PATH.read_bytes())
 SCHEMA_SHA256 = sha256(SCHEMA_PATH.read_bytes()).hexdigest()
-if SCHEMA_SHA256 != '0b671ae3de0dcb04e0614a9bed80ee38b7cd4672fb9db9df064aabe25f0a7e4e':
+if SCHEMA_SHA256 != 'f43326b801cbb4c87ec7bde4bd10ff48aef34a6f418dfb533c70f7666a056a52':
     raise RuntimeError('FROZEN_DISCOVERY_SCHEMA_CHANGED')
 
 
@@ -21,6 +21,25 @@ def validate(kind, body, error='DISCOVERY_INTEGRITY_FAILED'):
     validator = Draft202012Validator({**SCHEMA, '$ref': '#/$defs/' + kind}, format_checker=FormatChecker())
     if not validator.is_valid(body):
         raise Rejected(error)
+
+
+def _business_binding(index):
+    tree = html.fromstring(index['originalHtml'])
+    values = tree.xpath(
+        '//script[@id="knowledge-business-binding" and @type="application/json"]/text()')
+    if not values:
+        return None
+    if len(values) != 1:
+        raise Rejected('DISCOVERY_INTEGRITY_FAILED')
+    try:
+        binding = json.loads(values[0])
+    except (TypeError, ValueError, json.JSONDecodeError):
+        raise Rejected('DISCOVERY_INTEGRITY_FAILED') from None
+    if (not isinstance(binding, dict)
+            or binding.get('schemaVersion') != 'product-knowledge-binding.v0.1'
+            or binding.get('knowledgeKind') != 'PRODUCT_SPECIFIC'):
+        raise Rejected('DISCOVERY_INTEGRITY_FAILED')
+    return binding
 
 
 def describe(core, actor, context, product, manifest_digest, connection_ref):
@@ -69,8 +88,10 @@ def describe(core, actor, context, product, manifest_digest, connection_ref):
     title = ' '.join(html.fromstring(index['originalHtml']).xpath('//title/text()')).strip()
     name = title if 0 < len(title) <= 256 else product
     source_permission = {'resource': 'source:' + source['id'], 'action': 'source_read'}
+    business_binding = _business_binding(index)
     descriptor = {
-        'schemaVersion': 'knowledge-product-release.v0.1', 'productId': product,
+        'schemaVersion': ('knowledge-product-release.v0.2' if business_binding
+                          else 'knowledge-product-release.v0.1'), 'productId': product,
         'name': name, 'nameOrigin': 'PINNED_SOURCE_TITLE' if name == title else 'PRODUCT_ID_FALLBACK',
         'productType': 'DOCUMENT_EVIDENCE', 'version': manifest['revision'],
         'manifestDigest': manifest_digest, 'publication': {
@@ -95,6 +116,9 @@ def describe(core, actor, context, product, manifest_digest, connection_ref):
             'query': {'schemaVersion': 'knowledge-query.v0.1', 'method': 'POST', 'path': '/query', 'schemaDigest': QUERY_SHA},
             'session': {'schemaVersion': 'knowledge-session-check.v0.1', 'method': 'POST', 'path': '/session', 'schemaDigest': QUERY_SHA},
             'history': {'schemaVersion': 'knowledge-history.v0.1', 'method': 'POST', 'path': '/history/read', 'schemaDigest': HISTORY_SHA}}}
+    if business_binding is not None:
+        descriptor['businessBinding'] = business_binding
+        descriptor['businessBindingDigest'] = digest(business_binding)
     validate('release', descriptor)
     return {'descriptorDigest': digest(descriptor), 'descriptor': descriptor}
 

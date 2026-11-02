@@ -112,18 +112,30 @@ def _evidence_concepts(question, text):
          r'(?:三个月|未来|将来|到时).{0,8}(?:用钱|赎回|流动性)|提前赎回',
          r'(?:客户|投资者).{0,8}无提前终止权'),
         ('partial-redemption', r'部分赎回|剩余.{0,4}(?:份|份额)',
-         r'部分赎回后.{0,30}剩余份额|强制性?全部赎回'),
-        ('large-redemption', r'大额赎回', r'大额赎回.{0,60}暂停|暂停接受当日赎回'),
-        ('large-redemption-followup', r'大额赎回|暂停.{0,8}赎回',
+         r'部分赎回后.{0,30}剩余份额|剩余份额.{0,30}(?:一次性)?全额赎回|强制性?全部赎回'),
+        ('large-redemption', r'(?:大额|巨额)赎回',
+         r'(?:大额|巨额)赎回.{0,300}(?:全额赎回|部分赎回|暂停|延缓支付)|暂停接受当日赎回'),
+        ('giant-redemption-procedure', r'巨额赎回',
+         r'巨额赎回的(?:认定|处理方式)'),
+        ('large-redemption-followup', r'(?:大额|巨额)赎回|暂停.{0,8}赎回',
          r'下一交易日继续接受赎回申请'),
+        ('single-investor-redemption',
+         r'单个投资者.{0,30}(?:10%|百分之十|超过).{0,20}(?:赎回|部分)',
+         r'单个投资者.{0,60}(?:10%|百分之十).{0,100}(?:暂停接受|延缓支付)'),
         ('redemption-suspension',
-         r'(?:三个月|未来|将来|到时).{0,8}(?:用钱|赎回|流动性)|暂停.{0,8}赎回',
+         r'(?:三个月|未来|将来|到时).{0,8}(?:用钱|赎回|流动性)|(?:大额|巨额)赎回|暂停.{0,8}赎回',
          r'暂停.{0,16}(?:申购或赎回|赎回)|赎回应在暂停情形消灭'),
+        ('redemption-suspension-conditions', r'(?:大额|巨额)赎回|暂停.{0,8}赎回',
+         r'发生下列情形.{0,600}(?:暂停接受.{0,12}赎回|延缓支付赎回)'),
         ('trading-day', r'周末|交易日', r'周六、周日|交易日'),
         ('order-time', r'周末|挂单|什么时候处理', r'挂单交易|下一受理时间'),
         ('zero-subscription-redemption-fees', r'申购.{0,6}费|赎回.{0,6}费|费用|费率',
-         r'无申购、赎回费|申购和赎回的费率均为0'),
+         r'无申购、赎回费|申购和赎回的费率均为0|无需支付申购费.{0,120}无需支付赎回费|不收取申购费.{0,120}不收取赎回费'),
         ('basic-fees', r'费用|费率', r'固定投资管理费率|无申购、赎回费'),
+        ('explicit-fee-rates', r'固定.{0,4}管理费|托管费|销售服务费',
+         r'固定投资管理费率|托管费率|销售服务费率'),
+        ('fee-discount-period', r'优惠|优惠后|优惠期间',
+         r'优惠生效日期.{0,160}优惠截止日期.{0,160}优惠后费率|阶段性费率优惠'),
         ('complete-fees', r'费用|费率|税费', r'其他税费'),
         ('full-fee-schedule', r'完全不收费|其他费用|还.{0,4}(?:收费|费用)|税费',
          r'固定投资管理费.{0,160}托管费.{0,220}(?:其他税费|浮动投资管理费)'),
@@ -139,6 +151,15 @@ def _evidence_concepts(question, text):
     for name, question_pattern, evidence_pattern in checks:
         if re.search(question_pattern, question) and re.search(evidence_pattern, text):
             concepts.append(name)
+    if (re.search(r'完全不收费|其他费用|还.{0,4}(?:收费|费用)|是否代表没有其他费用', question)
+            and re.search(r'(?:无需支付|不收取)申购费', text)
+            and re.search(r'(?:无需支付|不收取)赎回费', text)
+            and '固定投资管理费' in text and '托管费' in text):
+        concepts.append('complete-product-fee-schedule')
+    if (re.search(r'申购费.{0,12}赎回费.{0,20}(?:零|0|代表|其他费用)', question)
+            and re.search(r'(?:无需支付|不收取)申购费', text)
+            and re.search(r'(?:无需支付|不收取)赎回费', text)):
+        concepts.append('zero-fee-question-focus')
     return concepts
 
 
@@ -174,16 +195,23 @@ def rank(question, candidates, mode):
             # A specific evidence concept is more useful than being returned by
             # many broad query variants. No clause id or case id is consulted.
             weights = {
-                'partial-redemption':5000, 'large-redemption':5000,
+                'partial-redemption':5000, 'large-redemption':3500,
+                'giant-redemption-procedure':5200,
                 'large-redemption-followup':5000,
+                'single-investor-redemption':5200,
                 'redemption-suspension':5000,
+                'redemption-suspension-conditions':5200,
                 'future-liquidity-timing':5000,
                 'future-termination-distinction':5000,
                 'complete-fees':4800, 'rating-mismatch-redemption':4800,
+                'explicit-fee-rates':5200,
+                'fee-discount-period':5200,
                 'full-fee-schedule':5000, 'order-window':5000,
+                'complete-product-fee-schedule':5200,
+                'zero-fee-question-focus':5200,
                 'early-termination':4200, 'order-time':4200,
                 'normal-redemption-opening':4800,
-                'zero-subscription-redemption-fees':5000,
+                'zero-subscription-redemption-fees':3000,
                 'product-risk-level':3800, 'suitable-investor':3800,
                 'trading-day':3200, 'principal-and-yield-risk':3800,
                 'non-own-funds':3800, 'normal-redemption':2400,
@@ -191,6 +219,29 @@ def rank(question, candidates, mode):
             }
             bonus += min(5200, sum(weights.get(value, 1800)
                                    for value in concepts))
+            if 'giant-redemption-procedure' in concepts:
+                bonus += 1800
+            if 'single-investor-redemption' in concepts:
+                bonus += 2500
+            if 'redemption-suspension-conditions' in concepts:
+                bonus += 1200
+            if 'complete-product-fee-schedule' in concepts:
+                bonus += 2500
+            if 'zero-fee-question-focus' in concepts:
+                bonus += 2500
+            if 'explicit-fee-rates' in concepts:
+                bonus += 1800
+            if 'fee-discount-period' in concepts:
+                bonus += 2500
+            priority = sum({
+                'complete-product-fee-schedule':4,
+                'giant-redemption-procedure':3,
+                'single-investor-redemption':3,
+                'redemption-suspension-conditions':2,
+                'explicit-fee-rates':2,
+                'fee-discount-period':4,
+                'zero-fee-question-focus':1,
+            }.get(value, 0) for value in concepts)
             sources = set(candidate.get("sourceIds", []))
             rating_change = bool(re.search(
                 r'风险.{0,8}(?:下降|变化|不匹配).{0,12}赎回', question))
@@ -203,14 +254,16 @@ def rank(question, candidates, mode):
             required_concept = None
             if re.search(r'部分赎回|剩余.{0,4}(?:份|份额)', question):
                 required_concept = 'partial-redemption'
-            elif '大额赎回' in question:
+            elif re.search(r'(?:大额|巨额)赎回', question):
                 required_concept = 'large-redemption'
             if required_concept and required_concept not in concepts:
                 bonus -= 1800
-            candidate = {**candidate, "evidenceConcepts":concepts}
+            candidate = {**candidate, "evidenceConcepts":concepts,
+                         "evidencePriority":priority}
         score = max(0, min(10000, round(base * 0.6 + lexical * 0.4) + bonus))
         ranked.append({**candidate, "postRankScoreBps": score})
-    return sorted(ranked, key=lambda value: (-value["postRankScoreBps"], value["rank"]))
+    return sorted(ranked, key=lambda value: (-value["postRankScoreBps"],
+        -value.get("evidencePriority", 0), value["rank"]))
 
 
 def _select(candidates, limit, mode):
@@ -224,16 +277,23 @@ def _select(candidates, limit, mode):
             concepts = set(candidate.get("evidenceConcepts", []))
             text = _bigrams(candidate.get("text", ""))
             concept_weights = {
-                'partial-redemption':5200, 'large-redemption':5200,
+                'partial-redemption':5200, 'large-redemption':4000,
+                'giant-redemption-procedure':5400,
                 'large-redemption-followup':5200,
+                'single-investor-redemption':5400,
                 'redemption-suspension':5200,
+                'redemption-suspension-conditions':5400,
                 'future-liquidity-timing':5200,
                 'future-termination-distinction':5200,
                 'complete-fees':5000, 'rating-mismatch-redemption':5000,
+                'explicit-fee-rates':5400,
+                'fee-discount-period':5400,
                 'full-fee-schedule':5200, 'order-window':5200,
+                'complete-product-fee-schedule':5400,
+                'zero-fee-question-focus':5400,
                 'early-termination':4500, 'order-time':4500,
                 'normal-redemption-opening':5000,
-                'zero-subscription-redemption-fees':5200,
+                'zero-subscription-redemption-fees':3500,
                 'product-risk-level':4000, 'suitable-investor':4000,
             }
             novelty = (sum(concept_weights.get(item, 2800)

@@ -47,6 +47,32 @@ def test_wrong_and_fabricated_citations_fail():
     assert fabricated['unmatchedAnswerCitations'] == ['第九十九条']
 
 
+def test_original_document_subsection_is_not_a_fabricated_core_citation():
+    retrieved = [evidence('第五条', '第五条 余额规则。'),
+                 evidence('第七条', '第七条 6.申购、赎回程序：申请由管理人确认。')]
+    accepted = _evaluate_answer_case(
+        gold(['第五条'], ['余额规则']),
+        runtime_case('证据[1]第五条载明余额规则；证据[2]第七条第6条说明确认程序。', retrieved))
+    fabricated = runtime_case(
+        '证据[1]第五条载明余额规则，并称原文件第99条另有规定。', retrieved)
+    assert accepted['classification'] == 'CORRECT'
+    assert accepted['unmatchedAnswerCitations'] == []
+    assert fabricated['unmatchedAnswerCitations'] == ['第99条']
+
+
+def test_manager_confirmation_is_semantically_equivalent_to_effectiveness_rule():
+    retrieved = [evidence('第七条',
+        '管理人在确认日对投资者的赎回申请有效性进行登记确认。')]
+    result = _evaluate_answer_case(
+        gold(['第七条'], ['申请是否生效以管理人确认为准']),
+        runtime_case('依据[1]，赎回申请须经管理人确认有效性后方为成功。', retrieved))
+    assert result['classification'] == 'CORRECT'
+    reordered = _evaluate_answer_case(
+        gold(['第七条'], ['申请是否生效以管理人确认为准']),
+        runtime_case('依据[1]，管理人会在确认日对申请有效性进行登记确认。', retrieved))
+    assert reordered['classification'] == 'CORRECT'
+
+
 def test_forbidden_conclusion_is_rejected_but_negated_mention_is_allowed():
     retrieved = [evidence('第一条', '第一条 历史对话摘要不能代替当前客户事实。')]
     forbidden = gold(['第一条'], [], ['历史对话摘要'])

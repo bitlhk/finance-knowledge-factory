@@ -7,6 +7,7 @@ import pytest
 
 from business_knowledge import cmbwm_132112 as product
 from knowledge_core.contracts import Rejected
+from knowledge_core.documents import DocumentCore
 from m2.web import DocumentProduction
 from tests.test_document_quality_publication import QualityClient
 
@@ -35,16 +36,49 @@ def test_official_upload_bundle_has_fixed_bytes_pages_and_business_cases():
         item["clause"] for item in bundle["chunks"]}
     assert {locator["sourceId"] for item in bundle["sourceReferences"]
             for locator in item["locators"]} == set(product.SOURCES)
-    assert next(item for item in bundle["sourceReferences"]
-                if item["clause"] == "第九条")["locators"][1]["page"] == 44
+    fee_pages = {item["page"] for item in next(item for item in bundle["sourceReferences"]
+                 if item["clause"] == "第九条")["locators"]}
+    assert fee_pages == {34, 43, 44, 45}
     for key,metadata in product.SOURCES.items():
         assert hashlib.sha256(values()[key]).hexdigest() == metadata["sha256"]
+    assert b'product-knowledge-binding.v0.1' in bundle["html"]
+    assert b'Z7001626000062' in bundle["html"]
+    assert b'132112N' in bundle["html"]
+
+
+def test_expired_fee_notice_is_filtered_without_expiring_product_document():
+    bundle = product.build_bundle(values())
+    fee = next(item for item in bundle["chunks"] if item["clause"] == "第十二条")
+    identity = next(item for item in bundle["chunks"] if item["clause"] == "第二条")
+    index = {
+        "originalHtml":bundle["html"].decode(), "originalDigest":"a" * 64,
+        "bridge":{"mappings":[
+            {"clause":"第十二条", "anchor":{"xpath":"/fee", "start":0, "end":1, "quote":"x"}},
+            {"clause":"第二条", "anchor":{"xpath":"/identity", "start":0, "end":1, "quote":"x"}},
+        ]},
+        "clauses":[{"clause":"第十二条", "text":fee["text"]},
+                   {"clause":"第二条", "text":identity["text"]}],
+        "index":{"datasetId":"dataset", "documentId":"document", "chunks":[
+            {"id":"fees", "textDigest":hashlib.sha256(fee["text"].encode()).hexdigest(),
+             "clauses":["第十二条"]},
+            {"id":"identity", "textDigest":hashlib.sha256(identity["text"].encode()).hexdigest(),
+             "clauses":["第二条"]},
+        ]}}
+    class Client:
+        def retrieve(self, *_):
+            return [{"id":"fees", "text":fee["text"], "documentId":"document"},
+                    {"id":"identity", "text":identity["text"], "documentId":"document"}]
+    active = DocumentCore._retrieve(index, "fee", Client(), business_date="2026-11-02")
+    expired = DocumentCore._retrieve(index, "fee", Client(), business_date="2026-11-08")
+    assert [item["clause"] for item in active] == ["第十二条", "第二条"]
+    assert [item["clause"] for item in expired] == ["第二条"]
 
 
 def test_quality_set_is_bound_to_source_and_preserves_business_boundaries():
     source_digest = "a" * 64
     test_set = product.quality_test_set(source_digest)
     assert test_set["sourceDigest"] == source_digest
+    assert test_set["id"].endswith(source_digest[:12])
     assert test_set["purpose"] == "BLIND_ACCEPTANCE"
     assert len(test_set["cases"]) == 15
     by_id = {case["caseId"]:case for case in test_set["cases"]}

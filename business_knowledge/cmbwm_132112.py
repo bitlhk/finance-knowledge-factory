@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import base64
 import hashlib
+import json
 import re
 import subprocess
 import tempfile
@@ -24,6 +25,30 @@ from knowledge_core.evidence.html_evidence import verify
 REGISTRATION_ID = "cmbwm-132112-njcb-202610"
 PRODUCT_ID = "cmbwm-zhaorui-tianli-daily-21-132112"
 TITLE = "招银理财招睿添利日开21号固定收益类理财计划"
+
+BUSINESS_BINDING = {
+    "schemaVersion":"product-knowledge-binding.v0.1",
+    "knowledgeKind":"PRODUCT_SPECIFIC",
+    "manager":{"id":"cmb-wealth-management", "name":"招银理财有限责任公司"},
+    "product":{"managerProductCode":"132112", "registrationCode":"Z7001626000062"},
+    "distribution":[{
+        "distributorId":"bank-of-nanjing", "distributorName":"南京银行",
+        "salesCodes":["132112N"], "shareClasses":["N"], "channels":["BRANCH"]
+    }],
+    "documents":[
+        {"sourceId":"sales-documents", "publishedAt":"2026-10-12",
+         "effectiveFrom":"2026-10-12", "effectiveTo":None, "salesCodes":["132112N"]},
+        {"sourceId":"contract-adjustment", "publishedAt":"2026-10-12",
+         "effectiveFrom":"2026-09-29", "effectiveTo":None, "salesCodes":["132112N"]},
+        {"sourceId":"fee-discount", "publishedAt":"2026-10-30",
+         "effectiveFrom":"2026-11-01", "effectiveTo":"2026-11-08",
+         "salesCodes":["132112D", "132112MS", "132112N"]},
+    ],
+    "clauseApplicability":{
+        "第十二条":{"sourceId":"fee-discount", "effectiveFrom":"2026-11-01",
+                  "effectiveTo":"2026-11-08", "salesCodes":["132112D", "132112MS", "132112N"]}
+    },
+}
 
 SOURCES = {
     "sales-documents": {
@@ -100,7 +125,8 @@ def quality_test_set(source_digest: str) -> dict:
             "expectedClauses":[] if category == "NO_ANSWER" else clauses,
             "answerFacts":facts, "forbiddenClaims":forbidden})
     return {"schemaVersion":"document-quality-test-set.v0.1",
-        "id":"cmbwm-132112-njcb-202610-v01", "purpose":"BLIND_ACCEPTANCE",
+        "id":"cmbwm-132112-njcb-202610-v01-" + source_digest[:12],
+        "purpose":"BLIND_ACCEPTANCE",
         "sourceDigest":source_digest, "sourceTitle":TITLE, "cases":cases}
 
 
@@ -198,14 +224,20 @@ def build_bundle(values: dict[str, bytes]) -> dict:
         ("部分赎回与申请确认", [_anchor("sales-documents", 33,
             _segment(sales[32], "(8) 投资者有权部分或全部赎回"))]),
         ("大额及巨额赎回", [_anchor("sales-documents", 34,
-            _segment(sales[33], "(12) 对于单个投资者", "3）延缓支付赎回款项"))]),
+            _segment(sales[33], "(12) 对于单个投资者", "(13) 申购费")),
+            _anchor("sales-documents", 34,
+                _segment(sales[33], "5. 巨额赎回的情形及处理方式"))]),
         ("赎回确认与资金支付", [_anchor("sales-documents", 35,
             _segment(sales[34], "6. 申购、赎回程序", "7. 申购份额和赎回金额"))]),
         ("暂停赎回与延缓支付条件", [_anchor("sales-documents", 37,
             _segment(sales[36], "(2) 发生下列情形时", "理财计划估值"))]),
         ("完整费用范围", [
+            _anchor("sales-documents", 34,
+                _segment(sales[33], "(13) 申购费", "5. 巨额赎回")),
             _anchor("sales-documents", 43, _segment(sales[42], "理财计划费用")),
             _anchor("sales-documents", 44, _segment(sales[43], "6. 托管费", "保密")),
+            _anchor("sales-documents", 45,
+                _segment(sales[44], "理财计划税费", "信息披露")),
         ]),
         ("税费与信息披露", [_anchor("sales-documents", 45,
             _segment(sales[44], "理财计划税费", "信息披露"))]),
@@ -219,7 +251,13 @@ def build_bundle(values: dict[str, bytes]) -> dict:
             _segment(sales[15], "本理财计划存续期内", "特定情形下"))]),
     ]
     document = etree.Element("html")
-    etree.SubElement(etree.SubElement(document, "head"), "meta", charset="utf-8")
+    head = etree.SubElement(document, "head")
+    etree.SubElement(head, "meta", charset="utf-8")
+    etree.SubElement(head, "title").text = TITLE
+    binding = etree.SubElement(head, "script", {
+        "id":"knowledge-business-binding", "type":"application/json"})
+    binding.text = json.dumps(BUSINESS_BINDING, ensure_ascii=False, sort_keys=True,
+                              separators=(",", ":"))
     body = etree.SubElement(document, "body")
     mappings = []
     for position, (label, anchors) in enumerate(evidence, 1):

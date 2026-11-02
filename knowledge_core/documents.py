@@ -9,9 +9,11 @@ import json
 import re
 from datetime import datetime, timedelta, timezone
 
+from lxml import html
+
 from .core import Core, BusinessContext
 from .contracts import Rejected, canonical, digest, text_digest
-from .rules import in_scope
+from .rules import in_scope, strict_date
 from . import document_contracts
 from knowledge_core.evidence.anchor_bridge import verify_bridge
 from knowledge_core.evidence.html_evidence import analyze, map_retrieval_chunks
@@ -81,6 +83,15 @@ def _semantic_recall(reference, candidate):
     expected = _bigrams(reference)
     actual = _bigrams(candidate)
     return 10000 * len(expected & actual) // len(expected) if expected else 0
+
+
+def _manager_confirms_application(value):
+    value = normal(value)
+    return bool(re.search(
+        r'(?:申请|申购|赎回).{0,20}(?:须经|经|由)管理人.{0,8}确认(?:有效性)?.{0,12}(?:成功|生效)',
+        value) or re.search(
+        r'管理人.{0,40}(?:申请|申购|赎回).{0,12}有效性.{0,12}(?:登记)?确认',
+        value))
 
 
 def _segments(value):
@@ -214,6 +225,7 @@ def _fact_check(fact, answer, cited_evidence):
     answer_score = max(answer_scores, default=0)
     evidence_score = max((score for score, _ in evidence_scores), default=0)
     strict = _strict_values(fact)
+    normalized_fact = _semantic_normal(fact)
     answer_text = _semantic_normal(answer)
     evidence_text = _semantic_normal('\n'.join(item['quote'] for item in cited_evidence))
     answer_values = set(_strict_values(answer))
@@ -227,6 +239,13 @@ def _fact_check(fact, answer, cited_evidence):
     # from the gold statement, not from the much longer answer/evidence body.
     answer_semantic = answer_score >= 4800
     evidence_semantic = evidence_score >= 4200
+    confirmation_clauses = []
+    if (normalized_fact == _semantic_normal('申请是否生效以管理人确认为准')
+            and _manager_confirms_application(answer)):
+        answer_semantic = True
+        confirmation_clauses = [item['clause'] for item in cited_evidence
+            if _manager_confirms_application(item['quote'])]
+        evidence_semantic = evidence_semantic or bool(confirmation_clauses)
     logical_checks = _logical_fact_checks(fact, answer)
     logical_passed = all(item['passed'] for item in logical_checks)
     live_boundary = fact.startswith('需要核实')
@@ -240,7 +259,8 @@ def _fact_check(fact, answer, cited_evidence):
     passed = (answer_semantic and not missing_answer
               and logical_passed
               and (live_boundary or (evidence_semantic and not missing_evidence)))
-    supporting = _unique(clause for score, clause in evidence_scores if score >= 4200)
+    supporting = _unique([clause for score, clause in evidence_scores if score >= 4200]
+                         + confirmation_clauses)
     reasons = []
     if not answer_semantic:
         reasons.append('ANSWER_SEMANTIC_COVERAGE_LOW')
@@ -263,6 +283,23 @@ def _fact_check(fact, answer, cited_evidence):
             'logicalChecks':logical_checks, 'reasons':reasons}
 
 
+def _nested_source_reference(answer, reference, retrieved):
+    """Recognize a cited source's own numbered subsection, not a Core clause."""
+    matched = re.fullmatch(r'第([0-9]+)条', reference)
+    if not matched:
+        return False
+    number = matched.group(1).lstrip('0') or '0'
+    marker = re.compile(rf'(?:第0*{re.escape(number)}条|(?<![0-9])0*{re.escape(number)}[.．、])')
+    for segment in _segments(answer):
+        if reference not in segment:
+            continue
+        for value in _EVIDENCE_ORDINAL_REFERENCE.findall(segment):
+            position = int(value) - 1
+            if position < len(retrieved) and marker.search(retrieved[position]['quote']):
+                return True
+    return False
+
+
 def _answer_references(answer, retrieved):
     """Derive citations from the archived answer, never from caller assertions."""
     explicit = _unique(_CLAUSE_REFERENCE.findall(answer))
@@ -277,6 +314,8 @@ def _answer_references(answer, retrieved):
     for reference in explicit:
         matches = by_clause.get(reference, [])
         if not matches:
+            if _nested_source_reference(answer, reference, retrieved):
+                continue
             unmatched.append(reference)
             continue
         citations.append({'clause':reference, 'answerReference':reference,
@@ -780,7 +819,7 @@ class DocumentCore(FactoryEvaluationMixin, Core):
         return candidate, recipe, artifacts, index
 
     @staticmethod
-    def _retrieve(index, question, client, profile=None):
+    def _retrieve(index, question, client, profile=None, business_date=None):
         pinned = index['index']
         try:
             if profile is None:
@@ -820,6 +859,29 @@ class DocumentCore(FactoryEvaluationMixin, Core):
                     'anchors':[m['anchor'] for m in index['bridge']['mappings'] if m['clause']==clause],
                     **({'sourceReference':source_references[clause]}
                        if clause in source_references else {})})
+        if business_date is not None:
+            try:
+                tree = html.fromstring(index['originalHtml'])
+                nodes = tree.xpath('//script[@id="knowledge-business-binding" and @type="application/json"]/text()')
+                binding = json.loads(nodes[0]) if len(nodes) == 1 else None
+                applicability = binding.get('clauseApplicability', {}) if isinstance(binding, dict) else {}
+            except (KeyError, TypeError, ValueError, json.JSONDecodeError):
+                raise Rejected('KNOWLEDGE_BUSINESS_BINDING_INVALID') from None
+            if binding is not None:
+                if binding.get('schemaVersion') != 'product-knowledge-binding.v0.1':
+                    raise Rejected('KNOWLEDGE_BUSINESS_BINDING_INVALID')
+                day = strict_date(business_date)
+                filtered = []
+                for item in evidence:
+                    rule = applicability.get(item['clause'])
+                    if rule is None:
+                        filtered.append(item)
+                        continue
+                    start = strict_date(rule['effectiveFrom'])
+                    end = strict_date(rule['effectiveTo']) if rule.get('effectiveTo') else None
+                    if day >= start and (end is None or day < end):
+                        filtered.append(item)
+                evidence = filtered
         return evidence
 
     def validate_document(self, actor, candidate_digest, client):
@@ -1037,7 +1099,7 @@ class DocumentCore(FactoryEvaluationMixin, Core):
         with self.tx():
             binding, manifest, index, host = self._query_binding(actor, product_id, manifest_digest, context)
             profile = self._quality_profile_for_manifest(actor, manifest_digest, manifest)
-        evidence = self._retrieve(index, question, client, profile)
+        evidence = self._retrieve(index, question, client, profile, context.business_date)
         with self.tx():
             current, _, _, _ = self._query_binding(actor, product_id, manifest_digest, context)
             if current != binding:

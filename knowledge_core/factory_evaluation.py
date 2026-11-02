@@ -225,7 +225,8 @@ class FactoryEvaluationMixin:
             activation = self._source_current(actor, index['sourceDigest'],
                                               context['business_date'])
             policy = self._head(actor, 'policy', 'current')[1]
-        evidence = self._retrieve(index, case['question'], client, profile)
+        evidence = self._retrieve(index, case['question'], client, profile,
+                                  context['business_date'])
         with self.tx():
             current, _, _ = self._evaluation_scope(
                 actor, assignment_digest, lease_digest, case_id)

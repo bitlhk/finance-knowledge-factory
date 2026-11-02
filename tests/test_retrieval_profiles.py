@@ -134,6 +134,58 @@ def test_large_redemption_concept_includes_next_trading_day_handling():
     assert "large-redemption-followup" in concepts
 
 
+def test_giant_redemption_and_product_fee_phrasing_are_recognized():
+    redemption = _evidence_concepts(
+        "发生巨额赎回时是否自动暂停？",
+        "发生巨额赎回时，管理人有权选择全额赎回、部分赎回或延缓支付。")
+    assert "large-redemption" in redemption
+    partial = _evidence_concepts(
+        "部分赎回后剩余份额不足0.01份怎么办？",
+        "投资者剩余份额将被一次性全额赎回。")
+    assert "partial-redemption" in partial
+    fees = _evidence_concepts(
+        "申购费和赎回费为零是否代表没有其他费用？",
+        "投资者无需支付申购费，投资者无需支付赎回费。")
+    assert "zero-subscription-redemption-fees" in fees
+
+
+def test_specific_redemption_and_complete_fee_evidence_outrank_summaries():
+    giant = rank("发生巨额赎回时可以采取哪些措施？", [
+        candidate(1, 8000, "巨额赎回时可能延缓支付。"),
+        candidate(2, 7000, "巨额赎回的处理方式包括全额赎回、部分赎回或延缓支付。"),
+    ], "STRUCTURE_V0_3")
+    assert "giant-redemption-procedure" in giant[0]["evidenceConcepts"]
+    single = rank("单个投资者赎回超过总份额10%的部分如何处理？", [
+        candidate(1, 8000, "赎回申请经确认后办理。"),
+        candidate(2, 6500, "单个投资者赎回超过总份额10%的部分，管理人有权暂停接受或延缓支付。"),
+    ], "STRUCTURE_V0_3")
+    assert "single-investor-redemption" in single[0]["evidenceConcepts"]
+    complete = rank("零申购费和赎回费是否代表没有其他费用？", [
+        candidate(1, 8500, "投资者无需支付申购费，也无需支付赎回费。"),
+        candidate(2, 6500, "投资者无需支付申购费，也无需支付赎回费；另有固定投资管理费和托管费。"),
+    ], "STRUCTURE_V0_3")
+    assert "complete-product-fee-schedule" in complete[0]["evidenceConcepts"]
+
+
+def test_fee_question_focus_distinguishes_zero_fees_from_rate_schedule():
+    zero = _evidence_concepts(
+        "申购费和赎回费为0是否代表没有其他费用？",
+        "投资者无需支付申购费，投资者无需支付赎回费。")
+    assert "zero-fee-question-focus" in zero
+    rates = _evidence_concepts(
+        "固定管理费、托管费和销售服务费率分别是多少？",
+        "固定投资管理费率0.15%，托管费率0.02%，销售服务费率0.30%。")
+    assert "explicit-fee-rates" in rates
+
+
+def test_fee_discount_period_outranks_base_rate_for_discount_question():
+    ranked = rank("优惠期间固定管理费优惠后费率是多少？", [
+        candidate(1, 8500, "固定投资管理费率为0.15%。"),
+        candidate(2, 6500, "阶段性费率优惠：优惠生效日期11月1日，优惠截止日期11月7日，优惠后费率0.05%。"),
+    ], "STRUCTURE_V0_3")
+    assert "fee-discount-period" in ranked[0]["evidenceConcepts"]
+
+
 def test_support_policy_treats_explicit_fee_rate_as_fee_evidence():
     supported, _ = support_decision(
         "是否完全不收费？", "固定投资管理费率0.2%，赎回费率为0。",
