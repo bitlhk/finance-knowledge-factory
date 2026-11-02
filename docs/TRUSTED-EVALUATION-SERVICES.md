@@ -40,6 +40,11 @@ credential value is never included in a response or error.
 Distinct credentials without distinct operating-system identities are useful
 only for transport unit tests and are not an accepted deployment mode.
 
+The Worker writes its immutable run handoff with mode `0640` into a pre-created
+setgid directory owned by a separate `kf-eval-handoff` group. Only the Worker
+and trusted Host belong to that group. Core and Gateway use `kf-eval-ipc` for
+socket access but cannot read the handoff file.
+
 ## Fixed operation matrix
 
 | Operation | Caller |

@@ -231,7 +231,10 @@ class _UnixHandler(socketserver.StreamRequestHandler):
             response = {"ok":False, "error":"EVALUATION_SERVICE_REQUEST_INVALID"}
         body = json.dumps(response, ensure_ascii=False,
                           separators=(",", ":")).encode() + b"\n"
-        self.wfile.write(body)
+        try:
+            self.wfile.write(body)
+        except BrokenPipeError:
+            pass
 
 
 class UnixEvaluationServer(socketserver.ThreadingUnixStreamServer):
@@ -243,7 +246,17 @@ class UnixEvaluationServer(socketserver.ThreadingUnixStreamServer):
             require_distinct_service_users(credentials.role_uids)
         self.path = Path(path)
         if self.path.exists():
-            raise FileExistsError("EVALUATION_SERVICE_SOCKET_EXISTS")
+            if not self.path.is_socket():
+                raise FileExistsError("EVALUATION_SERVICE_SOCKET_EXISTS")
+            probe = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+            try:
+                probe.connect(str(self.path))
+            except ConnectionRefusedError:
+                self.path.unlink()
+            else:
+                raise FileExistsError("EVALUATION_SERVICE_SOCKET_EXISTS")
+            finally:
+                probe.close()
         self.path.parent.mkdir(parents=True, exist_ok=True, mode=0o750)
         self.credentials = credentials
         self.boundary = boundary

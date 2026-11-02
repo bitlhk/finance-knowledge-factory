@@ -1,5 +1,6 @@
 import asyncio
 import os
+import socket
 import threading
 from concurrent.futures import ThreadPoolExecutor
 
@@ -133,6 +134,29 @@ def test_server_defaults_to_requiring_os_identity_isolation(tmp_path):
     with pytest.raises(ValueError, match="SERVICE_IDENTITY_NOT_ISOLATED"):
         UnixEvaluationServer(tmp_path / "service.sock", credentials(),
                              EchoBoundary())
+
+
+def test_server_replaces_only_a_stale_unix_socket(tmp_path):
+    path = tmp_path / "service.sock"
+    stale = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    stale.bind(str(path)); stale.close()
+    server = UnixEvaluationServer(path, credentials(), EchoBoundary(),
+                                  enforce_distinct_users=False)
+    server.server_close()
+    path.write_text("not a socket", encoding="utf-8")
+    with pytest.raises(FileExistsError, match="SERVICE_SOCKET_EXISTS"):
+        UnixEvaluationServer(path, credentials(), EchoBoundary(),
+                             enforce_distinct_users=False)
+
+
+def test_server_does_not_replace_an_active_unix_socket(tmp_path):
+    server, thread = running_server(tmp_path, EchoBoundary())
+    try:
+        with pytest.raises(FileExistsError, match="SERVICE_SOCKET_EXISTS"):
+            UnixEvaluationServer(server.path, credentials(), EchoBoundary(),
+                                 enforce_distinct_users=False)
+    finally:
+        server.shutdown(); server.server_close(); thread.join()
 
 
 def test_unix_service_uses_peer_credentials_and_does_not_echo_secrets(tmp_path):

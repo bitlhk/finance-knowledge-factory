@@ -113,10 +113,12 @@ def run_worker(args):
         IpcGatewayClient(gateway))
     result = asyncio.run(worker.run(config["caseIds"]))
     output = Path(args.output)
-    output.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+    if (output.parent.is_symlink() or not output.parent.is_dir()
+            or output.parent.stat().st_mode & 0o007):
+        raise ValueError("EVALUATION_HANDOFF_DIRECTORY_INVALID")
     output.write_text(json.dumps({"runs":result}, ensure_ascii=False,
                                  indent=2) + "\n", encoding="utf-8")
-    os.chmod(output, 0o600)
+    os.chmod(output, 0o640)
 
 
 def finalize(args):
