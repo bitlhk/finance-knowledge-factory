@@ -180,6 +180,8 @@ def run_worker(args):
     token = _token(config["workerTokenFile"])
     core = UnixEvaluationClient(config["coreSocket"], "worker", token)
     gateway = UnixEvaluationClient(config["gatewaySocket"], "worker", token)
+    core.wait_until_ready()
+    gateway.wait_until_ready()
     worker = CandidateEvaluationWorker(
         IpcCandidateQueryClient(core), IpcModelAuthorizationClient(core),
         IpcGatewayClient(gateway))

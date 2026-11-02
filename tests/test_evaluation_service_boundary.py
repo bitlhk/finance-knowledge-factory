@@ -10,7 +10,8 @@ from evaluation_worker import (CandidateEvaluationWorker,
     EvaluationCoreBoundary, EvaluationGatewayBoundary,
     IpcCandidateQueryClient, IpcGatewayClient,
     IpcModelAuthorizationClient, ServiceCredentials, UnixEvaluationClient,
-    UnixEvaluationServer, require_distinct_service_users, token_digest)
+    UnixEvaluationServer, OpenJiuwenModelGateway,
+    require_distinct_service_users, token_digest)
 from knowledge_core.contracts import Rejected
 from knowledge_core.documents import DocumentCore
 from tests.support import CONTEXT
@@ -164,6 +165,8 @@ def test_unix_service_uses_peer_credentials_and_does_not_echo_secrets(tmp_path):
     server, thread = running_server(tmp_path, EchoBoundary())
     try:
         client = UnixEvaluationClient(server.path, "worker", TOKENS["worker"])
+        assert client.wait_until_ready(timeout=1) == {
+            "ready":True, "role":"worker"}
         assert client.call("echo", {"value":7}) == {"payload":{"value":7}}
         bad = UnixEvaluationClient(server.path, "worker", TOKENS["host"])
         with pytest.raises(Rejected, match="EVALUATION_SERVICE_UNAUTHORIZED"):
@@ -174,6 +177,62 @@ def test_unix_service_uses_peer_credentials_and_does_not_echo_secrets(tmp_path):
     finally:
         server.shutdown(); server.server_close(); thread.join()
     assert not server.path.exists()
+
+
+def test_readiness_requires_authenticated_responsive_service(tmp_path):
+    path = tmp_path / "not-ready.sock"
+    stale = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+    stale.bind(str(path))
+    try:
+        client = UnixEvaluationClient(path, "worker", TOKENS["worker"], timeout=0.01)
+        with pytest.raises(Rejected, match="EVALUATION_SERVICE_NOT_READY"):
+            client.wait_until_ready(timeout=0.05, interval=0.01)
+    finally:
+        stale.close()
+
+
+def test_gateway_failure_is_returned_as_bounded_ipc_error(tmp_path):
+    class CoreClient:
+        def __init__(self):
+            self.records = []
+
+        def prepare(self, authorization, request_id, trace_id):
+            return {"invocationAttemptDigest":"a" * 64,
+                    "requestPayloadDigest":"b" * 64,
+                    "messages":[{"role":"user", "content":"bounded"}],
+                    "model":"deepseek-v4-flash", "temperature":0,
+                    "maxAnswerCharacters":100}
+
+        def record(self, *args):
+            self.records.append(args)
+            return "failed-receipt"
+
+    class EmptyResponse:
+        content = ""
+        usage_metadata = None
+        metadata = {}
+
+    class Model:
+        async def invoke(self, messages, **kwargs):
+            return EmptyResponse()
+
+    core = CoreClient()
+    gateway = OpenJiuwenModelGateway(core, object(), lambda unused:Model())
+    boundary = EvaluationGatewayBoundary(gateway)
+
+    server, thread = running_server(tmp_path / "failed-gateway",
+                                    boundary)
+    try:
+        client = UnixEvaluationClient(server.path, "worker", TOKENS["worker"])
+        with pytest.raises(Rejected, match="MODEL_RESPONSE_EMPTY"):
+            client.call("model.invoke", {
+                "authorizationDigest":"authorization",
+                "requestId":"request", "traceId":"trace"})
+        assert core.records[0][-1] == {
+            "stage":"RESPONSE_VALIDATION", "code":"MODEL_RESPONSE_EMPTY"}
+    finally:
+        server.shutdown(); server.server_close(); thread.join()
+        boundary.close()
 
 
 class WorkerCoreBoundary:

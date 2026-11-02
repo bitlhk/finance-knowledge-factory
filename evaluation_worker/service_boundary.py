@@ -13,6 +13,7 @@ import socket
 import socketserver
 import struct
 import threading
+import time
 from pathlib import Path
 import re
 
@@ -222,13 +223,20 @@ class _UnixHandler(socketserver.StreamRequestHandler):
                 socket.SOL_SOCKET, socket.SO_PEERCRED, struct.calcsize("3i")))[1]
             role = self.server.credentials.authorize(
                 peer_uid, request["role"], request["token"])
-            result = self.server.boundary.dispatch(
-                role, request["operation"], request["payload"])
+            if request["operation"] == "service.ready":
+                if request["payload"] != {}:
+                    raise Rejected("EVALUATION_SERVICE_REQUEST_INVALID")
+                result = {"ready":True, "role":role}
+            else:
+                result = self.server.boundary.dispatch(
+                    role, request["operation"], request["payload"])
             response = {"ok":True, "result":result}
         except Rejected as error:
             response = {"ok":False, "error":error.code}
         except (ValueError, TypeError, KeyError, json.JSONDecodeError):
             response = {"ok":False, "error":"EVALUATION_SERVICE_REQUEST_INVALID"}
+        except Exception:
+            response = {"ok":False, "error":"EVALUATION_SERVICE_INTERNAL_ERROR"}
         body = json.dumps(response, ensure_ascii=False,
                           separators=(",", ":")).encode() + b"\n"
         try:
@@ -305,6 +313,23 @@ class UnixEvaluationClient:
         if set(decoded) != {"ok", "result"}:
             raise Rejected("EVALUATION_SERVICE_RESPONSE_INVALID")
         return decoded["result"]
+
+    def wait_until_ready(self, timeout=30, interval=0.1):
+        if timeout <= 0 or interval <= 0:
+            raise ValueError("EVALUATION_SERVICE_READY_CONFIG_INVALID")
+        deadline = time.monotonic() + timeout
+        last_error = None
+        while time.monotonic() < deadline:
+            try:
+                result = self.call("service.ready", {})
+                if result == {"ready":True, "role":self.role}:
+                    return result
+                raise Rejected("EVALUATION_SERVICE_READY_RESPONSE_INVALID")
+            except (FileNotFoundError, ConnectionRefusedError, socket.timeout,
+                    TimeoutError, OSError) as error:
+                last_error = error
+                time.sleep(min(interval, max(0, deadline - time.monotonic())))
+        raise Rejected("EVALUATION_SERVICE_NOT_READY") from last_error
 
 
 class IpcCandidateQueryClient:

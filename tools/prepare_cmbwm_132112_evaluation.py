@@ -28,6 +28,21 @@ PRIVILEGES = frozenset({
 })
 
 
+def selected_test_set(source_digest, case_ids):
+    value = quality_test_set(source_digest)
+    if not case_ids:
+        return value
+    selected = set(case_ids)
+    available = {case["caseId"] for case in value["cases"]}
+    if len(selected) != len(case_ids) or not selected <= available:
+        raise ValueError("QUALITY_SMOKE_CASE_INVALID")
+    value["id"] += "-smoke"
+    value["purpose"] = "SMOKE_ACCEPTANCE"
+    value["cases"] = [case for case in value["cases"]
+                      if case["caseId"] in selected]
+    return value
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--database", type=Path, required=True)
@@ -39,6 +54,7 @@ def main():
     parser.add_argument("--worker-git-sha", required=True)
     parser.add_argument("--profile", choices=("financial-document-v02", "financial-business-v03"),
                         default="financial-business-v03")
+    parser.add_argument("--case-id", action="append", default=[])
     parser.add_argument("--lifetime-minutes", type=int, default=120)
     args = parser.parse_args()
     if not 30 <= args.lifetime_minutes <= 240:
@@ -78,7 +94,8 @@ def main():
             host, "cmbwm-132112-" + args.profile, 1,
             PROFILES[args.profile])
         tests = core.register_quality_test_set(
-            host, args.candidate, quality_test_set(index["sourceDigest"]), 1)
+            host, args.candidate,
+            selected_test_set(index["sourceDigest"], args.case_id), 1)
         client = Ragflow(args.private_config / "local-credentials.json",
                          args.private_config / "http-setup.json")
         retrieval = core.evaluate_quality_retrieval(
