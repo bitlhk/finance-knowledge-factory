@@ -88,3 +88,48 @@ groups, role credentials, directories, qualified model registration, and
 systemd units through the deployment process. It does not make the Worker a
 public service and does not expose a workbench action. PR #14 remains out of
 scope.
+
+## Post-acceptance defect correction
+
+The original acceptance above is retained at its actual SHA and is not
+rewritten. Review found two delivery defects: the standard task generator did
+not emit five fields consumed by Core, and failed OpenJiuwen invocations were
+recorded only as a Python exception class. PR head
+`d766e612ea354be89eb0978c32dd2c4854c546b6` corrects both.
+
+The managed generator now emitted a complete task without JSON merging. Core
+recomputed and accepted the exact Assignment, Lease, Candidate, test set,
+retrieval profile, purpose `answer-quality`, redaction profile `source-only`,
+authorization expiry, Python `3.12`, OpenJiuwen `0.1.17.post1`, and registered
+Gateway binding before opening its socket.
+
+### Final-head real execution
+
+An isolated final-head instance ran six cases through separate Core, Worker and
+Gateway identities and the existing qualified Volcengine DeepSeek deployment.
+Core independently created:
+
+- runtime evidence: `0e518de8a1f5000044a945ec2c7948d1aa0b40e5aaebfe330ea73c4660a1592a`
+- answer evaluation: `8c9b3f53a68d8c3c85c049041f3574c767aea6ec5a8523b93f02da6b7918dcf1`
+- quality admission: `88c9cadb70573a91ea54988157d7e08946f9973c322d8f1b6c10426ea4055330` (`PASS`)
+
+The runtime verification is `CORE_CORRELATED_FACTORY_WORKER`; SQLite integrity
+was `ok`. The isolated task used Assignment
+`fd6631dbf0fc48b3fb99dd1a94c9b42a9651edccd2796532c0eabe060bc9847b`
+and Lease
+`690c4a59096ab425f02579ec77c304aa55cf4d31273434a4eefb656cdb146b26`.
+
+### Final-head failure and recovery
+
+A separate fresh Assignment and Lease used an intentionally invalid isolated
+model credential. The model request failed, produced no answer archive and no
+new Quality Admission, and created immutable receipt
+`965b049ed8638b7f3f45632ea24a90cff9939f966f9e114948bdd50320411df1`
+with only `UPSTREAM / UPSTREAM_SERVICE_ERROR`. Retrying the same task returned
+`EVALUATION_LEASE_REPLAYED`; the receipt count remained unchanged. Core and
+Gateway were then killed and restored by systemd with `NRestarts=1`, recreated
+mode `0660` sockets, and did not synthesize a result.
+
+The final local suite is `418 passed`. GitHub Python 3.10 and 3.12 checks passed
+for the final head. The formal Knowledge service, PR #9 environment, published
+products and production database were not modified or restarted.
