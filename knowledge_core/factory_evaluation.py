@@ -13,6 +13,7 @@ from .core import Actor
 
 
 _ID = re.compile(r'[a-zA-Z0-9][a-zA-Z0-9_.:-]{0,127}')
+_EVALUATION_REDACTION_PROFILE = 'source-only'
 
 
 def _now():
@@ -318,6 +319,9 @@ class FactoryEvaluationMixin:
             if len(deployments) != 1 or gateway['status'] != 'QUALIFIED':
                 raise Rejected('EVALUATION_MODEL_GATEWAY_FORBIDDEN')
             deployment = deployments[0]
+            if (purpose != assignment['businessContext']['purpose']
+                    or redaction_profile != _EVALUATION_REDACTION_PROFILE):
+                raise Rejected('EVALUATION_EGRESS_POLICY_MISMATCH')
             if (receipt['assignmentDigest'] != assignment_digest
                     or receipt['sourceDigest'] != classification['sourceDigest']
                     or deployment['modelConfigDigest'] != assignment['modelSelectionDigest']):
@@ -359,6 +363,80 @@ class FactoryEvaluationMixin:
                 'redactionProfile':_identifier(redaction_profile),
                 'issuedAt':issued.isoformat(), 'expiresAt':expires_at,
                 'decision':'ALLOW'})
+
+    def evaluation_service_task_binding(self, actor, assignment_digest,
+                                        lease_digest,
+                                        gateway_registration_digest,
+                                        python_version,
+                                        openjiuwen_version):
+        """Return the server-authoritative binding for one service task."""
+        actor.require('model.egress.authorize')
+        now = _now()
+        with self.tx():
+            assignment = self._get(actor, assignment_digest,
+                                   'document-evaluation-assignment')
+            lease = self._get(actor, lease_digest, 'knowledge-evaluation-lease')
+            gateway = self._get(actor, gateway_registration_digest,
+                                'model-gateway-registration')
+            classification = self._get(
+                actor, assignment['classificationDigest'],
+                'document-source-classification')
+            if (lease['assignmentDigest'] != assignment_digest
+                    or lease['caseIds'] != assignment['caseIds']
+                    or lease['workerBuildDigest'] is None):
+                raise Rejected('EVALUATION_SCOPE_MISMATCH')
+            expiry = min(_timestamp(assignment['expiresAt']),
+                         _timestamp(lease['expiresAt']))
+            if expiry <= now:
+                raise Rejected('EVALUATION_LEASE_EXPIRED')
+            deployments = [item for item in gateway['deployments']
+                           if item['modelConfigDigest']
+                           == assignment['modelSelectionDigest']]
+            if len(deployments) != 1 or gateway['status'] != 'QUALIFIED':
+                raise Rejected('EVALUATION_MODEL_GATEWAY_FORBIDDEN')
+            deployment = deployments[0]
+            if (deployment['executionZone']
+                    not in classification['allowedExecutionZones']):
+                raise Rejected('EVALUATION_EGRESS_FORBIDDEN')
+            if (deployment['external'] and (
+                    not classification['externalModelAllowed']
+                    or deployment['provider']
+                    not in classification['allowedProviders']
+                    or deployment['region']
+                    not in classification['allowedRegions'])):
+                raise Rejected('EVALUATION_EGRESS_FORBIDDEN')
+            if (classification['classification'] == 'RESTRICTED'
+                    and deployment['external']):
+                raise Rejected('EVALUATION_EGRESS_FORBIDDEN')
+            if python_version != '3.12':
+                raise Rejected('EVALUATION_PYTHON_VERSION_MISMATCH')
+            if (openjiuwen_version != gateway['openJiuwenVersion']
+                    or openjiuwen_version != '0.1.17.post1'):
+                raise Rejected('OPENJIUWEN_VERSION_MISMATCH')
+            runtime_identity = {**deployment,
+                'gatewayBuildDigest':gateway['buildDigest'],
+                'adapterVersion':gateway['adapterVersion'],
+                'openJiuwenVersion':gateway['openJiuwenVersion'],
+                'qualificationDigest':gateway['qualificationDigest']}
+            return {
+                'assignmentDigest':assignment_digest,
+                'leaseDigest':lease_digest,
+                'candidateDigest':assignment['candidateDigest'],
+                'profileDigest':assignment['profileDigest'],
+                'testSetDigest':assignment['testSetDigest'],
+                'retrievalDigest':assignment['retrievalEvaluationDigest'],
+                'gatewayRegistrationDigest':gateway_registration_digest,
+                'gatewayDeploymentId':deployment['id'],
+                'gatewayRuntimeIdentity':runtime_identity,
+                'caseIds':assignment['caseIds'],
+                'workerBuildDigest':lease['workerBuildDigest'],
+                'purpose':assignment['businessContext']['purpose'],
+                'redactionProfile':_EVALUATION_REDACTION_PROFILE,
+                'authorizationExpiresAt':expiry.isoformat(),
+                'pythonVersion':python_version,
+                'openJiuwenVersion':openjiuwen_version,
+                'expiresAt':expiry.isoformat(),
+            }
 
     def _model_request_payload(self, actor, egress):
         receipt = self._get(actor, egress['candidateReceiptDigest'],
@@ -438,7 +516,7 @@ class FactoryEvaluationMixin:
     def record_model_invocation(self, actor, gateway_registration_digest,
                                 egress_authorization_digest, invocation_attempt_digest,
                                 started_at, ended_at, outcome, response,
-                                provider_request_ref, usage):
+                                provider_request_ref, usage, failure=None):
         actor.require('model.receipt.record')
         with self.tx():
             gateway = self._get(actor, gateway_registration_digest,
@@ -476,6 +554,9 @@ class FactoryEvaluationMixin:
                 raise Rejected('EVALUATION_MODEL_RESPONSE_INVALID')
             if outcome == 'FAILED' and response is not None:
                 raise Rejected('EVALUATION_MODEL_RESPONSE_INVALID')
+            if ((outcome == 'RETURNED' and failure is not None)
+                    or (failure is not None and not isinstance(failure, dict))):
+                raise Rejected('EVALUATION_MODEL_FAILURE_INVALID')
             archive_digest = response_digest = None
             if outcome == 'RETURNED':
                 response_digest = text_digest(response)
@@ -505,6 +586,8 @@ class FactoryEvaluationMixin:
                 'startedAt':started_at, 'endedAt':ended_at, 'outcome':outcome,
                 'answerArchiveDigest':archive_digest, 'responseDigest':response_digest,
                 'providerRequestRef':provider_request_ref, 'usage':usage}
+            if failure is not None:
+                receipt['failure'] = failure
             return self._put(actor, 'model-invocation-receipt', receipt)
 
     def register_factory_evaluation_runtime_evidence(

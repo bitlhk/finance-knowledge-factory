@@ -1,5 +1,6 @@
 from dataclasses import replace
 import asyncio
+import json
 from types import SimpleNamespace
 
 import pytest
@@ -11,7 +12,7 @@ from evaluation_worker import (CandidateEvaluationWorker, CandidateQueryClient,
                                CoreModelGatewayClient, ModelAuthorizationClient,
                                ModelDeployment, ModelEnvironment,
                                OpenJiuwenModelGateway, model_config_digest)
-from evaluation_worker.gateway import _bounded_usage
+from evaluation_worker.gateway import _bounded_usage, _safe_failure
 from knowledge_core.documents import _answer_references
 from m2.pipeline import produce
 from tests.support import CONTEXT, ir, policy
@@ -36,6 +37,10 @@ DEPLOYMENT = ModelDeployment(
     'cn-beijing', 'factory-dev', True, 'd' * 64,
     'openjiuwen-model-v0.1', 'e' * 64)
 MODEL_CONFIG = model_config_digest(DEPLOYMENT.provider, ENVIRONMENT)
+
+
+class APIStatusError(Exception):
+    pass
 
 
 def test_model_usage_excludes_floats_and_unbounded_provider_metadata():
@@ -117,7 +122,7 @@ def run_candidate(core, client, values):
         'candidate-request-1', 'candidate-trace-1', client)
     authorization = core.authorize_model_egress(
         MANAGER, 'faq-egress', 1, values['assignment'], receipt['receiptDigest'],
-        values['gateway'], DEPLOYMENT.id, 'answer-quality', 'source-only', FUTURE)
+        values['gateway'], DEPLOYMENT.id, CONTEXT.purpose, 'source-only', FUTURE)
     request = core.prepare_model_invocation(
         GATEWAY, values['gateway'], authorization, 'model-request-1',
         'model-trace-1', DEPLOYMENT.runtime_identity(ENVIRONMENT))
@@ -180,7 +185,7 @@ def test_worker_cannot_forge_model_receipt_or_replay_candidate_query(tmp_path):
         authorization = core.authorize_model_egress(
             MANAGER, 'faq-egress', 1, values['assignment'],
             candidate_receipt['receiptDigest'], values['gateway'], DEPLOYMENT.id,
-            'answer-quality', 'source-only', FUTURE)
+            CONTEXT.purpose, 'source-only', FUTURE)
         with pytest.raises(Rejected, match='FORBIDDEN'):
             core.record_model_invocation(
                 WORKER, values['gateway'], authorization, 'f' * 64,
@@ -207,7 +212,27 @@ def test_source_revocation_and_restricted_egress_fail_closed(tmp_path):
             core.authorize_model_egress(
                 MANAGER, 'restricted-egress', 1, values['assignment'],
                 receipt['receiptDigest'], values['gateway'], DEPLOYMENT.id,
-                'answer-quality', 'source-only', FUTURE)
+                CONTEXT.purpose, 'source-only', FUTURE)
+    finally:
+        core.close()
+
+
+def test_model_egress_uses_assignment_purpose_and_fixed_redaction_policy(tmp_path):
+    core, client, values = prepare(tmp_path)
+    try:
+        receipt = core.query_document_candidate_for_evaluation(
+            WORKER, values['assignment'], values['lease'],
+            'quality-service-hours', 'policy-candidate-request',
+            'policy-candidate-trace', client)
+        for purpose, redaction in (
+                ('other-purpose', 'source-only'),
+                (CONTEXT.purpose, 'caller-selected-redaction')):
+            with pytest.raises(
+                    Rejected, match='EVALUATION_EGRESS_POLICY_MISMATCH'):
+                core.authorize_model_egress(
+                    MANAGER, f'bad-egress-{purpose}-{redaction}', 1,
+                    values['assignment'], receipt['receiptDigest'],
+                    values['gateway'], DEPLOYMENT.id, purpose, redaction, FUTURE)
     finally:
         core.close()
 
@@ -234,7 +259,7 @@ def test_failed_model_attempt_cannot_be_admitted(tmp_path):
         authorization = core.authorize_model_egress(
             MANAGER, 'faq-egress', 1, values['assignment'],
             candidate_receipt['receiptDigest'], values['gateway'], DEPLOYMENT.id,
-            'answer-quality', 'source-only', FUTURE)
+            CONTEXT.purpose, 'source-only', FUTURE)
         prepared = core.prepare_model_invocation(
             GATEWAY, values['gateway'], authorization, 'model-request-failed',
             'model-trace-failed', DEPLOYMENT.runtime_identity(ENVIRONMENT))
@@ -276,7 +301,7 @@ def test_fixed_worker_uses_only_core_prepared_outbound_payload(tmp_path):
                                  values['lease'], client),
             ModelAuthorizationClient(
                 core, MANAGER, values['assignment'], values['gateway'],
-                DEPLOYMENT.id, 'answer-quality', 'source-only', FUTURE),
+                DEPLOYMENT.id, CONTEXT.purpose, 'source-only', FUTURE),
             gateway)
         runs = asyncio.run(worker.run(['quality-service-hours']))
         assert len(runs) == 1
@@ -310,7 +335,7 @@ def test_gateway_does_not_mislabel_gateway_id_as_provider_id(tmp_path):
         authorization = core.authorize_model_egress(
             MANAGER, 'worker-egress', 1, values['assignment'],
             candidate['receiptDigest'], values['gateway'], DEPLOYMENT.id,
-            'answer-quality', 'source-only', FUTURE)
+            CONTEXT.purpose, 'source-only', FUTURE)
         core_client = CoreModelGatewayClient(
             core, GATEWAY, values['gateway'],
             DEPLOYMENT.runtime_identity(ENVIRONMENT))
@@ -335,7 +360,7 @@ def test_gateway_rejects_payload_tamper_and_post_query_source_revocation(tmp_pat
         authorization = core.authorize_model_egress(
             MANAGER, 'faq-egress', 1, values['assignment'],
             candidate['receiptDigest'], values['gateway'], DEPLOYMENT.id,
-            'answer-quality', 'source-only', FUTURE)
+            CONTEXT.purpose, 'source-only', FUTURE)
         mismatched = {**DEPLOYMENT.runtime_identity(ENVIRONMENT),
                       'endpointOrigin':'https://attacker.example.test/v1'}
         with pytest.raises(Rejected, match='EVALUATION_MODEL_ENDPOINT_MISMATCH'):
@@ -382,7 +407,7 @@ def test_model_attempt_and_receipt_are_single_use(tmp_path):
         authorization = core.authorize_model_egress(
             MANAGER, 'single-use-egress', 1, values['assignment'],
             candidate['receiptDigest'], values['gateway'], DEPLOYMENT.id,
-            'answer-quality', 'source-only', FUTURE)
+            CONTEXT.purpose, 'source-only', FUTURE)
         prepared = core.prepare_model_invocation(
             GATEWAY, values['gateway'], authorization, 'model-request-1',
             'model-trace-1', DEPLOYMENT.runtime_identity(ENVIRONMENT))
@@ -458,7 +483,7 @@ def test_endpoint_mismatch_is_rejected_before_model_or_observer(tmp_path):
         authorization = core.authorize_model_egress(
             MANAGER, 'mismatch-egress', 1, values['assignment'],
             candidate['receiptDigest'], values['gateway'], DEPLOYMENT.id,
-            'answer-quality', 'source-only', FUTURE)
+            CONTEXT.purpose, 'source-only', FUTURE)
         mismatched = {**DEPLOYMENT.runtime_identity(ENVIRONMENT),
                       'modelRef':'other-model'}
         gateway = OpenJiuwenModelGateway(
@@ -470,5 +495,145 @@ def test_endpoint_mismatch_is_rejected_before_model_or_observer(tmp_path):
                 authorization, 'mismatch-request', 'mismatch-trace'))
         assert calls == []
         assert outbound == []
+    finally:
+        core.close()
+
+
+@pytest.mark.parametrize(('error', 'content', 'expected'), [
+    (ValueError('private sdk detail'), None,
+     {'stage':'SDK_INVOCATION', 'code':'SDK_PARAMETER_OR_RESPONSE_INVALID'}),
+    (None, '', {'stage':'RESPONSE_VALIDATION', 'code':'MODEL_RESPONSE_EMPTY'}),
+    (None, 'x' * 11,
+     {'stage':'RESPONSE_VALIDATION', 'code':'MODEL_RESPONSE_TOO_LARGE'}),
+    (TimeoutError('private timeout detail'), None,
+     {'stage':'UPSTREAM', 'code':'UPSTREAM_TIMEOUT'}),
+    (ConnectionError('private endpoint detail'), None,
+     {'stage':'UPSTREAM', 'code':'UPSTREAM_DISCONNECTED'}),
+    (APIStatusError('private service detail'), None,
+     {'stage':'UPSTREAM', 'code':'UPSTREAM_SERVICE_ERROR'}),
+    (RuntimeError('private runtime detail'), None,
+     {'stage':'RUNTIME', 'code':'RUNTIME_UNCLASSIFIED'}),
+])
+def test_gateway_records_only_bounded_failure_classification(error, content,
+                                                              expected):
+    class CoreClient:
+        def __init__(self):
+            self.records = []
+
+        def prepare(self, authorization, request_id, trace_id):
+            return {'invocationAttemptDigest':'a' * 64,
+                    'requestPayloadDigest':'b' * 64,
+                    'messages':[{'role':'user', 'content':'bounded'}],
+                    'model':'deepseek-v4-flash', 'temperature':0,
+                    'maxAnswerCharacters':10}
+
+        def record(self, *args):
+            self.records.append(args)
+            return 'receipt'
+
+    class Model:
+        async def invoke(self, messages, **kwargs):
+            if error:
+                raise error
+            return SimpleNamespace(content=content, usage_metadata=None,
+                                   metadata={})
+
+    core = CoreClient()
+    gateway = OpenJiuwenModelGateway(
+        core, ENVIRONMENT, lambda unused:Model())
+    with pytest.raises(Exception):
+        asyncio.run(gateway.invoke('authorization', 'request', 'trace'))
+    assert len(core.records) == 1
+    assert core.records[0][-1] == expected
+    assert core.records[0][-2] == {}
+    assert 'private' not in repr(core.records[0])
+
+
+@pytest.mark.parametrize(('status_name', 'expected'), [
+    ('MODEL_CALL_FAILED',
+     {'stage':'UPSTREAM', 'code':'UPSTREAM_SERVICE_ERROR'}),
+    ('MODEL_INVOKE_PARAM_ERROR',
+     {'stage':'SDK_INVOCATION', 'code':'SDK_PARAMETER_OR_RESPONSE_INVALID'}),
+    ('WORKFLOW_EXECUTION_TIMEOUT',
+     {'stage':'UPSTREAM', 'code':'UPSTREAM_TIMEOUT'}),
+])
+def test_gateway_classifies_openjiuwen_structured_status_without_message(
+        status_name, expected):
+    status = SimpleNamespace(name=status_name)
+    wrapped = type('FrameworkError', (RuntimeError,), {})('private detail')
+    wrapped.status = status
+    assert _safe_failure(wrapped) == expected
+
+
+def test_gateway_classifies_bounded_wrapped_upstream_cause():
+    cause = APIStatusError('private upstream detail')
+    wrapped = type('FrameworkError', (RuntimeError,), {})('private sdk detail')
+    wrapped.status = SimpleNamespace(name='ERROR')
+    wrapped.cause = cause
+    assert _safe_failure(wrapped) == {
+        'stage':'UPSTREAM', 'code':'UPSTREAM_SERVICE_ERROR'}
+
+
+def test_gateway_rejects_invalid_prepared_request_with_safe_receipt():
+    class CoreClient:
+        def __init__(self):
+            self.records = []
+
+        def prepare(self, authorization, request_id, trace_id):
+            return {'invocationAttemptDigest':'a' * 64,
+                    'requestPayloadDigest':'b' * 64, 'messages':'invalid',
+                    'model':'deepseek-v4-flash', 'temperature':0,
+                    'maxAnswerCharacters':10}
+
+        def record(self, *args):
+            self.records.append(args)
+
+    class Model:
+        async def invoke(self, messages, **kwargs):
+            raise AssertionError('invalid prepared request must not reach model')
+
+    core = CoreClient()
+    gateway = OpenJiuwenModelGateway(core, ENVIRONMENT, lambda unused:Model())
+    with pytest.raises(RuntimeError, match='REQUEST_OR_CONFIG_INVALID'):
+        asyncio.run(gateway.invoke('authorization', 'request', 'trace'))
+    assert core.records[0][-1] == {
+        'stage':'REQUEST_VALIDATION', 'code':'REQUEST_OR_CONFIG_INVALID'}
+
+
+def test_failed_gateway_receipt_is_safe_and_attempt_cannot_be_reused(tmp_path):
+    core, client, values = prepare(tmp_path)
+
+    class Model:
+        async def invoke(self, messages, **kwargs):
+            raise TimeoutError('private provider timeout')
+
+    try:
+        candidate = core.query_document_candidate_for_evaluation(
+            WORKER, values['assignment'], values['lease'],
+            'quality-service-hours', 'failure-candidate-request',
+            'failure-candidate-trace', client)
+        authorization = core.authorize_model_egress(
+            MANAGER, 'failure-egress', 1, values['assignment'],
+            candidate['receiptDigest'], values['gateway'], DEPLOYMENT.id,
+            CONTEXT.purpose, 'source-only', FUTURE)
+        gateway = OpenJiuwenModelGateway(
+            CoreModelGatewayClient(core, GATEWAY, values['gateway'],
+                                   DEPLOYMENT.runtime_identity(ENVIRONMENT)),
+            ENVIRONMENT, lambda unused:Model())
+        with pytest.raises(TimeoutError):
+            asyncio.run(gateway.invoke(
+                authorization, 'failure-request', 'failure-trace'))
+        row = core.db.execute(
+            "SELECT body FROM objects WHERE kind=? ORDER BY rowid DESC LIMIT 1",
+            ('model-invocation-receipt',)).fetchone()
+        receipt = json.loads(row[0])
+        assert receipt['outcome'] == 'FAILED'
+        assert receipt['failure'] == {
+            'stage':'UPSTREAM', 'code':'UPSTREAM_TIMEOUT'}
+        assert receipt['usage'] == {}
+        assert 'private provider timeout' not in row[0]
+        with pytest.raises(Rejected, match='EVALUATION_MODEL_INVOCATION_REPLAYED'):
+            asyncio.run(gateway.invoke(
+                authorization, 'failure-retry', 'failure-retry-trace'))
     finally:
         core.close()
