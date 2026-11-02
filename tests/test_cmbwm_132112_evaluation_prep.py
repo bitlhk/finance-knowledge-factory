@@ -11,7 +11,7 @@ def test_smoke_selection_keeps_frozen_cases_unchanged():
     original = quality_test_set(SOURCE)
     selected = selected_test_set(SOURCE, ["cmbwm-risk",
                                            "cmbwm-fee-discount"])
-    assert selected["purpose"] == "SMOKE_ACCEPTANCE"
+    assert selected["purpose"] == "BLIND_ACCEPTANCE"
     assert [case["caseId"] for case in selected["cases"]] == [
         "cmbwm-risk", "cmbwm-fee-discount"]
     assert selected["cases"] == [case for case in original["cases"]

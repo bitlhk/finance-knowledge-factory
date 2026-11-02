@@ -37,7 +37,6 @@ def selected_test_set(source_digest, case_ids):
     if len(selected) != len(case_ids) or not selected <= available:
         raise ValueError("QUALITY_SMOKE_CASE_INVALID")
     value["id"] += "-smoke"
-    value["purpose"] = "SMOKE_ACCEPTANCE"
     value["cases"] = [case for case in value["cases"]
                       if case["caseId"] in selected]
     return value
