@@ -1,6 +1,6 @@
 {
   "schemaVersion": "factory-worker-acceptance-summary.v0.1",
-  "implementationGitSha": "9b6b2a10cf60a513e0735fd0328461f5e87f7717",
+  "implementationGitSha": "f276b02e2cfe7da25d0be73f060e552c787402cb",
   "deployed": false,
   "pullRequestDraft": true,
   "runtime": {
@@ -9,7 +9,7 @@
     "provider": "volcengine",
     "modelRef": "deepseek-v4-flash",
     "modelConfigDigest": "a672a438bd6004cc725fac7d61b54cb64338bb1ea497848f5753f558e05d0b3e",
-    "workerBuildDigest": "c5a38b6ee1cde632eb14739b6b65c5a68121be1372e58131bd6c09444d022a4d",
+    "workerBuildDigest": "5b6eb782578229417fdaea012862119f62b7680d957c016174aef4f3eac4a385",
     "requirementsLockDigest": "c5c387248ffb9ac7a67db30d3050f740fcacf1b940d3253b34ca472865743130"
   },
   "inputs": {
@@ -20,6 +20,8 @@
   },
   "attempts": [
     {
+      "implementationGitSha": "9b6b2a10cf60a513e0735fd0328461f5e87f7717",
+      "workerBuildDigest": "c5a38b6ee1cde632eb14739b6b65c5a68121be1372e58131bd6c09444d022a4d",
       "decision": "REJECT",
       "runtimeEvidenceDigest": "7b919061968fe69c578ae29d598964f4a3d25a13d9b93dc670b9f25e9511e1c9",
       "answerEvaluationDigest": "a7972800545433f5d8bf82638b3a1fa69b708a666c66f9cd8f77c54fd3601efb",
@@ -30,6 +32,8 @@
       ]
     },
     {
+      "implementationGitSha": "9b6b2a10cf60a513e0735fd0328461f5e87f7717",
+      "workerBuildDigest": "c5a38b6ee1cde632eb14739b6b65c5a68121be1372e58131bd6c09444d022a4d",
       "decision": "PASS",
       "runtimeEvidenceDigest": "3c065654ec528a0da1f8201bc29033742475d4334bfeabfda850b203cfbb4940",
       "answerEvaluationDigest": "6abef80c42cb45b1cfe7b0b833bd4656b39e3d895e9c01b7b06e59c86f871b6a",
@@ -37,6 +41,64 @@
       "failedChecks": [],
       "caseCount": 6,
       "noAnswerCitationCount": 0,
+      "databaseIntegrity": "ok",
+      "sdkLogFileCount": 0
+    },
+    {
+      "implementationGitSha": "bb5baa32e872245ee71ff0374e45305b9a5ea255",
+      "workerBuildDigest": "8562f5220a7446a16946e1deefa14938934c879c51f53aa33c56986c655a7187",
+      "decision": "PASS",
+      "assignmentDigest": "f5807a64a7397a0d7b86c4af8e69ffe0ed647f190ba7d477b58474c826454347",
+      "leaseDigest": "7d8a55801c5e8393f05a8b0d461c49da5038483e40e4cea621f0eb24c051822a",
+      "gatewayRegistrationDigest": "69644931aab62983895ab18f31d83bd813a25834dc11f9d2ba6dda32e76502d1",
+      "runtimeEvidenceDigest": "384296c3e66622da34a67fab7ce87b5f93d3e4cc7990a34db763019c7070ea46",
+      "answerEvaluationDigest": "0ec7b688e4d09e45b2a32be81ada4f5eb1c40e8213468e915494d0eb9f40f0e1",
+      "qualityAdmissionDigest": "1fa51ac9f121a001fee2f2f69141cea75164f97f941654c049c67ed8bb183cb0",
+      "failedChecks": [],
+      "caseCount": 6,
+      "modelInvocationAttemptCount": 6,
+      "modelReceiptCount": 6,
+      "answerArchiveCount": 6,
+      "databaseIntegrity": "ok",
+      "sdkLogFileCount": 0,
+      "githubActionsRun": 41364670055
+    },
+    {
+      "implementationGitSha": "f276b02e2cfe7da25d0be73f060e552c787402cb",
+      "workerBuildDigest": "5b6eb782578229417fdaea012862119f62b7680d957c016174aef4f3eac4a385",
+      "decision": "REJECT",
+      "assignmentDigest": "c074fbe7f428580d23328a3ecc9a6b9b21ddf569148097c019e4ec99df88028c",
+      "leaseDigest": "1e33f2b188a06eb6a3d10b613aedc8b50f3b391ac1c6a7a263c5b89ac1663e1d",
+      "gatewayRegistrationDigest": "f0bd601973a5301bdb0eb055d2e8a341ee4e764d9d483c4732e356cd8335e5aa",
+      "runtimeEvidenceDigest": "3f7ea883c0d9b9fb202e417d4da29c8c0e938ceff0173fe198c98dd2514a2e68",
+      "answerEvaluationDigest": "eb7b128d273f55e4570fd8cd08e348a6bce4864753bcb82b47bc52d8813bd36e",
+      "qualityAdmissionDigest": "897582139ba8d9ab53b5bb1210ab88d9db92451edf3110adb58df3d66231bf94",
+      "failedChecks": [
+        "allAnswerCasesClassified",
+        "answerFactAccuracyComplete"
+      ],
+      "caseCount": 6,
+      "modelInvocationAttemptCount": 6,
+      "modelReceiptCount": 6,
+      "answerArchiveCount": 6,
+      "databaseIntegrity": "ok",
+      "sdkLogFileCount": 0
+    },
+    {
+      "implementationGitSha": "f276b02e2cfe7da25d0be73f060e552c787402cb",
+      "workerBuildDigest": "5b6eb782578229417fdaea012862119f62b7680d957c016174aef4f3eac4a385",
+      "decision": "PASS",
+      "assignmentDigest": "4335afaca277578d6c582ea5a61da97a52c49f6fb108ef8ca67635ba934aa493",
+      "leaseDigest": "f7f4ddb207e7c2bc9b1fa920029fe366da207541608dd04a1ce27b92cb3dd80e",
+      "gatewayRegistrationDigest": "f0bd601973a5301bdb0eb055d2e8a341ee4e764d9d483c4732e356cd8335e5aa",
+      "runtimeEvidenceDigest": "6545a4234a143883df96972d581be4df63d03cacba5f012919209071cfc608b8",
+      "answerEvaluationDigest": "c2493d12e8e9102496e3020970224c6539e6cb1fbad860783a51299682ea3e6d",
+      "qualityAdmissionDigest": "181734df2a10b4e339adb632dcfe621f0500bd3dc6dfcbdf9904e1f88b73a193",
+      "failedChecks": [],
+      "caseCount": 6,
+      "modelInvocationAttemptCount": 6,
+      "modelReceiptCount": 6,
+      "answerArchiveCount": 6,
       "databaseIntegrity": "ok",
       "sdkLogFileCount": 0
     }
