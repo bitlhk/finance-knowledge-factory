@@ -8,7 +8,7 @@ import pytest
 
 from knowledge_core.contracts import Rejected
 from knowledge_core.documents import DocumentCore
-from m2.web import DocumentProduction
+from m2.web import DocumentProduction, VerifiedEvaluationHandoff
 from m2.synthetic_context import AUTHOR, READER
 from tests.test_document_quality_publication import CONFIG
 from tests.test_m2_documents import ControlledClient, CASES, RAW
@@ -143,6 +143,24 @@ def evaluated(service,run_id):
             return job
         time.sleep(.01)
     raise AssertionError('evaluation did not finish')
+
+
+def test_server_configured_handoff_rechecks_core_pass(monkeypatch,tmp_path):
+    service,client,data=make(tmp_path)
+    try:
+        result=done(service,service.submit(data))
+        trusted=TrustedQualityLauncher().evaluate(
+            service.database,result,lambda:client)
+        handoff=tmp_path/'trusted-result.json'
+        handoff.write_text(json.dumps(trusted),encoding='utf-8')
+        assert VerifiedEvaluationHandoff(handoff).evaluate(
+            service.database,result,lambda:client)==trusted
+        forged={**trusted,'qualityAdmissionDigest':'f'*64}
+        handoff.write_text(json.dumps(forged),encoding='utf-8')
+        with pytest.raises(Rejected,match='QUALITY_EVALUATION_RESULT_INVALID'):
+            VerifiedEvaluationHandoff(handoff).evaluate(
+                service.database,result,lambda:client)
+    finally:service.close()
 
 
 def test_web_lifecycle_core_owned_restart_and_no_query_replay(tmp_path):

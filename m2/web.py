@@ -23,6 +23,46 @@ from web_production.engine import Production, now, persist
 from web_production.server import handler
 
 
+class VerifiedEvaluationHandoff:
+    """Server-configured handoff from an isolated trusted evaluation run."""
+
+    def __init__(self, result_path):
+        self.result_path=Path(result_path)
+
+    def evaluate(self, database, job, client_factory):
+        if self.result_path.is_symlink() or not self.result_path.is_file():
+            raise Rejected('QUALITY_EVALUATION_RESULT_INVALID')
+        try:
+            result=json.loads(self.result_path.read_text(encoding='utf-8'))
+        except (OSError,ValueError,UnicodeError):
+            raise Rejected('QUALITY_EVALUATION_RESULT_INVALID') from None
+        if not isinstance(result,dict) or set(result)!={
+                'runtimeEvidenceDigest','answerEvaluationDigest',
+                'qualityAdmissionDigest'}:
+            raise Rejected('QUALITY_EVALUATION_RESULT_INVALID')
+        core=DocumentCore(database)
+        try:
+            candidate=job.get('coreObjects',{}).get('candidateDigest')
+            try:
+                admission=core._get(job_authority(job),
+                    result['qualityAdmissionDigest'],
+                    'document-quality-admission')
+            except Rejected:
+                raise Rejected('QUALITY_EVALUATION_RESULT_INVALID') from None
+            if (admission['candidateDigest']!=candidate
+                    or admission['decision']!='PASS'):
+                raise Rejected('QUALITY_EVALUATION_RESULT_INVALID')
+        finally:core.close()
+        return result
+
+
+def job_authority(job):
+    # Handoff lookup uses the same fixed isolated producer as the workbench.
+    # The result remains subject to DocumentProduction's full report checks.
+    from m2.synthetic_context import AUTHOR
+    return AUTHOR
+
+
 class DocumentProduction(Production):
     m2 = True
 
@@ -488,13 +528,18 @@ def main():
     ap.add_argument('--private-config',type=Path,required=True)
     ap.add_argument('--port',type=int,default=61360)
     ap.add_argument('--isolated-test-preview',action='store_true')
+    ap.add_argument('--evaluation-result',type=Path)
     args=ap.parse_args()
     if not args.isolated_test_preview or args.port in (61353,61357,61358,61359):
         ap.error('Explicit isolated preview and an unreserved port required')
     args.state.mkdir(parents=True,exist_ok=True,mode=0o700)
     with (args.state/'.server.lock').open('w') as lock:
         fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
-        service=DocumentProduction(args.state,lambda:Ragflow(args.private_config/'local-credentials.json',args.private_config/'http-setup.json'))
+        launcher=(VerifiedEvaluationHandoff(args.evaluation_result)
+                  if args.evaluation_result else None)
+        service=DocumentProduction(args.state,
+            lambda:Ragflow(args.private_config/'local-credentials.json',
+                           args.private_config/'http-setup.json'),launcher)
         http=ThreadingHTTPServer(('127.0.0.1',args.port),handler(service))
         (args.state/'server.pid').write_text(str(os.getpid()))
         print(f'M2 isolated document preview http://127.0.0.1:{args.port}/',flush=True)
