@@ -10,6 +10,7 @@ from knowledge_core.contracts import Rejected
 from knowledge_core.documents import DocumentCore
 from m2.pipeline import parse, produce
 from m2.ragflow import BASELINE_RETRIEVAL
+from m2.product_release import read_release
 from tests.support import AUTHOR as BASE_AUTHOR, CONTEXT, READER, ir, policy
 
 
@@ -189,6 +190,13 @@ def test_quality_enrollment_cannot_bypass_core_recomputed_gate(tmp_path):
         assert link['candidateDigest'] == data['candidateDigest']
         assert link['qualityAdmissionDigest'] == admission
         core.bind_document(AUTHOR, manifest, 1)
+        release = read_release(tmp_path / 'core.db', READER, CONTEXT, 'faq', manifest,
+                               'knowledge-factory-isolated')
+        assert release['descriptor']['manifestDigest'] == manifest
+        assert release['descriptor']['publication'] == {
+            'state':'PUBLISHED', 'mode':'M2_ISOLATED_DOCUMENT',
+            'approvalDecision':'ISOLATED_TEST_APPROVAL',
+            'productionAuthorized':False}
         result = core.query_document(READER, 'faq', manifest, CONTEXT,
             '合成客服服务时间是什么？', 'quality-request', 'quality-trace', client)
         assert result['result']['evidence'][0]['clause'] == '第一条'

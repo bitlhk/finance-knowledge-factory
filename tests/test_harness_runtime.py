@@ -8,12 +8,21 @@ from urllib import request, error
 import pytest
 
 from knowledge_core.contracts import Rejected
-from m2.harness_runtime import Lease, Runtime, handler
+from m2.harness_runtime import Lease, Runtime, handler, wire_evidence
 from m2.synthetic_context import AUTHOR, READER, CONTEXT
 from tests.runtime_support import make
 from tests.test_m2_documents import CASES
 
 TOKEN = 'isolated-test-session-' + 'x' * 40
+
+
+def test_v01_wire_projection_keeps_contract_stable_for_pdf_source_reference():
+    item = {'clause':'第一条', 'quote':'原文', 'originalDigest':'a'*64, 'chunkId':'chunk-1',
+            'anchors':[{'schemaVersion':'evidence-anchor.v0.1'}],
+            'sourceReference':{'sourceId':'official-pdf', 'page':12}}
+    projected = wire_evidence(item, 'b'*64)
+    assert set(projected) == {'clause','quote','originalDigest','chunkId','anchors','sourceDigest'}
+    assert 'sourceReference' not in projected and projected['sourceDigest'] == 'b'*64
 
 
 @pytest.fixture

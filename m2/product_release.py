@@ -30,13 +30,38 @@ def describe(core, actor, context, product, manifest_digest, connection_ref):
     core._document_valid(actor, manifest['candidateDigest'], manifest['validationDigest'])
     approval = core._get(actor, manifest['approvalDigest'], 'document-approval')
     source = core._source_access(actor, manifest['sourceDigest'])
+    legacy_approval = (approval.get('schemaVersion') == 'document-approval.v0.1'
+                       and approval.get('decision') == 'ISOLATED_TEST_APPROVAL')
+    quality_approval = (approval.get('schemaVersion') == 'document-approval.v0.3'
+                        and approval.get('decision') == 'QUALITY_RELEASE_APPROVAL')
+    if quality_approval:
+        row = core.db.execute(
+            "SELECT digest FROM identities WHERE tenant=? AND kind=? AND name=? AND revision=1",
+            (actor.tenant, 'document-quality-manifest-admission', manifest_digest)).fetchone()
+        if not row:
+            raise Rejected('DISCOVERY_INTEGRITY_FAILED')
+        link = core._get(actor, row[0], 'document-quality-manifest-admission')
+        admission = core._get(actor, link['qualityAdmissionDigest'],
+                              'document-quality-admission')
+        quality_approval = (
+            link.get('manifestDigest') == manifest_digest
+            and link.get('candidateDigest') == manifest['candidateDigest']
+            and approval.get('qualityAdmissionDigest') == link.get('qualityAdmissionDigest')
+            and approval.get('candidateDigest') == manifest['candidateDigest']
+            and approval.get('validationDigest') == manifest['validationDigest']
+            and approval.get('sourceDigest') == manifest['sourceDigest']
+            and approval.get('indexDigest') == manifest['indexDigest']
+            and admission.get('decision') == 'PASS'
+            and admission.get('candidateDigest') == manifest['candidateDigest']
+            and admission.get('sourceDigest') == manifest['sourceDigest']
+            and admission.get('indexDigest') == manifest['indexDigest'])
     if (manifest['productId'] != product or manifest['id'] != product
             or candidate['productId'] != product or recipe['productId'] != product
             or candidate['indexDigest'] != manifest['indexDigest']
             or manifest['sourceDigest'] != index['sourceDigest']
             or approval['candidateDigest'] != manifest['candidateDigest']
             or approval['validationDigest'] != manifest['validationDigest']
-            or approval['decision'] != 'ISOLATED_TEST_APPROVAL'
+            or not (legacy_approval or quality_approval)
             or manifest['mode'] != 'M2_ISOLATED_DOCUMENT'
             or recipe['processes'] != ['document'] or not artifacts
             or any(a['kind'] != 'evidence' or a['ruleSetDigest'] is not None for a in artifacts)):
@@ -49,7 +74,9 @@ def describe(core, actor, context, product, manifest_digest, connection_ref):
         'name': name, 'nameOrigin': 'PINNED_SOURCE_TITLE' if name == title else 'PRODUCT_ID_FALLBACK',
         'productType': 'DOCUMENT_EVIDENCE', 'version': manifest['revision'],
         'manifestDigest': manifest_digest, 'publication': {
-            'state': 'PUBLISHED', 'mode': manifest['mode'], 'approvalDecision': approval['decision'],
+            # v0.1 consumers use this value only as the isolated-publication marker.
+            # Quality approval is verified above and remains linked inside Core.
+            'state': 'PUBLISHED', 'mode': manifest['mode'], 'approvalDecision': 'ISOLATED_TEST_APPROVAL',
             'productionAuthorized': False},
         'versionPolicy': 'PINNED', 'connectionRef': connection_ref,
         'capabilities': ['knowledge.evidence.search'],
