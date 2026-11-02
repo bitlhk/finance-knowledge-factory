@@ -11,6 +11,17 @@ from knowledge_core.retrieval_quality import trace_select
 from quality.retrieval_profiles import PROFILES
 
 
+def _candidate_source_metadata(document_index):
+    sources_by_clause = {
+        reference["clause"]:sorted({locator["sourceId"]
+            for locator in reference.get("locators", []) if locator.get("sourceId")})
+        for reference in document_index.get("sourceReferences", [])}
+    return {chunk["id"]:{"sourceIds":sorted({source_id
+                for clause in chunk["clauses"]
+                for source_id in sources_by_clause.get(clause, [])})}
+            for chunk in document_index["index"]["chunks"]}
+
+
 def _record(item, clauses_by_chunk, *, stage, decision, reasons):
     return {"stage": stage, "rank": item["rank"], "chunkId": item["id"],
             "clauses": clauses_by_chunk.get(item["id"], []),
@@ -41,11 +52,13 @@ def main():
     client = Ragflow(args.private_config / "local-credentials.json",
                      args.private_config / "http-setup.json")
     experiment = PROFILES[args.profile]
+    candidate_metadata = _candidate_source_metadata(document_index)
     rows = []
     for case in test_set["cases"]:
         started = time.monotonic()
         trace = trace_select(client, document_index["index"]["datasetId"],
-                             document_index["index"]["documentId"], case["question"], experiment)
+                             document_index["index"]["documentId"], case["question"], experiment,
+                             candidate_metadata)
         raw_candidates, ranked_candidates = trace["retrieved"], trace["ranked"]
         final_candidates = trace["selected"]
         filtering = [_record(item, clauses_by_chunk, stage="FILTERED",

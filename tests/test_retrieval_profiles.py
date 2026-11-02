@@ -57,6 +57,12 @@ def test_business_profile_decomposes_multi_intent_without_clause_ids():
     assert all("第一条" not in value for value in variants)
 
 
+def test_customer_rating_question_retrieves_product_requirements_not_a_code_map():
+    variants = query_variants("C1客户可以购买这款产品吗？",
+                              "DETERMINISTIC_FINANCIAL_V0_2")
+    assert "产品风险级别 适合购买的投资者" in variants
+
+
 def test_diverse_selection_covers_independent_query_variants():
     candidates = [
         {"id":"general", "rank":1, "text":"风险匹配一般原则",
@@ -86,9 +92,37 @@ def test_redemption_concepts_keep_termination_and_normal_redemption_distinct():
     normal = _evidence_concepts(question, "每个交易日开放申购和赎回")
     termination = _evidence_concepts(question, "理财客户无提前终止权")
     arrival = _evidence_concepts(question, "T日赎回，本金和收益T+1日到账")
-    assert normal == ["normal-redemption"]
+    assert normal == ["normal-redemption-opening", "normal-redemption"]
     assert termination == ["early-termination"]
     assert arrival == ["redemption-arrival"]
+
+
+def test_fee_selection_keeps_zero_rates_and_other_charges_as_separate_evidence():
+    question = "这款产品申购、赎回和管理费用如何收取？"
+    zero = _evidence_concepts(question, "本理财计划无申购、赎回费。")
+    charges = _evidence_concepts(question, "固定投资管理费率0.2%，可能发生其他税费。")
+    assert "zero-subscription-redemption-fees" in zero
+    assert "complete-fees" in charges
+
+
+def test_business_rank_prefers_product_source_for_product_specific_question():
+    values = [
+        {**candidate(1, 7000, "我行将理财产品风险分为五级"),
+         "sourceIds":["investor-rights"]},
+        {**candidate(2, 6500, "本产品风险级别为2：中低风险"),
+         "sourceIds":["product-spec"]},
+    ]
+    ranked = rank("这款产品的风险等级是什么？", values,
+                  "STRUCTURE_V0_3")
+    assert ranked[0]["sourceIds"] == ["product-spec"]
+
+
+def test_specific_redemption_intent_demotes_generic_redemption_evidence():
+    values = [candidate(1, 9000, "交易日可提出赎回"),
+              candidate(2, 7800, "部分赎回后剩余份额不得低于1万份")]
+    ranked = rank("部分赎回后剩余9000份怎么处理？", values,
+                  "STRUCTURE_V0_3")
+    assert "partial-redemption" in ranked[0]["evidenceConcepts"]
 
 
 def test_live_channel_state_is_not_supported_by_static_product_evidence():

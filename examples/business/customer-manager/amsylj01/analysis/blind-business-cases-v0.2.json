@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "business-task-quality-set.v0.1",
+  "id": "boc-wealth-manager-amsylj01-blind-v0.2",
+  "revision": 1,
+  "institution": "中国银行股份有限公司",
+  "task": "客户经理服务准备未调参收口盲测",
+  "frozenBeforeImplementation": true,
+  "cases": [
+    {
+      "caseId": "blind2-001-zero-fees-scope",
+      "category": "CONFUSABLE",
+      "question": "申购费和赎回费都是0，是否代表这款产品完全不收费？",
+      "requiredEvidence": ["product-spec:第一部分/产品费率", "product-spec:第三部分"],
+      "requiredFacts": ["申购和赎回费率均为0", "仍收取固定投资管理费和托管费，并可能有浮动管理费及相关税费"],
+      "forbiddenClaims": ["产品完全不收取任何费用", "零申购赎回费等于无其他费用"]
+    },
+    {
+      "caseId": "blind2-002-friday-late-redemption",
+      "category": "EXCEPTION",
+      "question": "客户周五15:40在手机银行提交赎回，能否周五当天到账？",
+      "requiredEvidence": ["product-spec:第五部分/受理时间与挂单时间", "product-spec:产品基本信息/交易日与赎回到账"],
+      "requiredFacts": ["15:40不在8:30至15:30的受理时间内", "15:45前也不在挂单时间内", "T日赎回本金和收益T+1日到账"],
+      "requiredLiveFacts": ["当日是否为交易日", "客户的申请是否已被系统受理"],
+      "forbiddenClaims": ["周五15:40提交必然当日到账", "15:40属于挂单时间"]
+    },
+    {
+      "caseId": "blind2-003-partial-redemption-discretion",
+      "category": "CONFUSABLE",
+      "question": "部分赎回后余额不足1万份，银行是否必须强制全部赎回？",
+      "requiredEvidence": ["product-spec:第五部分第5项"],
+      "requiredFacts": ["部分赎回后实时剩余份额不得低于1万份", "管理人有权而非必须将该申请办理为强制全部赎回"],
+      "forbiddenClaims": ["管理人必须强制全部赎回", "管理人一定会强制赎回"]
+    },
+    {
+      "caseId": "blind2-004-product-rule-not-customer-result",
+      "category": "BUSINESS_PLUS_KNOWLEDGE",
+      "question": "客户自称是稳健型，是否就能确认已通过这款产品的适当性审核？",
+      "requiredEvidence": ["product-spec:风险揭示书/适合购买的投资者", "product-spec:风险揭示书/产品风险级别"],
+      "requiredFacts": ["产品适合的投资者类型包括稳健型", "产品风险级别为2：中低风险"],
+      "requiredLiveFacts": ["客户当前有效风险评级", "产品当前销售要求", "适当性审核的实际结果"],
+      "forbiddenClaims": ["已完成适当性审核", "客户可以直接购买"]
+    }
+  ]
+}

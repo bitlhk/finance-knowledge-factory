@@ -140,3 +140,59 @@ def test_answer_citation_preserves_digest_bound_source_reference():
     assert not unmatched
     assert citations[0]['sourceReference'] == reference
     assert citations[0]['retrievedEvidenceDigests'] == [retrieved[0]['evidenceDigest']]
+
+
+def test_business_logic_rejects_right_as_mandatory_action():
+    retrieved = [evidence('产品说明书/部分赎回',
+                          '余额低于1万份时，管理人有权办理强制全部赎回。')]
+    result = _evaluate_answer_case(
+        gold(['产品说明书/部分赎回'],
+             ['管理人有权将低于1万份的部分赎回申请办理为强制全部赎回']),
+        runtime_case('依据[1]，余额低于1万份时，管理人必须强制全部赎回。', retrieved))
+    assert result['classification'] == 'ANSWER_FACT_ERROR'
+    assert result['factChecks'][0]['logicalChecks'][0]['check'] == 'RIGHT_NOT_OBLIGATION'
+
+
+def test_business_logic_rejects_same_day_for_t_plus_one():
+    retrieved = [evidence('产品说明书/赎回',
+                          'T日赎回，本金和收益T+1日到账。')]
+    result = _evaluate_answer_case(
+        gold(['产品说明书/赎回'], ['T日赎回，本金和收益T+1日到账']),
+        runtime_case('依据[1]，T日赎回后本金和收益当日到账。', retrieved))
+    assert result['classification'] == 'ANSWER_FACT_ERROR'
+    assert 'BUSINESS_LOGIC_CONTRADICTION' in result['factChecks'][0]['reasons']
+
+
+def test_business_logic_requires_termination_and_redemption_distinction():
+    retrieved = [evidence('产品说明书/终止', '理财客户无提前终止权。'),
+                 evidence('产品说明书/赎回', '每个交易日开放申购和赎回。')]
+    result = _evaluate_answer_case(
+        gold(['产品说明书/终止', '产品说明书/赎回'],
+             ['客户无权提前终止整个产品与正常赎回不是同一概念']),
+        runtime_case('依据[1][2]，客户不能提前终止整个产品。', retrieved))
+    assert result['classification'] == 'ANSWER_FACT_ERROR'
+
+
+def test_business_logic_limits_zero_rate_to_subscription_and_redemption_fees():
+    retrieved = [evidence('产品说明书/费率',
+                          '申购和赎回的费率均为0，另有管理费和托管费。')]
+    result = _evaluate_answer_case(
+        gold(['产品说明书/费率'], ['申购和赎回费率均为0']),
+        runtime_case('依据[1]，这款产品完全没有任何费用。', retrieved))
+    assert result['classification'] == 'ANSWER_FACT_ERROR'
+
+
+def test_business_logic_rejects_historical_yield_as_current():
+    retrieved = [evidence('产品说明书/收益', '过往业绩不代表未来表现。')]
+    result = _evaluate_answer_case(
+        gold(['产品说明书/收益'], ['过往业绩不代表当前收益率']),
+        runtime_case('依据[1]，过往业绩表明今天的收益率是1.2%。', retrieved))
+    assert result['classification'] == 'ANSWER_FACT_ERROR'
+
+
+def test_product_rule_does_not_prove_completed_customer_suitability():
+    retrieved = [evidence('产品说明书/适当性', '本产品适合稳健型投资者。')]
+    result = _evaluate_answer_case(
+        gold(['产品说明书/适当性'], ['产品适合投资者包括稳健型']),
+        runtime_case('依据[1]，该客户已完成适当性审核。', retrieved))
+    assert result['classification'] == 'ANSWER_FACT_ERROR'

@@ -25,6 +25,20 @@ def normal(text):
     return re.sub(r'\s+', '', text)
 
 
+def _candidate_source_metadata(index):
+    sources_by_clause = {}
+    for reference in index.get('sourceReferences', []):
+        sources_by_clause[reference['clause']] = sorted({
+            locator['sourceId'] for locator in reference.get('locators', [])
+            if locator.get('sourceId')})
+    return {
+        chunk['id']:{'sourceIds':sorted({source_id
+            for clause in chunk['clauses']
+            for source_id in sources_by_clause.get(clause, [])})}
+        for chunk in index['index']['chunks']
+    }
+
+
 _CLAUSE_REFERENCE = re.compile(r'第[0-9〇零一二三四五六七八九十百千万两]+条')
 _EVIDENCE_ORDINAL_REFERENCE = re.compile(r'\[([1-9][0-9]*)\]')
 _REFUSAL = re.compile(r'无法|不能|未找到|没有足够|依据不足|无足够')
@@ -83,6 +97,56 @@ def _strict_values(value):
     return _unique(values)
 
 
+def _logical_fact_checks(fact, answer):
+    """Reject high-overlap answers that reverse a material business meaning."""
+    normalized_fact = _semantic_normal(fact)
+    normalized_answer = _semantic_normal(answer)
+    checks = []
+
+    def add(name, passed, reason):
+        checks.append({'check':name, 'passed':passed,
+                       'reason':None if passed else reason})
+
+    if '有权' in normalized_fact:
+        has_discretion = any(value in normalized_answer
+                             for value in ('有权', '可以', '可', '可能'))
+        imposes_duty = any(value in normalized_answer
+                           for value in ('必须', '一定', '必然', '应当强制'))
+        add('RIGHT_NOT_OBLIGATION', has_discretion and not imposes_duty,
+            '回答将“有权”扩大为必须或必然执行')
+    if ('t+1' in normalized_fact
+            and any(value in normalized_answer
+                    for value in ('当日到账', '实时到账', '立即到账'))):
+        add('T_PLUS_ONE_NOT_SAME_DAY', False,
+            '回答将T+1到账改成当日或实时到账')
+    if '提前终止整个产品' in normalized_fact and '正常赎回' in normalized_fact:
+        has_both = ('终止' in normalized_answer and '赎回' in normalized_answer)
+        distinguishes = any(value in normalized_answer
+                            for value in ('不等于', '不是同一', '不是完全', '但', '仍可'))
+        add('TERMINATION_NOT_REDEMPTION', has_both and distinguishes,
+            '回答未区分整个产品提前终止与正常赎回')
+    if ('申购和赎回费率均为0' in normalized_fact
+            or '无申购赎回费' in normalized_fact):
+        scoped_zero = (('申购' in normalized_answer and '赎回' in normalized_answer)
+                       and any(value in normalized_answer for value in ('均为0', '费率0', '无申购赎回费')))
+        denies_all_fees = any(value in normalized_answer
+                              for value in ('完全没有任何费用', '不收取任何费用', '没有其他费用'))
+        add('ZERO_FEE_SCOPE', scoped_zero and not denies_all_fees,
+            '回答没有将零费率限定于申购费和赎回费')
+    if ('历史收益' in normalized_fact or '过往业绩' in normalized_fact):
+        claims_current = any(value in normalized_answer
+                             for value in ('当前收益率就是', '今天的收益率是', '现行收益率为'))
+        add('HISTORICAL_NOT_CURRENT_YIELD', not claims_current,
+            '回答将历史或示例收益率当作当前收益率')
+    if (('风险要求' in normalized_fact or '适合投资者' in normalized_fact
+         or '适合客户' in normalized_fact)
+            and any(value in normalized_answer
+                    for value in ('已完成适当性审核', '已通过适当性判断'))):
+        add('PRODUCT_RULE_NOT_CUSTOMER_DECISION', False,
+            '回答将产品要求冒充为已完成客户适当性审核')
+    return checks
+
+
 def _fact_check(fact, answer, cited_evidence):
     answer_scores = [_semantic_recall(fact, segment) for segment in _segments(answer)]
     evidence_scores = [(_semantic_recall(fact, evidence['quote']), evidence['clause'])
@@ -103,8 +167,16 @@ def _fact_check(fact, answer, cited_evidence):
     # from the gold statement, not from the much longer answer/evidence body.
     answer_semantic = answer_score >= 4800
     evidence_semantic = evidence_score >= 4200
+    logical_checks = _logical_fact_checks(fact, answer)
+    logical_passed = all(item['passed'] for item in logical_checks)
     live_boundary = fact.startswith('需要核实')
+    if live_boundary:
+        boundary_language = bool(re.search(r'需要核实|需核实|无法确认|无法确定|需以.{0,20}为准|未提供', answer))
+        boundary_terms = [value for value in ('风险', '评级', '有效', '销售', '收益', '公告', '渠道')
+                          if value in fact]
+        answer_semantic = boundary_language and any(value in answer for value in boundary_terms)
     passed = (answer_semantic and not missing_answer
+              and logical_passed
               and (live_boundary or (evidence_semantic and not missing_evidence)))
     supporting = _unique(clause for score, clause in evidence_scores if score >= 4200)
     reasons = []
@@ -116,6 +188,8 @@ def _fact_check(fact, answer, cited_evidence):
         reasons.append('ANSWER_STRICT_VALUE_MISSING')
     if missing_evidence and not live_boundary:
         reasons.append('EVIDENCE_STRICT_VALUE_MISSING')
+    if not logical_passed:
+        reasons.append('BUSINESS_LOGIC_CONTRADICTION')
     return {'fact':fact, 'answerContains':answer_semantic,
             'supportingClauses':supporting, 'passed':passed,
             'method':('LIVE_SYSTEM_BOUNDARY_V0_1' if live_boundary
@@ -123,7 +197,8 @@ def _fact_check(fact, answer, cited_evidence):
             'answerSemanticRecallBps':answer_score,
             'evidenceSemanticRecallBps':evidence_score,
             'strictValues':strict, 'missingAnswerValues':missing_answer,
-            'missingEvidenceValues':missing_evidence, 'reasons':reasons}
+            'missingEvidenceValues':missing_evidence,
+            'logicalChecks':logical_checks, 'reasons':reasons}
 
 
 def _answer_references(answer, retrieved):
@@ -346,7 +421,8 @@ class DocumentCore(FactoryEvaluationMixin, Core):
             started = datetime.now(timezone.utc)
             try:
                 trace = trace_select(client, pinned['datasetId'], pinned['documentId'],
-                                     case['question'], profile['config'])
+                                     case['question'], profile['config'],
+                                     _candidate_source_metadata(index))
             except Rejected:
                 raise
             except Exception:
@@ -651,7 +727,8 @@ class DocumentCore(FactoryEvaluationMixin, Core):
                 raise Rejected('QUALITY_RETRIEVAL_UNSUPPORTED')
             else:
                 selected = select_quality(client, pinned['datasetId'], pinned['documentId'],
-                                          question, profile['config'])
+                                          question, profile['config'],
+                                          _candidate_source_metadata(index))
                 rows = [{'id':item['id'], 'text':item['text'],
                          'documentId':item['documentId']} for item in selected]
         except Rejected:

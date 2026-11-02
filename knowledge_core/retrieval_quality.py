@@ -39,6 +39,8 @@ def query_variants(question, mode):
             (r"首次购买|首次申购", "首次申购 起点金额"),
             (r"追加购买|追加申购", "追加申购 金额要求"),
             (r"费用|费率", "申购赎回费率 投资管理费 托管费 税费"),
+            (r"C[1-5].{0,12}(?:购买|适合|可以)",
+             "产品风险级别 适合购买的投资者"),
         )
         for pattern, expansion in concepts:
             if re.search(pattern, question):
@@ -92,6 +94,8 @@ def _evidence_concepts(question, text):
          r'风险(?:等级|级别)\s*(?:为|是|：|:)?\s*[1-5]'),
         ('suitable-investor', r'适合.{0,4}(?:客户|投资者|购买)|客户类型|C[1-5].{0,8}购买',
          r'适合购买的投资者|投资者类型'),
+        ('normal-redemption-opening', r'提前赎回|是否.{0,6}赎回|能否.{0,6}赎回|不能赎回|开放赎回|赎回权',
+         r'每个交易日开放申购和赎回'),
         ('normal-redemption', r'赎回', r'开放申购和赎回|提出申购或赎回'),
         ('redemption-arrival', r'赎回|到账|用钱', r'T\+?1日到账|赎回到账'),
         ('early-termination', r'提前赎回|提前终止', r'提前终止'),
@@ -100,6 +104,8 @@ def _evidence_concepts(question, text):
         ('large-redemption', r'大额赎回', r'大额赎回.{0,60}暂停|暂停接受当日赎回'),
         ('trading-day', r'周末|交易日', r'周六、周日|交易日'),
         ('order-time', r'周末|挂单|什么时候处理', r'挂单交易|下一受理时间'),
+        ('zero-subscription-redemption-fees', r'申购.{0,6}费|赎回.{0,6}费|费用|费率',
+         r'无申购、赎回费|申购和赎回的费率均为0'),
         ('basic-fees', r'费用|费率', r'固定投资管理费率|无申购、赎回费'),
         ('complete-fees', r'费用|费率|税费', r'其他税费'),
         ('principal-and-yield-risk', r'保本|保证.{0,4}收益|收益.{0,4}保证',
@@ -150,6 +156,8 @@ def rank(question, candidates, mode):
                 'partial-redemption':5000, 'large-redemption':5000,
                 'complete-fees':4800, 'rating-mismatch-redemption':4800,
                 'early-termination':4200, 'order-time':4200,
+                'normal-redemption-opening':4800,
+                'zero-subscription-redemption-fees':5000,
                 'product-risk-level':3800, 'suitable-investor':3800,
                 'trading-day':3200, 'principal-and-yield-risk':3800,
                 'non-own-funds':3800, 'normal-redemption':2400,
@@ -157,6 +165,22 @@ def rank(question, candidates, mode):
             }
             bonus += min(5200, sum(weights.get(value, 1800)
                                    for value in concepts))
+            sources = set(candidate.get("sourceIds", []))
+            rating_change = bool(re.search(
+                r'风险.{0,8}(?:下降|变化|不匹配).{0,12}赎回', question))
+            product_specific = bool(re.search(
+                r'这款产品|本产品|产品.{0,8}(?:风险|适合|费用|费率|赎回|终止)', question)) and not rating_change
+            if product_specific:
+                bonus += 2500 if "product-spec" in sources else -1500
+            if rating_change:
+                bonus += 1800 if "investor-rights" in sources else -900
+            required_concept = None
+            if re.search(r'部分赎回|剩余.{0,4}(?:份|份额)', question):
+                required_concept = 'partial-redemption'
+            elif '大额赎回' in question:
+                required_concept = 'large-redemption'
+            if required_concept and required_concept not in concepts:
+                bonus -= 1800
             candidate = {**candidate, "evidenceConcepts":concepts}
         score = max(0, min(10000, round(base * 0.6 + lexical * 0.4) + bonus))
         ranked.append({**candidate, "postRankScoreBps": score})
@@ -177,6 +201,8 @@ def _select(candidates, limit, mode):
                 'partial-redemption':5200, 'large-redemption':5200,
                 'complete-fees':5000, 'rating-mismatch-redemption':5000,
                 'early-termination':4500, 'order-time':4500,
+                'normal-redemption-opening':5000,
+                'zero-subscription-redemption-fees':5200,
                 'product-risk-level':4000, 'suitable-investor':4000,
             }
             novelty = (sum(concept_weights.get(item, 2800)
@@ -218,10 +244,16 @@ def support_decision(question, text, mode):
     return True, "evidence contains no unsupported answer-type conflict"
 
 
-def trace_select(client, dataset_id, document_id, question, profile):
+def trace_select(client, dataset_id, document_id, question, profile,
+                 candidate_metadata=None):
     questions = query_variants(question, profile.get("queryPlanner"))
-    groups = [client.retrieve_candidates(dataset_id, document_id, value, profile["retrieval"])
-              for value in questions]
+    metadata = candidate_metadata or {}
+    groups = []
+    for value in questions:
+        candidates = client.retrieve_candidates(
+            dataset_id, document_id, value, profile["retrieval"])
+        groups.append([{**candidate, **metadata.get(candidate.get("id"), {})}
+                       for candidate in candidates])
     candidates = merge_candidates(groups) if len(groups) > 1 else groups[0]
     retrieved = candidates
     candidates = rank(question, candidates, profile["postRank"])
@@ -242,5 +274,7 @@ def trace_select(client, dataset_id, document_id, question, profile):
             "filtered":filtered, "selected":selected[:3]}
 
 
-def select(client, dataset_id, document_id, question, profile):
-    return trace_select(client, dataset_id, document_id, question, profile)["selected"]
+def select(client, dataset_id, document_id, question, profile,
+           candidate_metadata=None):
+    return trace_select(client, dataset_id, document_id, question, profile,
+                        candidate_metadata)["selected"]
