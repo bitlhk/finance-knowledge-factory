@@ -15,10 +15,21 @@ window.m2 = {
       wizard=0;showWizard();
     });
   },
+  async startBusinessSample(){
+    await action(async()=>{
+      const loaded=await api('/api/business-samples/boc-amsylj01',{});
+      state=await api('/api/state');sourceId=loaded.source.id;run=null;recipe=null;queryResult=testResult=null;
+      activeClause=null;selection='parse';workshopOpen=true;page='production';
+      localStorage.removeItem('production-run');
+      wizardDraft={sourceId,rules:false,clauses:[],modelConsent:false,tests:loaded.tests};
+      wizard=0;showWizard();
+    });
+  },
   nextAction(){
     if(!src())return null;
     if(activeRun())return ['','生产进行中'];
     if(run?.release?.state==='ISOLATED_PUBLISHED')return ['sandbox','查询本次知识产物'];
+    if(run?.release?.state==='APPROVED'&&!run?.release?.sourceActivationDigest)return ['activate-document-source','确认来源生效'];
     if(run?.release?.state==='APPROVED')return ['publish-document','发布固定版本'];
     if(run?.release?.state==='QUALITY_PASSED')return ['approve-document','审批发布'];
     if(run?.release?.state==='EVALUATION_REQUIRED')return state.modelReady?['evaluate-document','运行质量评测']:['checks','查看评测准备情况'];
@@ -27,11 +38,11 @@ window.m2 = {
   },
   releaseLabel(){return {NO_CANDIDATE:'等待生产',REVIEW_REQUIRED:'候选验证未通过',EVALUATION_REQUIRED:'候选就绪，待质量评测',EVALUATION_RUNNING:'质量评测执行中',EVALUATION_FAILED:'质量评测执行失败',QUALITY_REJECTED:'质量未通过',QUALITY_PASSED:'质量通过，待独立审批',APPROVED:'已审批，待发布',ISOLATED_PUBLISHED:'固定版本已发布'}[run?.release?.state]||'等待生产';},
   home(){
-    return `${heading('KNOWLEDGE PRODUCTION / 工作台','知识生产','文档知识 · 隔离测试工作区','<button class="btn" data-do="document-demo">开始体验文档知识生产</button><button class="btn secondary" data-do="new-product">＋ 新建试产</button>')}
+    return `${heading('KNOWLEDGE PRODUCTION / 工作台','知识生产','文档知识 · 隔离测试工作区','<button class="btn" data-do="boc-business-sample">载入中行 AMSYLJ01 样本</button><button class="btn secondary" data-do="document-demo">体验合成样本</button><button class="btn secondary" data-do="new-product">＋ 新建试产</button>')}
     <div class="v15-hero"><div><strong>五条专业知识生产线</strong><small>当前执行：文档知识</small></div><div class="v15-icons">${crafts.map((c,i)=>`<span class="v15-token ${i===0?'active':''}">${E(c)}</span>`).join('')}<button class="btn secondary sm" data-do="crafts">工艺目录</button></div></div>
     <div class="v14-summary"><b>${state.sources.length}</b> 份原料 · <b>${state.runs.length}</b> 次生产 · <b>${state.isolatedReleases.length}</b> 个隔离快照</div>
     <section class="pending-section"><div class="sectiontitle">生产记录</div>${state.runs.slice(0,5).map(r=>`<div class="v14-task"><div><b>${E(r.title)}</b><div class="small textmuted">${E(label(r.status))} · ${E(new Date(r.createdAt).toLocaleString())}</div></div><button class="btn secondary sm" data-run="${E(r.id)}">查看记录</button></div>`).join('')||'<div class="hint">尚无生产任务</div>'}</section>
-    <div class="sectiontitle">知识产品</div><div class="gridproducts">${state.sources.map(s=>{const m=s.metadata;return `<article class="card prod v14-product"><div class="prodtop"><div class="prodicon">知</div>${badge('HTML 原料')}</div><div><div class="prodtitle">${E(s.title)}</div><div class="prodpurpose">${s.clauses.length} 条已定位原文</div></div>${m?`<div class="prodmeta">${badge(m.institution)}${badge(m.documentDate)}${badge(m.version)}</div><p class="small textmuted">${E(m.authorityStatus==='AUTHORIZED_INTERNAL_SOURCE'?'已授权内部来源':'办理时需核对现行状态')}</p>`:'<p class="small textmuted">来源适用状态尚未登记</p>'}<div class="prodfoot"><span class="small textmuted">${sourceRuns(s.id).length} 次生产</span><button class="btn sm" data-product="${E(s.id)}">打开车间 →</button></div></article>`}).join('')}</div>`;
+    <div class="sectiontitle">知识产品</div><div class="gridproducts">${state.sources.map(s=>{const m=s.metadata,b=s.businessProduct;return `<article class="card prod v14-product"><div class="prodtop"><div class="prodicon">知</div>${badge(b?'PDF＋HTML 固定来源':'HTML 原料')}</div><div><div class="prodtitle">${E(s.title)}</div><div class="prodpurpose">${s.clauses.length} 条已定位原文${b?` · ${b.sourceCount} 份官方资料 · ${b.qualityCaseCount} 道业务题`:''}</div></div>${m?`<div class="prodmeta">${badge(m.institution)}${badge(m.documentDate)}${badge(m.version)}</div><p class="small textmuted">${E(m.authorityStatus==='AUTHORIZED_INTERNAL_SOURCE'?'已授权内部来源':'办理时需核对现行状态')}</p>`:'<p class="small textmuted">来源适用状态尚未登记</p>'}${b?detail('来源摘要与固定加工版本',b):''}<div class="prodfoot"><span class="small textmuted">${sourceRuns(s.id).length} 次生产</span><button class="btn sm" data-product="${E(s.id)}">打开车间 →</button></div></article>`}).join('')}</div>`;
   },
   checks(){
     const r=run?.release||{}, evaluation=run?.qualityEvaluation||{}, report=evaluation.report;
@@ -39,7 +50,7 @@ window.m2 = {
     return `<section id="production-checks" class="v14-checks"><div class="sectiontitle">质量评测、审批与发布</div><div class="v14-checkgrid"><div class="v14-check"><b>来源与候选</b><p>${run?.coreObjects?'Core 已登记，摘要已固定':'等待登记'}</p></div><div class="v14-check"><b>质量评测</b><p>${E(this.releaseLabel())}</p><button class="btn secondary sm" data-do="evaluate-document" ${r.state!=='EVALUATION_REQUIRED'||!state.modelReady?'disabled':''}>运行质量评测</button></div><div class="v14-check"><b>知识服务</b><p>${r.state==='ISOLATED_PUBLISHED'?'固定 Manifest':'尚未发布'}</p><button class="btn secondary sm" data-do="sandbox" ${r.state!=='ISOLATED_PUBLISHED'?'disabled':''}>查询已发布版本</button></div></div>
     ${!state.modelReady?'<div class="hint">可信评测服务尚未接入当前工作台，页面与合同可验证，但不会启动真实模型调用。</div>':''}
     ${report?`<div class="sectiontitle">业务问题质量报告</div><div class="v14-summary"><b>${E(report.decision)}</b> · 事实准确率 ${E(String(report.metricsBps?.factAccuracy??0))}/10000 · 引用准确率 ${E(String(report.metricsBps?.citationAccuracy??0))}/10000</div>${caseRows}${detail('可信运行证据与质量门禁',report)}`:''}
-    <div class="v14-releasebox"><span class="small textmuted">质量通过不等于发布批准；审批与发布是两个独立动作。</span><div class="actions"><button class="btn secondary" data-do="approve-document" ${r.state!=='QUALITY_PASSED'?'disabled':''}>审批发布</button><button class="btn" data-do="publish-document" ${r.state!=='APPROVED'?'disabled':''}>发布固定版本</button>${run?'<button class="btn secondary" data-do="export">导出运行证据</button>':''}</div></div>${r.candidateDigest?detail('Candidate、Admission、审批与 Manifest',r):''}</section>`;
+    <div class="v14-releasebox"><span class="small textmuted">质量通过、来源生效、人工审批和发布是相互独立的受权动作。</span><div class="actions"><button class="btn secondary" data-do="activate-document-source" ${r.state!=='APPROVED'||r.sourceActivationDigest?'disabled':''}>确认来源生效</button><button class="btn secondary" data-do="approve-document" ${r.state!=='QUALITY_PASSED'?'disabled':''}>审批发布</button><button class="btn" data-do="publish-document" ${r.state!=='APPROVED'||!r.sourceActivationDigest?'disabled':''}>发布固定版本</button>${run?'<button class="btn secondary" data-do="export">导出运行证据</button>':''}</div></div>${r.candidateDigest?detail('Candidate、Admission、来源生效、审批与 Manifest',r):''}</section>`;
   },
   artifacts(){
     return `${heading('03 / KNOWLEDGE ARTIFACTS','知识产物','Core 隔离发布快照 · 非正式业务发布')}<div class="gridproducts">${state.isolatedReleases.map(r=>`<article class="card prod"><div class="prodtitle">${E(r.title)}</div>${badge('隔离快照已绑定')}<p>条款证据 · 固定来源与索引</p>${detail('发布版本与适用范围',r)}<button class="btn secondary" data-run="${E(r.runId)}">查看生产与来源</button><button class="btn" data-query-run="${E(r.runId)}">查询知识</button></article>`).join('')||'<div class="hint">尚无隔离发布快照</div>'}</div>`;
@@ -53,8 +64,11 @@ window.m2 = {
   release(command){
     const captured={runId:run.id,candidateDigest:run.release.candidateDigest};
     const publishing=command==='publish-document';
-    dialog(publishing?'发布固定知识版本':'审批知识产品发布',`<form id="release-form"><p>${E(run.title)}</p><div class="field"><label for="release-reason">${publishing?'已保存的审批依据':'审批依据'}</label><textarea id="release-reason" required maxlength="1000" ${publishing?'readonly':''}>${publishing?E(run.release.approvalReason):''}</textarea></div><label class="checkbox"><input id="release-confirm" type="checkbox" required>确认审批绑定当前 Candidate 与质量评测结果，后续变更必须重新评测</label><button class="btn">确认</button></form>`);
-    $('#release-form').onsubmit=e=>{e.preventDefault();const reason=$('#release-reason').value;action(async()=>{await api(command==='approve-document'?'/api/document-approve':'/api/document-publish',{...captured,reason});run=await api('/api/runs/'+captured.runId);state=await api('/api/state');$('#modal-root').replaceChildren();})};
+    const activating=command==='activate-document-source';
+    const title=activating?'确认资料来源生效':publishing?'发布固定知识版本':'审批知识产品发布';
+    const stored=publishing?run.release.approvalReason:'';
+    dialog(title,`<form id="release-form"><p>${E(run.title)}</p><div class="field"><label for="release-reason">${publishing?'已保存的审批依据':activating?'来源生效依据':'审批依据'}</label><textarea id="release-reason" required maxlength="1000" ${publishing?'readonly':''}>${E(stored)}</textarea></div><label class="checkbox"><input id="release-confirm" type="checkbox" required>${activating?'确认当前来源版本在登记适用范围内生效':'确认操作绑定当前 Candidate、质量结果和目标版本，后续变更必须重新评测及审批'}</label><button class="btn">确认</button></form>`);
+    $('#release-form').onsubmit=e=>{e.preventDefault();const reason=$('#release-reason').value;const endpoint=activating?'/api/document-source-activate':command==='approve-document'?'/api/document-approve':'/api/document-publish';action(async()=>{await api(endpoint,{...captured,reason});run=await api('/api/runs/'+captured.runId);state=await api('/api/state');$('#modal-root').replaceChildren();})};
   },
   evaluate(){
     const captured={runId:run.id,candidateDigest:run.release.candidateDigest};

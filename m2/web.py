@@ -14,20 +14,27 @@ from http.server import ThreadingHTTPServer
 
 from knowledge_core.contracts import Rejected, digest
 from knowledge_core.documents import DocumentCore
-from m2.synthetic_context import AUTHOR, READER, REVIEWER, CONTEXT, SCOPE
+from business_knowledge.boc_amsylj01 import build_bundle, verify_bundle
+from m2.workbench_authority import WorkbenchAuthorities
 from m2.pipeline import produce, parse
 from m2.ragflow import Ragflow
-from web_production.engine import Production, now
+from web_production.engine import Production, now, persist
 from web_production.server import handler
 
 
 class DocumentProduction(Production):
     m2 = True
 
-    def __init__(self, state, client_factory, evaluation_launcher=None):
+    def __init__(self, state, client_factory, evaluation_launcher=None,
+                 authorities=None):
         self.database=Path(state)/'core.sqlite'
         self.client_factory=client_factory
         self.evaluation_launcher=evaluation_launcher
+        self.authorities=authorities or WorkbenchAuthorities.synthetic()
+        self.producer=self.authorities.producer
+        self.reader=self.authorities.reader
+        self.context=self.authorities.context
+        self.scope=self.authorities.scope
         super().__init__(state, caller=lambda _: (_ for _ in ()).throw(Rejected('DOCUMENT_ONLY_REQUIRED')))
         self.core().close()
 
@@ -36,10 +43,51 @@ class DocumentProduction(Production):
 
     def recipe_metadata(self, data):
         return {'documentPipeline':'native-ragflow+verified-html-anchors.v0.1',
-                'delivery':'CORE_ISOLATED_DOCUMENT_CANDIDATE','trustedContext':CONTEXT.facts(),
-                'approvalAuthority':'ISOLATED_TEST_ONLY'}
+                'delivery':'CORE_ISOLATED_DOCUMENT_CANDIDATE',
+                'trustedContext':self.context.facts(),
+                'approvalAuthority':('ISOLATED_TEST_ONLY' if self.authorities.isolated
+                                     else 'TRUSTED_SERVER_AUTHENTICATION')}
 
-    def submit(self, data):
+    def business_sample(self, sample_id, authority=None):
+        authority=authority or self.authorities.authenticate('candidate.produce')
+        if sample_id!='boc-amsylj01':
+            raise Rejected('BUSINESS_SAMPLE_NOT_FOUND')
+        root=Path(__file__).parents[1]/'examples/business/customer-manager'
+        source_root=root/'amsylj01/sources'
+        generated=root/'amsylj01/generated'
+        bundle=build_bundle(source_root)
+        provenance=json.loads((generated/'amsylj01-provenance.json').read_text())
+        verify_bundle(source_root,(generated/'amsylj01-derived.html').read_bytes(),
+                      provenance)
+        register=json.loads((root/'boc-amsylj01-source-register.json').read_text())
+        business=json.loads((root/'boc-wealth-manager-test-set-v0.1.json').read_text())
+        aliases={item['clause']:item['coreClause'] for item in provenance['mappings']}
+        tests=[{'question':item['question'],
+                'expectedClause':aliases[item['requiredEvidence'][0]]}
+               for item in business['cases'] if item.get('requiredEvidence')]
+        source=self.source(register['title'],bundle['html'].decode(),{
+            'officialUrl':register['sources'][0]['url'],
+            'institution':register['institution'],
+            'documentDate':register['sources'][0]['documentDate'],
+            'version':'AMSYLJ01 · 公开资料固定版本',
+            'authorityStatus':register['authorityStatus']})
+        with self.lock:
+            stored=self.sources[source['id']]
+            stored['businessProduct']={
+                'productId':register['productId'],
+                'sourceCount':len(register['sources']),
+                'qualityCaseCount':len(business['cases']),
+                'provenanceDigest':provenance['provenanceDigest'],
+                'sourceDigests':[item['sha256'] for item in register['sources']],
+                'currentSaleStatus':'REQUIRES_LIVE_PRODUCT_SYSTEM'}
+            stored['importedBy']=self.authorities.audit(authority)
+            persist(self.state/('source-'+source['id']+'.json'),stored)
+            source=self.public_source(stored)
+        return {'source':source,'tests':tests,
+                'qualityCaseCount':len(business['cases'])}
+
+    def submit(self, data, authority=None):
+        authority=authority or self.authorities.authenticate('candidate.produce')
         if data.get('rules') is not False or data.get('clauses') or data.get('modelConsent') is not False:
             raise Rejected('DOCUMENT_ONLY_REQUIRED')
         if not data.get('tests'):
@@ -47,15 +95,26 @@ class DocumentProduction(Production):
         with self.lock:
             if len(self.jobs)>=20 and not any(j['requestId']==data.get('requestId') for j in self.jobs.values()):
                 raise Rejected('ISOLATED_RUN_LIMIT')
-            return super().submit(data)
+            result=super().submit(data)
+            job=self.jobs[result['id']]
+            requested=self.authorities.audit(authority)
+            if job.get('requestedBy') and job['requestedBy']!=requested:
+                raise Rejected('IDEMPOTENCY_IDENTITY_MISMATCH')
+            if not job.get('requestedBy'):
+                job['requestedBy']=requested
+                self.save(job)
+            return copy.deepcopy(job)
 
     def _grant_product(self, core, product):
-        revision,sha=core._head(AUTHOR,'policy','current')
-        grants=core._get(AUTHOR,sha,'active-policy')['grants'] if sha else []
-        for principal in (AUTHOR.principal,READER.principal,REVIEWER.principal):
+        revision,sha=core._head(self.producer,'policy','current')
+        grants=core._get(self.producer,sha,'active-policy')['grants'] if sha else []
+        principals=(self.producer.principal,self.reader.principal)
+        if self.authorities.isolated:
+            principals += (self.authorities.authenticate('document.approve').principal,)
+        for principal in principals:
             grants += [{'principal':principal,'resource':'product:'+product,'actions':['consume','history']},
                        {'principal':principal,'resource':'source:'+product+'-source','actions':['source_read']}]
-        core.set_policy(AUTHOR,{'schemaVersion':'active-policy.v0.1','revision':revision+1,'grants':grants},revision)
+        core.set_policy(self.producer,{'schemaVersion':'active-policy.v0.1','revision':revision+1,'grants':grants},revision)
 
     def run(self, run_id):
         job=self.jobs[run_id]
@@ -74,8 +133,8 @@ class DocumentProduction(Production):
             self.stage(job,'parse','COMPLETED',clauseCount=len(clauses))
             self.stage(job,'documents','RUNNING',executor='RAGFLOW_NATIVE_HTTP')
             client=self.client_factory()
-            objects=produce(core,AUTHOR,run_id,1,raw,SCOPE,job['recipe']['tests'],[READER.principal],client)
-            index=core._get(AUTHOR,objects['indexDigest'],'document-index')
+            objects=produce(core,self.producer,run_id,1,raw,self.scope,job['recipe']['tests'],[self.reader.principal],client)
+            index=core._get(self.producer,objects['indexDigest'],'document-index')
             with self.lock:
                 job['coreObjects']=objects
                 job['nativeOperations']=copy.deepcopy(client.operations)
@@ -84,11 +143,11 @@ class DocumentProduction(Production):
                        documentId=index['index']['documentId'],chunkCount=len(index['index']['chunks']))
             self.stage(job,'rules','NOT_SELECTED')
             self.stage(job,'validation','RUNNING')
-            validation=core.validate_document(AUTHOR,objects['candidateDigest'],client)
-            result=core._get(AUTHOR,validation,'document-validation')
+            validation=core.validate_document(self.producer,objects['candidateDigest'],client)
+            result=core._get(self.producer,validation,'document-validation')
             artifact={'schemaVersion':'m2-document-display.v0.1','documentClauses':clauses,'rules':[],
                 'candidateDigest':objects['candidateDigest'],'indexDigest':objects['indexDigest'],
-                'source':core._get(AUTHOR,objects['sourceDigest'],'source-revision'),'bridge':index['bridge'],
+                'source':core._get(self.producer,objects['sourceDigest'],'source-revision'),'bridge':index['bridge'],
                 'validation':{'retrievalTests':result['results'],'coreValidationDigest':validation,
                               'passed':result['passed'],'scope':'USER_SUPPLIED_DOCUMENT_TESTS_ONLY'},
                 'publicationAllowed':False,'status':'CORE_CANDIDATE'}
@@ -105,25 +164,23 @@ class DocumentProduction(Production):
         finally:
             core.close()
 
-    @staticmethod
-    def _latest(core, kind, candidate):
+    def _latest(self, core, kind, candidate):
         rows=core.db.execute('SELECT digest FROM objects WHERE tenant=? AND kind=? AND json_extract(body,\'$.candidateDigest\')=? ORDER BY rowid DESC LIMIT 1',
-                            (AUTHOR.tenant,kind,candidate)).fetchall()
+                            (self.producer.tenant,kind,candidate)).fetchall()
         return rows[0][0] if rows else None
 
-    @staticmethod
-    def _quality_report(core, candidate, admission_digest):
-        admission=core._get(AUTHOR,admission_digest,'document-quality-admission')
+    def _quality_report(self, core, candidate, admission_digest):
+        admission=core._get(self.producer,admission_digest,'document-quality-admission')
         if admission['candidateDigest']!=candidate:
             raise Rejected('QUALITY_ADMISSION_FAILED_OR_MISMATCH')
-        answer=core._get(AUTHOR,admission['answerEvaluationDigest'],'document-answer-evaluation')
+        answer=core._get(self.producer,admission['answerEvaluationDigest'],'document-answer-evaluation')
         runtime_kind=core.db.execute('SELECT kind FROM objects WHERE tenant=? AND digest=?',
-            (AUTHOR.tenant,answer['runtimeEvidenceDigest'])).fetchone()
+            (self.producer.tenant,answer['runtimeEvidenceDigest'])).fetchone()
         if not runtime_kind or runtime_kind[0] not in {
                 'document-answer-runtime-evidence','document-factory-evaluation-runtime-evidence'}:
             raise Rejected('QUALITY_RUNTIME_EVIDENCE_INVALID')
-        runtime=core._get(AUTHOR,answer['runtimeEvidenceDigest'],runtime_kind[0])
-        retrieval=core._get(AUTHOR,admission['retrievalEvaluationDigest'],
+        runtime=core._get(self.producer,answer['runtimeEvidenceDigest'],runtime_kind[0])
+        retrieval=core._get(self.producer,admission['retrievalEvaluationDigest'],
                             'document-retrieval-evaluation')
         return {'decision':admission['decision'],'admissionDigest':admission_digest,
             'profileDigest':admission['profileDigest'],'testSetDigest':admission['testSetDigest'],
@@ -189,7 +246,8 @@ class DocumentProduction(Production):
                                    error=getattr(exc,'code',type(exc).__name__))
                     self.save(self.jobs[run_id])
 
-    def start_evaluation(self, data):
+    def start_evaluation(self, data, authority=None):
+        authority=authority or self.authorities.authenticate('evaluation.start')
         if set(data)!={'runId','candidateDigest'}:
             raise Rejected('QUALITY_EVALUATION_REQUEST_INVALID')
         if self.evaluation_launcher is None:
@@ -211,7 +269,8 @@ class DocumentProduction(Production):
                 try:return self._evaluation(core,job)
                 finally:core.close()
             evaluation_id='evaluation-'+os.urandom(16).hex()
-            job['qualityEvaluation']={'id':evaluation_id,'status':'QUEUED','createdAt':now()}
+            job['qualityEvaluation']={'id':evaluation_id,'status':'QUEUED','createdAt':now(),
+                                      'requestedBy':self.authorities.audit(authority)}
             self.save(job)
             self.pool.submit(self._run_evaluation,job['id'],evaluation_id)
             return copy.deepcopy(job['qualityEvaluation'])
@@ -220,20 +279,20 @@ class DocumentProduction(Production):
         objects=job.get('coreObjects')
         if not objects:return {'state':'NO_CANDIDATE'}
         candidate=objects['candidateDigest']
-        core._document_parts(AUTHOR,candidate)
+        core._document_parts(self.producer,candidate)
         val=self._latest(core,'document-validation',candidate)
         approval=self._latest(core,'document-approval',candidate)
-        binding_sha=core._head(AUTHOR,'document-binding',job['id'])[1]
-        binding=core._get(AUTHOR,binding_sha,'document-binding') if binding_sha else None
+        binding_sha=core._head(self.producer,'document-binding',job['id'])[1]
+        binding=core._get(self.producer,binding_sha,'document-binding') if binding_sha else None
         manifest=binding['manifestDigest'] if binding else None
         published=bool(manifest)
         if manifest:
-            frozen=core._get(AUTHOR,manifest,'document-manifest')
+            frozen=core._get(self.producer,manifest,'document-manifest')
             if frozen['candidateDigest']!=candidate:raise Rejected('CANDIDATE_MISMATCH')
             val,approval=frozen['validationDigest'],frozen['approvalDigest']
-        elif approval and core._get(AUTHOR,approval,'document-approval')['validationDigest']!=val:
+        elif approval and core._get(self.producer,approval,'document-approval')['validationDigest']!=val:
             approval=None
-        valid=core._get(AUTHOR,val,'document-validation')['passed'] if val else False
+        valid=core._get(self.producer,val,'document-validation')['passed'] if val else False
         evaluation=self._evaluation(core,job)
         quality=evaluation.get('report')
         quality_passed=quality and quality['decision']=='PASS'
@@ -245,10 +304,13 @@ class DocumentProduction(Production):
                else 'EVALUATION_REQUIRED' if valid else 'REVIEW_REQUIRED')
         return {'state':state,
                 'candidateDigest':candidate,'validationDigest':val,'approvalDigest':approval,
-                'approvalReason':core._get(AUTHOR,approval,'document-approval')['reason'] if approval else None,
+                'approvalReason':core._get(self.producer,approval,'document-approval')['reason'] if approval else None,
                 'manifestDigest':manifest,'bindingDigest':binding_sha,'productId':job['id'],
                 'qualityAdmissionDigest':quality['admissionDigest'] if quality else None,
-                'authority':'ISOLATED_TEST_ONLY','scope':SCOPE,'businessContext':CONTEXT.facts()}
+                'authority':('ISOLATED_TEST_ONLY' if self.authorities.isolated
+                             else 'TRUSTED_SERVER_AUTHENTICATION'),
+                'scope':self.scope,'businessContext':self.context.facts(),
+                'sourceActivationDigest':job.get('sourceActivationDigest')}
 
     def get(self, run_id):
         job=super().get(run_id)
@@ -256,8 +318,8 @@ class DocumentProduction(Production):
         try:
             job['release']=self._release(core,job)
             job['qualityEvaluation']=self._evaluation(core,job)
-            rows=core.db.execute("SELECT digest FROM objects WHERE tenant=? AND kind='document-receipt' AND json_extract(body,'$.productId')=? ORDER BY rowid",(READER.tenant,run_id))
-            job['consumptionReceipts']=[self._receipt(core.replay_document(READER,row[0]),run_id) for row in rows.fetchall()]
+            rows=core.db.execute("SELECT digest FROM objects WHERE tenant=? AND kind='document-receipt' AND json_extract(body,'$.productId')=? ORDER BY rowid",(self.reader.tenant,run_id))
+            job['consumptionReceipts']=[self._receipt(core.replay_document(self.reader,row[0]),run_id) for row in rows.fetchall()]
             return job
         finally:core.close()
 
@@ -282,8 +344,43 @@ class DocumentProduction(Production):
                 'engineReady':self.evaluation_launcher is not None,'mode':'M2_ISOLATED_DOCUMENT',
                 'isolatedReleases':releases,'isolatedApprovalAllowed':True,'parameters':{},'recipe':'m2-document-core'}
 
-    def release_action(self, path, data):
+    def activate_source(self, data, authority=None):
+        authority=authority or self.authorities.authenticate('source.activate')
+        if set(data)!={'runId','candidateDigest','reason'} or not isinstance(data['reason'],str) or not 1<=len(data['reason'].strip())<=1000:
+            raise Rejected('SOURCE_ACTIVATION_CONTRACT_INVALID')
+        with self.lock:
+            job=super().get(data['runId'])
+            if job['status']!='COMPLETED':raise Rejected('CANDIDATE_NOT_VALIDATED')
+            if job.get('sourceActivationDigest'):
+                raise Rejected('SOURCE_ACTIVATION_REPLAY')
+            if job.get('coreObjects',{}).get('candidateDigest')!=data['candidateDigest']:
+                raise Rejected('CANDIDATE_MISMATCH')
+            core=self.core()
+            try:
+                release=self._release(core,job)
+                if release['state']!='APPROVED':
+                    raise Rejected('DOCUMENT_APPROVAL_REQUIRED')
+                source=job['coreObjects']['sourceDigest']
+                try:
+                    activation=core._source_current(self.producer,source,
+                                                    self.context.business_date)
+                except Rejected as exc:
+                    if exc.code!='SOURCE_NOT_EFFECTIVE':raise
+                    activation=core.activate_source(authority,source,
+                                                    self.context.business_date)
+                job=self.jobs[data['runId']]
+                job['sourceActivationDigest']=activation
+                job['sourceActivatedBy']=self.authorities.audit(authority)
+                job['sourceActivationReason']=data['reason'].strip()
+                self.save(job)
+                return self._release(core,job)
+            finally:core.close()
+
+    def release_action(self, path, data, authority=None):
         if path not in {'/api/document-approve','/api/document-publish'}:raise Rejected('RELEASE_CONTRACT_INVALID')
+        operation=('document.approve' if path=='/api/document-approve'
+                   else 'manifest.publish')
+        authority=authority or self.authorities.authenticate(operation)
         if set(data)!={'runId','candidateDigest','reason'} or not isinstance(data['reason'],str) or not 1<=len(data['reason'].strip())<=1000:
             raise Rejected('RELEASE_CONTRACT_INVALID')
         with self.lock:
@@ -300,24 +397,24 @@ class DocumentProduction(Production):
                     if release['state']!='QUALITY_PASSED' or not admission:
                         raise Rejected('QUALITY_ADMISSION_REQUIRED')
                     if release['state']!='ISOLATED_PUBLISHED':
-                        core.approve_quality_document(REVIEWER,data['candidateDigest'],
-                            release['validationDigest'],admission,data['reason'])
+                        self.authorities.check_separation(job.get('requestedBy'),authority)
+                        core.approve_quality_document(authority,data['candidateDigest'],
+                            release['validationDigest'],admission,data['reason'],1)
                 else:
                     if not release.get('approvalDigest'):raise Rejected('DOCUMENT_APPROVAL_REQUIRED')
                     if data['reason']!=release['approvalReason']:raise Rejected('APPROVAL_REASON_MISMATCH')
                     if release['state']!='ISOLATED_PUBLISHED':
-                        try:core._source_current(AUTHOR,job['coreObjects']['sourceDigest'],CONTEXT.business_date)
-                        except Rejected as exc:
-                            if exc.code!='SOURCE_NOT_EFFECTIVE':raise
-                            core.activate_source(AUTHOR,job['coreObjects']['sourceDigest'],CONTEXT.business_date)
-                        approval=core._get(AUTHOR,release['approvalDigest'],'document-approval')
+                        core._source_current(self.producer,job['coreObjects']['sourceDigest'],
+                                             self.context.business_date)
+                        approval=core._get(authority,release['approvalDigest'],'document-approval')
                         admission=release.get('qualityAdmissionDigest')
-                        if (approval['schemaVersion']!='document-approval.v0.2'
+                        if (approval['schemaVersion']!='document-approval.v0.3'
                                 or approval['qualityAdmissionDigest']!=admission):
                             raise Rejected('DOCUMENT_APPROVAL_MISMATCH')
-                        manifest=core.publish_quality_document(AUTHOR,data['candidateDigest'],
-                            release['validationDigest'],release['approvalDigest'],admission,1)
-                        core.bind_document(AUTHOR,manifest,0)
+                        manifest=core.publish_quality_document(authority,data['candidateDigest'],
+                            release['validationDigest'],release['approvalDigest'],admission,1,
+                            self.context.business_date)
+                        core.bind_document(authority,manifest,0)
                 return self._release(core,job)
             finally:core.close()
 
@@ -332,7 +429,7 @@ class DocumentProduction(Production):
                 def retrieve(self,*args):return factory().retrieve(*args)
                 def retrieve_candidates(self,*args):return factory().retrieve_candidates(*args)
             import uuid
-            receipt=core.query_document(READER,run_id,job['release']['manifestDigest'],CONTEXT,query,
+            receipt=core.query_document(self.reader,run_id,job['release']['manifestDigest'],self.context,query,
                 'request-'+uuid.uuid4().hex,'trace-'+uuid.uuid4().hex,Retrieval())
             return self._receipt(receipt,run_id)
         finally:core.close()

@@ -132,6 +132,7 @@ def release(service,job):
     job=evaluated(service,job['id'])
     body={'runId':job['id'],'candidateDigest':job['coreObjects']['candidateDigest'],'reason':'合成材料隔离测试'}
     service.release_action('/api/document-approve',body)
+    service.activate_source(body)
     return service.release_action('/api/document-publish',body)
 
 
@@ -183,6 +184,29 @@ def test_web_cannot_publish_or_spoof_identity(tmp_path):
             service.release_action('/api/document-approve',{**body,'candidateDigest':'0'*64})
         with pytest.raises(Rejected,match='DOCUMENT_ONLY_REQUIRED'):service.submit({**data,'rules':True})
         with pytest.raises(Rejected,match='RETRIEVAL_GOLD_REQUIRED'):service.submit({**data,'tests':[]})
+    finally:service.close()
+
+
+def test_quality_pass_approval_does_not_activate_source_or_authorize_publish(tmp_path):
+    service,_,data=make(tmp_path)
+    try:
+        job=done(service,service.submit(data))
+        service.start_evaluation({'runId':job['id'],
+            'candidateDigest':job['coreObjects']['candidateDigest']})
+        job=evaluated(service,job['id'])
+        body={'runId':job['id'],'candidateDigest':job['coreObjects']['candidateDigest'],
+              'reason':'independent release review'}
+        approved=service.release_action('/api/document-approve',body)
+        assert approved['state']=='APPROVED'
+        assert approved['sourceActivationDigest'] is None
+        with pytest.raises(Rejected,match='SOURCE_NOT_EFFECTIVE'):
+            service.release_action('/api/document-publish',body)
+        activated=service.activate_source(body)
+        assert activated['sourceActivationDigest']
+        with pytest.raises(Rejected,match='SOURCE_ACTIVATION_REPLAY'):
+            service.activate_source(body)
+        published=service.release_action('/api/document-publish',body)
+        assert published['state']=='ISOLATED_PUBLISHED'
     finally:service.close()
 
 

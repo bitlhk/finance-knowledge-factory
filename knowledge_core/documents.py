@@ -7,7 +7,7 @@ Only exact original quotes are returned, never arbitrary upstream chunk bodies.
 import hashlib
 import json
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from .core import Core, BusinessContext
 from .contracts import Rejected, canonical, digest, text_digest
@@ -611,7 +611,8 @@ class DocumentCore(FactoryEvaluationMixin, Core):
                 'authorityRef':actor.authority, 'decision':'ISOLATED_TEST_APPROVAL', 'reason':reason})
 
     def approve_quality_document(self, actor, candidate_digest, validation_digest,
-                                 quality_admission_digest, reason):
+                                 quality_admission_digest, reason,
+                                 target_revision=1, lifetime_seconds=86400):
         """Record a human release decision for one immutable quality result.
 
         Evaluation success is deliberately insufficient. The approval identity is
@@ -629,13 +630,24 @@ class DocumentCore(FactoryEvaluationMixin, Core):
                     or admission['sourceDigest'] != index['sourceDigest']
                     or admission['indexDigest'] != candidate['indexDigest']):
                 raise Rejected('QUALITY_ADMISSION_FAILED_OR_MISMATCH')
+            if (not isinstance(target_revision, int) or target_revision < 1
+                    or not isinstance(lifetime_seconds, int)
+                    or not 60 <= lifetime_seconds <= 604800):
+                raise Rejected('DOCUMENT_APPROVAL_LIFETIME_INVALID')
+            approved = datetime.now(timezone.utc)
             return self._put(actor, 'document-approval', {
-                'schemaVersion':'document-approval.v0.2',
+                'schemaVersion':'document-approval.v0.3',
                 'candidateDigest':candidate_digest,
                 'validationDigest':validation_digest,
                 'qualityAdmissionDigest':quality_admission_digest,
+                'sourceDigest':index['sourceDigest'],
+                'indexDigest':candidate['indexDigest'],
+                'productId':candidate['productId'],
+                'targetRevision':target_revision,
                 'actor':actor.principal, 'authorityRef':actor.authority,
-                'decision':'QUALITY_RELEASE_APPROVAL', 'reason':reason})
+                'decision':'QUALITY_RELEASE_APPROVAL', 'reason':reason,
+                'approvedAt':approved.isoformat(),
+                'expiresAt':(approved + timedelta(seconds=lifetime_seconds)).isoformat()})
 
     def publish_document(self, actor, candidate_digest, validation_digest, approval_digest, revision):
         actor.require('manifest.publish')
@@ -660,25 +672,48 @@ class DocumentCore(FactoryEvaluationMixin, Core):
                 'mode':'M2_ISOLATED_DOCUMENT'})
 
     def publish_quality_document(self, actor, candidate_digest, validation_digest,
-                                 approval_digest, quality_admission_digest, revision):
+                                 approval_digest, quality_admission_digest, revision,
+                                 business_date=None):
         actor.require('manifest.publish')
         with self.tx():
             candidate, recipe, _, index = self._document_parts(actor, candidate_digest)
             self._document_valid(actor, candidate_digest, validation_digest)
             approval = self._get(actor, approval_digest, 'document-approval')
             admission = self._get(actor, quality_admission_digest, 'document-quality-admission')
-            if (approval['candidateDigest'] != candidate_digest
-                    or approval['validationDigest'] != validation_digest):
+            if (approval['schemaVersion'] != 'document-approval.v0.3'
+                    or approval['candidateDigest'] != candidate_digest
+                    or approval['validationDigest'] != validation_digest
+                    or approval['qualityAdmissionDigest'] != quality_admission_digest
+                    or approval['sourceDigest'] != index['sourceDigest']
+                    or approval['indexDigest'] != candidate['indexDigest']
+                    or approval['productId'] != candidate['productId']
+                    or approval['targetRevision'] != revision):
                 raise Rejected('DOCUMENT_APPROVAL_MISMATCH')
-            if (approval['schemaVersion'] == 'document-approval.v0.2'
-                    and approval['qualityAdmissionDigest'] != quality_admission_digest):
-                raise Rejected('DOCUMENT_APPROVAL_MISMATCH')
+            try:
+                expires = datetime.fromisoformat(
+                    approval['expiresAt'].replace('Z', '+00:00'))
+            except (KeyError, ValueError) as exc:
+                raise Rejected('DOCUMENT_APPROVAL_MISMATCH') from exc
+            if expires <= datetime.now(timezone.utc):
+                raise Rejected('DOCUMENT_APPROVAL_EXPIRED')
             if (admission['candidateDigest'] != candidate_digest or admission['decision'] != 'PASS'
                     or admission['sourceDigest'] != index['sourceDigest']
                     or admission['indexDigest'] != candidate['indexDigest']):
                 raise Rejected('QUALITY_ADMISSION_FAILED_OR_MISMATCH')
             if self._head(actor, 'recipe', recipe['id'])[1] != digest(recipe):
                 raise Rejected('DRAFT_CHANGED_REVALIDATE')
+            if business_date is None:
+                raise Rejected('SOURCE_EFFECTIVE_DATE_REQUIRED')
+            source = self._get(actor, index['sourceDigest'], 'source-revision')
+            activation = self.db.execute(
+                "SELECT digest FROM activations WHERE tenant=? AND source=? AND effective<=? ORDER BY effective DESC LIMIT 1",
+                (actor.tenant, source['id'], business_date)).fetchone()
+            if not activation:
+                raise Rejected('SOURCE_NOT_EFFECTIVE')
+            activation_body = self._get(actor, activation[0], 'source-activation')
+            if (activation_body['state'] != 'ACTIVE'
+                    or activation_body['sourceDigest'] != index['sourceDigest']):
+                raise Rejected('SOURCE_SUPERSEDED_OR_REVOKED')
             manifest = {
                 'schemaVersion':'document-manifest.v0.1', 'id':candidate['productId'], 'revision':revision,
                 'productId':candidate['productId'], 'candidateDigest':candidate_digest,

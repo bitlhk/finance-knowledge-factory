@@ -26,7 +26,8 @@ The current workbench calls `publish_document()` and exposes an isolated-test re
 4. `QUALITY_REJECTED` or `QUALITY_PASSED`: Core recomputes the result from trusted runtime evidence. Raw failures remain visible and immutable.
 5. `APPROVAL_REQUIRED`: a PASS only permits an authorized reviewer to consider publication.
 6. `APPROVED`: a distinct reviewer identity records approval for the exact candidate, quality admission, source revision, and intended product version.
-7. `PUBLISHED`: Core calls `publish_quality_document()` and binds the resulting fixed Manifest. No automatic upgrade occurs.
+7. `SOURCE_EFFECTIVE`: a separately authorized source owner confirms that the exact registered source revision is effective for the trusted business date.
+8. `PUBLISHED`: Core calls `publish_quality_document()` and binds the resulting fixed Manifest. No automatic upgrade occurs.
 
 Quality PASS never invokes approval or publication automatically.
 
@@ -43,11 +44,16 @@ Extend the existing workbench server rather than adding a new service:
 - `POST /api/document-approve`
   - binds authenticated reviewer, candidate, admission, reason, and intended version;
   - rejects the evaluation executor when separation-of-duties policy requires a second actor.
+- `POST /api/document-source-activate`
+  - uses only the server-authenticated source authority;
+  - records or verifies the exact effective source revision and never runs implicitly during publication.
 - `POST /api/document-publish`
   - accepts expected candidate, approval, admission, and version digests;
   - invokes `publish_quality_document()` and existing binding logic.
 
-All endpoints use strict schemas, optimistic digest checks, same-origin protections, idempotency keys, and fail closed on stale or revoked authority.
+All endpoints use strict schemas, server-resolved identities, digest checks,
+same-origin protections, and fail closed on stale, expired, replayed, or revoked
+authority. The browser cannot submit an actor or role.
 
 ## Workbench changes
 

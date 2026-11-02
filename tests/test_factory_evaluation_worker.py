@@ -162,9 +162,12 @@ def test_factory_worker_candidate_to_quality_admission(tmp_path):
         assert admission_body['answerEvidenceAuthority'] == 'FACTORY_WORKER'
         assert admission_body['decision'] == 'PASS'
 
+        approval = core.approve_quality_document(
+            MANAGER, values['candidateDigest'], values['validation'], admission,
+            'factory worker quality release')
         manifest = core.publish_quality_document(
             MANAGER, values['candidateDigest'], values['validation'],
-            values['approval'], admission, 1)
+            approval, admission, 1, CONTEXT.business_date)
         assert core._get(MANAGER, manifest, 'document-manifest')[
             'schemaVersion'] == 'document-manifest.v0.1'
     finally:

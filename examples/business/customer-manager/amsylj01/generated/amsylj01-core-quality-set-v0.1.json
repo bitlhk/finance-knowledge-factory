@@ -1,0 +1,309 @@
+{
+  "schemaVersion": "document-quality-test-set.v0.1",
+  "id": "boc-wealth-manager-amsylj01-core-v0-1",
+  "purpose": "BLIND_ACCEPTANCE",
+  "sourceDigest": "5cecd1b01743ae4ecd5df9a84f4d4ad8e00d1ba0a4ec898c9445c4c0d84a2a3d",
+  "sourceTitle": "客户经理服务准备与产品条款说明",
+  "cases": [
+    {
+      "caseId": "wm-001-risk-level",
+      "category": "CANONICAL",
+      "question": "中银日积月累-收益累进的风险等级和适合客户类型是什么？",
+      "expectedClauses": [
+        "第一条",
+        "第四条"
+      ],
+      "answerFacts": [
+        "风险级别为2：中低风险",
+        "适合稳健型、平衡型、进取型和激进型投资者，具体以销售机构评级和要求为准"
+      ],
+      "forbiddenClaims": [
+        "适合所有客户",
+        "银行保证本金",
+        "当前必然可售"
+      ]
+    },
+    {
+      "caseId": "wm-002-c1-suitability",
+      "category": "PARAPHRASE",
+      "question": "一名当前评级为C1的客户能否购买这款产品？",
+      "expectedClauses": [
+        "第二十四条",
+        "第二条"
+      ],
+      "answerFacts": [
+        "C1对应低风险产品",
+        "本产品为2级中低风险且适合客户不含谨慎型"
+      ],
+      "forbiddenClaims": [
+        "可以购买",
+        "已完成适当性判断",
+        "已拒绝交易"
+      ]
+    },
+    {
+      "caseId": "wm-003-assessment-expiry",
+      "category": "PARAPHRASE",
+      "question": "客户的风险测评已经超过一年，还能直接购买吗？",
+      "expectedClauses": [
+        "第二十一条",
+        "第二十三条"
+      ],
+      "answerFacts": [
+        "风险测评有效期为一年或12个月",
+        "过期或风险承受能力发生重大变化时应重新评估"
+      ],
+      "forbiddenClaims": [
+        "旧测评继续永久有效",
+        "已替客户完成测评"
+      ]
+    },
+    {
+      "caseId": "wm-004-three-month-liquidity",
+      "category": "PARAPHRASE",
+      "question": "客户三个月后要用钱，这款产品是否可以提前赎回？",
+      "expectedClauses": [
+        "第十条",
+        "第十三条",
+        "第十一条"
+      ],
+      "answerFacts": [
+        "交易日可办理正常赎回",
+        "T日赎回，本金和收益T+1日到账，节假日顺延",
+        "客户无权提前终止整个产品与正常赎回不是同一概念"
+      ],
+      "forbiddenClaims": [
+        "任何日期均可即时到账",
+        "产品保证三个月后可用",
+        "客户可以提前终止产品"
+      ]
+    },
+    {
+      "caseId": "wm-005-weekend-order",
+      "category": "PARAPHRASE",
+      "question": "客户周末在手机银行提交赎回，什么时候处理？",
+      "expectedClauses": [
+        "第十四条",
+        "第九条"
+      ],
+      "answerFacts": [
+        "周六、周日及法定节假日不是交易日",
+        "挂单交易在下一受理时间自动成交"
+      ],
+      "forbiddenClaims": [
+        "周末立即赎回到账",
+        "固定在下一个自然日到账"
+      ]
+    },
+    {
+      "caseId": "wm-006-minimum-subscription",
+      "category": "CANONICAL",
+      "question": "首次购买和追加购买的金额要求是什么？",
+      "expectedClauses": [
+        "第五条",
+        "第十五条"
+      ],
+      "answerFacts": [
+        "首次申购起点1万元",
+        "高于起点及追加申购按1000元整数倍"
+      ],
+      "forbiddenClaims": [
+        "最低1000元即可首次购买"
+      ]
+    },
+    {
+      "caseId": "wm-007-partial-redemption",
+      "category": "PARAPHRASE",
+      "question": "客户部分赎回后只剩9000份，会怎样处理？",
+      "expectedClauses": [
+        "第十五条"
+      ],
+      "answerFacts": [
+        "部分赎回后实时剩余份额不得低于1万份",
+        "管理人有权将低于1万份的部分赎回申请办理为强制全部赎回"
+      ],
+      "forbiddenClaims": [
+        "一定保留9000份",
+        "银行必须无条件部分赎回"
+      ]
+    },
+    {
+      "caseId": "wm-008-fees",
+      "category": "CANONICAL",
+      "question": "这款产品申购、赎回和管理费用如何收取？",
+      "expectedClauses": [
+        "第七条",
+        "第十二条",
+        "第十六条"
+      ],
+      "answerFacts": [
+        "申购和赎回费率均为0",
+        "固定投资管理费率0.2%年率",
+        "托管费率0.03%年率",
+        "可能存在浮动投资管理费及相关税费"
+      ],
+      "forbiddenClaims": [
+        "产品完全没有任何费用"
+      ]
+    },
+    {
+      "caseId": "wm-009-principal-guarantee",
+      "category": "CONFUSABLE",
+      "question": "这款产品是否保本，预期收益能否保证？",
+      "expectedClauses": [
+        "第三条",
+        "第六条",
+        "第十九条"
+      ],
+      "answerFacts": [
+        "不保证本金和收益",
+        "预期收益或过往业绩不构成收益承诺"
+      ],
+      "forbiddenClaims": [
+        "保本",
+        "收益保证",
+        "银行兜底"
+      ]
+    },
+    {
+      "caseId": "wm-010-non-own-funds",
+      "category": "CONFUSABLE",
+      "question": "客户可以借款购买这款理财产品吗？",
+      "expectedClauses": [
+        "第二十条",
+        "第二十二条"
+      ],
+      "answerFacts": [
+        "投资资金应为本人自有资金",
+        "不得使用贷款等筹集的非自有资金投资理财产品"
+      ],
+      "forbiddenClaims": [
+        "贷款资金可以购买",
+        "只要风险等级匹配即可使用借款"
+      ]
+    },
+    {
+      "caseId": "wm-011-early-termination-distinction",
+      "category": "CONFUSABLE",
+      "question": "产品说明书说客户无提前终止权，是否意味着客户完全不能赎回？",
+      "expectedClauses": [
+        "第十一条",
+        "第十三条"
+      ],
+      "answerFacts": [
+        "客户无提前终止整个理财计划的权利",
+        "产品仍约定在交易日开放正常申购和赎回"
+      ],
+      "forbiddenClaims": [
+        "客户完全不能赎回",
+        "提前终止与正常赎回完全相同"
+      ]
+    },
+    {
+      "caseId": "wm-012-bank-termination",
+      "category": "PARAPHRASE",
+      "question": "银行提前终止产品时如何通知和处理资金？",
+      "expectedClauses": [
+        "第十一条"
+      ],
+      "answerFacts": [
+        "至少提前2个工作日公告",
+        "提前终止日后5个交易日内变现并按约定顺序分配",
+        "提前终止日至实际到账日之间不计息"
+      ],
+      "forbiddenClaims": [
+        "一定当日到账",
+        "提前终止后继续计息"
+      ]
+    },
+    {
+      "caseId": "wm-013-large-redemption",
+      "category": "PARAPHRASE",
+      "question": "发生大额赎回时，客户的赎回申请一定会在当天受理吗？",
+      "expectedClauses": [
+        "第十七条"
+      ],
+      "answerFacts": [
+        "发生大额赎回时管理人有权暂停接受当日赎回申请",
+        "下一交易日继续接受申请"
+      ],
+      "forbiddenClaims": [
+        "当天一定受理",
+        "暂停等于永久拒绝"
+      ]
+    },
+    {
+      "caseId": "wm-014-document-conflict",
+      "category": "CONFUSABLE",
+      "question": "理财协议和产品说明书不一致时，以哪个为准？",
+      "expectedClauses": [
+        "第十八条"
+      ],
+      "answerFacts": [
+        "协议与产品说明书不一致时以产品说明书为准"
+      ],
+      "forbiddenClaims": [
+        "一律以通用协议为准"
+      ]
+    },
+    {
+      "caseId": "wm-015-current-sale-status",
+      "category": "NO_ANSWER",
+      "question": "这款产品今天是否仍在售，还有多少额度？",
+      "expectedClauses": [],
+      "answerFacts": [],
+      "forbiddenClaims": [
+        "今天仍在售",
+        "额度充足",
+        "已经停售"
+      ]
+    },
+    {
+      "caseId": "wm-016-current-customer-rating",
+      "category": "CONFUSABLE",
+      "question": "周明远现在的风险等级是否适合买这款产品？",
+      "expectedClauses": [
+        "第二条"
+      ],
+      "answerFacts": [
+        "需要核实周明远当前有效风险评级",
+        "需要核实评级有效期",
+        "需要核实产品当前销售要求"
+      ],
+      "forbiddenClaims": [
+        "周明远适合购买",
+        "周明远不适合购买",
+        "知识库已经查询客户资料"
+      ]
+    },
+    {
+      "caseId": "wm-017-current-yield",
+      "category": "CONFUSABLE",
+      "question": "这款产品今天的预期年化收益率是多少？",
+      "expectedClauses": [
+        "第八条"
+      ],
+      "answerFacts": [
+        "需要核实当前生效的产品收益公告"
+      ],
+      "forbiddenClaims": [
+        "今天的预期收益率是1.20%",
+        "收益固定不变"
+      ]
+    },
+    {
+      "caseId": "wm-018-version-change",
+      "category": "NO_ANSWER",
+      "question": "如果官网发布了更新版产品说明书，当前知识产品会自动采用新条款吗？",
+      "expectedClauses": [],
+      "answerFacts": [
+        "已发布知识产品固定到特定来源版本和Manifest",
+        "新版本需重新登记、评测、审批和发布，不得静默升级"
+      ],
+      "forbiddenClaims": [
+        "自动无审核升级",
+        "旧Manifest内容会被原地替换"
+      ]
+    }
+  ]
+}

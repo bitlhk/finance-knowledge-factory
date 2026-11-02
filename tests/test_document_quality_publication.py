@@ -140,13 +140,29 @@ def test_quality_enrollment_cannot_bypass_core_recomputed_gate(tmp_path):
         quality_approval = core.approve_quality_document(
             AUTHOR, data['candidateDigest'], validation, admission, 'quality release review')
         quality_approval_body = core._get(AUTHOR, quality_approval, 'document-approval')
-        assert quality_approval_body['schemaVersion'] == 'document-approval.v0.2'
+        assert quality_approval_body['schemaVersion'] == 'document-approval.v0.3'
         assert quality_approval_body['qualityAdmissionDigest'] == admission
+        assert quality_approval_body['sourceDigest'] == data['sourceDigest']
+        assert quality_approval_body['indexDigest'] == data['indexDigest']
+        assert quality_approval_body['targetRevision'] == 1
         with pytest.raises(Rejected, match='QUALITY_ADMISSION_REQUIRED'):
             core.publish_document(AUTHOR, data['candidateDigest'], validation, approval, 2)
-        with pytest.raises(Rejected, match='QUALITY_MANIFEST_ALREADY_EXISTS'):
+        with pytest.raises(Rejected, match='DOCUMENT_APPROVAL_MISMATCH'):
             core.publish_quality_document(AUTHOR, data['candidateDigest'], validation,
-                                          approval, admission, 1)
+                                          approval, admission, 1, CONTEXT.business_date)
+        with pytest.raises(Rejected, match='SOURCE_EFFECTIVE_DATE_REQUIRED'):
+            core.publish_quality_document(AUTHOR, data['candidateDigest'], validation,
+                                          quality_approval, admission, 1)
+        expired_body = {**quality_approval_body,
+                        'approvedAt':'2020-01-01T00:00:00+00:00',
+                        'expiresAt':'2020-01-01T00:01:00+00:00',
+                        'targetRevision':2}
+        with core.tx():
+            expired = core._put(AUTHOR, 'document-approval', expired_body)
+        with pytest.raises(Rejected, match='DOCUMENT_APPROVAL_EXPIRED'):
+            core.publish_quality_document(AUTHOR, data['candidateDigest'], validation,
+                                          expired, admission, 2,
+                                          CONTEXT.business_date)
 
         # Later quality admission must not alter an already published v0.1 product.
         baseline_calls = client.baseline_calls
@@ -158,7 +174,10 @@ def test_quality_enrollment_cannot_bypass_core_recomputed_gate(tmp_path):
         assert len(client.quality_profiles) == quality_calls
 
         manifest = core.publish_quality_document(AUTHOR, data['candidateDigest'], validation,
-                                                  approval, admission, 2)
+                                                  core.approve_quality_document(
+                                                      AUTHOR, data['candidateDigest'], validation,
+                                                      admission, 'revision 2', 2),
+                                                  admission, 2, CONTEXT.business_date)
         manifest_body = core._get(AUTHOR, manifest, 'document-manifest')
         assert manifest_body['schemaVersion'] == 'document-manifest.v0.1'
         assert 'qualityAdmissionDigest' not in manifest_body
@@ -191,7 +210,8 @@ def test_quality_enrollment_cannot_bypass_core_recomputed_gate(tmp_path):
         assert core._get(AUTHOR, admission_2, 'document-quality-admission')['decision'] == 'PASS'
         with pytest.raises(Rejected, match='DOCUMENT_APPROVAL_MISMATCH'):
             core.publish_quality_document(AUTHOR, data['candidateDigest'], validation,
-                                          quality_approval, admission_2, 3)
+                                          quality_approval, admission_2, 3,
+                                          CONTEXT.business_date)
         repeated = core.query_document(READER, 'faq', manifest, CONTEXT,
             '合成客服服务时间是什么？', 'quality-request-2', 'quality-trace-2', client)
         assert repeated['result']['evidence'][0]['clause'] == '第一条'
