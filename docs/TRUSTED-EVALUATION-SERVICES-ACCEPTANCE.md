@@ -94,7 +94,7 @@ scope.
 The original acceptance above is retained at its actual SHA and is not
 rewritten. Review found two delivery defects: the standard task generator did
 not emit five fields consumed by Core, and failed OpenJiuwen invocations were
-recorded only as a Python exception class. PR head
+recorded only as a Python exception class. Implementation SHA
 `d766e612ea354be89eb0978c32dd2c4854c546b6` corrects both.
 
 The managed generator now emitted a complete task without JSON merging. Core

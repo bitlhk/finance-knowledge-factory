@@ -2,7 +2,8 @@
 
 ## Review target
 
-- PR head: `d766e612ea354be89eb0978c32dd2c4854c546b6`
+- implementation head: `d766e612ea354be89eb0978c32dd2c4854c546b6`
+- review target: the current PR head, including this handoff document
 - base: `main@53cca76e5d8ee9c8ee558200dafa1c03253b4323`
 - scope: authenticated local IPC and process/file isolation for the fixed
   Factory evaluation flow
