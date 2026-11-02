@@ -19,23 +19,52 @@ class _GatewayFailure(RuntimeError):
 
 
 def _safe_failure(error):
-    if isinstance(error, _GatewayFailure):
-        return error.failure
-    if isinstance(error, (asyncio.TimeoutError, TimeoutError)):
-        return {"stage":"UPSTREAM", "code":"UPSTREAM_TIMEOUT"}
-    if isinstance(error, ConnectionError):
-        return {"stage":"UPSTREAM", "code":"UPSTREAM_DISCONNECTED"}
-    if type(error).__name__ in {
-            "APIConnectionError", "APIError", "APIStatusError",
-            "AuthenticationError", "BadRequestError", "HTTPStatusError",
-            "InternalServerError", "NotFoundError", "PermissionDeniedError",
-            "RateLimitError", "ServiceUnavailableError",
-            "UnprocessableEntityError"}:
-        return {"stage":"UPSTREAM", "code":"UPSTREAM_SERVICE_ERROR"}
-    if isinstance(error, (ValueError, TypeError, KeyError, AttributeError,
-                          UnicodeError)):
-        return {"stage":"SDK_INVOCATION",
-                "code":"SDK_PARAMETER_OR_RESPONSE_INVALID"}
+    current = error
+    visited = set()
+    for _ in range(4):
+        if current is None or id(current) in visited:
+            break
+        visited.add(id(current))
+        if isinstance(current, _GatewayFailure):
+            return current.failure
+        if isinstance(current, (asyncio.TimeoutError, TimeoutError)):
+            return {"stage":"UPSTREAM", "code":"UPSTREAM_TIMEOUT"}
+        if isinstance(current, ConnectionError):
+            return {"stage":"UPSTREAM", "code":"UPSTREAM_DISCONNECTED"}
+        if type(current).__name__ in {
+                "APIConnectionError", "APIError", "APIStatusError",
+                "AuthenticationError", "BadRequestError", "HTTPStatusError",
+                "InternalServerError", "NotFoundError",
+                "PermissionDeniedError", "RateLimitError",
+                "ServiceUnavailableError", "UnprocessableEntityError"}:
+            return {"stage":"UPSTREAM", "code":"UPSTREAM_SERVICE_ERROR"}
+
+        status = getattr(current, "status", None)
+        status_name = getattr(status, "name", None)
+        if isinstance(status_name, str):
+            if "TIMEOUT" in status_name:
+                return {"stage":"UPSTREAM", "code":"UPSTREAM_TIMEOUT"}
+            if "CONNECT" in status_name:
+                return {"stage":"UPSTREAM",
+                        "code":"UPSTREAM_DISCONNECTED"}
+            if status_name in {
+                    "MODEL_CALL_FAILED", "COMPONENT_LLM_INVOKE_CALL_FAILED",
+                    "COMPONENT_INTENT_DETECTION_INVOKE_CALL_FAILED",
+                    "RETRIEVAL_QUERY_REWRITER_LLM_INVOKE_FAILED"}:
+                return {"stage":"UPSTREAM",
+                        "code":"UPSTREAM_SERVICE_ERROR"}
+            if status_name in {
+                    "MODEL_PROVIDER_INVALID", "MODEL_SERVICE_CONFIG_ERROR",
+                    "MODEL_CONFIG_ERROR", "MODEL_INVOKE_PARAM_ERROR",
+                    "MODEL_CLIENT_CONFIG_INVALID"}:
+                return {"stage":"SDK_INVOCATION",
+                        "code":"SDK_PARAMETER_OR_RESPONSE_INVALID"}
+
+        if isinstance(current, (ValueError, TypeError, KeyError,
+                                AttributeError, UnicodeError)):
+            return {"stage":"SDK_INVOCATION",
+                    "code":"SDK_PARAMETER_OR_RESPONSE_INVALID"}
+        current = getattr(current, "cause", None) or current.__cause__
     return {"stage":"RUNTIME", "code":"RUNTIME_UNCLASSIFIED"}
 
 

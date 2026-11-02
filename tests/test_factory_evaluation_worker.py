@@ -12,7 +12,7 @@ from evaluation_worker import (CandidateEvaluationWorker, CandidateQueryClient,
                                CoreModelGatewayClient, ModelAuthorizationClient,
                                ModelDeployment, ModelEnvironment,
                                OpenJiuwenModelGateway, model_config_digest)
-from evaluation_worker.gateway import _bounded_usage
+from evaluation_worker.gateway import _bounded_usage, _safe_failure
 from knowledge_core.documents import _answer_references
 from m2.pipeline import produce
 from tests.support import CONTEXT, ir, policy
@@ -547,6 +547,31 @@ def test_gateway_records_only_bounded_failure_classification(error, content,
     assert core.records[0][-1] == expected
     assert core.records[0][-2] == {}
     assert 'private' not in repr(core.records[0])
+
+
+@pytest.mark.parametrize(('status_name', 'expected'), [
+    ('MODEL_CALL_FAILED',
+     {'stage':'UPSTREAM', 'code':'UPSTREAM_SERVICE_ERROR'}),
+    ('MODEL_INVOKE_PARAM_ERROR',
+     {'stage':'SDK_INVOCATION', 'code':'SDK_PARAMETER_OR_RESPONSE_INVALID'}),
+    ('WORKFLOW_EXECUTION_TIMEOUT',
+     {'stage':'UPSTREAM', 'code':'UPSTREAM_TIMEOUT'}),
+])
+def test_gateway_classifies_openjiuwen_structured_status_without_message(
+        status_name, expected):
+    status = SimpleNamespace(name=status_name)
+    wrapped = type('FrameworkError', (RuntimeError,), {})('private detail')
+    wrapped.status = status
+    assert _safe_failure(wrapped) == expected
+
+
+def test_gateway_classifies_bounded_wrapped_upstream_cause():
+    cause = APIStatusError('private upstream detail')
+    wrapped = type('FrameworkError', (RuntimeError,), {})('private sdk detail')
+    wrapped.status = SimpleNamespace(name='ERROR')
+    wrapped.cause = cause
+    assert _safe_failure(wrapped) == {
+        'stage':'UPSTREAM', 'code':'UPSTREAM_SERVICE_ERROR'}
 
 
 def test_gateway_rejects_invalid_prepared_request_with_safe_receipt():
