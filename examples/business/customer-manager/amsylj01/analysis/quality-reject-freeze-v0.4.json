@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "amsylj01-quality-reject-freeze.v0.1",
+  "frozenAtPrHead": "b7691e6d87eee9f0b663cc21a6bdd28480777417",
+  "decision": "REJECT",
+  "approvalDigest": null,
+  "manifestDigest": null,
+  "qualityAdmissionDigest": "6562100573e0b1ef13a7f4096ea73fa45e4d32a05035fd220df69036a8933708",
+  "artifacts": {
+    "originalAnswersAndReceipts": {
+      "path": "../acceptance/amsylj01-business-quality-final-v04-20261102.json",
+      "sha256": "b9b4c42921361582e8a80a8bdb014c986ab1cb03b640044dd5435873e9840a2e"
+    },
+    "independentBusinessReview": {
+      "path": "business-review-v0.4.json",
+      "sha256": "0a80b7ae2e2d02efef4806e39886b84925bf73ce8085bf9fb0e44635650e6bff"
+    },
+    "evaluatorReplay": {
+      "path": "archived-answer-reevaluation-final-v0.4.json",
+      "sha256": "fa64e408881b98e4bd2b24eb035c4e67d195508e9aa48583eee254d274d9c4be"
+    },
+    "fixedTestSet": {
+      "path": "boc-wealth-manager-test-set-v0.4.json",
+      "sha256": "465b6bdacedb810e013931a8191f2c43c5d28c7f965a32eeb77b2548a3c0aae3"
+    },
+    "untunedBlindSet": {
+      "path": "blind-business-cases-v0.3.json",
+      "sha256": "7d38ea37e3e24ce8207d023f6bb96763b9698eb9c638ab5da1a4d09a3aaee2a0"
+    },
+    "retrievalTrace": {
+      "path": "retrieval-final-v04-29.json",
+      "sha256": "b727a10760292b4f57f56f53af5dd997140d728f4fd6ba50ee9b5701cc783670"
+    }
+  },
+  "businessIncorrectCaseIds": [
+    "wm-002-c1-suitability",
+    "wm-004-three-month-liquidity",
+    "wm-007-partial-redemption",
+    "blind2-002-friday-late-redemption",
+    "blind3-002-large-redemption-recovery"
+  ],
+  "automaticFalseNegativeCaseIds": [
+    "wm-008-fees",
+    "wm-016-current-customer-rating",
+    "blind2-001-zero-fees-scope",
+    "blind2-003-partial-redemption-discretion",
+    "blind2-004-product-rule-not-customer-result",
+    "blind3-003-zero-redemption-fee-tax",
+    "blind3-004-suitability-document-boundary"
+  ],
+  "mutationPolicy": "FROZEN_DO_NOT_REWRITE_GOLD_THRESHOLDS_ANSWERS_FAILURES"
+}

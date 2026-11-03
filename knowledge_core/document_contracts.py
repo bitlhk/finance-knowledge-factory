@@ -171,10 +171,17 @@ SCHEMAS = {
     'document-quality-manifest-admission': versioned('document-quality-manifest-admission', {
         'id': ID, 'revision': REV, 'manifestDigest': HASH,
         'qualityAdmissionDigest': HASH, 'candidateDigest': HASH}),
-    'document-index': versioned('document-index', {
+    'document-index': {'oneOf': [versioned('document-index', {
         'sourceDigest': HASH, 'originalHtml': {'type': 'string', 'maxLength': 1000000},
         'originalDigest': HASH, 'bridge': {'type': 'object'}, 'bridgeDigest': HASH,
         'index': INDEX, 'clauses': arr(obj({'clause': STR, 'text': STR}), 1)}),
+        obj({'schemaVersion': enum('document-index.v0.2'),
+             'sourceDigest': HASH, 'originalHtml': {'type': 'string', 'maxLength': 1000000},
+             'originalDigest': HASH, 'bridge': {'type': 'object'}, 'bridgeDigest': HASH,
+             'index': INDEX, 'clauses': arr(obj({'clause': STR, 'text': STR}), 1),
+             'sourceReferences': arr(obj({
+                 'clause': STR, 'displayLabel': STR, 'documentTitle': STR,
+                 'documentVersion': STR, 'locators': arr({'type':'object'}, 1)}), 1)})]},
     'document-candidate': versioned('document-candidate', {
         'productId': ID, 'coreCandidateDigest': HASH, 'indexDigest': HASH,
         'tests': arr(CASE, 1, 30)}),
@@ -182,9 +189,20 @@ SCHEMAS = {
         'candidateDigest': HASH, 'coreValidationDigest': HASH, 'passed': BOOL,
         'results': arr(obj({'question': STR, 'expectedClause': STR,
                             'actualClauses': arr(STR), 'passed': BOOL, 'error': {'type': ['string','null']}}), 1, 30)}),
-    'document-approval': versioned('document-approval', {
+    'document-approval': {'oneOf': [versioned('document-approval', {
         'candidateDigest': HASH, 'validationDigest': HASH, 'actor': ID,
         'authorityRef': STR, 'decision': enum('ISOLATED_TEST_APPROVAL'), 'reason': STR}),
+        obj({'schemaVersion': enum('document-approval.v0.2'),
+             'candidateDigest': HASH, 'validationDigest': HASH,
+             'qualityAdmissionDigest': HASH, 'actor': ID, 'authorityRef': STR,
+             'decision': enum('QUALITY_RELEASE_APPROVAL'), 'reason': STR}),
+        obj({'schemaVersion': enum('document-approval.v0.3'),
+             'candidateDigest': HASH, 'validationDigest': HASH,
+             'qualityAdmissionDigest': HASH, 'sourceDigest': HASH,
+             'indexDigest': HASH, 'productId': ID, 'targetRevision': REV,
+             'actor': ID, 'authorityRef': STR,
+             'decision': enum('QUALITY_RELEASE_APPROVAL'), 'reason': STR,
+             'approvedAt': TIMESTAMP, 'expiresAt': TIMESTAMP})]},
     'document-manifest': versioned('document-manifest', {
         'id': ID, 'revision': REV, 'productId': ID, 'candidateDigest': HASH,
         'validationDigest': HASH, 'approvalDigest': HASH, 'indexDigest': HASH,

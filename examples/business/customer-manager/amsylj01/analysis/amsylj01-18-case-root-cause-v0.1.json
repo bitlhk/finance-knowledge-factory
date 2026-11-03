@@ -1,0 +1,1513 @@
+{
+  "schemaVersion": "business-quality-root-cause-report.v0.1",
+  "baselineDigest": "0279e0e70bf6429ca8a79bd88a9efc97a7babbbab5cf128a17f7f2803ae8766c",
+  "baselineDecision": "REJECT",
+  "categories": {
+    "A": "真实业务回答错误或不完整",
+    "B": "关键知识未进入最终证据",
+    "C": "证据已提供但模型理解或引用错误",
+    "D": "业务回答正确但自动事实检查误判",
+    "E": "金标、证据标注或权威来源边界需要业务复核"
+  },
+  "cases": [
+    {
+      "caseId": "wm-001-risk-level",
+      "question": "中银日积月累-收益累进的风险等级和适合客户类型是什么？",
+      "originalAnswer": "直接结论：已核验的原文未明确“中银日积月累-收益累进”的风险等级；适合客户类型为“有投资经验及无投资经验的理财客户和机构投资者”。\n\n依据编号：  \n- 风险等级：原文仅说明理财产品按风险从低到高分为五级及风险匹配原则，未指出该产品具体对应哪一级，因此需要进一步核实。  \n- 适合客户类型：依据 [2] 第六条特别提示第二条：“本产品适合于有投资经验及无投资经验的理财客户和机构投资者。”",
+      "baselineClassification": "ANSWER_FACT_ERROR",
+      "rootCauses": [
+        "A",
+        "B"
+      ],
+      "correctOriginalEvidence": [
+        {
+          "internalUnit": "第一条",
+          "sourcePosition": "product-spec:风险揭示书/产品风险级别",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 1,
+              "quote": "风险级别 2：中低风险",
+              "quoteDigest": "42d875ed7f82f1c1d33d7e790ad5da6d07ed95415e23f9cf274bbb34af915bbb"
+            }
+          ]
+        },
+        {
+          "internalUnit": "第四条",
+          "sourcePosition": "product-spec:产品说明书/产品基本信息/投资者类型",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 3,
+              "quote": "投资者类型 经产品销售机构风险承受能力评估为稳健型、平衡型、进取型和激进型 的个人投资者、机构投资者，具体以销售机构风险评级结果和销售要求 为准。",
+              "quoteDigest": "37b7e83040f408c73d5c9b65f32686a65ff7cd46c3e7ba46f73f5f68887dcbde"
+            }
+          ]
+        }
+      ],
+      "selectedInternalUnits": [
+        "第二十四条",
+        "第六条"
+      ],
+      "answerCitations": [
+        {
+          "answerReference": "第六条",
+          "clause": "第六条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "aacde5b4ca94753c65ac75339547b129da78979c720c5d2719a6710fd8569f84"
+          ]
+        }
+      ],
+      "factChecks": [
+        {
+          "answerContains": false,
+          "fact": "风险级别为2：中低风险",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "适合稳健型、平衡型、进取型和激进型投资者，具体以销售机构评级和要求为准",
+          "passed": false,
+          "supportingClauses": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第一条",
+          "passed": false
+        },
+        {
+          "clause": "第四条",
+          "passed": false
+        }
+      ],
+      "failureStage": "风险级别和适合投资者的产品专属证据位于原始候选第6位以后，Top3被通用风险匹配与特别提示占据；模型据此错误判断产品风险级别未披露。",
+      "repair": "对多意图问题分别召回产品风险级别和适合投资者证据，并以真实PDF页码和标题展示引用。",
+      "verification": "Top3同时包含产品风险级别2和适合投资者类型；回答给出2级中低风险并保留当前销售要求核实边界。"
+    },
+    {
+      "caseId": "wm-002-c1-suitability",
+      "question": "一名当前评级为C1的客户能否购买这款产品？",
+      "originalAnswer": "根据现有公开资料，**无法直接判断该客户能否购买此产品**。原因是原文未提供该款产品的具体风险等级，且未明确定义“C1”与风险承受能力五级分类的对应关系。购买条件为“客户风险评级不低于理财产品风险评级”，需核实产品风险等级及C1对应的评级后才能确定。\n\n依据编号：[1]第二十三条、[2]第二十一条、[3]第二十四条。",
+      "baselineClassification": "ANSWER_FACT_ERROR",
+      "rootCauses": [
+        "B",
+        "E"
+      ],
+      "correctOriginalEvidence": [
+        {
+          "internalUnit": "第二十四条",
+          "sourcePosition": "investor-rights:第三部分/风险等级对应关系",
+          "originalAnchors": [
+            {
+              "sourceId": "investor-rights",
+              "sourceDigest": "96682c229889c377316cadb827f9a10d42e112f5c9e351f0ffdf80581d3562d7",
+              "mediaType": "text/html",
+              "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+              "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[12]/text()[1]",
+              "quote": "我行根据投资者的不同情况将其风险承受能力分为五级，包括：谨慎型、稳健型、平衡型、进取型和激进型。同时我行根据银行理财产品的本金发生损失的可能性和收益的波动性，将理财产品按照风险程度从低到高分为五级，包括：1.低风险产品、2.中低风险产品、3.中等风险产品、4.中高风险产品、5.高风险产品。",
+              "quoteDigest": "4705edac35f9a0d290b4838afc0120e8a3b3136920e9b19e1200258cff230376"
+            },
+            {
+              "sourceId": "investor-rights",
+              "sourceDigest": "96682c229889c377316cadb827f9a10d42e112f5c9e351f0ffdf80581d3562d7",
+              "mediaType": "text/html",
+              "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+              "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[13]/text()[1]",
+              "quote": "我行根据风险匹配原则，在客户风险承受能力和理财产品风险等级之间建立对应关系。",
+              "quoteDigest": "1364af0ba1a57b6b209b8305aad9aa20490154f0f36675d8dec882fd5978bbc6"
+            },
+            {
+              "sourceId": "investor-rights",
+              "sourceDigest": "96682c229889c377316cadb827f9a10d42e112f5c9e351f0ffdf80581d3562d7",
+              "mediaType": "text/html",
+              "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+              "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[13]/strong/text()[1]",
+              "quote": "请您根据您的风险承受能力评估结果选择与您风险承受能力相匹配的理财产品。您的风险承受能力评估结果应以您在购买理财产品前的最近一次有效评估结果为准, 请您参考该次评估结果来选择与您风险承受能力相匹配的理财产品。如果您在理财产品持有期间发生风险承受能力变化，导致您购买的理财产品与您自身风险承受能力不匹配的，对于您依据产品说明书约定有权提前赎回的理财产品，建议您尽快赎回；但是，对于您依据产品说明书约定没有权利提前赎回的理财产品，您将无权以风险承受能力不再匹配为由进行赎回，所以，请您在投资前审慎决策。",
+              "quoteDigest": "1dac1a99b7b2582609227bcd8428d6834ba68bb85b1c80838de371629b1fe331"
+            }
+          ]
+        },
+        {
+          "internalUnit": "第二条",
+          "sourcePosition": "product-spec:风险揭示书/适合购买的投资者",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 1,
+              "quote": "适合购买的投资者 经产品销售机构风险承受能力评估为稳健型、平衡型、进取型 和激进型的个人投资者、机构投资者，具体以销售机构风险评 级结果和销售要求为准。",
+              "quoteDigest": "9f94264a3dce5c19626805209f1bb504dbce9bf116908e3eda53b30727011ea3"
+            }
+          ]
+        }
+      ],
+      "selectedInternalUnits": [
+        "第二十三条",
+        "第二十一条",
+        "第二十四条"
+      ],
+      "answerCitations": [
+        {
+          "answerReference": "第二十三条",
+          "clause": "第二十三条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "e3fb82d8ab6f6cc3d4d6a47922854045d5af6cd6af88a4be033282a16cd91e9c"
+          ]
+        },
+        {
+          "answerReference": "第二十一条",
+          "clause": "第二十一条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "b83a2e1486ab562a599685dd188aebe5e227a9d384a790bfefd8c94a2cf97e34"
+          ]
+        },
+        {
+          "answerReference": "第二十四条",
+          "clause": "第二十四条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "6f4108b16f469878e19148939deade7c7859938590e86e1d27216c3f42298223"
+          ]
+        }
+      ],
+      "factChecks": [
+        {
+          "answerContains": false,
+          "fact": "C1对应低风险产品",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "本产品为2级中低风险且适合客户不含谨慎型",
+          "passed": false,
+          "supportingClauses": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第二十四条",
+          "passed": true
+        },
+        {
+          "clause": "第二条",
+          "passed": false
+        }
+      ],
+      "failureStage": "产品适合投资者证据未进Top3；三份公开资料也没有定义C1与谨慎型或低风险的代码映射，原金标把业务系统映射当作文档事实。",
+      "repair": "召回产品风险和适合投资者条款；把C1代码映射标为授权客户/适当性系统事实，未经该来源不得给购买结论。",
+      "verification": "知识回答说明产品要求并明确缺少C1权威映射；联合业务系统后才允许完成适当性判断。"
+    },
+    {
+      "caseId": "wm-003-assessment-expiry",
+      "question": "客户的风险测评已经超过一年，还能直接购买吗？",
+      "originalAnswer": "不能直接购买。超过一年未进行风险测评，需先主动重新测评，之后方可继续购买。\n\n依据：\n[1] 第二十一条：“个人客户风险测评有效期为一年，超过一年未进行个人客户风险测评……甲方应在乙方网点或者网上银行、手机银行等渠道主动进行测评，若因甲方未及时进行测评导致的风险和损失将由甲方承担。”\n[2] 第二十三条：“风险承受能力评估结果的有效期为12个月，超过12个月未进行风险承受能力评估……您需要重新进行评估，请您主动在我行网点或者网上银行、手机银行等渠道进行风险承受能力评估。”",
+      "baselineClassification": "ANSWER_FACT_ERROR",
+      "rootCauses": [
+        "D",
+        "E"
+      ],
+      "correctOriginalEvidence": [
+        {
+          "internalUnit": "第二十一条",
+          "sourcePosition": "sales-agreement:第四部分第九项",
+          "originalAnchors": [
+            {
+              "sourceId": "sales-agreement",
+              "sourceDigest": "60dc1e97e6ec744b9e804316c9ccc0026b9caedf20a9ba6a62b00d58e9c989dd",
+              "mediaType": "text/html",
+              "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+              "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[21]/strong/text()[1]",
+              "quote": "甲方在乙方首次购买自营理财产品前，须前往乙方营业网点，在柜台或智能柜台进行个人客户风险测评。风险测评旨在帮助甲方了解自身风险偏好和风险承受能力，以便选择合适的投资产品，甲方可购买的自营理财产品风险等级不可超过甲方的客户风险评级，乙方将在《产品说明书》中披露产品风险等级，以便甲方自主评估和决策。个人客户风险测评有效期为一年，超过一年未进行个人客户风险测评或在有效期内发生了可能影响甲方风险承受能力的情况，甲方应在乙方网点或者网上银行、手机银行等渠道主动进行测评，若因甲方未及时进行测评导致的风险和损失将由甲方承担。",
+              "quoteDigest": "5983bcd2864fb4e8cbf30c664500aa4ac782c1efc0d0511c71f7c9f15769d814"
+            }
+          ]
+        },
+        {
+          "internalUnit": "第二十三条",
+          "sourcePosition": "investor-rights:第二部分",
+          "originalAnchors": [
+            {
+              "sourceId": "investor-rights",
+              "sourceDigest": "96682c229889c377316cadb827f9a10d42e112f5c9e351f0ffdf80581d3562d7",
+              "mediaType": "text/html",
+              "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+              "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[9]/strong[1]/text()[1]",
+              "quote": "个人投资者在我行首次购买理财产品前，需在本行网点进行风险承受能力评估。",
+              "quoteDigest": "709c661be80c2668d9b77dae9b3a0774afbd841252353499a7076619de63d17c"
+            },
+            {
+              "sourceId": "investor-rights",
+              "sourceDigest": "96682c229889c377316cadb827f9a10d42e112f5c9e351f0ffdf80581d3562d7",
+              "mediaType": "text/html",
+              "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+              "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[9]/strong[1]/following-sibling::text()[1]",
+              "quote": "风险承受能力评估旨在帮助您了解自己的风险偏好和风险承受能力，有助于您明确投资需求、选择合适的投资产品。中国银行将会根据评估结果向您建议适宜投资的理财产品类型，此建议仅供参考，您仍应充分认识投资风险，谨慎投资。根据监管要求，当您的客户风险评级不低于理财产品风险评级时才可以购买该理财产品。",
+              "quoteDigest": "01ce511c326310fb6412980ac7b6501d0f87837b89ae7b20916dd2dd7c8fdeb5"
+            },
+            {
+              "sourceId": "investor-rights",
+              "sourceDigest": "96682c229889c377316cadb827f9a10d42e112f5c9e351f0ffdf80581d3562d7",
+              "mediaType": "text/html",
+              "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+              "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[9]/strong[2]/text()[1]",
+              "quote": "为及时更新您的财务状况和投资偏好，您的风险承受能力评估结果的有效期为12个月，超过12个月未进行风险承受能力评估或在有效期内您的财务状况发生较大变化等可能影响您风险承受能力的情况，您需要重新进行评估，请您主动在我行网点或者网上银行、手机银行等渠道进行风险承受能力评估。",
+              "quoteDigest": "5fab0a5277555a3e88749e6829fbca41e42261f528f688d42e8f6dbe2b1896d1"
+            }
+          ]
+        }
+      ],
+      "selectedInternalUnits": [
+        "第二十一条",
+        "第二十三条",
+        "第六条"
+      ],
+      "answerCitations": [
+        {
+          "answerReference": "第二十一条",
+          "clause": "第二十一条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "2716d9bb87e37c8f0c9e0bb04a1ce1ace5d626e59cdd473b679bb5e816208f51"
+          ]
+        },
+        {
+          "answerReference": "第二十三条",
+          "clause": "第二十三条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "7cc8311b34c35e6d307cee3d2b6075dd8bd4d64d5e4863da529d02a858b29e74"
+          ]
+        }
+      ],
+      "factChecks": [
+        {
+          "answerContains": false,
+          "fact": "风险测评有效期为一年或12个月",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "过期或风险承受能力发生重大变化时应重新评估",
+          "passed": false,
+          "supportingClauses": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第二十一条",
+          "passed": true
+        },
+        {
+          "clause": "第二十三条",
+          "passed": true
+        }
+      ],
+      "failureStage": "回答对超过一年需重测的直接问题正确，引用也正确；逐字检查不接受转述。金标额外要求说明有效期内重大变化，超出了本题最小结论。",
+      "repair": "采用可解释语义覆盖并继续硬校验12个月；保留重大变化条件作为完整性提示而非篡改旧金标。",
+      "verification": "一年/12个月和重新评估均由引用支持；错误期限或省略重测结论仍失败。"
+    },
+    {
+      "caseId": "wm-004-three-month-liquidity",
+      "question": "客户三个月后要用钱，这款产品是否可以提前赎回？",
+      "originalAnswer": "根据提供的中国银行公开资料，**这款产品理财客户无提前终止权，不能提前赎回**。\n\n依据编号：\n- **[2] 第十一条**：明确“理财客户无提前终止权。中国银行有权按照本理财计划的实际情况，提前终止本理财计划”，且提前终止条件由银行方触发，并非客户主动赎回。",
+      "baselineClassification": "ANSWER_FACT_ERROR",
+      "rootCauses": [
+        "A",
+        "B"
+      ],
+      "correctOriginalEvidence": [
+        {
+          "internalUnit": "第十条",
+          "sourcePosition": "product-spec:产品基本信息/交易日与赎回到账",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 4,
+              "quote": "交易日 在本理财计划存续期内，除周六、周日、中国法定假日以外的工作日为 该理财计划开放申购、赎回的交易日。",
+              "quoteDigest": "31b1cb9bf75294fccc6f4c5f8a992ba5524f9fabc27870790a66435983fa6447"
+            },
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 5,
+              "quote": "赎回到账 T日赎回，本金和收益T+1日到账；到账日若遇节假日顺延至下一工作日。",
+              "quoteDigest": "640d9a03872cc462831d059befe83fae5c57d825bbe9bd82234a4e5fd253a79d"
+            }
+          ]
+        },
+        {
+          "internalUnit": "第十三条",
+          "sourcePosition": "product-spec:第五部分/申购和赎回",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 6,
+              "quote": "五、申购和赎回 1 本理财计划存续期内，每个交易日开放申购和赎回（如有变动，将至少提前一个工作日在中国银 行股份有限公司网站 www.boc.cn 上公布）。",
+              "quoteDigest": "ea330fc00ed11f53764e3858a31cfd6409c022789e460cf62df6f2adc8e7f725"
+            }
+          ]
+        },
+        {
+          "internalUnit": "第十一条",
+          "sourcePosition": "product-spec:产品基本信息/提前终止",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 5,
+              "quote": "提前终止 理财客户无提前终止权。中国银行有权按照本理财计划的实际情况，提 前终止本理财计划。触发提前终止的条件包括但不限于： 在理财计划存续期内，如果连续 30 个交易日本理财计划剩余份额低于 1 亿份，理财计划管理人有权宣布提前终止本理财计划。 在理财计划存续期内，若国家相关法律、法规、监管规定出现重大变更 或者其它突发事件和因素引起金融市场情况出现重大变化以及其它原因 导致理财计划管理人认为理财计划已经不适合继续帮助投资者实现投资 目标的，理财计划管理人有权宣布提前终止本理财计划。 如理财计划管理人提前终止本理财计划，将至少提前2个工作日（含）在 中国银行股份有限公司网站（www.boc.cn）上予以公告，并在提前终止 日后5个交易日内将理财计划资产变现，并将变现后资金按照以下顺序分 配：理财计划应当承担的费用（浮动管理费除外）、投资收益、理财计 划本金、浮动投资管理费。其中投资收益按照本产品说明书第四“理财 计划收益”部分的规定计算，提前终止日视为赎回到账日；理财计划本 金部分按照投资者持有份额分配。提前终止日至资金实际到账日之间不 计息。",
+              "quoteDigest": "69e0e3bb8aeb620224c07895ca123973baed4456154364fcb19c7a1ede0a9f50"
+            }
+          ]
+        }
+      ],
+      "selectedInternalUnits": [
+        "第二十四条",
+        "第十一条",
+        "第六条"
+      ],
+      "answerCitations": [
+        {
+          "answerReference": "第十一条",
+          "clause": "第十一条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "1be52d2ea4ec51f483f3a1c7583d62a52336250ce7826116f2ddfbb7c0f1a8b1"
+          ]
+        }
+      ],
+      "factChecks": [
+        {
+          "answerContains": false,
+          "fact": "交易日可办理正常赎回",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "T日赎回，本金和收益T+1日到账，节假日顺延",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "客户无权提前终止整个产品与正常赎回不是同一概念",
+          "passed": false,
+          "supportingClauses": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十条",
+          "passed": false
+        },
+        {
+          "clause": "第十三条",
+          "passed": false
+        },
+        {
+          "clause": "第十一条",
+          "passed": true
+        }
+      ],
+      "failureStage": "正常申赎及T+1证据没有进入Top3，模型把客户无权提前终止整个计划误解为不能正常赎回。",
+      "repair": "将提前终止和正常赎回作为独立检索意图，优先选择申购赎回、到账及提前终止三类互补证据。",
+      "verification": "回答明确交易日可正常赎回、T+1及节假日顺延，同时说明不能保证三个月后的实际可用日。"
+    },
+    {
+      "caseId": "wm-005-weekend-order",
+      "question": "客户周末在手机银行提交赎回，什么时候处理？",
+      "originalAnswer": "直接结论：周末属于非交易日，客户在手机银行提交的赎回申请将作为挂单交易处理，等到下一个交易日（工作日）的受理时间内自动成交；成交后，赎回本金和收益在 T+1 日到账，若到账日遇节假日则顺延至下一工作日。\n\n依据编号：[1] 第十四条  \n- 明确“受理时间”为交易日的北京时间 8:30-15:30，赎回本金和收益 T+1 日到账，到账日遇节假日顺延。  \n- 明确个人投资者可在非交易日的挂单时间内（北京时间 0:00-5:30 和 8:30-24:00）通过手机银行等渠道挂单赎回，挂单交易将于下一受理时间内自动成交。  \n因此，周末（非交易日）提交赎回时，需等到下一交易日受理时间内自动成交，再按 T+1 规则到账。",
+      "baselineClassification": "ANSWER_FACT_ERROR",
+      "rootCauses": [
+        "B",
+        "D"
+      ],
+      "correctOriginalEvidence": [
+        {
+          "internalUnit": "第十四条",
+          "sourcePosition": "product-spec:第五部分/受理时间与挂单时间",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 7,
+              "quote": "2 受理时间及清算时间：理财计划存续期内，投资者可在受理时间内（交易日的北京时间8：30-15： 30）提出申购或赎回本理财计划。申购实时扣款，当日开始计算收益。赎回本金和收益T+1日到账， 到账日若遇节假日顺延至下一工作日。 3 挂单时间：理财计划存续期内，个人投资者可在挂单时间内（交易日的北京时间0：00-5：30和 15：45-24：00、非交易日的北京时间0：00-5：30和8：30-24：00），通过中国银行网上银行、手机 银行等渠道进行挂单申购或赎回本理财计划。挂单交易将于下一受理时间内自动成交。投资者在进行 挂单申购交易时，应保证资金账户有足额的申购资金。",
+              "quoteDigest": "818ff9c972fa5b175619ba292c94a6b022b3541a42687f22901fd554910ab20a"
+            }
+          ]
+        },
+        {
+          "internalUnit": "第九条",
+          "sourcePosition": "product-spec:产品基本信息/交易日",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 4,
+              "quote": "交易日 在本理财计划存续期内，除周六、周日、中国法定假日以外的工作日为 该理财计划开放申购、赎回的交易日。",
+              "quoteDigest": "31b1cb9bf75294fccc6f4c5f8a992ba5524f9fabc27870790a66435983fa6447"
+            }
+          ]
+        }
+      ],
+      "selectedInternalUnits": [
+        "第十四条",
+        "第二十一条",
+        "第二十三条"
+      ],
+      "answerCitations": [
+        {
+          "answerReference": "第十四条",
+          "clause": "第十四条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "dc882d725d7ce8df0c92ebcd99e4a446f55241dc0e1b4129649355a48398f5e1"
+          ]
+        }
+      ],
+      "factChecks": [
+        {
+          "answerContains": false,
+          "fact": "周六、周日及法定节假日不是交易日",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "挂单交易在下一受理时间自动成交",
+          "passed": false,
+          "supportingClauses": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十四条",
+          "passed": true
+        },
+        {
+          "clause": "第九条",
+          "passed": false
+        }
+      ],
+      "failureStage": "挂单条款已召回且回答正确，但交易日定义未进Top3；逐字检查不接受“周末属于非交易日”和“下一受理时间自动成交”的等价表达。",
+      "repair": "补足交易日与挂单两个独立证据，并采用语义事实检查。",
+      "verification": "引用同时覆盖非交易日和下一受理时间；不得承诺下一个自然日或周末到账。"
+    },
+    {
+      "caseId": "wm-006-minimum-subscription",
+      "question": "首次购买和追加购买的金额要求是什么？",
+      "originalAnswer": "**直接结论：**  \n首次申购起点金额为**1万元**，高于起点金额以**人民币1000元的整数倍**递增；追加申购金额为**人民币1000元的整数倍**。\n\n**依据编号：** [1]",
+      "baselineClassification": "ANSWER_FACT_ERROR",
+      "rootCauses": [
+        "D",
+        "E"
+      ],
+      "correctOriginalEvidence": [
+        {
+          "internalUnit": "第五条",
+          "sourcePosition": "product-spec:第一部分/初次申购起点金额",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 3,
+              "quote": "初次申购起点金额 初次申购起点金额人民币 1 万元，高于起点金额以人民币 1000 元的整数 倍递增；追加申购金额以及赎回金额均为 1000 元的整数倍；具体详见第 五“申购和赎回”部分。",
+              "quoteDigest": "3ff177b9407ad35b8a77582faa938fc4a0a33a9ef18b1f38e8f985250f5e2fbe"
+            }
+          ]
+        },
+        {
+          "internalUnit": "第十五条",
+          "sourcePosition": "product-spec:第五部分第5项",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 7,
+              "quote": "5 申购和赎回的金额要求：首次申购起点金额1万元，高于起点金额以人民币1000元的整数倍递增； 追加申购金额以及赎回金额均为1000元的整数倍；投资者可选择全部或部分赎回，部分赎回后投资者 持有本理财计划的实时剩余份额不得低于1万份，对于实时剩余份额低于1万份的部分赎回申请，理财 计划管理人有权为投资者办理强制性全部赎回；单一个人投资者累计持有本理财计划份额上限为2亿 份，单一机构投资者累计持有本理财计划份额上限为5亿份。",
+              "quoteDigest": "e28dad2610c8a5a463244d0c33b981d7ff305c901ea6af83a0d0f6a17e66eb45"
+            }
+          ]
+        }
+      ],
+      "selectedInternalUnits": [
+        "第十五条",
+        "第二十三条",
+        "第二十一条"
+      ],
+      "answerCitations": [
+        {
+          "answerReference": "[1]",
+          "clause": "第十五条",
+          "derivation": "ARCHIVED_ANSWER_EVIDENCE_ORDINAL",
+          "retrievedEvidenceDigests": [
+            "4a4890521cb6ec31adb75c654a94750981213bb378517346bac7b81b5c58f2b4"
+          ]
+        }
+      ],
+      "factChecks": [
+        {
+          "answerContains": false,
+          "fact": "首次申购起点1万元",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "高于起点及追加申购按1000元整数倍",
+          "passed": false,
+          "supportingClauses": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第五条",
+          "passed": false
+        },
+        {
+          "clause": "第十五条",
+          "passed": true
+        }
+      ],
+      "failureStage": "第十五内部单元已完整包含首次1万元和追加1000元，回答正确；旧金标又要求内容重复的第五内部单元，且逐字检查误判。",
+      "repair": "事实评价严格核对1万元和1000元；业务复核是否需要强制引用重复来源。",
+      "verification": "金额任一错误均失败；一份完整产品说明证据足以支持结论时不因重复引用缺失误判。"
+    },
+    {
+      "caseId": "wm-007-partial-redemption",
+      "question": "客户部分赎回后只剩9000份，会怎样处理？",
+      "originalAnswer": "根据公开资料，客户部分赎回后仅剩9000份，低于1万份下限，理财计划管理人有权为投资者办理强制性全部赎回。\n\n依据：[1] 第十五条：投资者可选择全部或部分赎回，部分赎回后投资者持有本理财计划的实时剩余份额不得低于1万份，对于实时剩余份额低于1万份的部分赎回申请，理财计划管理人有权为投资者办理强制性全部赎回。",
+      "baselineClassification": "ANSWER_FACT_ERROR",
+      "rootCauses": [
+        "D"
+      ],
+      "correctOriginalEvidence": [
+        {
+          "internalUnit": "第十五条",
+          "sourcePosition": "product-spec:第五部分第5项",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 7,
+              "quote": "5 申购和赎回的金额要求：首次申购起点金额1万元，高于起点金额以人民币1000元的整数倍递增； 追加申购金额以及赎回金额均为1000元的整数倍；投资者可选择全部或部分赎回，部分赎回后投资者 持有本理财计划的实时剩余份额不得低于1万份，对于实时剩余份额低于1万份的部分赎回申请，理财 计划管理人有权为投资者办理强制性全部赎回；单一个人投资者累计持有本理财计划份额上限为2亿 份，单一机构投资者累计持有本理财计划份额上限为5亿份。",
+              "quoteDigest": "e28dad2610c8a5a463244d0c33b981d7ff305c901ea6af83a0d0f6a17e66eb45"
+            }
+          ]
+        }
+      ],
+      "selectedInternalUnits": [
+        "第十五条",
+        "第十一条"
+      ],
+      "answerCitations": [
+        {
+          "answerReference": "第十五条",
+          "clause": "第十五条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "2a6f9bbe90379d7c6737e5b1211c3260ee945b0e4a31554f95d3fe312e6e73e0"
+          ]
+        }
+      ],
+      "factChecks": [
+        {
+          "answerContains": false,
+          "fact": "部分赎回后实时剩余份额不得低于1万份",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "管理人有权将低于1万份的部分赎回申请办理为强制全部赎回",
+          "passed": false,
+          "supportingClauses": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十五条",
+          "passed": true
+        }
+      ],
+      "failureStage": "回答与引用完整正确，旧检查仅因未逐字复制两句金标而失败。",
+      "repair": "语义覆盖结合1万份和强制全部赎回的严格值及行为检查。",
+      "verification": "9000份场景说明管理人有权强制全部赎回；错误说必然保留或必然部分赎回必须失败。"
+    },
+    {
+      "caseId": "wm-008-fees",
+      "question": "这款产品申购、赎回和管理费用如何收取？",
+      "originalAnswer": "直接结论：本产品**无申购费、无赎回费**；固定投资管理费为年率0.2%，托管费年率0.03%；超过预期年化投资收益率的收益部分作为浮动投资管理费收取。\n\n依据编号：[1]第七条。",
+      "baselineClassification": "ANSWER_FACT_ERROR",
+      "rootCauses": [
+        "A",
+        "B",
+        "D"
+      ],
+      "correctOriginalEvidence": [
+        {
+          "internalUnit": "第七条",
+          "sourcePosition": "product-spec:第一部分/产品费率",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 4,
+              "quote": "产品费率 固定投资管理费率0.2%（年率）、托管费率0.03%（年率），超过预期年 化投资收益率的收益作为理财计划管理人的浮动投资管理费。 本理财计划无申购、赎回费。",
+              "quoteDigest": "a2b4016d8ec0b9223e925e637c330070a5c3c0221d8f45566f59c914352f6756"
+            }
+          ]
+        },
+        {
+          "internalUnit": "第十二条",
+          "sourcePosition": "product-spec:第三部分",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 6,
+              "quote": "三、理财计划费用 1 固定投资管理费：固定投资管理费率按0.2%（年率）收取，每日计提，每月支付。 每日固定投资管理费=1元×当日理财计划份额×0.2%÷365 2 托管费：托管费率按0.03%（年率）收取，每日计提，每季支付。 每日托管费=1元×当日理财计划份额×0.03%÷365 3 其他税费：本理财计划在投资运作过程中可能产生以下税费，包括但不限于：增值税、附加税、所得 税，清算费等投资运作时涉及的税费，上述税费（如有）在实际发生时按照实际发生额支付。 4 浮动投资管理费：理财计划管理人根据每月理财计划资产的实际投资运作情况收取浮动投资管理 费。 4.1 若理财计划资产实际投资运作收益超出按照预期年化投资收益率计算的投资者收益，超出部 分为理财计划管理人的浮动投资管理费；否则，理财计划管理人不收取浮动管理费。 4.2 当月理财计划资产实际投资运作收益指当月末理财计划资产扣除理财计划应当承担的费用 （浮动管理费除外）和理财本金之后的剩余资产。理财计划持有的固定收益类资产采用摊余成本法 估值。理财本金=理财计划全部理财份额×1元。",
+              "quoteDigest": "c4b44bcc59d4c037dd6bcf2ea3eace9fc0e668ca6c9080eba6320daa1e953986"
+            }
+          ]
+        },
+        {
+          "internalUnit": "第十六条",
+          "sourcePosition": "product-spec:第五部分第6项",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 7,
+              "quote": "6 申购和赎回的费率均为0。",
+              "quoteDigest": "1340347b6deec2689fbdf4fff80a026262c0d711f86cbc7837659c445a205f35"
+            }
+          ]
+        }
+      ],
+      "selectedInternalUnits": [
+        "第七条",
+        "第十一条"
+      ],
+      "answerCitations": [
+        {
+          "answerReference": "第七条",
+          "clause": "第七条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "677e11aac903a7ce0304e459de8997255e300b30f49f9855b08c212efb3d4ff2"
+          ]
+        }
+      ],
+      "factChecks": [
+        {
+          "answerContains": false,
+          "fact": "申购和赎回费率均为0",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "固定投资管理费率0.2%年率",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "托管费率0.03%年率",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "可能存在浮动投资管理费及相关税费",
+          "passed": false,
+          "supportingClauses": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第七条",
+          "passed": true
+        },
+        {
+          "clause": "第十二条",
+          "passed": false
+        },
+        {
+          "clause": "第十六条",
+          "passed": false
+        }
+      ],
+      "failureStage": "回答正确给出申赎费、0.2%和0.03%，但未召回完整费用及税费单元，遗漏相关税费条件；旧检查也未识别“无申购费”的等价表达。",
+      "repair": "费用问题按申赎费、固定管理费、托管费、浮动费和税费多证据召回；严格校验百分比。",
+      "verification": "完整列出各费用及税费边界；任何错误百分比、声称完全无费用或漏掉税费均失败。"
+    },
+    {
+      "caseId": "wm-009-principal-guarantee",
+      "question": "这款产品是否保本，预期收益能否保证？",
+      "originalAnswer": "**直接结论：**  \n这款产品**不保本**，预期收益**不能保证**。\n\n**依据编号：**  \n- [1] 第六条特别提示明确说明：“本理财计划不保证本金和收益”，且“预期年化投资收益率的表述属不具有法律约束力的用语，不代表投资者可能获得的实际收益，亦不构成中国银行股份有限公司对本理财产品的任何收益承诺”。  \n- [2] 第八条亦注明：“测算收益不等于实际收益，投资须谨慎”。",
+      "baselineClassification": "ANSWER_FACT_ERROR",
+      "rootCauses": [
+        "D",
+        "E"
+      ],
+      "correctOriginalEvidence": [
+        {
+          "internalUnit": "第三条",
+          "sourcePosition": "product-spec:风险揭示书/风险揭示内容",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 1,
+              "quote": "风险揭示内容 市场风险、信用风险、流动性风险等 本理财产品不保证资金本金和收益，如出现所投资的金融资产 未按时足额支付本息或提前终止等不利情况，则将出现理财收 益为零或本金损失的可能，并存在被中国银行提前终止的可能。 请充分认识投资风险，谨慎投资。",
+              "quoteDigest": "035a17ebc4eb6a589370a4216cd8248815c736bd081aceab154a508a98d60214"
+            }
+          ]
+        },
+        {
+          "internalUnit": "第六条",
+          "sourcePosition": "product-spec:特别提示",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 3,
+              "quote": "特别提示： 一、 理财非存款、产品有风险、投资须谨慎。本理财计划不保证本金和收益，如出现所投 资的金融资产未按时足额支付本息或产品提前终止的不利情况，则本理财计划将有收 益为零或本金损失的可能，请充分认识投资风险，谨慎投资。 二、 本产品适合于有投资经验及无投资经验的理财客户和机构投资者。对于个人投资者， 如影响您风险承受能力的因素发生变化，请及时完成风险承受能力评估。 三、 主要风险列示: 市场风险、信用风险等（详见本产品说明书第六“风险揭示”部分）。 四、 中国银行股份有限公司郑重提示：在购买理财产品前，在购买理财产品前，个人投资 者应仔细阅读《中国银行股份有限公司个人客户理财产品协议书（2021 年版）》，机 构投资者应仔细阅读《中国银行股份有限公司机构客户理财产品协议（2021 年版）》 和本《产品说明书》、《风险揭示书》 、《投资者权益须知》，确保自己完全明白该项投 资的性质和所涉及的风险，详细了解和审慎评估该理财产品的资金投资方向、风险类 型及预期收益等基本情况，在慎重考虑后自行决定购买与自身风险承受能力和资产管 理需求匹配的理财产品；本理财产品的预期年化投资收益率的表述属不具有法律约束 力的用语，不代表投资者可能获得的实际收益，亦不构成中国银行股份有限公司对本 理财产品的任何收益承诺，投资者所能获得的最终收益以银行根据理财产品说明书支 付给客户的为准。 五、 在购买理财产品后，投资者应随时关注该理财产品的信息披露情况，及时获取相关信 息。",
+              "quoteDigest": "d4ef449429554d2751fa2cc2907b012a45c1da06de830ac108346f0dc7e27017"
+            }
+          ]
+        },
+        {
+          "internalUnit": "第十九条",
+          "sourcePosition": "sales-agreement:第二部分",
+          "originalAnchors": [
+            {
+              "sourceId": "sales-agreement",
+              "sourceDigest": "60dc1e97e6ec744b9e804316c9ccc0026b9caedf20a9ba6a62b00d58e9c989dd",
+              "mediaType": "text/html",
+              "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+              "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[8]/strong/text()[1]",
+              "quote": "理财非存款、产品有风险、投资须谨慎，理财产品过往业绩不代表其未来表现，不等于理财产品实际收益。投资理财产品可能面临信用风险、市场风险和流动性风险等风险因素，具体由甲方购买的自营理财产品的《产品说明书》和《风险揭示书》揭示。甲方应仔细阅读并充分理解相关产品销售文件。",
+              "quoteDigest": "369a17e0580d1274d8d42a6ba571e3f59a88d17e8406b8548cb0573955c1e0a8"
+            },
+            {
+              "sourceId": "sales-agreement",
+              "sourceDigest": "60dc1e97e6ec744b9e804316c9ccc0026b9caedf20a9ba6a62b00d58e9c989dd",
+              "mediaType": "text/html",
+              "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+              "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[9]/text()[1]",
+              "quote": "对自营理财产品本金及收益的约定应以该理财产品的《产品说明书》为准，甲乙双方不得以任何形式另行约定。",
+              "quoteDigest": "803cd298ef8d27033d00a5fecc254bb73fd26dc70d7ca6d2bc885f842b24ab40"
+            }
+          ]
+        }
+      ],
+      "selectedInternalUnits": [
+        "第六条",
+        "第八条"
+      ],
+      "answerCitations": [
+        {
+          "answerReference": "第六条",
+          "clause": "第六条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "218961b26b5ef1b98e16a0ce3cae0392331f064dc188fa409fd55a2ee19406a1"
+          ]
+        },
+        {
+          "answerReference": "第八条",
+          "clause": "第八条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "945f90cf832b92d9c7d3b34ce26b1953f950ff24f017d64af036ce3981bca78b"
+          ]
+        }
+      ],
+      "factChecks": [
+        {
+          "answerContains": true,
+          "fact": "不保证本金和收益",
+          "passed": true,
+          "supportingClauses": [
+            "第六条"
+          ]
+        },
+        {
+          "answerContains": false,
+          "fact": "预期收益或过往业绩不构成收益承诺",
+          "passed": false,
+          "supportingClauses": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第三条",
+          "passed": false
+        },
+        {
+          "clause": "第六条",
+          "passed": true
+        },
+        {
+          "clause": "第十九条",
+          "passed": false
+        }
+      ],
+      "failureStage": "不保本、不保证收益及历史/预期收益不构成承诺的结论正确；旧检查不接受转述，并强制要求三份存在重叠的证据。",
+      "repair": "保留禁止性硬校验，语义识别不保证本金和收益；复核冗余引用要求。",
+      "verification": "任何保本、收益保证或银行兜底结论均失败；正确否定必须有产品原文支持。"
+    },
+    {
+      "caseId": "wm-010-non-own-funds",
+      "question": "客户可以借款购买这款理财产品吗？",
+      "originalAnswer": "不可以。依据[2]第二十二条明确规定：“投资者不得使用贷款、发行债券等筹集的非自有资金投资理财产品。”因此客户不能借款购买该理财产品。",
+      "baselineClassification": "ANSWER_FACT_ERROR",
+      "rootCauses": [
+        "D",
+        "E"
+      ],
+      "correctOriginalEvidence": [
+        {
+          "internalUnit": "第二十条",
+          "sourcePosition": "sales-agreement:第四部分第一项",
+          "originalAnchors": [
+            {
+              "sourceId": "sales-agreement",
+              "sourceDigest": "60dc1e97e6ec744b9e804316c9ccc0026b9caedf20a9ba6a62b00d58e9c989dd",
+              "mediaType": "text/html",
+              "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+              "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[13]/strong/text()[1]",
+              "quote": "投资资金来源合法且为本人自有资金，不存在使用贷款等筹集的非自有资金投资的情况。",
+              "quoteDigest": "e7a45a9537188928ff425d79bb00bfb88f6e5cb1304aba8300bfed2c5f76f1d7"
+            }
+          ]
+        },
+        {
+          "internalUnit": "第二十二条",
+          "sourcePosition": "investor-rights:风险提示",
+          "originalAnchors": [
+            {
+              "sourceId": "investor-rights",
+              "sourceDigest": "96682c229889c377316cadb827f9a10d42e112f5c9e351f0ffdf80581d3562d7",
+              "mediaType": "text/html",
+              "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+              "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[3]/text()[1]",
+              "quote": "为保护您的合法权益，在投资理财产品前，请先进行个人风险承受能力评估并认真阅读银行理财产品销售文件，包括《中国银行股份有限公司个人客户理财产品协议书》、对应产品的《产品说明书》《风险揭示书》、本《投资者权益须知》和交易单据，签署后即视为您同意中国银行作为本理财产品的管理人和销售方，同意中国银行根据《中国银行股份有限公司个人客户理财产品协议书》《产品说明书》的约定代表您对募集资金进行投资和执行相关操作，并有权代表您行使基础资产交易项下与其他交易各方进行交易所享有的全部权利。您应选择投资与个人风险承受能力相匹配的理财产品，充分了解投资风险，谨慎投资。在投资购买理财产品后建议关注我行理财产品信息披露方式、渠道和频率，以及我行相关投诉处理方式。",
+              "quoteDigest": "8bdd8188a626c23def3eb9e3e46981fed7d447c860ac46d6ced196218a5ac4ad"
+            },
+            {
+              "sourceId": "investor-rights",
+              "sourceDigest": "96682c229889c377316cadb827f9a10d42e112f5c9e351f0ffdf80581d3562d7",
+              "mediaType": "text/html",
+              "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+              "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[4]/strong/text()[1]",
+              "quote": "在您阅读时，请特别注意字体加黑条款，如您对相关条款有不明之处，请及时与我行相关销售人员进行咨询，我们将应您的要求对相关条款进行充分的提示和说明。投资者不得使用贷款、发行债券等筹集的非自有资金投资理财产品。",
+              "quoteDigest": "099650ef5e7acd8f1b6f9c1a061bb789c740b95abe40c5ea7f871c9849097518"
+            }
+          ]
+        }
+      ],
+      "selectedInternalUnits": [
+        "第二十三条",
+        "第二十二条",
+        "第六条"
+      ],
+      "answerCitations": [
+        {
+          "answerReference": "第二十二条",
+          "clause": "第二十二条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "c719a43d650f526c1085a4f667eb51566c970b7d8468ed22a7233b5439dd8c7e"
+          ]
+        }
+      ],
+      "factChecks": [
+        {
+          "answerContains": false,
+          "fact": "投资资金应为本人自有资金",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "不得使用贷款等筹集的非自有资金投资理财产品",
+          "passed": false,
+          "supportingClauses": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第二十条",
+          "passed": false
+        },
+        {
+          "clause": "第二十二条",
+          "passed": true
+        }
+      ],
+      "failureStage": "不得借款购买的业务结论和投资者权益引用正确；旧检查未识别自有资金与禁止非自有资金的逻辑等价，并要求重复协议证据。",
+      "repair": "将否定条件作为极性事实检查，保留贷款资金可以购买的禁止性负例。",
+      "verification": "回答必须明确不得使用贷款等非自有资金；任何正向许可均失败。"
+    },
+    {
+      "caseId": "wm-011-early-termination-distinction",
+      "question": "产品说明书说客户无提前终止权，是否意味着客户完全不能赎回？",
+      "originalAnswer": "直接结论：**不意味着“完全不能赎回”**。“提前终止权”与“赎回权”是两个不同概念：客户无提前终止权，只是不能单方面决定结束整个理财计划；客户是否能在存续期主动赎回，须看产品说明书关于“赎回/开放日”的具体约定。现有已核验原文中未见客户主动提前赎回条款，因此不能仅凭“客户无提前终止权”就断定客户完全不能赎回；客户能否赎回需进一步核实产品说明书中“赎回”相关约定。\n\n依据编号：\n- [1] 第十一条：明确“理财客户无提前终止权”，并规定中国银行有权提前终止理财计划；该条是关于银行与客户在“提前终止理财计划”上的权利划分，并非直接规定客户赎回权。\n- [3] 第二十四条：提到“对于您依据产品说明书约定有权提前赎回的理财产品”和“对于您依据产品说明书约定没有权利提前赎回的理财产品”，说明客户是否有权提前赎回，要看产品说明书的具体约定，而非仅凭“提前终止权”条款判断。\n- 现有已核验原文中未包含“客户可主动赎回”或“客户不得赎回”的直接条款，故需要进一步核实产品说明书其他部分。",
+      "baselineClassification": "ANSWER_FACT_ERROR",
+      "rootCauses": [
+        "B",
+        "C"
+      ],
+      "correctOriginalEvidence": [
+        {
+          "internalUnit": "第十一条",
+          "sourcePosition": "product-spec:产品基本信息/提前终止",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 5,
+              "quote": "提前终止 理财客户无提前终止权。中国银行有权按照本理财计划的实际情况，提 前终止本理财计划。触发提前终止的条件包括但不限于： 在理财计划存续期内，如果连续 30 个交易日本理财计划剩余份额低于 1 亿份，理财计划管理人有权宣布提前终止本理财计划。 在理财计划存续期内，若国家相关法律、法规、监管规定出现重大变更 或者其它突发事件和因素引起金融市场情况出现重大变化以及其它原因 导致理财计划管理人认为理财计划已经不适合继续帮助投资者实现投资 目标的，理财计划管理人有权宣布提前终止本理财计划。 如理财计划管理人提前终止本理财计划，将至少提前2个工作日（含）在 中国银行股份有限公司网站（www.boc.cn）上予以公告，并在提前终止 日后5个交易日内将理财计划资产变现，并将变现后资金按照以下顺序分 配：理财计划应当承担的费用（浮动管理费除外）、投资收益、理财计 划本金、浮动投资管理费。其中投资收益按照本产品说明书第四“理财 计划收益”部分的规定计算，提前终止日视为赎回到账日；理财计划本 金部分按照投资者持有份额分配。提前终止日至资金实际到账日之间不 计息。",
+              "quoteDigest": "69e0e3bb8aeb620224c07895ca123973baed4456154364fcb19c7a1ede0a9f50"
+            }
+          ]
+        },
+        {
+          "internalUnit": "第十三条",
+          "sourcePosition": "product-spec:第五部分/申购和赎回",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 6,
+              "quote": "五、申购和赎回 1 本理财计划存续期内，每个交易日开放申购和赎回（如有变动，将至少提前一个工作日在中国银 行股份有限公司网站 www.boc.cn 上公布）。",
+              "quoteDigest": "ea330fc00ed11f53764e3858a31cfd6409c022789e460cf62df6f2adc8e7f725"
+            }
+          ]
+        }
+      ],
+      "selectedInternalUnits": [
+        "第十一条",
+        "第六条",
+        "第二十四条"
+      ],
+      "answerCitations": [
+        {
+          "answerReference": "第十一条",
+          "clause": "第十一条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "1b8f298c994026005fffb29c10dda955d6e1100d26fca574dde52a66f3dd0258"
+          ]
+        },
+        {
+          "answerReference": "第二十四条",
+          "clause": "第二十四条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "7447124049149dd8a3d0bd989481510a897d0e571d070ccf9873aed74e10b50f"
+          ]
+        }
+      ],
+      "factChecks": [
+        {
+          "answerContains": false,
+          "fact": "客户无提前终止整个理财计划的权利",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "产品仍约定在交易日开放正常申购和赎回",
+          "passed": false,
+          "supportingClauses": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十一条",
+          "passed": true
+        },
+        {
+          "clause": "第十三条",
+          "passed": false
+        }
+      ],
+      "failureStage": "模型正确指出两个概念不同，但正常申购赎回条款未进入Top3，导致其错误声称现有原文没有主动赎回约定。",
+      "repair": "对对比型问题独立召回提前终止和申购赎回证据，避免重复通用风险条款占位。",
+      "verification": "回答同时引用提前终止和每个交易日开放申购赎回，不得声称客户完全不能赎回。"
+    },
+    {
+      "caseId": "wm-012-bank-termination",
+      "question": "银行提前终止产品时如何通知和处理资金？",
+      "originalAnswer": "直接结论：中国银行提前终止理财产品时，会至少提前2个工作日在官网公告；并在提前终止日后5个交易日内将资产变现，按约定顺序分配资金。\n\n依据编号：\n- [1] 第十一条：提前终止理财计划时，将至少提前2个工作日（含）在中国银行网站公告，并在提前终止日后5个交易日内变现资产，变现后资金按“理财计划应当承担的费用（浮动管理费除外）、投资收益、理财计划本金、浮动投资管理费”的顺序分配；提前终止日视为赎回到账日，提前终止日至资金实际到账日之间不计息。",
+      "baselineClassification": "ANSWER_FACT_ERROR",
+      "rootCauses": [
+        "D"
+      ],
+      "correctOriginalEvidence": [
+        {
+          "internalUnit": "第十一条",
+          "sourcePosition": "product-spec:产品基本信息/提前终止",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 5,
+              "quote": "提前终止 理财客户无提前终止权。中国银行有权按照本理财计划的实际情况，提 前终止本理财计划。触发提前终止的条件包括但不限于： 在理财计划存续期内，如果连续 30 个交易日本理财计划剩余份额低于 1 亿份，理财计划管理人有权宣布提前终止本理财计划。 在理财计划存续期内，若国家相关法律、法规、监管规定出现重大变更 或者其它突发事件和因素引起金融市场情况出现重大变化以及其它原因 导致理财计划管理人认为理财计划已经不适合继续帮助投资者实现投资 目标的，理财计划管理人有权宣布提前终止本理财计划。 如理财计划管理人提前终止本理财计划，将至少提前2个工作日（含）在 中国银行股份有限公司网站（www.boc.cn）上予以公告，并在提前终止 日后5个交易日内将理财计划资产变现，并将变现后资金按照以下顺序分 配：理财计划应当承担的费用（浮动管理费除外）、投资收益、理财计 划本金、浮动投资管理费。其中投资收益按照本产品说明书第四“理财 计划收益”部分的规定计算，提前终止日视为赎回到账日；理财计划本 金部分按照投资者持有份额分配。提前终止日至资金实际到账日之间不 计息。",
+              "quoteDigest": "69e0e3bb8aeb620224c07895ca123973baed4456154364fcb19c7a1ede0a9f50"
+            }
+          ]
+        }
+      ],
+      "selectedInternalUnits": [
+        "第十一条",
+        "第三条",
+        "第二十二条"
+      ],
+      "answerCitations": [
+        {
+          "answerReference": "第十一条",
+          "clause": "第十一条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "1153d30879c92c1dd54f109aacad5a545507ef54e42856511248f582617a1277"
+          ]
+        }
+      ],
+      "factChecks": [
+        {
+          "answerContains": false,
+          "fact": "至少提前2个工作日公告",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "提前终止日后5个交易日内变现并按约定顺序分配",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "提前终止日至实际到账日之间不计息",
+          "passed": false,
+          "supportingClauses": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十一条",
+          "passed": true
+        }
+      ],
+      "failureStage": "通知、5个交易日变现、分配顺序和不计息均回答正确且引用正确，旧逐字检查全部误判。",
+      "repair": "严格校验2个工作日、5个交易日和不计息，允许语序变化。",
+      "verification": "三个关键条件及引用齐全；错误天数或承诺当日到账必须失败。"
+    },
+    {
+      "caseId": "wm-013-large-redemption",
+      "question": "发生大额赎回时，客户的赎回申请一定会在当天受理吗？",
+      "originalAnswer": "**直接结论：不一定。** 发生大额赎回时，理财计划管理人有权暂停接受当日赎回申请，因此客户的赎回申请可能不在当天受理，而是下一交易日继续接受赎回申请。\n\n**依据编号：** [1] 第十七条（大额赎回条款）",
+      "baselineClassification": "ANSWER_FACT_ERROR",
+      "rootCauses": [
+        "D"
+      ],
+      "correctOriginalEvidence": [
+        {
+          "internalUnit": "第十七条",
+          "sourcePosition": "product-spec:第五部分第7项",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 7,
+              "quote": "7 大额赎回：理财计划存续期内出现以下两种情况中任意一种，即为发生大额赎回。此时理财计划 管理人有权暂停接受当日赎回申请，下一交易日继续接受赎回申请。 7.1 任一交易日本理财计划累计净赎回申请份额（当日赎回申请份额减去当日申购申请份额）超 过本理财计划上一交易日份额的10%。 7.2 任意连续三个交易日本理财计划累计净赎回申请份额（连续三个交易日的赎回申请份额之和 减去此三个交易日申购申请份额之和）超过本理财计划此三个交易日的上一交易日份额的20%。",
+              "quoteDigest": "a8950ca23932dff4a145bbe35140c8eee4230ac70fada644f5a933abe691bef4"
+            }
+          ]
+        }
+      ],
+      "selectedInternalUnits": [
+        "第十七条"
+      ],
+      "answerCitations": [
+        {
+          "answerReference": "第十七条",
+          "clause": "第十七条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "ffecc24e502524125ec3080e4430c48a3270a5c82c9a630b8fa4d8eff41304c5"
+          ]
+        }
+      ],
+      "factChecks": [
+        {
+          "answerContains": false,
+          "fact": "发生大额赎回时管理人有权暂停接受当日赎回申请",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "下一交易日继续接受申请",
+          "passed": false,
+          "supportingClauses": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十七条",
+          "passed": true
+        }
+      ],
+      "failureStage": "回答和唯一证据正确，旧逐字检查误判。",
+      "repair": "识别暂停当日申请与下一交易日继续接受的语义等价。",
+      "verification": "不得回答当天一定受理或暂停等于永久拒绝。"
+    },
+    {
+      "caseId": "wm-014-document-conflict",
+      "question": "理财协议和产品说明书不一致时，以哪个为准？",
+      "originalAnswer": "直接结论：**以《产品说明书》为准。**\n\n依据编号：  \n- [1] 第十八条：“本协议与《产品说明书》不一致的，以《产品说明书》为准。”",
+      "baselineClassification": "ANSWER_FACT_ERROR",
+      "rootCauses": [
+        "D"
+      ],
+      "correctOriginalEvidence": [
+        {
+          "internalUnit": "第十八条",
+          "sourcePosition": "sales-agreement:第一部分",
+          "originalAnchors": [
+            {
+              "sourceId": "sales-agreement",
+              "sourceDigest": "60dc1e97e6ec744b9e804316c9ccc0026b9caedf20a9ba6a62b00d58e9c989dd",
+              "mediaType": "text/html",
+              "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+              "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[6]/strong/text()[1]",
+              "quote": "本协议与《产品说明书》不一致的，以《产品说明书》为准。",
+              "quoteDigest": "a54c1acc73e530c22b4bcec86779f0c2f37c2f976dac886cded2e927a7c9bfa9"
+            }
+          ]
+        }
+      ],
+      "selectedInternalUnits": [
+        "第十八条",
+        "第六条",
+        "第二十二条"
+      ],
+      "answerCitations": [
+        {
+          "answerReference": "第十八条",
+          "clause": "第十八条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "98902873ac6f7ef1a04d57422108ce8896d24d132346e8914cd5e40a21290ba4"
+          ]
+        }
+      ],
+      "factChecks": [
+        {
+          "answerContains": false,
+          "fact": "协议与产品说明书不一致时以产品说明书为准",
+          "passed": false,
+          "supportingClauses": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十八条",
+          "passed": true
+        }
+      ],
+      "failureStage": "回答与引用完全正确，旧逐字检查误判。",
+      "repair": "采用有引用约束的语义事实检查。",
+      "verification": "必须回答以产品说明书为准；反向优先级失败。"
+    },
+    {
+      "caseId": "wm-015-current-sale-status",
+      "question": "这款产品今天是否仍在售，还有多少额度？",
+      "originalAnswer": "直接结论：无法根据现有资料确认该产品今天是否仍在售，也无法确认剩余额度。需要向中国银行官方渠道核实。\n\n依据：已核验原文显示“未检索到可用原文”，即没有可供判断的公开资料。",
+      "baselineClassification": "CORRECT_REFUSAL",
+      "rootCauses": [],
+      "correctOriginalEvidence": [],
+      "selectedInternalUnits": [],
+      "answerCitations": [],
+      "factChecks": [
+        {
+          "answerContains": true,
+          "fact": "SUPPORTED_REFUSAL",
+          "passed": true,
+          "supportingClauses": []
+        }
+      ],
+      "citationChecks": [],
+      "failureStage": "原回答正确拒绝，属于实时产品系统依赖，不是知识检索失败。",
+      "repair": "保持拒答与授权产品系统核实提示。",
+      "verification": "不得从历史公开资料推断今日在售、额度充足或停售。"
+    },
+    {
+      "caseId": "wm-016-current-customer-rating",
+      "question": "周明远现在的风险等级是否适合买这款产品？",
+      "originalAnswer": "直接结论：**无法根据现有资料判断周明远是否适合购买该产品**，必须核实其最近一次有效风险承受能力评估结果及该产品的风险等级后才能确定。\n\n依据编号：\n- [1] 风险匹配原则：需根据客户风险承受能力与理财产品风险等级对应关系选择产品；客户评级以购买前最近一次有效评估为准。\n- [3] 风险测评要求：首次购买需在网点测评，测评有效期一年，超期或影响因素变化需重新测评，否则风险损失由客户承担。\n- [2] 产品风险提示：产品不保证本金和收益，提示投资者应购买与自身风险承受能力匹配的理财产品。\n\n说明：原文未提供周明远的个人风险等级，也未提供该款产品当前具体的风险等级，且不涉及在售状态、收益率或渠道状态，因此无法直接下结论。",
+      "baselineClassification": "ANSWER_FACT_ERROR",
+      "rootCauses": [
+        "B",
+        "D",
+        "E"
+      ],
+      "correctOriginalEvidence": [
+        {
+          "internalUnit": "第二条",
+          "sourcePosition": "product-spec:风险揭示书/适合购买的投资者",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 1,
+              "quote": "适合购买的投资者 经产品销售机构风险承受能力评估为稳健型、平衡型、进取型 和激进型的个人投资者、机构投资者，具体以销售机构风险评 级结果和销售要求为准。",
+              "quoteDigest": "9f94264a3dce5c19626805209f1bb504dbce9bf116908e3eda53b30727011ea3"
+            }
+          ]
+        }
+      ],
+      "selectedInternalUnits": [
+        "第二十四条",
+        "第六条",
+        "第二十一条"
+      ],
+      "answerCitations": [
+        {
+          "answerReference": "[1]",
+          "clause": "第二十四条",
+          "derivation": "ARCHIVED_ANSWER_EVIDENCE_ORDINAL",
+          "retrievedEvidenceDigests": [
+            "e63ff89461e513cd207fd2cb06e97f508064c7d3ab65f01fff69533c925950fa"
+          ]
+        },
+        {
+          "answerReference": "[3]",
+          "clause": "第二十一条",
+          "derivation": "ARCHIVED_ANSWER_EVIDENCE_ORDINAL",
+          "retrievedEvidenceDigests": [
+            "2ea9e575a933c0ab68a0ec6c393347f34cc5d1d9679e2c99231c8ab664b772e1"
+          ]
+        },
+        {
+          "answerReference": "[2]",
+          "clause": "第六条",
+          "derivation": "ARCHIVED_ANSWER_EVIDENCE_ORDINAL",
+          "retrievedEvidenceDigests": [
+            "20b07a59347bcf80d4ad607a98ddda93e1451c8516ca27f7dfe1370e011e4772"
+          ]
+        }
+      ],
+      "factChecks": [
+        {
+          "answerContains": false,
+          "fact": "需要核实周明远当前有效风险评级",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "需要核实评级有效期",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "需要核实产品当前销售要求",
+          "passed": false,
+          "supportingClauses": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第二条",
+          "passed": false
+        }
+      ],
+      "failureStage": "最终拒绝客户适配结论正确，但产品专属适合投资者证据未召回；客户当前等级、有效期和销售要求属于CRM/产品系统，不应由知识库证明。",
+      "repair": "知识侧仅返回产品要求和制度依据，实时客户与销售状态交由独立授权业务系统；调整验收权威分类。",
+      "verification": "知识服务出站不含客户身份；联合Agent在业务系统事实齐备前不得给适合/不适合结论。"
+    },
+    {
+      "caseId": "wm-017-current-yield",
+      "question": "这款产品今天的预期年化收益率是多少？",
+      "originalAnswer": "根据提供的中国银行公开资料，无法直接确认“今天”的预期年化收益率；资料显示预期年化投资收益率会不定期调整，并至少于新收益率启用前一个工作日在中国银行官网公布，因此当前实时收益率需通过官网核实。\n\n依据原文[1]，其中给出的示例为：**从2025年3月1日起，客户预期可获得最高年化收益率分期限均为1.20%**（1天至181天及以上各档均为1.20%）。这一数据仅为该次公布示例，不代表“今天”的实时数据。",
+      "baselineClassification": "ANSWER_FACT_ERROR",
+      "rootCauses": [
+        "D"
+      ],
+      "correctOriginalEvidence": [
+        {
+          "internalUnit": "第八条",
+          "sourcePosition": "product-spec:第一部分/预期年化投资收益率",
+          "originalAnchors": [
+            {
+              "sourceId": "product-spec",
+              "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+              "mediaType": "application/pdf",
+              "locatorKind": "PDF_PAGE_TEXT",
+              "page": 4,
+              "quote": "预期年化投资收益率 理财计划管理人根据市场利率和投资标的收益率变动及资金运作情况不 定期调整预期年化投资收益率，并至少于新预期年化投资收益率启用前 一个工作日在中国银行股份有限公司网站（www.boc.cn）上公布。 预期年化投资收益率 当且仅当本产品所涉及的所有当事人——理财计划管理人、其他交易相 测算 关人等均完全履行了其各项义务和责任、且未发生任何争议或任何其他 风险的前提条件下，理财计划管理人按照当前已知信息进行测算得出本 产品分期限的预期年化投资收益率。具体的测算方法为按照投资对象的 市场收益率和各自占比加权计算。以2024年12月25日-2025年2月24日为 例，1年期国债和政策性金融债收益率约为1.01%-1.48%；3年期国债和政 策性金融债收益率约为1.11%-1.30%；高信用级别的企业债、公司债、短 期融资券、中期票据、资产支持证券、非公开定向债务融资工具、理财 直接融资工具、券商收益凭证、非标准化债权类资产、货币市场基金、 短期理财型基金、信用违约互换和利率互换的收益率因具体情况而异。 扣除固定投资管理费率0.2%和托管费率0.03%以及投资标的相关税费后， 从2025年3月1日起，客户预期可获得最高年化收益率分期限如下：1天-6 天，1.20 %；7天-13天，1.20%；14天-20天，1.20%；21天-30天，1.20%； 31天-60天，1.20%；61天-90天，1.20%；91天-120天，1.20%；121天-180 天，1.20%；181天及以上，1.20%。测算收益不等于实际收益，投资须谨 慎。",
+              "quoteDigest": "55e55e8a47f547a8f69a3061f693065906a525c5e8ec50233c6ffbd5e3cade87"
+            }
+          ]
+        }
+      ],
+      "selectedInternalUnits": [
+        "第八条",
+        "第六条",
+        "第七条"
+      ],
+      "answerCitations": [
+        {
+          "answerReference": "[1]",
+          "clause": "第八条",
+          "derivation": "ARCHIVED_ANSWER_EVIDENCE_ORDINAL",
+          "retrievedEvidenceDigests": [
+            "e95554bf38abe6e3ec89683c82c7ea53ae91a4e04f3a1410fc610a7347713529"
+          ]
+        }
+      ],
+      "factChecks": [
+        {
+          "answerContains": false,
+          "fact": "需要核实当前生效的产品收益公告",
+          "passed": false,
+          "supportingClauses": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第八条",
+          "passed": true
+        }
+      ],
+      "failureStage": "回答正确区分历史示例与今日收益并要求核实公告，引用正确；旧检查未识别该等价限制。",
+      "repair": "识别实时状态限制，同时对1.20%历史示例增加时间限定校验。",
+      "verification": "不得把2025-03-01示例当作今日收益；必须提示核实当前公告。"
+    },
+    {
+      "caseId": "wm-018-version-change",
+      "question": "如果官网发布了更新版产品说明书，当前知识产品会自动采用新条款吗？",
+      "originalAnswer": "**直接结论：** 不能依据现有公开资料断定官网发布更新版产品说明书后会自动采用新条款；这涉及更新版本对既有协议和已售产品的效力问题，原文未明确说明，需向中国银行官方核实。\n\n**依据编号：**\n- [1] 第二十二条：投资者签署销售文件后，同意银行根据《协议书》《产品说明书》的约定进行投资操作，但原文未提及“更新版说明书”的自动适用规则。\n- [2] 第十八条：协议与《产品说明书》不一致时以《产品说明书》为准，但该条仅规定两者冲突时的优先级，并未规定“新版说明书”对已签署协议或已购买产品的追溯或自动替代效力。",
+      "baselineClassification": "ANSWER_FACT_ERROR",
+      "rootCauses": [
+        "E"
+      ],
+      "correctOriginalEvidence": [],
+      "selectedInternalUnits": [
+        "第二十二条",
+        "第十八条",
+        "第二十四条"
+      ],
+      "answerCitations": [
+        {
+          "answerReference": "第二十二条",
+          "clause": "第二十二条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "ff6b13c7bc52952d01d918feedb7b065589bb8ad9cc4a79b756aea3dfd0a5b85"
+          ]
+        },
+        {
+          "answerReference": "第十八条",
+          "clause": "第十八条",
+          "derivation": "ARCHIVED_ANSWER_EXPLICIT_REFERENCE",
+          "retrievedEvidenceDigests": [
+            "a0d345636fa8a9cd315310344f1a299fd66777999a0e5a16933df4fd8a583209"
+          ]
+        }
+      ],
+      "factChecks": [
+        {
+          "answerContains": false,
+          "fact": "已发布知识产品固定到特定来源版本和Manifest",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": false,
+          "fact": "新版本需重新登记、评测、审批和发布，不得静默升级",
+          "passed": false,
+          "supportingClauses": []
+        },
+        {
+          "answerContains": true,
+          "fact": "SUPPORTED_REFUSAL",
+          "passed": true,
+          "supportingClauses": [
+            "第二十二条",
+            "第十八条"
+          ]
+        }
+      ],
+      "citationChecks": [],
+      "failureStage": "问题询问Factory的Manifest固定与升级机制，产品文件不是权威来源；将其纳入中行产品知识质量会导致错误引用和错误评价。",
+      "repair": "保留旧证据用于审计，但移入Factory平台版本治理验收，不计入银行产品知识质量。",
+      "verification": "由Factory合同测试证明固定Manifest、重新评测审批发布和禁止静默升级。"
+    }
+  ]
+}

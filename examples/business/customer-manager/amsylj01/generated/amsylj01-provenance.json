@@ -1,0 +1,609 @@
+{
+  "schemaVersion": "business-source-provenance.v0.1",
+  "productId": "boc-wealth-service-amsylj01",
+  "sourceFiles": [
+    {
+      "sourceId": "product-spec",
+      "filename": "product-spec.pdf",
+      "sha256": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e"
+    },
+    {
+      "sourceId": "sales-agreement",
+      "filename": "sales-agreement.html",
+      "sha256": "60dc1e97e6ec744b9e804316c9ccc0026b9caedf20a9ba6a62b00d58e9c989dd"
+    },
+    {
+      "sourceId": "investor-rights",
+      "filename": "investor-rights.html",
+      "sha256": "96682c229889c377316cadb827f9a10d42e112f5c9e351f0ffdf80581d3562d7"
+    }
+  ],
+  "converter": {
+    "id": "poppler-pdftotext-layout",
+    "version": "24.02.0",
+    "pdfPageCount": 9,
+    "pageTextDigests": [
+      "25935b7ecb8efc79da69b66837f633f074c247cd535cefc6001eebd85c769017",
+      "f327f0a6d7ba0aacffbae1edce499ef85d1e37da74485d44872b5c382b4f6633",
+      "f67f98dab23869a07c0abd9780b99bd25bfb91ab15b99ca858001ba60edd456a",
+      "be394357352ead19a82cfba08db3fdc75386ca8087031e98056eef80cd1ad5f5",
+      "13814a94347bb5c14dfee093dfef7639e30f71d9b5c4266b6d53f869f93fa68f",
+      "660228ed3d6a53228e3e9b7e1d1cffe661661d14b15ca60787131a7594f67e72",
+      "07fdd7ed1d0be5475c546fd5d3c442f03ff033bfa0be3a8d55257f61ae57fe35",
+      "017cb6851c77365647f645534a20207629495397bc4d009873236dadf1b8aca8",
+      "05170cb3bd9d6dac3a3d043dde939c3228c1717ad5f82a0a61bbef312ba0cbb1"
+    ]
+  },
+  "derivedHtmlDigest": "8e7eb1838f6c75d16b4472536409e9706a48651ad2152d4a7ff7eb20121bc7ba",
+  "derivedSourceDigest": "5cecd1b01743ae4ecd5df9a84f4d4ad8e00d1ba0a4ec898c9445c4c0d84a2a3d",
+  "mappings": [
+    {
+      "clause": "product-spec:风险揭示书/产品风险级别",
+      "coreClause": "第一条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[1]/p/span/text()[1]",
+        "start": 0,
+        "end": 11,
+        "quote": "风险级别 2：中低风险"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "product-spec",
+          "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+          "mediaType": "application/pdf",
+          "locatorKind": "PDF_PAGE_TEXT",
+          "page": 1,
+          "quote": "风险级别 2：中低风险",
+          "quoteDigest": "42d875ed7f82f1c1d33d7e790ad5da6d07ed95415e23f9cf274bbb34af915bbb"
+        }
+      ]
+    },
+    {
+      "clause": "product-spec:风险揭示书/适合购买的投资者",
+      "coreClause": "第二条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[2]/p/span/text()[1]",
+        "start": 0,
+        "end": 76,
+        "quote": "适合购买的投资者 经产品销售机构风险承受能力评估为稳健型、平衡型、进取型 和激进型的个人投资者、机构投资者，具体以销售机构风险评 级结果和销售要求为准。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "product-spec",
+          "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+          "mediaType": "application/pdf",
+          "locatorKind": "PDF_PAGE_TEXT",
+          "page": 1,
+          "quote": "适合购买的投资者 经产品销售机构风险承受能力评估为稳健型、平衡型、进取型 和激进型的个人投资者、机构投资者，具体以销售机构风险评 级结果和销售要求为准。",
+          "quoteDigest": "9f94264a3dce5c19626805209f1bb504dbce9bf116908e3eda53b30727011ea3"
+        }
+      ]
+    },
+    {
+      "clause": "product-spec:风险揭示书/风险揭示内容",
+      "coreClause": "第三条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[3]/p/span/text()[1]",
+        "start": 0,
+        "end": 124,
+        "quote": "风险揭示内容 市场风险、信用风险、流动性风险等 本理财产品不保证资金本金和收益，如出现所投资的金融资产 未按时足额支付本息或提前终止等不利情况，则将出现理财收 益为零或本金损失的可能，并存在被中国银行提前终止的可能。 请充分认识投资风险，谨慎投资。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "product-spec",
+          "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+          "mediaType": "application/pdf",
+          "locatorKind": "PDF_PAGE_TEXT",
+          "page": 1,
+          "quote": "风险揭示内容 市场风险、信用风险、流动性风险等 本理财产品不保证资金本金和收益，如出现所投资的金融资产 未按时足额支付本息或提前终止等不利情况，则将出现理财收 益为零或本金损失的可能，并存在被中国银行提前终止的可能。 请充分认识投资风险，谨慎投资。",
+          "quoteDigest": "035a17ebc4eb6a589370a4216cd8248815c736bd081aceab154a508a98d60214"
+        }
+      ]
+    },
+    {
+      "clause": "product-spec:产品说明书/产品基本信息/投资者类型",
+      "coreClause": "第四条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[4]/p/span/text()[1]",
+        "start": 0,
+        "end": 73,
+        "quote": "投资者类型 经产品销售机构风险承受能力评估为稳健型、平衡型、进取型和激进型 的个人投资者、机构投资者，具体以销售机构风险评级结果和销售要求 为准。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "product-spec",
+          "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+          "mediaType": "application/pdf",
+          "locatorKind": "PDF_PAGE_TEXT",
+          "page": 3,
+          "quote": "投资者类型 经产品销售机构风险承受能力评估为稳健型、平衡型、进取型和激进型 的个人投资者、机构投资者，具体以销售机构风险评级结果和销售要求 为准。",
+          "quoteDigest": "37b7e83040f408c73d5c9b65f32686a65ff7cd46c3e7ba46f73f5f68887dcbde"
+        }
+      ]
+    },
+    {
+      "clause": "product-spec:第一部分/初次申购起点金额",
+      "coreClause": "第五条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[5]/p/span/text()[1]",
+        "start": 0,
+        "end": 94,
+        "quote": "初次申购起点金额 初次申购起点金额人民币 1 万元，高于起点金额以人民币 1000 元的整数 倍递增；追加申购金额以及赎回金额均为 1000 元的整数倍；具体详见第 五“申购和赎回”部分。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "product-spec",
+          "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+          "mediaType": "application/pdf",
+          "locatorKind": "PDF_PAGE_TEXT",
+          "page": 3,
+          "quote": "初次申购起点金额 初次申购起点金额人民币 1 万元，高于起点金额以人民币 1000 元的整数 倍递增；追加申购金额以及赎回金额均为 1000 元的整数倍；具体详见第 五“申购和赎回”部分。",
+          "quoteDigest": "3ff177b9407ad35b8a77582faa938fc4a0a33a9ef18b1f38e8f985250f5e2fbe"
+        }
+      ]
+    },
+    {
+      "clause": "product-spec:特别提示",
+      "coreClause": "第六条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[6]/p/span/text()[1]",
+        "start": 0,
+        "end": 636,
+        "quote": "特别提示： 一、 理财非存款、产品有风险、投资须谨慎。本理财计划不保证本金和收益，如出现所投 资的金融资产未按时足额支付本息或产品提前终止的不利情况，则本理财计划将有收 益为零或本金损失的可能，请充分认识投资风险，谨慎投资。 二、 本产品适合于有投资经验及无投资经验的理财客户和机构投资者。对于个人投资者， 如影响您风险承受能力的因素发生变化，请及时完成风险承受能力评估。 三、 主要风险列示: 市场风险、信用风险等（详见本产品说明书第六“风险揭示”部分）。 四、 中国银行股份有限公司郑重提示：在购买理财产品前，在购买理财产品前，个人投资 者应仔细阅读《中国银行股份有限公司个人客户理财产品协议书（2021 年版）》，机 构投资者应仔细阅读《中国银行股份有限公司机构客户理财产品协议（2021 年版）》 和本《产品说明书》、《风险揭示书》 、《投资者权益须知》，确保自己完全明白该项投 资的性质和所涉及的风险，详细了解和审慎评估该理财产品的资金投资方向、风险类 型及预期收益等基本情况，在慎重考虑后自行决定购买与自身风险承受能力和资产管 理需求匹配的理财产品；本理财产品的预期年化投资收益率的表述属不具有法律约束 力的用语，不代表投资者可能获得的实际收益，亦不构成中国银行股份有限公司对本 理财产品的任何收益承诺，投资者所能获得的最终收益以银行根据理财产品说明书支 付给客户的为准。 五、 在购买理财产品后，投资者应随时关注该理财产品的信息披露情况，及时获取相关信 息。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "product-spec",
+          "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+          "mediaType": "application/pdf",
+          "locatorKind": "PDF_PAGE_TEXT",
+          "page": 3,
+          "quote": "特别提示： 一、 理财非存款、产品有风险、投资须谨慎。本理财计划不保证本金和收益，如出现所投 资的金融资产未按时足额支付本息或产品提前终止的不利情况，则本理财计划将有收 益为零或本金损失的可能，请充分认识投资风险，谨慎投资。 二、 本产品适合于有投资经验及无投资经验的理财客户和机构投资者。对于个人投资者， 如影响您风险承受能力的因素发生变化，请及时完成风险承受能力评估。 三、 主要风险列示: 市场风险、信用风险等（详见本产品说明书第六“风险揭示”部分）。 四、 中国银行股份有限公司郑重提示：在购买理财产品前，在购买理财产品前，个人投资 者应仔细阅读《中国银行股份有限公司个人客户理财产品协议书（2021 年版）》，机 构投资者应仔细阅读《中国银行股份有限公司机构客户理财产品协议（2021 年版）》 和本《产品说明书》、《风险揭示书》 、《投资者权益须知》，确保自己完全明白该项投 资的性质和所涉及的风险，详细了解和审慎评估该理财产品的资金投资方向、风险类 型及预期收益等基本情况，在慎重考虑后自行决定购买与自身风险承受能力和资产管 理需求匹配的理财产品；本理财产品的预期年化投资收益率的表述属不具有法律约束 力的用语，不代表投资者可能获得的实际收益，亦不构成中国银行股份有限公司对本 理财产品的任何收益承诺，投资者所能获得的最终收益以银行根据理财产品说明书支 付给客户的为准。 五、 在购买理财产品后，投资者应随时关注该理财产品的信息披露情况，及时获取相关信 息。",
+          "quoteDigest": "d4ef449429554d2751fa2cc2907b012a45c1da06de830ac108346f0dc7e27017"
+        }
+      ]
+    },
+    {
+      "clause": "product-spec:第一部分/产品费率",
+      "coreClause": "第七条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[7]/p/span/text()[1]",
+        "start": 0,
+        "end": 83,
+        "quote": "产品费率 固定投资管理费率0.2%（年率）、托管费率0.03%（年率），超过预期年 化投资收益率的收益作为理财计划管理人的浮动投资管理费。 本理财计划无申购、赎回费。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "product-spec",
+          "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+          "mediaType": "application/pdf",
+          "locatorKind": "PDF_PAGE_TEXT",
+          "page": 4,
+          "quote": "产品费率 固定投资管理费率0.2%（年率）、托管费率0.03%（年率），超过预期年 化投资收益率的收益作为理财计划管理人的浮动投资管理费。 本理财计划无申购、赎回费。",
+          "quoteDigest": "a2b4016d8ec0b9223e925e637c330070a5c3c0221d8f45566f59c914352f6756"
+        }
+      ]
+    },
+    {
+      "clause": "product-spec:第一部分/预期年化投资收益率",
+      "coreClause": "第八条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[8]/p/span/text()[1]",
+        "start": 0,
+        "end": 681,
+        "quote": "预期年化投资收益率 理财计划管理人根据市场利率和投资标的收益率变动及资金运作情况不 定期调整预期年化投资收益率，并至少于新预期年化投资收益率启用前 一个工作日在中国银行股份有限公司网站（www.boc.cn）上公布。 预期年化投资收益率 当且仅当本产品所涉及的所有当事人——理财计划管理人、其他交易相 测算 关人等均完全履行了其各项义务和责任、且未发生任何争议或任何其他 风险的前提条件下，理财计划管理人按照当前已知信息进行测算得出本 产品分期限的预期年化投资收益率。具体的测算方法为按照投资对象的 市场收益率和各自占比加权计算。以2024年12月25日-2025年2月24日为 例，1年期国债和政策性金融债收益率约为1.01%-1.48%；3年期国债和政 策性金融债收益率约为1.11%-1.30%；高信用级别的企业债、公司债、短 期融资券、中期票据、资产支持证券、非公开定向债务融资工具、理财 直接融资工具、券商收益凭证、非标准化债权类资产、货币市场基金、 短期理财型基金、信用违约互换和利率互换的收益率因具体情况而异。 扣除固定投资管理费率0.2%和托管费率0.03%以及投资标的相关税费后， 从2025年3月1日起，客户预期可获得最高年化收益率分期限如下：1天-6 天，1.20 %；7天-13天，1.20%；14天-20天，1.20%；21天-30天，1.20%； 31天-60天，1.20%；61天-90天，1.20%；91天-120天，1.20%；121天-180 天，1.20%；181天及以上，1.20%。测算收益不等于实际收益，投资须谨 慎。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "product-spec",
+          "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+          "mediaType": "application/pdf",
+          "locatorKind": "PDF_PAGE_TEXT",
+          "page": 4,
+          "quote": "预期年化投资收益率 理财计划管理人根据市场利率和投资标的收益率变动及资金运作情况不 定期调整预期年化投资收益率，并至少于新预期年化投资收益率启用前 一个工作日在中国银行股份有限公司网站（www.boc.cn）上公布。 预期年化投资收益率 当且仅当本产品所涉及的所有当事人——理财计划管理人、其他交易相 测算 关人等均完全履行了其各项义务和责任、且未发生任何争议或任何其他 风险的前提条件下，理财计划管理人按照当前已知信息进行测算得出本 产品分期限的预期年化投资收益率。具体的测算方法为按照投资对象的 市场收益率和各自占比加权计算。以2024年12月25日-2025年2月24日为 例，1年期国债和政策性金融债收益率约为1.01%-1.48%；3年期国债和政 策性金融债收益率约为1.11%-1.30%；高信用级别的企业债、公司债、短 期融资券、中期票据、资产支持证券、非公开定向债务融资工具、理财 直接融资工具、券商收益凭证、非标准化债权类资产、货币市场基金、 短期理财型基金、信用违约互换和利率互换的收益率因具体情况而异。 扣除固定投资管理费率0.2%和托管费率0.03%以及投资标的相关税费后， 从2025年3月1日起，客户预期可获得最高年化收益率分期限如下：1天-6 天，1.20 %；7天-13天，1.20%；14天-20天，1.20%；21天-30天，1.20%； 31天-60天，1.20%；61天-90天，1.20%；91天-120天，1.20%；121天-180 天，1.20%；181天及以上，1.20%。测算收益不等于实际收益，投资须谨 慎。",
+          "quoteDigest": "55e55e8a47f547a8f69a3061f693065906a525c5e8ec50233c6ffbd5e3cade87"
+        }
+      ]
+    },
+    {
+      "clause": "product-spec:产品基本信息/交易日",
+      "coreClause": "第九条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[9]/p/span/text()[1]",
+        "start": 0,
+        "end": 53,
+        "quote": "交易日 在本理财计划存续期内，除周六、周日、中国法定假日以外的工作日为 该理财计划开放申购、赎回的交易日。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "product-spec",
+          "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+          "mediaType": "application/pdf",
+          "locatorKind": "PDF_PAGE_TEXT",
+          "page": 4,
+          "quote": "交易日 在本理财计划存续期内，除周六、周日、中国法定假日以外的工作日为 该理财计划开放申购、赎回的交易日。",
+          "quoteDigest": "31b1cb9bf75294fccc6f4c5f8a992ba5524f9fabc27870790a66435983fa6447"
+        }
+      ]
+    },
+    {
+      "clause": "product-spec:产品基本信息/交易日与赎回到账",
+      "coreClause": "第十条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[10]/p/span/text()[1]",
+        "start": 0,
+        "end": 93,
+        "quote": "交易日 在本理财计划存续期内，除周六、周日、中国法定假日以外的工作日为 该理财计划开放申购、赎回的交易日。\n赎回到账 T日赎回，本金和收益T+1日到账；到账日若遇节假日顺延至下一工作日。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "product-spec",
+          "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+          "mediaType": "application/pdf",
+          "locatorKind": "PDF_PAGE_TEXT",
+          "page": 4,
+          "quote": "交易日 在本理财计划存续期内，除周六、周日、中国法定假日以外的工作日为 该理财计划开放申购、赎回的交易日。",
+          "quoteDigest": "31b1cb9bf75294fccc6f4c5f8a992ba5524f9fabc27870790a66435983fa6447"
+        },
+        {
+          "sourceId": "product-spec",
+          "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+          "mediaType": "application/pdf",
+          "locatorKind": "PDF_PAGE_TEXT",
+          "page": 5,
+          "quote": "赎回到账 T日赎回，本金和收益T+1日到账；到账日若遇节假日顺延至下一工作日。",
+          "quoteDigest": "640d9a03872cc462831d059befe83fae5c57d825bbe9bd82234a4e5fd253a79d"
+        }
+      ]
+    },
+    {
+      "clause": "product-spec:产品基本信息/提前终止",
+      "coreClause": "第十一条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[11]/p/span/text()[1]",
+        "start": 0,
+        "end": 480,
+        "quote": "提前终止 理财客户无提前终止权。中国银行有权按照本理财计划的实际情况，提 前终止本理财计划。触发提前终止的条件包括但不限于： 在理财计划存续期内，如果连续 30 个交易日本理财计划剩余份额低于 1 亿份，理财计划管理人有权宣布提前终止本理财计划。 在理财计划存续期内，若国家相关法律、法规、监管规定出现重大变更 或者其它突发事件和因素引起金融市场情况出现重大变化以及其它原因 导致理财计划管理人认为理财计划已经不适合继续帮助投资者实现投资 目标的，理财计划管理人有权宣布提前终止本理财计划。 如理财计划管理人提前终止本理财计划，将至少提前2个工作日（含）在 中国银行股份有限公司网站（www.boc.cn）上予以公告，并在提前终止 日后5个交易日内将理财计划资产变现，并将变现后资金按照以下顺序分 配：理财计划应当承担的费用（浮动管理费除外）、投资收益、理财计 划本金、浮动投资管理费。其中投资收益按照本产品说明书第四“理财 计划收益”部分的规定计算，提前终止日视为赎回到账日；理财计划本 金部分按照投资者持有份额分配。提前终止日至资金实际到账日之间不 计息。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "product-spec",
+          "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+          "mediaType": "application/pdf",
+          "locatorKind": "PDF_PAGE_TEXT",
+          "page": 5,
+          "quote": "提前终止 理财客户无提前终止权。中国银行有权按照本理财计划的实际情况，提 前终止本理财计划。触发提前终止的条件包括但不限于： 在理财计划存续期内，如果连续 30 个交易日本理财计划剩余份额低于 1 亿份，理财计划管理人有权宣布提前终止本理财计划。 在理财计划存续期内，若国家相关法律、法规、监管规定出现重大变更 或者其它突发事件和因素引起金融市场情况出现重大变化以及其它原因 导致理财计划管理人认为理财计划已经不适合继续帮助投资者实现投资 目标的，理财计划管理人有权宣布提前终止本理财计划。 如理财计划管理人提前终止本理财计划，将至少提前2个工作日（含）在 中国银行股份有限公司网站（www.boc.cn）上予以公告，并在提前终止 日后5个交易日内将理财计划资产变现，并将变现后资金按照以下顺序分 配：理财计划应当承担的费用（浮动管理费除外）、投资收益、理财计 划本金、浮动投资管理费。其中投资收益按照本产品说明书第四“理财 计划收益”部分的规定计算，提前终止日视为赎回到账日；理财计划本 金部分按照投资者持有份额分配。提前终止日至资金实际到账日之间不 计息。",
+          "quoteDigest": "69e0e3bb8aeb620224c07895ca123973baed4456154364fcb19c7a1ede0a9f50"
+        }
+      ]
+    },
+    {
+      "clause": "product-spec:第三部分",
+      "coreClause": "第十二条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[12]/p/span/text()[1]",
+        "start": 0,
+        "end": 473,
+        "quote": "三、理财计划费用 1 固定投资管理费：固定投资管理费率按0.2%（年率）收取，每日计提，每月支付。 每日固定投资管理费=1元×当日理财计划份额×0.2%÷365 2 托管费：托管费率按0.03%（年率）收取，每日计提，每季支付。 每日托管费=1元×当日理财计划份额×0.03%÷365 3 其他税费：本理财计划在投资运作过程中可能产生以下税费，包括但不限于：增值税、附加税、所得 税，清算费等投资运作时涉及的税费，上述税费（如有）在实际发生时按照实际发生额支付。 4 浮动投资管理费：理财计划管理人根据每月理财计划资产的实际投资运作情况收取浮动投资管理 费。 4.1 若理财计划资产实际投资运作收益超出按照预期年化投资收益率计算的投资者收益，超出部 分为理财计划管理人的浮动投资管理费；否则，理财计划管理人不收取浮动管理费。 4.2 当月理财计划资产实际投资运作收益指当月末理财计划资产扣除理财计划应当承担的费用 （浮动管理费除外）和理财本金之后的剩余资产。理财计划持有的固定收益类资产采用摊余成本法 估值。理财本金=理财计划全部理财份额×1元。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "product-spec",
+          "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+          "mediaType": "application/pdf",
+          "locatorKind": "PDF_PAGE_TEXT",
+          "page": 6,
+          "quote": "三、理财计划费用 1 固定投资管理费：固定投资管理费率按0.2%（年率）收取，每日计提，每月支付。 每日固定投资管理费=1元×当日理财计划份额×0.2%÷365 2 托管费：托管费率按0.03%（年率）收取，每日计提，每季支付。 每日托管费=1元×当日理财计划份额×0.03%÷365 3 其他税费：本理财计划在投资运作过程中可能产生以下税费，包括但不限于：增值税、附加税、所得 税，清算费等投资运作时涉及的税费，上述税费（如有）在实际发生时按照实际发生额支付。 4 浮动投资管理费：理财计划管理人根据每月理财计划资产的实际投资运作情况收取浮动投资管理 费。 4.1 若理财计划资产实际投资运作收益超出按照预期年化投资收益率计算的投资者收益，超出部 分为理财计划管理人的浮动投资管理费；否则，理财计划管理人不收取浮动管理费。 4.2 当月理财计划资产实际投资运作收益指当月末理财计划资产扣除理财计划应当承担的费用 （浮动管理费除外）和理财本金之后的剩余资产。理财计划持有的固定收益类资产采用摊余成本法 估值。理财本金=理财计划全部理财份额×1元。",
+          "quoteDigest": "c4b44bcc59d4c037dd6bcf2ea3eace9fc0e668ca6c9080eba6320daa1e953986"
+        }
+      ]
+    },
+    {
+      "clause": "product-spec:第五部分/申购和赎回",
+      "coreClause": "第十三条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[13]/p/span/text()[1]",
+        "start": 0,
+        "end": 79,
+        "quote": "五、申购和赎回 1 本理财计划存续期内，每个交易日开放申购和赎回（如有变动，将至少提前一个工作日在中国银 行股份有限公司网站 www.boc.cn 上公布）。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "product-spec",
+          "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+          "mediaType": "application/pdf",
+          "locatorKind": "PDF_PAGE_TEXT",
+          "page": 6,
+          "quote": "五、申购和赎回 1 本理财计划存续期内，每个交易日开放申购和赎回（如有变动，将至少提前一个工作日在中国银 行股份有限公司网站 www.boc.cn 上公布）。",
+          "quoteDigest": "ea330fc00ed11f53764e3858a31cfd6409c022789e460cf62df6f2adc8e7f725"
+        }
+      ]
+    },
+    {
+      "clause": "product-spec:第五部分/受理时间与挂单时间",
+      "coreClause": "第十四条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[14]/p/span/text()[1]",
+        "start": 0,
+        "end": 288,
+        "quote": "2 受理时间及清算时间：理财计划存续期内，投资者可在受理时间内（交易日的北京时间8：30-15： 30）提出申购或赎回本理财计划。申购实时扣款，当日开始计算收益。赎回本金和收益T+1日到账， 到账日若遇节假日顺延至下一工作日。 3 挂单时间：理财计划存续期内，个人投资者可在挂单时间内（交易日的北京时间0：00-5：30和 15：45-24：00、非交易日的北京时间0：00-5：30和8：30-24：00），通过中国银行网上银行、手机 银行等渠道进行挂单申购或赎回本理财计划。挂单交易将于下一受理时间内自动成交。投资者在进行 挂单申购交易时，应保证资金账户有足额的申购资金。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "product-spec",
+          "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+          "mediaType": "application/pdf",
+          "locatorKind": "PDF_PAGE_TEXT",
+          "page": 7,
+          "quote": "2 受理时间及清算时间：理财计划存续期内，投资者可在受理时间内（交易日的北京时间8：30-15： 30）提出申购或赎回本理财计划。申购实时扣款，当日开始计算收益。赎回本金和收益T+1日到账， 到账日若遇节假日顺延至下一工作日。 3 挂单时间：理财计划存续期内，个人投资者可在挂单时间内（交易日的北京时间0：00-5：30和 15：45-24：00、非交易日的北京时间0：00-5：30和8：30-24：00），通过中国银行网上银行、手机 银行等渠道进行挂单申购或赎回本理财计划。挂单交易将于下一受理时间内自动成交。投资者在进行 挂单申购交易时，应保证资金账户有足额的申购资金。",
+          "quoteDigest": "818ff9c972fa5b175619ba292c94a6b022b3541a42687f22901fd554910ab20a"
+        }
+      ]
+    },
+    {
+      "clause": "product-spec:第五部分第5项",
+      "coreClause": "第十五条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[15]/p/span/text()[1]",
+        "start": 0,
+        "end": 213,
+        "quote": "5 申购和赎回的金额要求：首次申购起点金额1万元，高于起点金额以人民币1000元的整数倍递增； 追加申购金额以及赎回金额均为1000元的整数倍；投资者可选择全部或部分赎回，部分赎回后投资者 持有本理财计划的实时剩余份额不得低于1万份，对于实时剩余份额低于1万份的部分赎回申请，理财 计划管理人有权为投资者办理强制性全部赎回；单一个人投资者累计持有本理财计划份额上限为2亿 份，单一机构投资者累计持有本理财计划份额上限为5亿份。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "product-spec",
+          "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+          "mediaType": "application/pdf",
+          "locatorKind": "PDF_PAGE_TEXT",
+          "page": 7,
+          "quote": "5 申购和赎回的金额要求：首次申购起点金额1万元，高于起点金额以人民币1000元的整数倍递增； 追加申购金额以及赎回金额均为1000元的整数倍；投资者可选择全部或部分赎回，部分赎回后投资者 持有本理财计划的实时剩余份额不得低于1万份，对于实时剩余份额低于1万份的部分赎回申请，理财 计划管理人有权为投资者办理强制性全部赎回；单一个人投资者累计持有本理财计划份额上限为2亿 份，单一机构投资者累计持有本理财计划份额上限为5亿份。",
+          "quoteDigest": "e28dad2610c8a5a463244d0c33b981d7ff305c901ea6af83a0d0f6a17e66eb45"
+        }
+      ]
+    },
+    {
+      "clause": "product-spec:第五部分第6项",
+      "coreClause": "第十六条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[16]/p/span/text()[1]",
+        "start": 0,
+        "end": 14,
+        "quote": "6 申购和赎回的费率均为0。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "product-spec",
+          "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+          "mediaType": "application/pdf",
+          "locatorKind": "PDF_PAGE_TEXT",
+          "page": 7,
+          "quote": "6 申购和赎回的费率均为0。",
+          "quoteDigest": "1340347b6deec2689fbdf4fff80a026262c0d711f86cbc7837659c445a205f35"
+        }
+      ]
+    },
+    {
+      "clause": "product-spec:第五部分第7项",
+      "coreClause": "第十七条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[17]/p/span/text()[1]",
+        "start": 0,
+        "end": 228,
+        "quote": "7 大额赎回：理财计划存续期内出现以下两种情况中任意一种，即为发生大额赎回。此时理财计划 管理人有权暂停接受当日赎回申请，下一交易日继续接受赎回申请。 7.1 任一交易日本理财计划累计净赎回申请份额（当日赎回申请份额减去当日申购申请份额）超 过本理财计划上一交易日份额的10%。 7.2 任意连续三个交易日本理财计划累计净赎回申请份额（连续三个交易日的赎回申请份额之和 减去此三个交易日申购申请份额之和）超过本理财计划此三个交易日的上一交易日份额的20%。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "product-spec",
+          "sourceDigest": "ffd336f6eb5544900c700fa87f76511e7661563f705a1947ceb68a5999e7109e",
+          "mediaType": "application/pdf",
+          "locatorKind": "PDF_PAGE_TEXT",
+          "page": 7,
+          "quote": "7 大额赎回：理财计划存续期内出现以下两种情况中任意一种，即为发生大额赎回。此时理财计划 管理人有权暂停接受当日赎回申请，下一交易日继续接受赎回申请。 7.1 任一交易日本理财计划累计净赎回申请份额（当日赎回申请份额减去当日申购申请份额）超 过本理财计划上一交易日份额的10%。 7.2 任意连续三个交易日本理财计划累计净赎回申请份额（连续三个交易日的赎回申请份额之和 减去此三个交易日申购申请份额之和）超过本理财计划此三个交易日的上一交易日份额的20%。",
+          "quoteDigest": "a8950ca23932dff4a145bbe35140c8eee4230ac70fada644f5a933abe691bef4"
+        }
+      ]
+    },
+    {
+      "clause": "sales-agreement:第一部分",
+      "coreClause": "第十八条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[18]/p/span/text()[1]",
+        "start": 0,
+        "end": 27,
+        "quote": "本协议与《产品说明书》不一致的，以《产品说明书》为准。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "sales-agreement",
+          "sourceDigest": "60dc1e97e6ec744b9e804316c9ccc0026b9caedf20a9ba6a62b00d58e9c989dd",
+          "mediaType": "text/html",
+          "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+          "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[6]/strong/text()[1]",
+          "quote": "本协议与《产品说明书》不一致的，以《产品说明书》为准。",
+          "quoteDigest": "a54c1acc73e530c22b4bcec86779f0c2f37c2f976dac886cded2e927a7c9bfa9"
+        }
+      ]
+    },
+    {
+      "clause": "sales-agreement:第二部分",
+      "coreClause": "第十九条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[19]/p/span/text()[1]",
+        "start": 0,
+        "end": 182,
+        "quote": "理财非存款、产品有风险、投资须谨慎，理财产品过往业绩不代表其未来表现，不等于理财产品实际收益。投资理财产品可能面临信用风险、市场风险和流动性风险等风险因素，具体由甲方购买的自营理财产品的《产品说明书》和《风险揭示书》揭示。甲方应仔细阅读并充分理解相关产品销售文件。\n对自营理财产品本金及收益的约定应以该理财产品的《产品说明书》为准，甲乙双方不得以任何形式另行约定。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "sales-agreement",
+          "sourceDigest": "60dc1e97e6ec744b9e804316c9ccc0026b9caedf20a9ba6a62b00d58e9c989dd",
+          "mediaType": "text/html",
+          "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+          "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[8]/strong/text()[1]",
+          "quote": "理财非存款、产品有风险、投资须谨慎，理财产品过往业绩不代表其未来表现，不等于理财产品实际收益。投资理财产品可能面临信用风险、市场风险和流动性风险等风险因素，具体由甲方购买的自营理财产品的《产品说明书》和《风险揭示书》揭示。甲方应仔细阅读并充分理解相关产品销售文件。",
+          "quoteDigest": "369a17e0580d1274d8d42a6ba571e3f59a88d17e8406b8548cb0573955c1e0a8"
+        },
+        {
+          "sourceId": "sales-agreement",
+          "sourceDigest": "60dc1e97e6ec744b9e804316c9ccc0026b9caedf20a9ba6a62b00d58e9c989dd",
+          "mediaType": "text/html",
+          "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+          "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[9]/text()[1]",
+          "quote": "对自营理财产品本金及收益的约定应以该理财产品的《产品说明书》为准，甲乙双方不得以任何形式另行约定。",
+          "quoteDigest": "803cd298ef8d27033d00a5fecc254bb73fd26dc70d7ca6d2bc885f842b24ab40"
+        }
+      ]
+    },
+    {
+      "clause": "sales-agreement:第四部分第一项",
+      "coreClause": "第二十条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[20]/p/span/text()[1]",
+        "start": 0,
+        "end": 39,
+        "quote": "投资资金来源合法且为本人自有资金，不存在使用贷款等筹集的非自有资金投资的情况。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "sales-agreement",
+          "sourceDigest": "60dc1e97e6ec744b9e804316c9ccc0026b9caedf20a9ba6a62b00d58e9c989dd",
+          "mediaType": "text/html",
+          "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+          "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[13]/strong/text()[1]",
+          "quote": "投资资金来源合法且为本人自有资金，不存在使用贷款等筹集的非自有资金投资的情况。",
+          "quoteDigest": "e7a45a9537188928ff425d79bb00bfb88f6e5cb1304aba8300bfed2c5f76f1d7"
+        }
+      ]
+    },
+    {
+      "clause": "sales-agreement:第四部分第九项",
+      "coreClause": "第二十一条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[21]/p/span/text()[1]",
+        "start": 0,
+        "end": 257,
+        "quote": "甲方在乙方首次购买自营理财产品前，须前往乙方营业网点，在柜台或智能柜台进行个人客户风险测评。风险测评旨在帮助甲方了解自身风险偏好和风险承受能力，以便选择合适的投资产品，甲方可购买的自营理财产品风险等级不可超过甲方的客户风险评级，乙方将在《产品说明书》中披露产品风险等级，以便甲方自主评估和决策。个人客户风险测评有效期为一年，超过一年未进行个人客户风险测评或在有效期内发生了可能影响甲方风险承受能力的情况，甲方应在乙方网点或者网上银行、手机银行等渠道主动进行测评，若因甲方未及时进行测评导致的风险和损失将由甲方承担。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "sales-agreement",
+          "sourceDigest": "60dc1e97e6ec744b9e804316c9ccc0026b9caedf20a9ba6a62b00d58e9c989dd",
+          "mediaType": "text/html",
+          "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+          "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[21]/strong/text()[1]",
+          "quote": "甲方在乙方首次购买自营理财产品前，须前往乙方营业网点，在柜台或智能柜台进行个人客户风险测评。风险测评旨在帮助甲方了解自身风险偏好和风险承受能力，以便选择合适的投资产品，甲方可购买的自营理财产品风险等级不可超过甲方的客户风险评级，乙方将在《产品说明书》中披露产品风险等级，以便甲方自主评估和决策。个人客户风险测评有效期为一年，超过一年未进行个人客户风险测评或在有效期内发生了可能影响甲方风险承受能力的情况，甲方应在乙方网点或者网上银行、手机银行等渠道主动进行测评，若因甲方未及时进行测评导致的风险和损失将由甲方承担。",
+          "quoteDigest": "5983bcd2864fb4e8cbf30c664500aa4ac782c1efc0d0511c71f7c9f15769d814"
+        }
+      ]
+    },
+    {
+      "clause": "investor-rights:风险提示",
+      "coreClause": "第二十二条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[22]/p/span/text()[1]",
+        "start": 0,
+        "end": 424,
+        "quote": "为保护您的合法权益，在投资理财产品前，请先进行个人风险承受能力评估并认真阅读银行理财产品销售文件，包括《中国银行股份有限公司个人客户理财产品协议书》、对应产品的《产品说明书》《风险揭示书》、本《投资者权益须知》和交易单据，签署后即视为您同意中国银行作为本理财产品的管理人和销售方，同意中国银行根据《中国银行股份有限公司个人客户理财产品协议书》《产品说明书》的约定代表您对募集资金进行投资和执行相关操作，并有权代表您行使基础资产交易项下与其他交易各方进行交易所享有的全部权利。您应选择投资与个人风险承受能力相匹配的理财产品，充分了解投资风险，谨慎投资。在投资购买理财产品后建议关注我行理财产品信息披露方式、渠道和频率，以及我行相关投诉处理方式。\n在您阅读时，请特别注意字体加黑条款，如您对相关条款有不明之处，请及时与我行相关销售人员进行咨询，我们将应您的要求对相关条款进行充分的提示和说明。投资者不得使用贷款、发行债券等筹集的非自有资金投资理财产品。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "investor-rights",
+          "sourceDigest": "96682c229889c377316cadb827f9a10d42e112f5c9e351f0ffdf80581d3562d7",
+          "mediaType": "text/html",
+          "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+          "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[3]/text()[1]",
+          "quote": "为保护您的合法权益，在投资理财产品前，请先进行个人风险承受能力评估并认真阅读银行理财产品销售文件，包括《中国银行股份有限公司个人客户理财产品协议书》、对应产品的《产品说明书》《风险揭示书》、本《投资者权益须知》和交易单据，签署后即视为您同意中国银行作为本理财产品的管理人和销售方，同意中国银行根据《中国银行股份有限公司个人客户理财产品协议书》《产品说明书》的约定代表您对募集资金进行投资和执行相关操作，并有权代表您行使基础资产交易项下与其他交易各方进行交易所享有的全部权利。您应选择投资与个人风险承受能力相匹配的理财产品，充分了解投资风险，谨慎投资。在投资购买理财产品后建议关注我行理财产品信息披露方式、渠道和频率，以及我行相关投诉处理方式。",
+          "quoteDigest": "8bdd8188a626c23def3eb9e3e46981fed7d447c860ac46d6ced196218a5ac4ad"
+        },
+        {
+          "sourceId": "investor-rights",
+          "sourceDigest": "96682c229889c377316cadb827f9a10d42e112f5c9e351f0ffdf80581d3562d7",
+          "mediaType": "text/html",
+          "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+          "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[4]/strong/text()[1]",
+          "quote": "在您阅读时，请特别注意字体加黑条款，如您对相关条款有不明之处，请及时与我行相关销售人员进行咨询，我们将应您的要求对相关条款进行充分的提示和说明。投资者不得使用贷款、发行债券等筹集的非自有资金投资理财产品。",
+          "quoteDigest": "099650ef5e7acd8f1b6f9c1a061bb789c740b95abe40c5ea7f871c9849097518"
+        }
+      ]
+    },
+    {
+      "clause": "investor-rights:第二部分",
+      "coreClause": "第二十三条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[23]/p/span/text()[1]",
+        "start": 0,
+        "end": 314,
+        "quote": "个人投资者在我行首次购买理财产品前，需在本行网点进行风险承受能力评估。\n风险承受能力评估旨在帮助您了解自己的风险偏好和风险承受能力，有助于您明确投资需求、选择合适的投资产品。中国银行将会根据评估结果向您建议适宜投资的理财产品类型，此建议仅供参考，您仍应充分认识投资风险，谨慎投资。根据监管要求，当您的客户风险评级不低于理财产品风险评级时才可以购买该理财产品。\n为及时更新您的财务状况和投资偏好，您的风险承受能力评估结果的有效期为12个月，超过12个月未进行风险承受能力评估或在有效期内您的财务状况发生较大变化等可能影响您风险承受能力的情况，您需要重新进行评估，请您主动在我行网点或者网上银行、手机银行等渠道进行风险承受能力评估。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "investor-rights",
+          "sourceDigest": "96682c229889c377316cadb827f9a10d42e112f5c9e351f0ffdf80581d3562d7",
+          "mediaType": "text/html",
+          "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+          "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[9]/strong[1]/text()[1]",
+          "quote": "个人投资者在我行首次购买理财产品前，需在本行网点进行风险承受能力评估。",
+          "quoteDigest": "709c661be80c2668d9b77dae9b3a0774afbd841252353499a7076619de63d17c"
+        },
+        {
+          "sourceId": "investor-rights",
+          "sourceDigest": "96682c229889c377316cadb827f9a10d42e112f5c9e351f0ffdf80581d3562d7",
+          "mediaType": "text/html",
+          "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+          "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[9]/strong[1]/following-sibling::text()[1]",
+          "quote": "风险承受能力评估旨在帮助您了解自己的风险偏好和风险承受能力，有助于您明确投资需求、选择合适的投资产品。中国银行将会根据评估结果向您建议适宜投资的理财产品类型，此建议仅供参考，您仍应充分认识投资风险，谨慎投资。根据监管要求，当您的客户风险评级不低于理财产品风险评级时才可以购买该理财产品。",
+          "quoteDigest": "01ce511c326310fb6412980ac7b6501d0f87837b89ae7b20916dd2dd7c8fdeb5"
+        },
+        {
+          "sourceId": "investor-rights",
+          "sourceDigest": "96682c229889c377316cadb827f9a10d42e112f5c9e351f0ffdf80581d3562d7",
+          "mediaType": "text/html",
+          "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+          "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[9]/strong[2]/text()[1]",
+          "quote": "为及时更新您的财务状况和投资偏好，您的风险承受能力评估结果的有效期为12个月，超过12个月未进行风险承受能力评估或在有效期内您的财务状况发生较大变化等可能影响您风险承受能力的情况，您需要重新进行评估，请您主动在我行网点或者网上银行、手机银行等渠道进行风险承受能力评估。",
+          "quoteDigest": "5fab0a5277555a3e88749e6829fbca41e42261f528f688d42e8f6dbe2b1896d1"
+        }
+      ]
+    },
+    {
+      "clause": "investor-rights:第三部分/风险等级对应关系",
+      "coreClause": "第二十四条",
+      "derivedAnchor": {
+        "xpath": "/html/body/article[24]/p/span/text()[1]",
+        "start": 0,
+        "end": 433,
+        "quote": "我行根据投资者的不同情况将其风险承受能力分为五级，包括：谨慎型、稳健型、平衡型、进取型和激进型。同时我行根据银行理财产品的本金发生损失的可能性和收益的波动性，将理财产品按照风险程度从低到高分为五级，包括：1.低风险产品、2.中低风险产品、3.中等风险产品、4.中高风险产品、5.高风险产品。\n我行根据风险匹配原则，在客户风险承受能力和理财产品风险等级之间建立对应关系。\n请您根据您的风险承受能力评估结果选择与您风险承受能力相匹配的理财产品。您的风险承受能力评估结果应以您在购买理财产品前的最近一次有效评估结果为准, 请您参考该次评估结果来选择与您风险承受能力相匹配的理财产品。如果您在理财产品持有期间发生风险承受能力变化，导致您购买的理财产品与您自身风险承受能力不匹配的，对于您依据产品说明书约定有权提前赎回的理财产品，建议您尽快赎回；但是，对于您依据产品说明书约定没有权利提前赎回的理财产品，您将无权以风险承受能力不再匹配为由进行赎回，所以，请您在投资前审慎决策。"
+      },
+      "originalAnchors": [
+        {
+          "sourceId": "investor-rights",
+          "sourceDigest": "96682c229889c377316cadb827f9a10d42e112f5c9e351f0ffdf80581d3562d7",
+          "mediaType": "text/html",
+          "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+          "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[12]/text()[1]",
+          "quote": "我行根据投资者的不同情况将其风险承受能力分为五级，包括：谨慎型、稳健型、平衡型、进取型和激进型。同时我行根据银行理财产品的本金发生损失的可能性和收益的波动性，将理财产品按照风险程度从低到高分为五级，包括：1.低风险产品、2.中低风险产品、3.中等风险产品、4.中高风险产品、5.高风险产品。",
+          "quoteDigest": "4705edac35f9a0d290b4838afc0120e8a3b3136920e9b19e1200258cff230376"
+        },
+        {
+          "sourceId": "investor-rights",
+          "sourceDigest": "96682c229889c377316cadb827f9a10d42e112f5c9e351f0ffdf80581d3562d7",
+          "mediaType": "text/html",
+          "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+          "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[13]/text()[1]",
+          "quote": "我行根据风险匹配原则，在客户风险承受能力和理财产品风险等级之间建立对应关系。",
+          "quoteDigest": "1364af0ba1a57b6b209b8305aad9aa20490154f0f36675d8dec882fd5978bbc6"
+        },
+        {
+          "sourceId": "investor-rights",
+          "sourceDigest": "96682c229889c377316cadb827f9a10d42e112f5c9e351f0ffdf80581d3562d7",
+          "mediaType": "text/html",
+          "locatorKind": "HTML_DOM_NORMALIZED_TEXT",
+          "xpath": "/html/body/div/div[5]/div[1]/div[2]/div/p[13]/strong/text()[1]",
+          "quote": "请您根据您的风险承受能力评估结果选择与您风险承受能力相匹配的理财产品。您的风险承受能力评估结果应以您在购买理财产品前的最近一次有效评估结果为准, 请您参考该次评估结果来选择与您风险承受能力相匹配的理财产品。如果您在理财产品持有期间发生风险承受能力变化，导致您购买的理财产品与您自身风险承受能力不匹配的，对于您依据产品说明书约定有权提前赎回的理财产品，建议您尽快赎回；但是，对于您依据产品说明书约定没有权利提前赎回的理财产品，您将无权以风险承受能力不再匹配为由进行赎回，所以，请您在投资前审慎决策。",
+          "quoteDigest": "1dac1a99b7b2582609227bcd8428d6834ba68bb85b1c80838de371629b1fe331"
+        }
+      ]
+    }
+  ],
+  "provenanceDigest": "8b194b5566a928f455bf1b174d09651b9c25f4a2846ed8fd511d9076cc4c97dd"
+}

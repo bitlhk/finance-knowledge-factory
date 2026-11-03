@@ -1,0 +1,8 @@
+{
+  "unauthorizedSourceActivation": "FORBIDDEN",
+  "rejectedAdmissionApproval": "DOCUMENT_VALIDATION_FAILED_OR_MISMATCH",
+  "manifestCountBefore": 0,
+  "manifestCountAfter": 0,
+  "revocationDigest": "9a95d55670d755a25bb71e5e3f71be400811edc87f9949eb21c392e70ba8d864",
+  "revokedSourceRead": "SOURCE_SUPERSEDED_OR_REVOKED"
+}

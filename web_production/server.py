@@ -81,15 +81,37 @@ def handler(service):
                     raise Rejected('OBJECT_REQUIRED')
                 path = urlsplit(self.path).path
                 if path == '/api/sample':
+                    authority = (service.authorities.authenticate('candidate.produce', self.headers)
+                                 if getattr(service, 'm2', False) else None)
                     result = service.source('个人贷款管理办法 · 公开制度样例', SAMPLE.read_text())
-                elif path == '/api/sources' and set(data) == {'title', 'html'}:
-                    result = service.source(data['title'], data['html'])
+                elif path == '/api/business-samples/boc-amsylj01' and getattr(service,'m2',False):
+                    result = service.business_sample('boc-amsylj01',
+                        service.authorities.authenticate('candidate.produce', self.headers))
+                elif path == '/api/business-products/cmbwm-132112/import' and getattr(service,'m2',False):
+                    result = service.import_business_product(data,
+                        service.authorities.authenticate('candidate.produce', self.headers))
+                elif path == '/api/sources' and set(data) in ({'title', 'html'},
+                        {'title', 'html', 'metadata'}):
+                    authority = (service.authorities.authenticate('candidate.produce', self.headers)
+                                 if getattr(service, 'm2', False) else None)
+                    result = service.source(data['title'], data['html'],data.get('metadata'))
                 elif path == '/api/runs':
-                    result = service.submit(data)
+                    authority = (service.authorities.authenticate('candidate.produce', self.headers)
+                                 if getattr(service, 'm2', False) else None)
+                    result = service.submit(data, authority) if authority else service.submit(data)
                 elif path == '/api/search' and set(data) == {'runId', 'query'}:
                     result = service.search(data['runId'], data['query'])
+                elif path == '/api/document-evaluate' and getattr(service,'m2',False):
+                    result = service.start_evaluation(data,
+                        service.authorities.authenticate('evaluation.start', self.headers))
+                elif path == '/api/document-source-activate' and getattr(service,'m2',False):
+                    result = service.activate_source(data,
+                        service.authorities.authenticate('source.activate', self.headers))
                 elif path in {'/api/document-approve','/api/document-publish'} and getattr(service,'m2',False):
-                    result = service.release_action(path, data)
+                    operation = ('document.approve' if path.endswith('approve')
+                                 else 'manifest.publish')
+                    result = service.release_action(path, data,
+                        service.authorities.authenticate(operation, self.headers))
                 elif path == '/api/rule-test' and set(data) == {'runId', 'clause', 'ruleId', 'inputs'}:
                     if not test_lock.acquire(blocking=False):
                         raise Rejected('RULE_TEST_BUSY')

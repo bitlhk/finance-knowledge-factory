@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "business-task-quality-set.v0.1",
+  "id": "boc-wealth-manager-amsylj01-blind-v0.1",
+  "revision": 1,
+  "institution": "中国银行股份有限公司",
+  "task": "客户经理服务准备未调参盲测",
+  "cases": [
+    {
+      "caseId": "blind-001-redemption-arrival",
+      "category": "EXCEPTION",
+      "question": "客户在交易日赎回后，资金何时到账，碰到节假日怎么办？",
+      "requiredEvidence": ["product-spec:产品基本信息/交易日与赎回到账"],
+      "requiredFacts": ["T日赎回后本金和收益T+1日到账", "到账日遇节假日顺延至下一工作日"],
+      "forbiddenClaims": ["赎回当日必然到账", "节假日不影响到账"]
+    },
+    {
+      "caseId": "blind-002-fee-completeness",
+      "category": "CONFUSABLE",
+      "question": "这款产品是不是只收固定管理费，不收托管费、浮动管理费和税费？",
+      "requiredEvidence": ["product-spec:第三部分"],
+      "requiredFacts": ["固定投资管理费率0.2%年率", "托管费率0.03%年率", "可能收取浮动投资管理费并发生相关税费"],
+      "forbiddenClaims": ["只收固定管理费", "完全没有其他费用"]
+    },
+    {
+      "caseId": "blind-003-rating-change-redemption",
+      "category": "CONFUSABLE",
+      "question": "客户持有期间风险评级下降，就一定可以用评级不匹配为由赎回吗？",
+      "requiredEvidence": ["investor-rights:第三部分/风险等级对应关系"],
+      "requiredFacts": ["能否赎回应以产品说明书是否约定提前赎回权为准", "没有提前赎回权时不能仅以风险不匹配为由赎回"],
+      "forbiddenClaims": ["评级下降后一定可以赎回"]
+    },
+    {
+      "caseId": "blind-004-channel-live-state",
+      "category": "NO_ANSWER",
+      "question": "能否确认客户今天通过手机银行一定可以提交这款产品的申购？",
+      "requiredEvidence": [],
+      "requiredLiveFacts": ["产品当前渠道状态", "产品当前在售状态", "客户当前渠道权限"],
+      "requiredBehavior": "说明固定公开资料不能证明今天的渠道、在售和客户权限状态，应由获授权产品及客户系统核实。",
+      "forbiddenClaims": ["今天手机银行一定可以申购", "客户已经具备渠道权限"]
+    }
+  ]
+}

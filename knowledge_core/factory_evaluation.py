@@ -225,7 +225,8 @@ class FactoryEvaluationMixin:
             activation = self._source_current(actor, index['sourceDigest'],
                                               context['business_date'])
             policy = self._head(actor, 'policy', 'current')[1]
-        evidence = self._retrieve(index, case['question'], client, profile)
+        evidence = self._retrieve(index, case['question'], client, profile,
+                                  context['business_date'])
         with self.tx():
             current, _, _ = self._evaluation_scope(
                 actor, assignment_digest, lease_digest, case_id)
@@ -448,7 +449,9 @@ class FactoryEvaluationMixin:
         evidence = receipt['result']['evidence'][:template['maxEvidenceItems']]
         numbered = []
         for position, item in enumerate(evidence, 1):
-            numbered.append(f"[{position}] {item['clause']}: {item['quote']}")
+            reference = item.get('sourceReference', {})
+            label = reference.get('displayLabel', item['clause'])
+            numbered.append(f"[{position}] {label}: {item['quote']}")
         user = (f"问题：{receipt['question']}\n\n已核验原文：\n"
                 + ('\n'.join(numbered) if numbered else '未检索到可用原文')
                 + f"\n\n{template['answerInstruction']}")
@@ -673,6 +676,8 @@ class FactoryEvaluationMixin:
                             'chunkId':evidence.get('chunkId')}
                     if any(not isinstance(value, str) or not value for value in body.values()):
                         raise Rejected('QUALITY_RUNTIME_EVIDENCE_MISMATCH', case_id)
+                    if 'sourceReference' in evidence:
+                        body['sourceReference'] = evidence['sourceReference']
                     body['evidenceDigest'] = digest(body)
                     retrieved.append(body)
                 answer_citations, unmatched = self._factory_answer_references(

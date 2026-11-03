@@ -18,6 +18,7 @@ class FakeWorker:
 
 
 def configure_worker(monkeypatch):
+    clients = []
     monkeypatch.setattr(service_process, "_json", lambda _: {
         "tenant":"tenant-a",
         "actors":{
@@ -36,13 +37,21 @@ def configure_worker(monkeypatch):
     monkeypatch.setattr(service_process, "managed_runtime_versions",
                         lambda:("3.12", "0.1.17.post1"))
     monkeypatch.setattr(service_process, "_token", lambda _: "x" * 64)
-    monkeypatch.setattr(service_process, "UnixEvaluationClient",
-                        lambda *args: object())
+    class ReadyClient:
+        def __init__(self, *args):
+            self.ready = False
+            clients.append(self)
+
+        def wait_until_ready(self):
+            self.ready = True
+
+    monkeypatch.setattr(service_process, "UnixEvaluationClient", ReadyClient)
     monkeypatch.setattr(service_process, "CandidateEvaluationWorker", FakeWorker)
+    return clients
 
 
 def test_worker_writes_group_readable_host_handoff(monkeypatch, tmp_path):
-    configure_worker(monkeypatch)
+    clients = configure_worker(monkeypatch)
     handoff = tmp_path / "handoff"
     handoff.mkdir(mode=0o750)
     output = handoff / "runs.json"
@@ -50,6 +59,7 @@ def test_worker_writes_group_readable_host_handoff(monkeypatch, tmp_path):
         config="unused", task="task.json", output=output))
     assert output.stat().st_mode & 0o777 == 0o640
     assert '"caseId": "case-1"' in output.read_text(encoding="utf-8")
+    assert len(clients) == 2 and all(client.ready for client in clients)
 
 
 def test_worker_rejects_uncontrolled_handoff_directory(monkeypatch, tmp_path):

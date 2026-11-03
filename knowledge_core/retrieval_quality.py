@@ -10,7 +10,8 @@ def _bigrams(value):
 def query_variants(question, mode):
     if mode in (None, "NONE"):
         return [question]
-    if mode != "DETERMINISTIC_FINANCIAL_V0_1":
+    if mode not in {"DETERMINISTIC_FINANCIAL_V0_1",
+                    "DETERMINISTIC_FINANCIAL_V0_2"}:
         raise ValueError("UNKNOWN_QUERY_PLANNER")
     variants = [question]
     substitutions = (("界定", "所称 是指"), ("手机渠道", "互联网 线上方式"),
@@ -28,7 +29,34 @@ def query_variants(question, mode):
             value = (shared + " " + part).strip(" ？?")
             if value and value not in variants:
                 variants.append(value)
-    return variants[:4]
+    if mode == "DETERMINISTIC_FINANCIAL_V0_2":
+        expansions = []
+        concepts = (
+            (r"风险等级|风险级别", "产品风险级别 风险等级"),
+            (r"适合.{0,4}(?:客户|投资者)|客户类型", "适合购买的投资者 投资者类型 风险承受能力"),
+            (r"提前赎回|赎回", "申购和赎回 交易日 赎回到账"),
+            (r"提前终止", "提前终止 理财计划"),
+            (r"首次购买|首次申购", "首次申购 起点金额"),
+            (r"追加购买|追加申购", "追加申购 金额要求"),
+            (r"费用|费率", "申购赎回费率 投资管理费 托管费 税费"),
+            (r"完全不收费|其他费用|还.{0,4}(?:收费|费用)",
+             "申购赎回费率 固定投资管理费 托管费 浮动投资管理费 其他税费"),
+            (r"\d{1,2}[:：]\d{2}|受理时间|挂单时间",
+             "受理时间 挂单时间 赎回到账 交易日历"),
+            (r"(?:三个月|未来|将来|到时).{0,8}(?:用钱|赎回|流动性)",
+             "正常赎回 暂停赎回 提前终止 交易日 赎回到账"),
+            (r"C[1-5].{0,12}(?:购买|适合|可以)",
+             "产品风险级别 适合购买的投资者"),
+        )
+        for pattern, expansion in concepts:
+            if re.search(pattern, question):
+                expansions.append(expansion)
+        # Multi-intent financial questions need independent evidence for each
+        # concept. These variants are domain terms, not question-to-clause maps.
+        variants.extend(expansions)
+        if re.search(r"是否意味着|是不是意味着|是否等于|是不是等于", question):
+            variants.extend(value for value in expansions if value not in variants)
+    return list(dict.fromkeys(variants))[:8]
 
 
 def merge_candidates(candidate_groups):
@@ -64,12 +92,85 @@ def _shape_bonus(question, text):
     return bonus
 
 
+def _evidence_concepts(question, text):
+    """Identify independently required evidence concepts from its own text."""
+    concepts = []
+    checks = (
+        ('product-risk-level', r'风险等级|风险级别|C[1-5].{0,8}(?:购买|适合)',
+         r'风险(?:等级|级别)\s*(?:为|是|：|:)?\s*[1-5]'),
+        ('suitable-investor', r'适合.{0,4}(?:客户|投资者|购买)|客户类型|C[1-5].{0,8}购买',
+         r'适合购买的投资者|投资者类型'),
+        ('normal-redemption-opening', r'提前赎回|是否.{0,6}赎回|能否.{0,6}赎回|不能赎回|开放赎回|赎回权',
+         r'每个交易日开放申购和赎回'),
+        ('normal-redemption', r'赎回', r'开放申购和赎回|提出申购或赎回'),
+        ('redemption-arrival', r'赎回|到账|用钱', r'T\+?1日到账|赎回到账'),
+        ('future-liquidity-timing',
+         r'(?:三个月|未来|将来|到时).{0,8}(?:用钱|赎回|流动性)',
+         r'受理时间.{0,400}T\+?1日到账'),
+        ('early-termination', r'提前赎回|提前终止', r'提前终止'),
+        ('future-termination-distinction',
+         r'(?:三个月|未来|将来|到时).{0,8}(?:用钱|赎回|流动性)|提前赎回',
+         r'(?:客户|投资者).{0,8}无提前终止权'),
+        ('partial-redemption', r'部分赎回|剩余.{0,4}(?:份|份额)',
+         r'部分赎回后.{0,30}剩余份额|剩余份额.{0,30}(?:一次性)?全额赎回|强制性?全部赎回'),
+        ('large-redemption', r'(?:大额|巨额)赎回',
+         r'(?:大额|巨额)赎回.{0,300}(?:全额赎回|部分赎回|暂停|延缓支付)|暂停接受当日赎回'),
+        ('giant-redemption-procedure', r'巨额赎回',
+         r'巨额赎回的(?:认定|处理方式)'),
+        ('large-redemption-followup', r'(?:大额|巨额)赎回|暂停.{0,8}赎回',
+         r'下一交易日继续接受赎回申请'),
+        ('single-investor-redemption',
+         r'单个投资者.{0,30}(?:10%|百分之十|超过).{0,20}(?:赎回|部分)',
+         r'单个投资者.{0,60}(?:10%|百分之十).{0,100}(?:暂停接受|延缓支付)'),
+        ('redemption-suspension',
+         r'(?:三个月|未来|将来|到时).{0,8}(?:用钱|赎回|流动性)|(?:大额|巨额)赎回|暂停.{0,8}赎回',
+         r'暂停.{0,16}(?:申购或赎回|赎回)|赎回应在暂停情形消灭'),
+        ('redemption-suspension-conditions', r'(?:大额|巨额)赎回|暂停.{0,8}赎回',
+         r'发生下列情形.{0,600}(?:暂停接受.{0,12}赎回|延缓支付赎回)'),
+        ('trading-day', r'周末|交易日', r'周六、周日|交易日'),
+        ('order-time', r'周末|挂单|什么时候处理', r'挂单交易|下一受理时间'),
+        ('zero-subscription-redemption-fees', r'申购.{0,6}费|赎回.{0,6}费|费用|费率',
+         r'无申购、赎回费|申购和赎回的费率均为0|无需支付申购费.{0,120}无需支付赎回费|不收取申购费.{0,120}不收取赎回费'),
+        ('basic-fees', r'费用|费率', r'固定投资管理费率|无申购、赎回费'),
+        ('explicit-fee-rates', r'固定.{0,4}管理费|托管费|销售服务费',
+         r'固定投资管理费率|托管费率|销售服务费率'),
+        ('fee-discount-period', r'优惠|优惠后|优惠期间',
+         r'优惠生效日期.{0,160}优惠截止日期.{0,160}优惠后费率|阶段性费率优惠'),
+        ('complete-fees', r'费用|费率|税费', r'其他税费'),
+        ('full-fee-schedule', r'完全不收费|其他费用|还.{0,4}(?:收费|费用)|税费',
+         r'固定投资管理费.{0,160}托管费.{0,220}(?:其他税费|浮动投资管理费)'),
+        ('order-window', r'\d{1,2}[:：]\d{2}|受理时间|挂单时间',
+         r'8[：:]30-15[：:]30.{0,180}15[：:]45-24[：:]00'),
+        ('principal-and-yield-risk', r'保本|保证.{0,4}收益|收益.{0,4}保证',
+         r'不保证.{0,8}(?:本金|资金本金).{0,8}收益|不保证本金和收益'),
+        ('non-own-funds', r'借款|贷款资金|非自有资金',
+         r'自有资金|非自有资金'),
+        ('rating-mismatch-redemption', r'评级|风险承受能力',
+         r'风险承受能力.{0,40}不匹配|无权以风险承受能力不再匹配为由'),
+    )
+    for name, question_pattern, evidence_pattern in checks:
+        if re.search(question_pattern, question) and re.search(evidence_pattern, text):
+            concepts.append(name)
+    if (re.search(r'完全不收费|其他费用|还.{0,4}(?:收费|费用)|是否代表没有其他费用', question)
+            and re.search(r'(?:无需支付|不收取)申购费', text)
+            and re.search(r'(?:无需支付|不收取)赎回费', text)
+            and '固定投资管理费' in text and '托管费' in text):
+        concepts.append('complete-product-fee-schedule')
+    if (re.search(r'申购费.{0,12}赎回费.{0,20}(?:零|0|代表|其他费用)', question)
+            and re.search(r'(?:无需支付|不收取)申购费', text)
+            and re.search(r'(?:无需支付|不收取)赎回费', text)):
+        concepts.append('zero-fee-question-focus')
+    return concepts
+
+
 def rank(question, candidates, mode):
     if mode == "NONE":
         return candidates
-    if mode not in ("STRUCTURE_V0_1", "STRUCTURE_V0_2"):
+    if mode not in ("STRUCTURE_V0_1", "STRUCTURE_V0_2", "STRUCTURE_V0_3"):
         raise ValueError("UNKNOWN_POST_RANK_MODE")
-    variants = query_variants(question, "DETERMINISTIC_FINANCIAL_V0_1") if mode == "STRUCTURE_V0_2" else [question]
+    planner = ("DETERMINISTIC_FINANCIAL_V0_2" if mode == "STRUCTURE_V0_3"
+               else "DETERMINISTIC_FINANCIAL_V0_1")
+    variants = query_variants(question, planner) if mode != "STRUCTURE_V0_1" else [question]
     query = _bigrams(variants[1] if len(variants) > 1 else question)
     ranked = []
     for candidate in candidates:
@@ -77,7 +178,7 @@ def rank(question, candidates, mode):
         lexical = round(10000 * len(query & text_tokens) / len(query)) if query else 0
         base = candidate["scoreBps"] or 0
         bonus = _shape_bonus(question, candidate["text"])
-        if mode == "STRUCTURE_V0_2":
+        if mode in {"STRUCTURE_V0_2", "STRUCTURE_V0_3"}:
             if re.search(r"界定|什么是|是指什么", question) and re.search(r"所称.{0,30}是指|是指", candidate["text"]):
                 bonus += 1600
             if "手机渠道" in question and re.search(r"互联网|线上方式", candidate["text"]):
@@ -88,9 +189,126 @@ def rank(question, candidates, mode):
                     r"(?:对于|有下列情形|符合.{0,20}条件).{0,160}(?:可以|可|能够).{0,40}(?:简化|免于|不再)",
                     candidate["text"]):
                 bonus += 1200
+        if mode == "STRUCTURE_V0_3":
+            text = candidate["text"]
+            concepts = _evidence_concepts(question, text)
+            # A specific evidence concept is more useful than being returned by
+            # many broad query variants. No clause id or case id is consulted.
+            weights = {
+                'partial-redemption':5000, 'large-redemption':3500,
+                'giant-redemption-procedure':5200,
+                'large-redemption-followup':5000,
+                'single-investor-redemption':5200,
+                'redemption-suspension':5000,
+                'redemption-suspension-conditions':5200,
+                'future-liquidity-timing':5000,
+                'future-termination-distinction':5000,
+                'complete-fees':4800, 'rating-mismatch-redemption':4800,
+                'explicit-fee-rates':5200,
+                'fee-discount-period':5200,
+                'full-fee-schedule':5000, 'order-window':5000,
+                'complete-product-fee-schedule':5200,
+                'zero-fee-question-focus':5200,
+                'early-termination':4200, 'order-time':4200,
+                'normal-redemption-opening':4800,
+                'zero-subscription-redemption-fees':3000,
+                'product-risk-level':3800, 'suitable-investor':3800,
+                'trading-day':3200, 'principal-and-yield-risk':3800,
+                'non-own-funds':3800, 'normal-redemption':2400,
+                'redemption-arrival':2400, 'basic-fees':2400,
+            }
+            bonus += min(5200, sum(weights.get(value, 1800)
+                                   for value in concepts))
+            if 'giant-redemption-procedure' in concepts:
+                bonus += 1800
+            if 'single-investor-redemption' in concepts:
+                bonus += 2500
+            if 'redemption-suspension-conditions' in concepts:
+                bonus += 1200
+            if 'complete-product-fee-schedule' in concepts:
+                bonus += 2500
+            if 'zero-fee-question-focus' in concepts:
+                bonus += 2500
+            if 'explicit-fee-rates' in concepts:
+                bonus += 1800
+            if 'fee-discount-period' in concepts:
+                bonus += 2500
+            priority = sum({
+                'complete-product-fee-schedule':4,
+                'giant-redemption-procedure':3,
+                'single-investor-redemption':3,
+                'redemption-suspension-conditions':2,
+                'explicit-fee-rates':2,
+                'fee-discount-period':4,
+                'zero-fee-question-focus':1,
+            }.get(value, 0) for value in concepts)
+            sources = set(candidate.get("sourceIds", []))
+            rating_change = bool(re.search(
+                r'风险.{0,8}(?:下降|变化|不匹配).{0,12}赎回', question))
+            product_specific = bool(re.search(
+                r'这款产品|本产品|产品.{0,8}(?:风险|适合|费用|费率|赎回|终止)', question)) and not rating_change
+            if product_specific:
+                bonus += 2500 if "product-spec" in sources else -1500
+            if rating_change:
+                bonus += 1800 if "investor-rights" in sources else -900
+            required_concept = None
+            if re.search(r'部分赎回|剩余.{0,4}(?:份|份额)', question):
+                required_concept = 'partial-redemption'
+            elif re.search(r'(?:大额|巨额)赎回', question):
+                required_concept = 'large-redemption'
+            if required_concept and required_concept not in concepts:
+                bonus -= 1800
+            candidate = {**candidate, "evidenceConcepts":concepts,
+                         "evidencePriority":priority}
         score = max(0, min(10000, round(base * 0.6 + lexical * 0.4) + bonus))
         ranked.append({**candidate, "postRankScoreBps": score})
-    return sorted(ranked, key=lambda value: (-value["postRankScoreBps"], value["rank"]))
+    return sorted(ranked, key=lambda value: (-value["postRankScoreBps"],
+        -value.get("evidencePriority", 0), value["rank"]))
+
+
+def _select(candidates, limit, mode):
+    if mode != "DIVERSE_QUERY_COVERAGE_V0_1":
+        return candidates[:limit]
+    selected, covered_queries, covered_text = [], set(), set()
+    remaining = list(candidates)
+    while remaining and len(selected) < limit:
+        def value(candidate):
+            queries = set(candidate.get("queryIndexes", []))
+            concepts = set(candidate.get("evidenceConcepts", []))
+            text = _bigrams(candidate.get("text", ""))
+            concept_weights = {
+                'partial-redemption':5200, 'large-redemption':4000,
+                'giant-redemption-procedure':5400,
+                'large-redemption-followup':5200,
+                'single-investor-redemption':5400,
+                'redemption-suspension':5200,
+                'redemption-suspension-conditions':5400,
+                'future-liquidity-timing':5200,
+                'future-termination-distinction':5200,
+                'complete-fees':5000, 'rating-mismatch-redemption':5000,
+                'explicit-fee-rates':5400,
+                'fee-discount-period':5400,
+                'full-fee-schedule':5200, 'order-window':5200,
+                'complete-product-fee-schedule':5400,
+                'zero-fee-question-focus':5400,
+                'early-termination':4500, 'order-time':4500,
+                'normal-redemption-opening':5000,
+                'zero-subscription-redemption-fees':3500,
+                'product-risk-level':4000, 'suitable-investor':4000,
+            }
+            novelty = (sum(concept_weights.get(item, 2800)
+                           for item in concepts - covered_queries)
+                       if concepts else len(queries - covered_queries) * 500)
+            diversity = len(text - covered_text) * 20
+            score = candidate.get("postRankScoreBps", candidate.get("scoreBps") or 0)
+            return score + novelty + min(1000, diversity)
+        chosen = max(remaining, key=lambda item: (value(item), -item["rank"]))
+        selected.append(chosen)
+        covered_queries.update(chosen.get("evidenceConcepts", [])
+                               or chosen.get("queryIndexes", []))
+        covered_text.update(_bigrams(chosen.get("text", "")))
+        remaining.remove(chosen)
+    return selected
 
 
 def support_decision(question, text, mode):
@@ -99,6 +317,9 @@ def support_decision(question, text, mode):
     if mode != "EVIDENCE_SUPPORT_V0_1":
         raise ValueError("UNKNOWN_SUPPORT_POLICY")
     normalized = re.sub(r"\s+", "", text)
+    if (re.search(r"今天|当前|现在", question)
+            and re.search(r"在售|额度|渠道|提交.{0,5}(?:申购|购买)", question)):
+        return False, "live sale, quota, and channel state require an authorized product service"
     if re.search(r"哪款|哪个|哪一个|哪家", question) and re.search(r"最高|最低|最好|最优", question):
         supported = bool(re.search(r"(?:产品名称|名称为|分别为).{0,80}(?:最高|最低|排序|比较)", normalized))
         return supported, "comparative product request requires named comparative evidence"
@@ -106,7 +327,7 @@ def support_decision(question, text, mode):
         supported = bool(re.search(r"(?:至少包括|划分为|分为).{0,40}(?:一|二|三|四|五|六|七|八|九|十|\d)+级", normalized))
         return supported, "quantitative level request requires an explicit level statement"
     if re.search(r"多少(?:元|钱|费用|手续费)|收费|费用是多少|手续费", question):
-        supported = bool(re.search(r"手续费|收费|费用|金额|人民币|(?:元|角|分)(?:。|；|，)", normalized))
+        supported = bool(re.search(r"手续费|收费|费用|费率|金额|人民币|(?:元|角|分)(?:。|；|，)", normalized))
         return supported, "monetary request requires explicit fee or amount evidence"
     if re.search(r"界定|什么是|是指什么", question):
         supported = bool(re.search(r"所称.{0,30}是指|是指", normalized))
@@ -114,15 +335,21 @@ def support_decision(question, text, mode):
     return True, "evidence contains no unsupported answer-type conflict"
 
 
-def trace_select(client, dataset_id, document_id, question, profile):
+def trace_select(client, dataset_id, document_id, question, profile,
+                 candidate_metadata=None):
     questions = query_variants(question, profile.get("queryPlanner"))
-    groups = [client.retrieve_candidates(dataset_id, document_id, value, profile["retrieval"])
-              for value in questions]
+    metadata = candidate_metadata or {}
+    groups = []
+    for value in questions:
+        candidates = client.retrieve_candidates(
+            dataset_id, document_id, value, profile["retrieval"])
+        groups.append([{**candidate, **metadata.get(candidate.get("id"), {})}
+                       for candidate in candidates])
     candidates = merge_candidates(groups) if len(groups) > 1 else groups[0]
     retrieved = candidates
     candidates = rank(question, candidates, profile["postRank"])
     ranked = candidates
-    selected = []
+    eligible = []
     filtered = []
     for candidate in candidates:
         score = candidate.get("postRankScoreBps", candidate.get("scoreBps") or 0)
@@ -132,13 +359,13 @@ def trace_select(client, dataset_id, document_id, question, profile):
                          "qualityReasons":[f"score {score} {'>=' if score >= profile['selectionThresholdBps'] else '<'} "
                                            f"threshold {profile['selectionThresholdBps']}", support_reason]})
         if keep:
-            selected.append(candidate)
-        if len(selected) == 3:
-            # Keep recording rejected/retained candidates for a complete trace.
-            continue
+            eligible.append(candidate)
+    selected = _select(eligible, 3, profile.get("selectionPolicy", "TOP_SCORE"))
     return {"queryVariants":questions, "retrieved":retrieved, "ranked":ranked,
             "filtered":filtered, "selected":selected[:3]}
 
 
-def select(client, dataset_id, document_id, question, profile):
-    return trace_select(client, dataset_id, document_id, question, profile)["selected"]
+def select(client, dataset_id, document_id, question, profile,
+           candidate_metadata=None):
+    return trace_select(client, dataset_id, document_id, question, profile,
+                        candidate_metadata)["selected"]

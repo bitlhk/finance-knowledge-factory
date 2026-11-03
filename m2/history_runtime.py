@@ -15,6 +15,7 @@ from knowledge_core.contracts import Rejected, digest, text_digest
 from knowledge_core.core import Actor
 from knowledge_core.documents import DocumentCore
 from knowledge_core.evidence.anchor_bridge import verify_bridge
+from m2.harness_runtime import wire_evidence
 
 SCHEMA_PATH = Path(__file__).resolve().parents[1] / 'contracts/runtime/knowledge-history-v0.1.proposed.schema.json'
 SCHEMA_SHA256 = '114397ec532e40b84975e5884457ed1de63b45c71a05652c7e8ed5c3f1f3c3c6'
@@ -192,17 +193,22 @@ def project(core, actor, saved, receipt_digest):
     evidence = saved['result']['evidence']
     checks += [saved['result']['decision'] == ('EVIDENCE_FOUND' if evidence else 'EVIDENCE_NOT_FOUND'),
                len({e['clause'] for e in evidence}) == len(evidence)]
+    source_references = {item['clause']: item for item in index.get('sourceReferences', [])}
     for item in evidence:
         chunk = chunks[item['chunkId']]
         anchors = [m['anchor'] for m in index['bridge']['mappings'] if m['clause'] == item['clause']]
+        expected_fields = {'clause', 'quote', 'originalDigest', 'chunkId', 'anchors'}
+        if item['clause'] in source_references:
+            expected_fields.add('sourceReference')
         checks += [item['clause'] in chunk['clauses'], text_digest(chunk['text']) == chunk['textDigest'],
             item['quote'] == clauses[item['clause']] == '\n'.join(a['quote'] for a in anchors),
             item['originalDigest'] == index['originalDigest'], item['anchors'] == anchors,
-            set(item) == {'clause', 'quote', 'originalDigest', 'chunkId', 'anchors'}]
+            set(item) == expected_fields,
+            item.get('sourceReference') == source_references.get(item['clause'])]
     if not all(checks):
         raise Rejected('HISTORY_INTEGRITY_FAILED')
     return {'code': 0, 'decision': 'EVIDENCE_FOUND' if evidence else 'UNKNOWN',
-        'evidence': [{**e, 'sourceDigest': saved['sourceDigest']} for e in evidence],
+        'evidence': [wire_evidence(e, saved['sourceDigest']) for e in evidence],
         'receipt': {'schemaVersion': 'knowledge-receipt.v0.1', 'receiptId': 'kr-' + receipt_digest,
             'coreReceiptDigest': receipt_digest, 'productId': saved['productId'],
             'manifest': saved['manifestDigest'], 'businessDate': saved['host']['business_date'],

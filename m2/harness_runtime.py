@@ -33,6 +33,12 @@ class Lease:
         self.context.facts()
 
 
+def wire_evidence(item, source_digest):
+    """Project immutable Core evidence onto the frozen v0.1 wire contract."""
+    fields = ('clause', 'quote', 'originalDigest', 'chunkId', 'anchors')
+    return {**{field: item[field] for field in fields}, 'sourceDigest': source_digest}
+
+
 class Runtime:
     def __init__(self, database, resolve_lease, client_factory, *, binding=None):
         self.database = database
@@ -82,7 +88,7 @@ class Runtime:
             # Session checks can block; check current Core permissions again before disclosure.
             core._query_binding(lease.actor, lease.product, lease.manifest, lease.context)
             source = core._get(lease.actor, result['sourceDigest'], 'source-revision')
-            evidence = [{**item, 'sourceDigest': result['sourceDigest']} for item in result['result']['evidence']]
+            evidence = [wire_evidence(item, result['sourceDigest']) for item in result['result']['evidence']]
             response = {'code': 0, 'decision': 'EVIDENCE_FOUND' if evidence else 'UNKNOWN', 'evidence': evidence,
                 'receipt': {'schemaVersion': 'knowledge-receipt.v0.1',
                     'receiptId': 'kr-' + result['receiptDigest'], 'coreReceiptDigest': result['receiptDigest'],
@@ -98,7 +104,6 @@ class Runtime:
             core.close()
             if client is not None and hasattr(client, 'close'):
                 client.close()
-
     def session(self, credential, body):
         """Recheck current consumption authority without retrieving or granting."""
         if body != {}:

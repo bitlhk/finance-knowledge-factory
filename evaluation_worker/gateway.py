@@ -243,7 +243,11 @@ class OpenJiuwenModelGateway:
                 authorization_digest, attempt, started, _now(), "RETURNED",
                 answer, provider_ref, usage, None)
         except Exception as error:
+            failure = _safe_failure(error)
             self.__core_client.record(
                 authorization_digest, attempt, started, _now(), "FAILED", None,
-                f"unavailable:{request_id}", {}, _safe_failure(error))
-            raise
+                f"unavailable:{request_id}", {}, failure)
+            # The durable receipt retains the bounded failure stage.  IPC callers
+            # receive only the corresponding public code, never SDK exception text.
+            from knowledge_core.contracts import Rejected
+            raise Rejected(failure["code"]) from None

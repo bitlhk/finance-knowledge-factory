@@ -167,9 +167,12 @@ def test_factory_worker_candidate_to_quality_admission(tmp_path):
         assert admission_body['answerEvidenceAuthority'] == 'FACTORY_WORKER'
         assert admission_body['decision'] == 'PASS'
 
+        approval = core.approve_quality_document(
+            MANAGER, values['candidateDigest'], values['validation'], admission,
+            'factory worker quality release')
         manifest = core.publish_quality_document(
             MANAGER, values['candidateDigest'], values['validation'],
-            values['approval'], admission, 1)
+            approval, admission, 1, CONTEXT.business_date)
         assert core._get(MANAGER, manifest, 'document-manifest')[
             'schemaVersion'] == 'document-manifest.v0.1'
     finally:
@@ -594,7 +597,7 @@ def test_gateway_rejects_invalid_prepared_request_with_safe_receipt():
 
     core = CoreClient()
     gateway = OpenJiuwenModelGateway(core, ENVIRONMENT, lambda unused:Model())
-    with pytest.raises(RuntimeError, match='REQUEST_OR_CONFIG_INVALID'):
+    with pytest.raises(Rejected, match='REQUEST_OR_CONFIG_INVALID'):
         asyncio.run(gateway.invoke('authorization', 'request', 'trace'))
     assert core.records[0][-1] == {
         'stage':'REQUEST_VALIDATION', 'code':'REQUEST_OR_CONFIG_INVALID'}
@@ -620,7 +623,7 @@ def test_failed_gateway_receipt_is_safe_and_attempt_cannot_be_reused(tmp_path):
             CoreModelGatewayClient(core, GATEWAY, values['gateway'],
                                    DEPLOYMENT.runtime_identity(ENVIRONMENT)),
             ENVIRONMENT, lambda unused:Model())
-        with pytest.raises(TimeoutError):
+        with pytest.raises(Rejected, match='UPSTREAM_TIMEOUT'):
             asyncio.run(gateway.invoke(
                 authorization, 'failure-request', 'failure-trace'))
         row = core.db.execute(

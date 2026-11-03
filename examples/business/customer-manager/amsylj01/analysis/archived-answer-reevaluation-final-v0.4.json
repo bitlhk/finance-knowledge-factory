@@ -1,0 +1,1901 @@
+{
+  "schemaVersion": "amsylj01-archived-answer-reevaluation.v0.1",
+  "archiveSha256": "b9b4c42921361582e8a80a8bdb014c986ab1cb03b640044dd5435873e9840a2e",
+  "archiveDecision": "REJECT",
+  "runtimeEvidenceDigest": "f5b90a04f95f9d3909a0bec9e8547dc031ee5d3a4d0edbfce1fb2ea201c0a0e1",
+  "modelIdentity": {
+    "configVersion": "a672a438bd6004cc725fac7d61b54cb64338bb1ea497848f5753f558e05d0b3e",
+    "modelRef": "deepseek-v4-flash",
+    "provider": "volcengine"
+  },
+  "priorMetricsBps": {
+    "citationAccuracy": 9268,
+    "factAccuracy": 7540,
+    "forbiddenClaimAccuracy": 10000
+  },
+  "metricsBps": {
+    "factAccuracy": 7540,
+    "citationAccuracy": 9268,
+    "forbiddenClaimAccuracy": 10000
+  },
+  "cases": [
+    {
+      "caseId": "wm-001-risk-level",
+      "answerDigest": "d5eff9027b82e43af1b50905492b73138befcd99c454275b9f55ec62d726fa5a",
+      "priorClassification": "CORRECT",
+      "classification": "CORRECT",
+      "factChecks": [
+        {
+          "fact": "风险级别为2：中低风险",
+          "answerContains": true,
+          "supportingClauses": [
+            "第一条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 7500,
+          "evidenceSemanticRecallBps": 7500,
+          "strictValues": [
+            "风险等级2级"
+          ],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "适合稳健型、平衡型、进取型和激进型投资者，具体以销售机构评级和要求为准",
+          "answerContains": true,
+          "supportingClauses": [
+            "第二条",
+            "第四条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 8387,
+          "evidenceSemanticRecallBps": 8387,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第一条",
+          "passed": true
+        },
+        {
+          "clause": "第二条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "适合所有客户",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "银行保证本金",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "当前必然可售",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "wm-002-c1-suitability",
+      "answerDigest": "23baf06b623d60ca55c76a80057ed1455056f5abd4077b42d8276df6369cb2df",
+      "priorClassification": "ANSWER_FACT_ERROR",
+      "classification": "ANSWER_FACT_ERROR",
+      "factChecks": [
+        {
+          "fact": "本产品风险级别为2：中低风险",
+          "answerContains": true,
+          "supportingClauses": [
+            "第二十四条",
+            "第一条"
+          ],
+          "passed": false,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 8181,
+          "evidenceSemanticRecallBps": 7272,
+          "strictValues": [
+            "风险等级2级"
+          ],
+          "missingAnswerValues": [
+            "风险等级2级"
+          ],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": [
+            "ANSWER_STRICT_VALUE_MISSING"
+          ]
+        },
+        {
+          "fact": "本产品适合投资者不含谨慎型",
+          "answerContains": false,
+          "supportingClauses": [],
+          "passed": false,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 3333,
+          "evidenceSemanticRecallBps": 4166,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": [
+            "ANSWER_SEMANTIC_COVERAGE_LOW",
+            "CITED_EVIDENCE_SUPPORT_LOW"
+          ]
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第二条",
+          "passed": true
+        },
+        {
+          "clause": "第一条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "可以购买",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "已完成适当性判断",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "已拒绝交易",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "wm-003-assessment-expiry",
+      "answerDigest": "1ecdb2a62343d56ee7b950f9f0cc951bd673edd7128ca249c9735bca1b7c9119",
+      "priorClassification": "CORRECT",
+      "classification": "CORRECT",
+      "factChecks": [
+        {
+          "fact": "风险测评有效期为一年或12个月",
+          "answerContains": true,
+          "supportingClauses": [
+            "第二十一条",
+            "第二十三条",
+            "第六条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 9375,
+          "evidenceSemanticRecallBps": 9375,
+          "strictValues": [
+            "12个月"
+          ],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "过期或风险承受能力发生重大变化时应重新评估",
+          "answerContains": true,
+          "supportingClauses": [
+            "第二十三条",
+            "第六条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 5263,
+          "evidenceSemanticRecallBps": 5263,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第二十一条",
+          "passed": true
+        },
+        {
+          "clause": "第二十三条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "旧测评继续永久有效",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "已替客户完成测评",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "wm-004-three-month-liquidity",
+      "answerDigest": "b96cb5b5003b8fd8d12786f0868d68035477dca41adf8cbbd6aee1916c672dc4",
+      "priorClassification": "ANSWER_FACT_ERROR",
+      "classification": "ANSWER_FACT_ERROR",
+      "factChecks": [
+        {
+          "fact": "交易日可办理正常赎回",
+          "answerContains": false,
+          "supportingClauses": [],
+          "passed": false,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 3333,
+          "evidenceSemanticRecallBps": 3333,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": [
+            "ANSWER_SEMANTIC_COVERAGE_LOW",
+            "CITED_EVIDENCE_SUPPORT_LOW"
+          ]
+        },
+        {
+          "fact": "T日赎回，本金和收益T+1日到账，节假日顺延",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十四条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 8421,
+          "evidenceSemanticRecallBps": 8421,
+          "strictValues": [
+            "t+1"
+          ],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "客户无权提前终止整个产品与正常赎回不是同一概念",
+          "answerContains": true,
+          "supportingClauses": [],
+          "passed": false,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 5000,
+          "evidenceSemanticRecallBps": 3750,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": [
+            "CITED_EVIDENCE_SUPPORT_LOW"
+          ]
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十四条",
+          "passed": true
+        },
+        {
+          "clause": "第十一条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "任何日期均可即时到账",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "产品保证三个月后可用",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "客户可以提前终止产品",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "wm-005-weekend-order",
+      "answerDigest": "5782c417bc8b6b2189f131422ea1510a62019054e01a9080acf4faf844d8cd4c",
+      "priorClassification": "CORRECT",
+      "classification": "CORRECT",
+      "factChecks": [
+        {
+          "fact": "周六、周日及法定节假日不是交易日",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 5000,
+          "evidenceSemanticRecallBps": 5714,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "挂单交易在下一受理时间自动成交",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十四条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 7857,
+          "evidenceSemanticRecallBps": 7857,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十四条",
+          "passed": true
+        },
+        {
+          "clause": "第十条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "周末立即赎回到账",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "固定在下一个自然日到账",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "wm-006-minimum-subscription",
+      "answerDigest": "c2c23603a5c4fa5eec3588ee402ec4a6c14abe43a44dc1e2f15421e337d12f8d",
+      "priorClassification": "CORRECT",
+      "classification": "CORRECT",
+      "factChecks": [
+        {
+          "fact": "首次申购起点1万元",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十五条",
+            "第五条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 8888,
+          "evidenceSemanticRecallBps": 8888,
+          "strictValues": [
+            "10000元"
+          ],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "高于起点及追加申购按1000元整数倍",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十五条",
+            "第五条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 5625,
+          "evidenceSemanticRecallBps": 6875,
+          "strictValues": [
+            "1000元"
+          ],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十五条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "最低1000元即可首次购买",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "wm-007-partial-redemption",
+      "answerDigest": "45ebeea956e3e473d82fce684704d35ecb3db3db713981486e62b4b77708fbdd",
+      "priorClassification": "ANSWER_FACT_ERROR",
+      "classification": "ANSWER_FACT_ERROR",
+      "factChecks": [
+        {
+          "fact": "部分赎回后实时剩余份额不得低于1万份",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十五条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 9444,
+          "evidenceSemanticRecallBps": 9444,
+          "strictValues": [
+            "10000份"
+          ],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "管理人有权将低于1万份的部分赎回申请办理为强制全部赎回",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十五条"
+          ],
+          "passed": false,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 8076,
+          "evidenceSemanticRecallBps": 8076,
+          "strictValues": [
+            "10000份"
+          ],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [
+            {
+              "check": "RIGHT_NOT_OBLIGATION",
+              "passed": false,
+              "reason": "回答将“有权”扩大为必须或必然执行"
+            }
+          ],
+          "reasons": [
+            "BUSINESS_LOGIC_CONTRADICTION"
+          ]
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十五条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "一定保留9000份",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "银行必须无条件部分赎回",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "wm-008-fees",
+      "answerDigest": "eabef3de67ee95bcced5a13e907ae83580d4a30bb3b985ba18cc1a586723a00a",
+      "priorClassification": "ANSWER_FACT_ERROR",
+      "classification": "ANSWER_FACT_ERROR",
+      "factChecks": [
+        {
+          "fact": "申购和赎回费率均为0",
+          "answerContains": false,
+          "supportingClauses": [],
+          "passed": false,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 4000,
+          "evidenceSemanticRecallBps": 4000,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": [
+            "ANSWER_SEMANTIC_COVERAGE_LOW",
+            "CITED_EVIDENCE_SUPPORT_LOW"
+          ]
+        },
+        {
+          "fact": "固定投资管理费率0.2%年率",
+          "answerContains": true,
+          "supportingClauses": [
+            "第七条",
+            "第十二条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 10000,
+          "evidenceSemanticRecallBps": 10000,
+          "strictValues": [
+            "02%"
+          ],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "托管费率0.03%年率",
+          "answerContains": true,
+          "supportingClauses": [
+            "第七条",
+            "第十二条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 10000,
+          "evidenceSemanticRecallBps": 10000,
+          "strictValues": [
+            "003%"
+          ],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "可能存在浮动投资管理费及相关税费",
+          "answerContains": false,
+          "supportingClauses": [
+            "第十二条"
+          ],
+          "passed": false,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 4000,
+          "evidenceSemanticRecallBps": 5333,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": [
+            "ANSWER_SEMANTIC_COVERAGE_LOW"
+          ]
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第七条",
+          "passed": true
+        },
+        {
+          "clause": "第十二条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "产品完全没有任何费用",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "wm-009-principal-guarantee",
+      "answerDigest": "ba77f309d2a78c6f17050bb1866f1a198eaaccde8d8cd77a91678a2799f7c572",
+      "priorClassification": "CORRECT",
+      "classification": "CORRECT",
+      "factChecks": [
+        {
+          "fact": "不保证本金和收益",
+          "answerContains": true,
+          "supportingClauses": [
+            "第六条",
+            "第三条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 10000,
+          "evidenceSemanticRecallBps": 10000,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "预期收益或过往业绩不构成收益承诺",
+          "answerContains": true,
+          "supportingClauses": [
+            "第六条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 5384,
+          "evidenceSemanticRecallBps": 5384,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [
+            {
+              "check": "HISTORICAL_NOT_CURRENT_YIELD",
+              "passed": true,
+              "reason": null
+            }
+          ],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第三条",
+          "passed": true
+        },
+        {
+          "clause": "第六条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "保本",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "收益保证",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "银行兜底",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "wm-010-non-own-funds",
+      "answerDigest": "aeea77e695be95b0454ac8defd6cbf835f47725e54a591ec4d2758c628a5a105",
+      "priorClassification": "CORRECT",
+      "classification": "CORRECT",
+      "factChecks": [
+        {
+          "fact": "投资资金应为本人自有资金",
+          "answerContains": true,
+          "supportingClauses": [
+            "第二十二条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 5000,
+          "evidenceSemanticRecallBps": 5000,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "不得使用贷款等筹集的非自有资金投资理财产品",
+          "answerContains": true,
+          "supportingClauses": [
+            "第二十二条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 9500,
+          "evidenceSemanticRecallBps": 9500,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第二十二条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "贷款资金可以购买",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "只要风险等级匹配即可使用借款",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "wm-011-early-termination-distinction",
+      "answerDigest": "aafc33b8d960600e52833c69c2032407245a136e4ccefb32c31feb4f653ed06b",
+      "priorClassification": "CORRECT",
+      "classification": "CORRECT",
+      "factChecks": [
+        {
+          "fact": "客户无提前终止整个理财计划的权利",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十一条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 10000,
+          "evidenceSemanticRecallBps": 6666,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "产品仍约定在交易日开放正常申购和赎回",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十三条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 5294,
+          "evidenceSemanticRecallBps": 4705,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十一条",
+          "passed": true
+        },
+        {
+          "clause": "第十三条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "客户完全不能赎回",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "提前终止与正常赎回完全相同",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "wm-012-bank-termination",
+      "answerDigest": "e042247d427b4fe9869a2e6c10bd0d6255a31bf6cba48407d811513f5017da72",
+      "priorClassification": "CORRECT",
+      "classification": "CORRECT",
+      "factChecks": [
+        {
+          "fact": "至少提前2个工作日公告",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十一条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 9000,
+          "evidenceSemanticRecallBps": 9000,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "提前终止日后5个交易日内变现并按约定顺序分配",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十一条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 8095,
+          "evidenceSemanticRecallBps": 7619,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "提前终止日至实际到账日之间不计息",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十一条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 9333,
+          "evidenceSemanticRecallBps": 9333,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十一条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "一定当日到账",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "提前终止后继续计息",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "wm-013-large-redemption",
+      "answerDigest": "36f84803c3c582423279c563807fc97d5281972bb7d6ff501f306b4704b2cf7e",
+      "priorClassification": "CORRECT",
+      "classification": "CORRECT",
+      "factChecks": [
+        {
+          "fact": "发生大额赎回时管理人有权暂停接受当日赎回申请",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十七条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 8500,
+          "evidenceSemanticRecallBps": 9000,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [
+            {
+              "check": "RIGHT_NOT_OBLIGATION",
+              "passed": true,
+              "reason": null
+            }
+          ],
+          "reasons": []
+        },
+        {
+          "fact": "下一交易日继续接受申请",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十七条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 9000,
+          "evidenceSemanticRecallBps": 9000,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十七条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "当天一定受理",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "暂停等于永久拒绝",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "wm-014-document-conflict",
+      "answerDigest": "dde646425400ac1f95d9be386937f07dd72d34d0d8c03d19b1d15e9f98b574fc",
+      "priorClassification": "CORRECT",
+      "classification": "CORRECT",
+      "factChecks": [
+        {
+          "fact": "协议与产品说明书不一致时以产品说明书为准",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十八条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 6000,
+          "evidenceSemanticRecallBps": 6000,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十八条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "一律以通用协议为准",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "wm-015-current-sale-status",
+      "answerDigest": "f97da0f8e77dacead7cbe5a8194dfcd3bbfb34496c448f20fa358fc59dd7d3bc",
+      "priorClassification": "CORRECT_REFUSAL",
+      "classification": "CORRECT_REFUSAL",
+      "factChecks": [
+        {
+          "fact": "SUPPORTED_REFUSAL",
+          "answerContains": true,
+          "supportingClauses": [],
+          "passed": true
+        }
+      ],
+      "citationChecks": [],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "今天仍在售",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "额度充足",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "已经停售",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "wm-016-current-customer-rating",
+      "answerDigest": "9e8f403a52afac44b9d754ddd366f7a8cdce14d99f0da1133b707f90811b3f9e",
+      "priorClassification": "ANSWER_FACT_ERROR",
+      "classification": "ANSWER_FACT_ERROR",
+      "factChecks": [
+        {
+          "fact": "需要核实周明远当前有效风险评级",
+          "answerContains": true,
+          "supportingClauses": [],
+          "passed": true,
+          "method": "LIVE_SYSTEM_BOUNDARY_V0_1",
+          "answerSemanticRecallBps": 7142,
+          "evidenceSemanticRecallBps": 1428,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "需要核实评级有效期",
+          "answerContains": true,
+          "supportingClauses": [],
+          "passed": true,
+          "method": "LIVE_SYSTEM_BOUNDARY_V0_1",
+          "answerSemanticRecallBps": 5000,
+          "evidenceSemanticRecallBps": 0,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "需要核实产品当前销售要求",
+          "answerContains": false,
+          "supportingClauses": [],
+          "passed": false,
+          "method": "LIVE_SYSTEM_BOUNDARY_V0_1",
+          "answerSemanticRecallBps": 4545,
+          "evidenceSemanticRecallBps": 1818,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": [
+            "ANSWER_SEMANTIC_COVERAGE_LOW"
+          ]
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第二条",
+          "passed": false
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "周明远适合购买",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "周明远不适合购买",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "知识库已经查询客户资料",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "wm-017-current-yield",
+      "answerDigest": "2fa741440f160f3fec680ffa40b25b601e0cd21214ddcaaa80bd1f42bc58b28a",
+      "priorClassification": "CORRECT",
+      "classification": "CORRECT",
+      "factChecks": [
+        {
+          "fact": "需要核实当前生效的产品收益公告",
+          "answerContains": true,
+          "supportingClauses": [],
+          "passed": true,
+          "method": "LIVE_SYSTEM_BOUNDARY_V0_1",
+          "answerSemanticRecallBps": 2142,
+          "evidenceSemanticRecallBps": 2142,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第八条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "今天的预期收益率是1.20%",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "收益固定不变",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "blind-001-redemption-arrival",
+      "answerDigest": "63e3383c7da06196915fea0e67132fdceab76415c7c7b9a6bac7f70548600134",
+      "priorClassification": "CORRECT",
+      "classification": "CORRECT",
+      "factChecks": [
+        {
+          "fact": "T日赎回后本金和收益T+1日到账",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十四条",
+            "第十条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 8666,
+          "evidenceSemanticRecallBps": 8666,
+          "strictValues": [
+            "t+1"
+          ],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "到账日遇节假日顺延至下一工作日",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十四条",
+            "第十条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 9285,
+          "evidenceSemanticRecallBps": 9285,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "赎回当日必然到账",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "节假日不影响到账",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "blind-002-fee-completeness",
+      "answerDigest": "a9c7c237277f323e76e46271577b8ba03afa48b8645f75e70304414a2ca0b366",
+      "priorClassification": "CORRECT",
+      "classification": "CORRECT",
+      "factChecks": [
+        {
+          "fact": "固定投资管理费率0.2%年率",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十二条",
+            "第七条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 10000,
+          "evidenceSemanticRecallBps": 10000,
+          "strictValues": [
+            "02%"
+          ],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "托管费率0.03%年率",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十二条",
+            "第七条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 10000,
+          "evidenceSemanticRecallBps": 10000,
+          "strictValues": [
+            "003%"
+          ],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "可能收取浮动投资管理费并发生相关税费",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十二条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 5294,
+          "evidenceSemanticRecallBps": 6470,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十二条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "只收固定管理费",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "完全没有其他费用",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "blind-003-rating-change-redemption",
+      "answerDigest": "a461563a7edfb7dac120e0fcb7eef90c2bba7ce08f18bf9f3bd3c495b9d92766",
+      "priorClassification": "CORRECT",
+      "classification": "CORRECT",
+      "factChecks": [
+        {
+          "fact": "能否赎回应以产品说明书是否约定提前赎回权为准",
+          "answerContains": true,
+          "supportingClauses": [
+            "第二十四条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 6000,
+          "evidenceSemanticRecallBps": 5000,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "没有提前赎回权时不能仅以风险不匹配为由赎回",
+          "answerContains": true,
+          "supportingClauses": [
+            "第二十四条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 6315,
+          "evidenceSemanticRecallBps": 5263,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第二十四条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "评级下降后一定可以赎回",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "blind-004-channel-live-state",
+      "answerDigest": "3cf97efe2149a1083c11a1f10d2d19cb80d9142b371fc88852d151233b24eed8",
+      "priorClassification": "CORRECT_REFUSAL",
+      "classification": "CORRECT_REFUSAL",
+      "factChecks": [
+        {
+          "fact": "SUPPORTED_REFUSAL",
+          "answerContains": true,
+          "supportingClauses": [],
+          "passed": true
+        }
+      ],
+      "citationChecks": [],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "今天手机银行一定可以申购",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "客户已经具备渠道权限",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "blind2-001-zero-fees-scope",
+      "answerDigest": "adfcfba4395ff3fae62b21f41dbc7f099acfd91227001465ee38747d107d9ffa",
+      "priorClassification": "ANSWER_FACT_ERROR",
+      "classification": "ANSWER_FACT_ERROR",
+      "factChecks": [
+        {
+          "fact": "申购和赎回费率均为0",
+          "answerContains": false,
+          "supportingClauses": [],
+          "passed": false,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 4000,
+          "evidenceSemanticRecallBps": 4000,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": [
+            "ANSWER_SEMANTIC_COVERAGE_LOW",
+            "CITED_EVIDENCE_SUPPORT_LOW"
+          ]
+        },
+        {
+          "fact": "仍收取固定投资管理费和托管费，并可能有浮动管理费及相关税费",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十二条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 5600,
+          "evidenceSemanticRecallBps": 5200,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第七条",
+          "passed": true
+        },
+        {
+          "clause": "第十二条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "产品完全不收取任何费用",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "零申购赎回费等于无其他费用",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "blind2-002-friday-late-redemption",
+      "answerDigest": "ab26b21a89f52632d6df3dad5e590f858344f9b4b8861ae16e6edd0ee707b4a5",
+      "priorClassification": "ANSWER_FACT_ERROR",
+      "classification": "ANSWER_FACT_ERROR",
+      "factChecks": [
+        {
+          "fact": "15:40不在8:30至15:30的受理时间内",
+          "answerContains": true,
+          "supportingClauses": [],
+          "passed": false,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 5555,
+          "evidenceSemanticRecallBps": 3888,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": [
+            "CITED_EVIDENCE_SUPPORT_LOW"
+          ]
+        },
+        {
+          "fact": "15:45前也不在挂单时间内",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十四条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 5384,
+          "evidenceSemanticRecallBps": 5384,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "T日赎回本金和收益T+1日到账",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十四条",
+            "第十条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 10000,
+          "evidenceSemanticRecallBps": 10000,
+          "strictValues": [
+            "t+1"
+          ],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十四条",
+          "passed": true
+        },
+        {
+          "clause": "第十条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "周五15:40提交必然当日到账",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "15:40属于挂单时间",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "blind2-003-partial-redemption-discretion",
+      "answerDigest": "7c555c41e079969159af92d3355bebd669e98c942d3725d601c9cb45e72e9a00",
+      "priorClassification": "ANSWER_FACT_ERROR",
+      "classification": "ANSWER_FACT_ERROR",
+      "factChecks": [
+        {
+          "fact": "部分赎回后实时剩余份额不得低于1万份",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十五条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 9444,
+          "evidenceSemanticRecallBps": 9444,
+          "strictValues": [
+            "10000份"
+          ],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "管理人有权而非必须将该申请办理为强制全部赎回",
+          "answerContains": false,
+          "supportingClauses": [
+            "第十五条"
+          ],
+          "passed": false,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 4761,
+          "evidenceSemanticRecallBps": 5238,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [
+            {
+              "check": "RIGHT_NOT_OBLIGATION",
+              "passed": true,
+              "reason": null
+            }
+          ],
+          "reasons": [
+            "ANSWER_SEMANTIC_COVERAGE_LOW"
+          ]
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十五条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "管理人必须强制全部赎回",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "管理人一定会强制赎回",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "blind2-004-product-rule-not-customer-result",
+      "answerDigest": "56446b3b25e85a23ed5526fd8979b727df0ad55023bbafab36ccd8b362a5ffc8",
+      "priorClassification": "ANSWER_FACT_ERROR",
+      "classification": "ANSWER_FACT_ERROR",
+      "factChecks": [
+        {
+          "fact": "产品适合的投资者类型包括稳健型",
+          "answerContains": true,
+          "supportingClauses": [
+            "第二条",
+            "第六条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 5000,
+          "evidenceSemanticRecallBps": 5000,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "产品风险级别为2：中低风险",
+          "answerContains": false,
+          "supportingClauses": [],
+          "passed": false,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 3000,
+          "evidenceSemanticRecallBps": 3000,
+          "strictValues": [
+            "风险等级2级"
+          ],
+          "missingAnswerValues": [
+            "风险等级2级"
+          ],
+          "missingEvidenceValues": [
+            "风险等级2级"
+          ],
+          "logicalChecks": [],
+          "reasons": [
+            "ANSWER_SEMANTIC_COVERAGE_LOW",
+            "CITED_EVIDENCE_SUPPORT_LOW",
+            "ANSWER_STRICT_VALUE_MISSING",
+            "EVIDENCE_STRICT_VALUE_MISSING"
+          ]
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第二条",
+          "passed": true
+        },
+        {
+          "clause": "第一条",
+          "passed": false
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "已完成适当性审核",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "客户可以直接购买",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "blind3-001-future-holiday-redemption",
+      "answerDigest": "a8b1e5c6dae8eb4ae7a8c47969646f0085ecfc1725c9c33dbd01923f478acd58",
+      "priorClassification": "CORRECT",
+      "classification": "CORRECT",
+      "factChecks": [
+        {
+          "fact": "T日赎回本金和收益T+1日到账",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十四条",
+            "第十条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 10000,
+          "evidenceSemanticRecallBps": 10000,
+          "strictValues": [
+            "t+1"
+          ],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "到账日遇节假日顺延至下一工作日",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十四条",
+            "第十条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 9285,
+          "evidenceSemanticRecallBps": 9285,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十四条",
+          "passed": true
+        },
+        {
+          "clause": "第十条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "可以承诺节假日当天到账",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "未经交易日历核实给出确定到账日期",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "blind3-002-large-redemption-recovery",
+      "answerDigest": "b91d4a85371edcad2e86a687b7637c6ea0bded7cba2c0cd31d751a396f4af340",
+      "priorClassification": "ANSWER_FACT_ERROR",
+      "classification": "ANSWER_FACT_ERROR",
+      "factChecks": [
+        {
+          "fact": "管理人有权暂停接受当日赎回申请",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十七条"
+          ],
+          "passed": false,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 10000,
+          "evidenceSemanticRecallBps": 10000,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [
+            {
+              "check": "RIGHT_NOT_OBLIGATION",
+              "passed": false,
+              "reason": "回答将“有权”扩大为必须或必然执行"
+            }
+          ],
+          "reasons": [
+            "BUSINESS_LOGIC_CONTRADICTION"
+          ]
+        },
+        {
+          "fact": "下一交易日继续接受赎回申请",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十七条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 10000,
+          "evidenceSemanticRecallBps": 10000,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第十七条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "以后都不能赎回",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "暂停当日等于永久拒绝",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "blind3-003-zero-redemption-fee-tax",
+      "answerDigest": "b16838f425cd1a125d31544b593f7c0cf411e42bb585cfac95132d12c2851b7e",
+      "priorClassification": "ANSWER_FACT_ERROR",
+      "classification": "ANSWER_FACT_ERROR",
+      "factChecks": [
+        {
+          "fact": "申购和赎回费率均为0",
+          "answerContains": true,
+          "supportingClauses": [],
+          "passed": false,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 6000,
+          "evidenceSemanticRecallBps": 4000,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": [
+            "CITED_EVIDENCE_SUPPORT_LOW"
+          ]
+        },
+        {
+          "fact": "仍有托管费、浮动管理费和可能发生的税费",
+          "answerContains": true,
+          "supportingClauses": [
+            "第十二条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 7647,
+          "evidenceSemanticRecallBps": 5882,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第七条",
+          "passed": true
+        },
+        {
+          "clause": "第十二条",
+          "passed": true
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "赎回费率为0等于完全没有其他费用",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    },
+    {
+      "caseId": "blind3-004-suitability-document-boundary",
+      "answerDigest": "34b5f805d40b1c87b2d2b0a0043798cd4e089324d6d20665ffbcc7c900c53d1f",
+      "priorClassification": "ANSWER_FACT_ERROR",
+      "classification": "ANSWER_FACT_ERROR",
+      "factChecks": [
+        {
+          "fact": "产品适合投资者包括稳健型",
+          "answerContains": true,
+          "supportingClauses": [
+            "第二条",
+            "第六条",
+            "第四条"
+          ],
+          "passed": true,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 5454,
+          "evidenceSemanticRecallBps": 5454,
+          "strictValues": [],
+          "missingAnswerValues": [],
+          "missingEvidenceValues": [],
+          "logicalChecks": [],
+          "reasons": []
+        },
+        {
+          "fact": "产品风险级别为2：中低风险",
+          "answerContains": false,
+          "supportingClauses": [],
+          "passed": false,
+          "method": "DETERMINISTIC_FACT_SUPPORT_V0_3",
+          "answerSemanticRecallBps": 2000,
+          "evidenceSemanticRecallBps": 3000,
+          "strictValues": [
+            "风险等级2级"
+          ],
+          "missingAnswerValues": [
+            "风险等级2级"
+          ],
+          "missingEvidenceValues": [
+            "风险等级2级"
+          ],
+          "logicalChecks": [],
+          "reasons": [
+            "ANSWER_SEMANTIC_COVERAGE_LOW",
+            "CITED_EVIDENCE_SUPPORT_LOW",
+            "ANSWER_STRICT_VALUE_MISSING",
+            "EVIDENCE_STRICT_VALUE_MISSING"
+          ]
+        }
+      ],
+      "citationChecks": [
+        {
+          "clause": "第二条",
+          "passed": true
+        },
+        {
+          "clause": "第一条",
+          "passed": false
+        }
+      ],
+      "forbiddenClaimChecks": [
+        {
+          "claim": "客户已经通过购买审核",
+          "asserted": false,
+          "passed": true
+        },
+        {
+          "claim": "产品文件可以替代实时客户审核",
+          "asserted": false,
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "businessReview": {
+    "reviewSha256": "0a80b7ae2e2d02efef4806e39886b84925bf73ce8085bf9fb0e44635650e6bff",
+    "truePositive": 17,
+    "falsePositive": 0,
+    "falseNegative": 7,
+    "trueNegative": 5
+  }
+}

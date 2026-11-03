@@ -58,7 +58,7 @@ def test_real_descriptor_sample_contract_and_frozen_digests():
     sample = json.loads((root / 'examples/products/h1a-release.json').read_text())
     validate('release', sample['descriptor'])
     assert digest(sample['descriptor']) == sample['descriptorDigest']
-    assert SCHEMA_SHA256 == '0b671ae3de0dcb04e0614a9bed80ee38b7cd4672fb9db9df064aabe25f0a7e4e'
+    assert SCHEMA_SHA256 == 'f43326b801cbb4c87ec7bde4bd10ff48aef34a6f418dfb533c70f7666a056a52'
     assert sample['descriptor']['protocols']['query']['schemaDigest'] == sha256(
         (root / 'contracts/runtime/knowledge-runtime-v0.1.schema.json').read_bytes()).hexdigest()
     assert sample['descriptor']['protocols']['history']['schemaDigest'] == sha256(

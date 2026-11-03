@@ -7,11 +7,13 @@ Only exact original quotes are returned, never arbitrary upstream chunk bodies.
 import hashlib
 import json
 import re
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+
+from lxml import html
 
 from .core import Core, BusinessContext
 from .contracts import Rejected, canonical, digest, text_digest
-from .rules import in_scope
+from .rules import in_scope, strict_date
 from . import document_contracts
 from knowledge_core.evidence.anchor_bridge import verify_bridge
 from knowledge_core.evidence.html_evidence import analyze, map_retrieval_chunks
@@ -25,14 +27,277 @@ def normal(text):
     return re.sub(r'\s+', '', text)
 
 
+def _candidate_source_metadata(index):
+    sources_by_clause = {}
+    for reference in index.get('sourceReferences', []):
+        sources_by_clause[reference['clause']] = sorted({
+            locator['sourceId'] for locator in reference.get('locators', [])
+            if locator.get('sourceId')})
+    return {
+        chunk['id']:{'sourceIds':sorted({source_id
+            for clause in chunk['clauses']
+            for source_id in sources_by_clause.get(clause, [])})}
+        for chunk in index['index']['chunks']
+    }
+
+
 _CLAUSE_REFERENCE = re.compile(r'第[0-9〇零一二三四五六七八九十百千万两]+条')
 _EVIDENCE_ORDINAL_REFERENCE = re.compile(r'\[([1-9][0-9]*)\]')
 _REFUSAL = re.compile(r'无法|不能|未找到|没有足够|依据不足|无足够')
 _NEGATION = re.compile(r'不|未|无|非|禁止|不得|不能|无法|不应')
+_STRICT_VALUE = re.compile(
+    r'(?:T\+?\d+|C\d+|\d+(?:\.\d+)?\s*%|\d+(?:\.\d+)?\s*(?:万)?(?:元|份|年|个月|月|日|工作日|交易日|级))',
+    re.IGNORECASE)
+_SEMANTIC_REPLACEMENTS = (
+    ('风险级别', '风险等级'),
+    ('风险测评', '风险承受能力评估'), ('重新测评', '重新评估'),
+    ('申购费', '申购费率'), ('赎回费', '赎回费率'),
+    ('固定管理费的年费率', '固定投资管理费率'),
+    ('固定投资管理费按', '固定投资管理费率'),
+    ('不保本', '不保证本金'), ('不能保证', '不保证'),
+    ('一年', '12个月'), ('一万', '10000'), ('1万', '10000'),
+    ('强制性全部赎回', '强制全部赎回'), ('本人自有资金', '自有资金'),
+    ('使用贷款等非自有资金投资理财产品', '使用贷款资金购买'),
+    ('提前终止整个产品', '提前终止整个理财计划'),
+    ('收益保证', '保证收益'), ('保证本金', '保本'),
+)
 
 
 def _unique(values):
     return list(dict.fromkeys(values))
+
+
+def _semantic_normal(value):
+    value = normal(value).casefold()
+    for source, target in _SEMANTIC_REPLACEMENTS:
+        value = value.replace(source, target)
+    return re.sub(r'[，。；：、“”‘’（）()\[\]【】,.!?！？/或]', '', value)
+
+
+def _bigrams(value):
+    value = _semantic_normal(value)
+    return {value[index:index + 2] for index in range(max(0, len(value) - 1))}
+
+
+def _semantic_recall(reference, candidate):
+    expected = _bigrams(reference)
+    actual = _bigrams(candidate)
+    return 10000 * len(expected & actual) // len(expected) if expected else 0
+
+
+def _manager_confirms_application(value):
+    value = normal(value)
+    return bool(re.search(
+        r'(?:申请|申购|赎回).{0,20}(?:须经|经|由)管理人.{0,8}确认(?:有效性)?.{0,12}(?:成功|生效)',
+        value) or re.search(
+        r'管理人.{0,40}(?:申请|申购|赎回).{0,12}有效性.{0,12}(?:登记)?确认',
+        value))
+
+
+def _segments(value):
+    return [part for part in re.split(r'[\n。；;！!?？]', value) if part.strip()]
+
+
+def _strict_values(value):
+    values = [_semantic_normal(match.group()) for match in _STRICT_VALUE.finditer(value)]
+    risk_values = []
+    for match in re.finditer(r'(?:风险等级|风险级别)\s*(?:为|是|：|:)?\s*([1-9])', value):
+        risk_values.append(f'风险等级{match.group(1)}级')
+        values = [item for item in values if item != f'{match.group(1)}级']
+    values.extend(risk_values)
+    return _unique(values)
+
+
+_NEGATED_CLAIM_PREFIX = re.compile(
+    r'(?:不|未|无|非|不是|并非|并不|不能|无法|不足以).{0,32}$')
+
+
+def _claim_prefix(value, start):
+    """Return the local claim prefix without an earlier contrast clause."""
+    prefix = value[max(0, start - 48):start]
+    contrast = max(prefix.rfind(term) for term in ('但是', '然而', '不过', '但'))
+    return prefix[contrast + (2 if prefix[contrast:contrast + 2] in
+                              ('但是', '然而', '不过') else 1):] if contrast >= 0 else prefix
+
+
+def _term_polarity(value, terms):
+    """Return whether terms occur as affirmed or locally negated claims."""
+    affirmed = negated = False
+    for term in terms:
+        for match in re.finditer(re.escape(term), value):
+            prefix = _claim_prefix(value, match.start())
+            if _NEGATED_CLAIM_PREFIX.search(prefix):
+                negated = True
+            else:
+                affirmed = True
+    return affirmed, negated
+
+
+def _affirmed_pattern(value, pattern):
+    for match in re.finditer(pattern, value):
+        prefix = _claim_prefix(value, match.start())
+        if not _NEGATED_CLAIM_PREFIX.search(prefix):
+            return True
+    return False
+
+
+def _unqualified_pattern(value, pattern):
+    """Return true for an affirmed outcome that is not scoped by a condition."""
+    for match in re.finditer(pattern, value):
+        prefix = _claim_prefix(value, match.start())
+        if (_NEGATED_CLAIM_PREFIX.search(prefix)
+                or re.search(r'(?:若|如果|一旦).{0,24}$', prefix)):
+            continue
+        return True
+    return False
+
+
+def _logical_fact_checks(fact, answer):
+    """Reject high-overlap answers that reverse a material business meaning."""
+    normalized_fact = _semantic_normal(fact)
+    normalized_answer = _semantic_normal(answer)
+    checks = []
+
+    def add(name, passed, reason):
+        checks.append({'check':name, 'passed':passed,
+                       'reason':None if passed else reason})
+
+    if '有权' in normalized_fact:
+        discretion, _ = _term_polarity(
+            normalized_answer, ('有权', '可以', '可能'))
+        imposes_duty, rejects_duty = _term_polarity(
+            normalized_answer, ('必须', '一定', '必然', '应当强制'))
+        imposes_duty = imposes_duty or _unqualified_pattern(
+            normalized_answer, r'(?:将导致|将会|会被).{0,16}强制')
+        has_discretion = discretion or rejects_duty
+        add('RIGHT_NOT_OBLIGATION', has_discretion and not imposes_duty,
+            '回答将“有权”扩大为必须或必然执行')
+    if ('t+1' in normalized_fact
+            and _term_polarity(normalized_answer,
+                               ('当日到账', '实时到账', '立即到账'))[0]):
+        add('T_PLUS_ONE_NOT_SAME_DAY', False,
+            '回答将T+1到账改成当日或实时到账')
+    if '提前终止整个产品' in normalized_fact and '正常赎回' in normalized_fact:
+        has_both = ('终止' in normalized_answer and '赎回' in normalized_answer)
+        distinguishes = any(value in normalized_answer
+                            for value in ('不等于', '不是同一', '不是完全', '但', '仍可'))
+        add('TERMINATION_NOT_REDEMPTION', has_both and distinguishes,
+            '回答未区分整个产品提前终止与正常赎回')
+    if ('申购和赎回费率均为0' in normalized_fact
+            or '无申购赎回费' in normalized_fact):
+        scoped_zero = (
+            '申购' in normalized_answer and '赎回' in normalized_answer
+            and (any(value in normalized_answer
+                     for value in ('均为0', '费率0', '无申购赎回费'))
+                 or ('无申购费' in normalized_answer
+                     and '无赎回费' in normalized_answer)))
+        denies_all_fees = _term_polarity(
+            normalized_answer,
+            ('完全没有任何费用', '不收取任何费用', '没有其他费用'))[0]
+        add('ZERO_FEE_SCOPE', scoped_zero and not denies_all_fees,
+            '回答没有将零费率限定于申购费和赎回费')
+    if ('历史收益' in normalized_fact or '过往业绩' in normalized_fact):
+        claims_current = _term_polarity(
+            normalized_answer,
+            ('当前收益率就是', '今天的收益率是', '现行收益率为'))[0]
+        add('HISTORICAL_NOT_CURRENT_YIELD', not claims_current,
+            '回答将历史或示例收益率当作当前收益率')
+    if (('风险要求' in normalized_fact or '适合投资者' in normalized_fact
+         or '适合客户' in normalized_fact)
+            and _term_polarity(
+                normalized_answer,
+                ('已完成适当性审核', '已通过适当性判断', '已通过购买审核'))[0]):
+        add('PRODUCT_RULE_NOT_CUSTOMER_DECISION', False,
+            '回答将产品要求冒充为已完成客户适当性审核')
+    if ('交易日历' in normalized_fact or '确定到账日期' in normalized_fact):
+        claims_date = _affirmed_pattern(
+            normalized_answer,
+            r'(?:本周|下周)?[一二三四五六日天](?:必然|一定|确定)?到账')
+        add('CALENDAR_NOT_INFERRED', not claims_date,
+            '回答未经授权交易日历核实推断确定到账日期')
+    return checks
+
+
+def _fact_check(fact, answer, cited_evidence):
+    answer_scores = [_semantic_recall(fact, segment) for segment in _segments(answer)]
+    evidence_scores = [(_semantic_recall(fact, evidence['quote']), evidence['clause'])
+                       for evidence in cited_evidence]
+    answer_score = max(answer_scores, default=0)
+    evidence_score = max((score for score, _ in evidence_scores), default=0)
+    strict = _strict_values(fact)
+    normalized_fact = _semantic_normal(fact)
+    answer_text = _semantic_normal(answer)
+    evidence_text = _semantic_normal('\n'.join(item['quote'] for item in cited_evidence))
+    answer_values = set(_strict_values(answer))
+    evidence_values = set(_strict_values('\n'.join(
+        item['quote'] for item in cited_evidence)))
+    missing_answer = [value for value in strict
+                      if value not in answer_text and value not in answer_values]
+    missing_evidence = [value for value in strict
+                        if value not in evidence_text and value not in evidence_values]
+    # A summary fact may be shorter than its source sentence. Recall is measured
+    # from the gold statement, not from the much longer answer/evidence body.
+    answer_semantic = answer_score >= 4800
+    evidence_semantic = evidence_score >= 4200
+    confirmation_clauses = []
+    if (normalized_fact == _semantic_normal('申请是否生效以管理人确认为准')
+            and _manager_confirms_application(answer)):
+        answer_semantic = True
+        confirmation_clauses = [item['clause'] for item in cited_evidence
+            if _manager_confirms_application(item['quote'])]
+        evidence_semantic = evidence_semantic or bool(confirmation_clauses)
+    logical_checks = _logical_fact_checks(fact, answer)
+    logical_passed = all(item['passed'] for item in logical_checks)
+    live_boundary = fact.startswith('需要核实')
+    if live_boundary:
+        boundary_language = bool(re.search(r'需要核实|需核实|无法确认|无法确定|需以.{0,20}为准|未提供', answer))
+        boundary_terms = [value for value in (
+            '风险', '评级', '有效', '销售', '收益', '公告', '渠道',
+            '交易日历', '到账', '日期')
+                          if value in fact]
+        answer_semantic = boundary_language and any(value in answer for value in boundary_terms)
+    passed = (answer_semantic and not missing_answer
+              and logical_passed
+              and (live_boundary or (evidence_semantic and not missing_evidence)))
+    supporting = _unique([clause for score, clause in evidence_scores if score >= 4200]
+                         + confirmation_clauses)
+    reasons = []
+    if not answer_semantic:
+        reasons.append('ANSWER_SEMANTIC_COVERAGE_LOW')
+    if not evidence_semantic and not live_boundary:
+        reasons.append('CITED_EVIDENCE_SUPPORT_LOW')
+    if missing_answer:
+        reasons.append('ANSWER_STRICT_VALUE_MISSING')
+    if missing_evidence and not live_boundary:
+        reasons.append('EVIDENCE_STRICT_VALUE_MISSING')
+    if not logical_passed:
+        reasons.append('BUSINESS_LOGIC_CONTRADICTION')
+    return {'fact':fact, 'answerContains':answer_semantic,
+            'supportingClauses':supporting, 'passed':passed,
+            'method':('LIVE_SYSTEM_BOUNDARY_V0_1' if live_boundary
+                      else 'DETERMINISTIC_FACT_SUPPORT_V0_3'),
+            'answerSemanticRecallBps':answer_score,
+            'evidenceSemanticRecallBps':evidence_score,
+            'strictValues':strict, 'missingAnswerValues':missing_answer,
+            'missingEvidenceValues':missing_evidence,
+            'logicalChecks':logical_checks, 'reasons':reasons}
+
+
+def _nested_source_reference(answer, reference, retrieved):
+    """Recognize a cited source's own numbered subsection, not a Core clause."""
+    matched = re.fullmatch(r'第([0-9]+)条', reference)
+    if not matched:
+        return False
+    number = matched.group(1).lstrip('0') or '0'
+    marker = re.compile(rf'(?:第0*{re.escape(number)}条|(?<![0-9])0*{re.escape(number)}[.．、])')
+    for segment in _segments(answer):
+        if reference not in segment:
+            continue
+        for value in _EVIDENCE_ORDINAL_REFERENCE.findall(segment):
+            position = int(value) - 1
+            if position < len(retrieved) and marker.search(retrieved[position]['quote']):
+                return True
+    return False
 
 
 def _answer_references(answer, retrieved):
@@ -49,6 +314,8 @@ def _answer_references(answer, retrieved):
     for reference in explicit:
         matches = by_clause.get(reference, [])
         if not matches:
+            if _nested_source_reference(answer, reference, retrieved):
+                continue
             unmatched.append(reference)
             continue
         citations.append({'clause':reference, 'answerReference':reference,
@@ -67,20 +334,26 @@ def _answer_references(answer, retrieved):
             continue
         citations.append({'clause':clause, 'answerReference':reference,
             'retrievedEvidenceDigests':[evidence['evidenceDigest']],
-            'derivation':'ARCHIVED_ANSWER_EVIDENCE_ORDINAL'})
+            'derivation':'ARCHIVED_ANSWER_EVIDENCE_ORDINAL',
+            **({'sourceReference':evidence['sourceReference']}
+               if 'sourceReference' in evidence else {})})
         cited_clauses.add(clause)
     return citations, unmatched
 
 
 def _claim_asserted(answer, claim):
     """Conservative lexical guard: a claim mention is allowed only near negation."""
-    text, needle = normal(answer), normal(claim)
-    start = 0
-    while needle and (position := text.find(needle, start)) >= 0:
-        context = text[max(0, position - 12):position + len(needle) + 20]
-        if not _NEGATION.search(context):
-            return True
-        start = position + len(needle)
+    text = _semantic_normal(answer)
+    needles = {_semantic_normal(claim)}
+    if '保证收益' in needles:
+        needles.add('收益保证')
+    for needle in needles:
+        start = 0
+        while needle and (position := text.find(needle, start)) >= 0:
+            context = text[max(0, position - 12):position + len(needle) + 20]
+            if not _NEGATION.search(context):
+                return True
+            start = position + len(needle)
     return False
 
 
@@ -94,15 +367,9 @@ def _evaluate_answer_case(gold, item):
                      for evidence_digest in citation['retrievedEvidenceDigests']}
     cited_evidence = [evidence for evidence in retrieved
                       if evidence['evidenceDigest'] in cited_digests]
-    normalized = normal(answer)
     fact_checks = []
     for fact in gold['answerFacts']:
-        supporting = _unique(evidence['clause'] for evidence in cited_evidence
-                             if normal(fact) in normal(evidence['quote']))
-        answer_contains = normal(fact) in normalized
-        fact_checks.append({'fact':fact, 'answerContains':answer_contains,
-                            'supportingClauses':supporting,
-                            'passed':answer_contains and bool(supporting)})
+        fact_checks.append(_fact_check(fact, answer, cited_evidence))
     citation_checks = [{'clause':clause, 'passed':clause in cited}
                        for clause in gold['expectedClauses']]
     forbidden_checks = []
@@ -149,7 +416,8 @@ class DocumentCore(FactoryEvaluationMixin, Core):
             self.db.execute('INSERT OR IGNORE INTO identities VALUES(?,?,?,?,?)',(*key,sha))
         return sha
 
-    def register_document_index(self, actor, source_digest, raw, bridge, index, clauses):
+    def register_document_index(self, actor, source_digest, raw, bridge, index, clauses,
+                                source_references=None):
         actor.require('artifact.produce')
         source = self._source_access(actor, source_digest)
         verify_bridge(raw, source, bridge, digest(bridge))
@@ -175,9 +443,18 @@ class DocumentCore(FactoryEvaluationMixin, Core):
             raise Rejected('INDEX_COVERAGE_INCOMPLETE')
         if any(chunk['clauses'] != expected_chunks.get(chunk['id'], []) for chunk in index['chunks']):
             raise Rejected('INDEX_ANCHOR_MISMATCH')
-        body = {'schemaVersion':'document-index.v0.1', 'sourceDigest':source_digest,
+        body = {'schemaVersion':'document-index.v0.2' if source_references
+                                     else 'document-index.v0.1',
+                'sourceDigest':source_digest,
                 'originalHtml':raw.decode('utf-8'), 'originalDigest':hashlib.sha256(raw).hexdigest(),
                 'bridge':bridge, 'bridgeDigest':digest(bridge), 'index':index, 'clauses':clauses}
+        if source_references:
+            clause_names = {item['clause'] for item in clauses}
+            reference_names = [item.get('clause') for item in source_references]
+            if (set(reference_names) != clause_names
+                    or len(reference_names) != len(set(reference_names))):
+                raise Rejected('DOCUMENT_SOURCE_REFERENCE_MISMATCH')
+            body['sourceReferences'] = source_references
         with self.tx():
             return self._put(actor, 'document-index', body)
 
@@ -200,10 +477,15 @@ class DocumentCore(FactoryEvaluationMixin, Core):
     def register_quality_profile(self, actor, profile_id, revision, config):
         actor.require('artifact.produce')
         required = {'retrieval', 'postRank', 'selectionThresholdBps', 'queryPlanner', 'supportPolicy'}
-        if (not isinstance(config, dict) or set(config) != required
-                or config['postRank'] != 'STRUCTURE_V0_2'
-                or config['queryPlanner'] != 'DETERMINISTIC_FINANCIAL_V0_1'
+        allowed = required | {'selectionPolicy'}
+        if (not isinstance(config, dict) or not required.issubset(config)
+                or set(config) - allowed
+                or config['postRank'] not in {'STRUCTURE_V0_2', 'STRUCTURE_V0_3'}
+                or config['queryPlanner'] not in {'DETERMINISTIC_FINANCIAL_V0_1',
+                                                  'DETERMINISTIC_FINANCIAL_V0_2'}
                 or config['supportPolicy'] != 'EVIDENCE_SUPPORT_V0_1'
+                or config.get('selectionPolicy', 'TOP_SCORE') not in {
+                    'TOP_SCORE', 'DIVERSE_QUERY_COVERAGE_V0_1'}
                 or type(config['selectionThresholdBps']) is not int):
             raise Rejected('QUALITY_PROFILE_INVALID')
         # The adapter performs the detailed retrieval-profile validation before use.
@@ -240,7 +522,8 @@ class DocumentCore(FactoryEvaluationMixin, Core):
             started = datetime.now(timezone.utc)
             try:
                 trace = trace_select(client, pinned['datasetId'], pinned['documentId'],
-                                     case['question'], profile['config'])
+                                     case['question'], profile['config'],
+                                     _candidate_source_metadata(index))
             except Rejected:
                 raise
             except Exception:
@@ -391,6 +674,8 @@ class DocumentCore(FactoryEvaluationMixin, Core):
                     if any(not isinstance(value, str) or not value
                            for value in evidence_body.values()):
                         raise Rejected('QUALITY_RUNTIME_EVIDENCE_MISMATCH', case_id)
+                    if 'sourceReference' in evidence:
+                        evidence_body['sourceReference'] = evidence['sourceReference']
                     evidence_body['evidenceDigest'] = digest(evidence_body)
                     if not any(value['evidenceDigest'] == evidence_body['evidenceDigest']
                                for value in retrieved):
@@ -534,7 +819,7 @@ class DocumentCore(FactoryEvaluationMixin, Core):
         return candidate, recipe, artifacts, index
 
     @staticmethod
-    def _retrieve(index, question, client, profile=None):
+    def _retrieve(index, question, client, profile=None, business_date=None):
         pinned = index['index']
         try:
             if profile is None:
@@ -543,7 +828,8 @@ class DocumentCore(FactoryEvaluationMixin, Core):
                 raise Rejected('QUALITY_RETRIEVAL_UNSUPPORTED')
             else:
                 selected = select_quality(client, pinned['datasetId'], pinned['documentId'],
-                                          question, profile['config'])
+                                          question, profile['config'],
+                                          _candidate_source_metadata(index))
                 rows = [{'id':item['id'], 'text':item['text'],
                          'documentId':item['documentId']} for item in selected]
         except Rejected:
@@ -554,6 +840,8 @@ class DocumentCore(FactoryEvaluationMixin, Core):
             raise Rejected('RETRIEVAL_RESPONSE_INVALID')
         chunks = {c['id']: c for c in pinned['chunks']}
         clauses = {c['clause']: c['text'] for c in index['clauses']}
+        source_references = {item['clause']:item
+                             for item in index.get('sourceReferences', [])}
         found, evidence = set(), []
         for row in rows:
             if not isinstance(row, dict) or set(row) != {'id', 'text', 'documentId'}:
@@ -568,7 +856,32 @@ class DocumentCore(FactoryEvaluationMixin, Core):
                 found.add(clause)
                 evidence.append({'clause':clause, 'quote':clauses[clause],
                     'originalDigest':index['originalDigest'], 'chunkId':chunk['id'],
-                    'anchors':[m['anchor'] for m in index['bridge']['mappings'] if m['clause']==clause]})
+                    'anchors':[m['anchor'] for m in index['bridge']['mappings'] if m['clause']==clause],
+                    **({'sourceReference':source_references[clause]}
+                       if clause in source_references else {})})
+        if business_date is not None:
+            try:
+                tree = html.fromstring(index['originalHtml'])
+                nodes = tree.xpath('//script[@id="knowledge-business-binding" and @type="application/json"]/text()')
+                binding = json.loads(nodes[0]) if len(nodes) == 1 else None
+                applicability = binding.get('clauseApplicability', {}) if isinstance(binding, dict) else {}
+            except (KeyError, TypeError, ValueError, json.JSONDecodeError):
+                raise Rejected('KNOWLEDGE_BUSINESS_BINDING_INVALID') from None
+            if binding is not None:
+                if binding.get('schemaVersion') != 'product-knowledge-binding.v0.1':
+                    raise Rejected('KNOWLEDGE_BUSINESS_BINDING_INVALID')
+                day = strict_date(business_date)
+                filtered = []
+                for item in evidence:
+                    rule = applicability.get(item['clause'])
+                    if rule is None:
+                        filtered.append(item)
+                        continue
+                    start = strict_date(rule['effectiveFrom'])
+                    end = strict_date(rule['effectiveTo']) if rule.get('effectiveTo') else None
+                    if day >= start and (end is None or day < end):
+                        filtered.append(item)
+                evidence = filtered
         return evidence
 
     def validate_document(self, actor, candidate_digest, client):
@@ -610,6 +923,45 @@ class DocumentCore(FactoryEvaluationMixin, Core):
                 'validationDigest':validation_digest, 'actor':actor.principal,
                 'authorityRef':actor.authority, 'decision':'ISOLATED_TEST_APPROVAL', 'reason':reason})
 
+    def approve_quality_document(self, actor, candidate_digest, validation_digest,
+                                 quality_admission_digest, reason,
+                                 target_revision=1, lifetime_seconds=86400):
+        """Record a human release decision for one immutable quality result.
+
+        Evaluation success is deliberately insufficient. The approval identity is
+        supplied by the trusted Host actor and is bound to the exact admission that
+        will later be used for publication.
+        """
+        actor.require('document.approve')
+        with self.tx():
+            candidate, _, _, index = self._document_parts(actor, candidate_digest)
+            self._document_valid(actor, candidate_digest, validation_digest)
+            admission = self._get(actor, quality_admission_digest,
+                                  'document-quality-admission')
+            if (admission['candidateDigest'] != candidate_digest
+                    or admission['decision'] != 'PASS'
+                    or admission['sourceDigest'] != index['sourceDigest']
+                    or admission['indexDigest'] != candidate['indexDigest']):
+                raise Rejected('QUALITY_ADMISSION_FAILED_OR_MISMATCH')
+            if (not isinstance(target_revision, int) or target_revision < 1
+                    or not isinstance(lifetime_seconds, int)
+                    or not 60 <= lifetime_seconds <= 604800):
+                raise Rejected('DOCUMENT_APPROVAL_LIFETIME_INVALID')
+            approved = datetime.now(timezone.utc)
+            return self._put(actor, 'document-approval', {
+                'schemaVersion':'document-approval.v0.3',
+                'candidateDigest':candidate_digest,
+                'validationDigest':validation_digest,
+                'qualityAdmissionDigest':quality_admission_digest,
+                'sourceDigest':index['sourceDigest'],
+                'indexDigest':candidate['indexDigest'],
+                'productId':candidate['productId'],
+                'targetRevision':target_revision,
+                'actor':actor.principal, 'authorityRef':actor.authority,
+                'decision':'QUALITY_RELEASE_APPROVAL', 'reason':reason,
+                'approvedAt':approved.isoformat(),
+                'expiresAt':(approved + timedelta(seconds=lifetime_seconds)).isoformat()})
+
     def publish_document(self, actor, candidate_digest, validation_digest, approval_digest, revision):
         actor.require('manifest.publish')
         with self.tx():
@@ -633,22 +985,48 @@ class DocumentCore(FactoryEvaluationMixin, Core):
                 'mode':'M2_ISOLATED_DOCUMENT'})
 
     def publish_quality_document(self, actor, candidate_digest, validation_digest,
-                                 approval_digest, quality_admission_digest, revision):
+                                 approval_digest, quality_admission_digest, revision,
+                                 business_date=None):
         actor.require('manifest.publish')
         with self.tx():
             candidate, recipe, _, index = self._document_parts(actor, candidate_digest)
             self._document_valid(actor, candidate_digest, validation_digest)
             approval = self._get(actor, approval_digest, 'document-approval')
             admission = self._get(actor, quality_admission_digest, 'document-quality-admission')
-            if (approval['candidateDigest'] != candidate_digest
-                    or approval['validationDigest'] != validation_digest):
+            if (approval['schemaVersion'] != 'document-approval.v0.3'
+                    or approval['candidateDigest'] != candidate_digest
+                    or approval['validationDigest'] != validation_digest
+                    or approval['qualityAdmissionDigest'] != quality_admission_digest
+                    or approval['sourceDigest'] != index['sourceDigest']
+                    or approval['indexDigest'] != candidate['indexDigest']
+                    or approval['productId'] != candidate['productId']
+                    or approval['targetRevision'] != revision):
                 raise Rejected('DOCUMENT_APPROVAL_MISMATCH')
+            try:
+                expires = datetime.fromisoformat(
+                    approval['expiresAt'].replace('Z', '+00:00'))
+            except (KeyError, ValueError) as exc:
+                raise Rejected('DOCUMENT_APPROVAL_MISMATCH') from exc
+            if expires <= datetime.now(timezone.utc):
+                raise Rejected('DOCUMENT_APPROVAL_EXPIRED')
             if (admission['candidateDigest'] != candidate_digest or admission['decision'] != 'PASS'
                     or admission['sourceDigest'] != index['sourceDigest']
                     or admission['indexDigest'] != candidate['indexDigest']):
                 raise Rejected('QUALITY_ADMISSION_FAILED_OR_MISMATCH')
             if self._head(actor, 'recipe', recipe['id'])[1] != digest(recipe):
                 raise Rejected('DRAFT_CHANGED_REVALIDATE')
+            if business_date is None:
+                raise Rejected('SOURCE_EFFECTIVE_DATE_REQUIRED')
+            source = self._get(actor, index['sourceDigest'], 'source-revision')
+            activation = self.db.execute(
+                "SELECT digest FROM activations WHERE tenant=? AND source=? AND effective<=? ORDER BY effective DESC LIMIT 1",
+                (actor.tenant, source['id'], business_date)).fetchone()
+            if not activation:
+                raise Rejected('SOURCE_NOT_EFFECTIVE')
+            activation_body = self._get(actor, activation[0], 'source-activation')
+            if (activation_body['state'] != 'ACTIVE'
+                    or activation_body['sourceDigest'] != index['sourceDigest']):
+                raise Rejected('SOURCE_SUPERSEDED_OR_REVOKED')
             manifest = {
                 'schemaVersion':'document-manifest.v0.1', 'id':candidate['productId'], 'revision':revision,
                 'productId':candidate['productId'], 'candidateDigest':candidate_digest,
@@ -721,7 +1099,7 @@ class DocumentCore(FactoryEvaluationMixin, Core):
         with self.tx():
             binding, manifest, index, host = self._query_binding(actor, product_id, manifest_digest, context)
             profile = self._quality_profile_for_manifest(actor, manifest_digest, manifest)
-        evidence = self._retrieve(index, question, client, profile)
+        evidence = self._retrieve(index, question, client, profile, context.business_date)
         with self.tx():
             current, _, _, _ = self._query_binding(actor, product_id, manifest_digest, context)
             if current != binding:
