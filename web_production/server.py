@@ -11,6 +11,7 @@ from urllib.parse import urlsplit
 from knowledge_core.contracts import Rejected
 from web_production.assets import checked, BASELINE_SHA
 from web_production.engine import Production, ROOT, SAMPLE
+from web_production.published import catalog
 
 
 def handler(service):
@@ -20,10 +21,14 @@ def handler(service):
              '/app.js': ('text/javascript; charset=utf-8', (ROOT / 'web_production/app.js').read_bytes()),
              '/workshop.js': ('text/javascript; charset=utf-8', (ROOT / 'web_production/workshop.js').read_bytes()),
              '/style.css': ('text/css; charset=utf-8', css + (ROOT / 'web_production/style.css').read_bytes())}
+    files['/workbench.js'] = ('text/javascript; charset=utf-8', (ROOT / 'web_production/workbench.js').read_bytes())
+    files['/workbench.css'] = ('text/css; charset=utf-8', (ROOT / 'web_production/workbench.css').read_bytes())
+    files['/'] = (files['/'][0], files['/'][1].replace(b'</head>', b'<link rel="stylesheet" href="/workbench.css"></head>'))
     if getattr(service, 'm2', False):
         files['/'] = (files['/'][0], files['/'][1].replace(b'</body>', b'<script src="/m2.js"></script></body>'))
         files['/workshop.js'] = (files['/workshop.js'][0], files['/workshop.js'][1].removesuffix(b'init();\n'))
         files['/m2.js'] = ('text/javascript; charset=utf-8', (ROOT / 'm2/web.js').read_bytes())
+    files['/'] = (files['/'][0], files['/'][1].replace(b'</body>', b'<script src="/workbench.js"></script></body>'))
     version = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     dirty = bool(subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True))
     test_lock = threading.Lock()
@@ -55,6 +60,11 @@ def handler(service):
                 if path in files:
                     mime, body = files[path]
                     return self.respond(200, body, mime)
+                if path == '/api/published-products':
+                    return self.respond(200, catalog(os.environ.get('KF_WORKBENCH_CATALOG')))
+                if path.startswith('/api/published-products/'):
+                    return self.respond(200, catalog(os.environ.get('KF_WORKBENCH_CATALOG'),
+                        path.removeprefix('/api/published-products/')))
                 if path == '/api/state':
                     return self.respond(200, {**service.snapshot(), 'commit': version, 'dirty': dirty,
                         'prototypeSha256': BASELINE_SHA, 'version': 'M2 Isolated Documents' if getattr(service,'m2',False) else 'Web Preview V0.2'})
