@@ -54,6 +54,14 @@ render = function () {
   if (!state) return;
   $('.brand-sub').textContent = 'KNOWLEDGE FACTORY';
   $('.sidebottom').textContent = '开发工作区 · 固定版本与原始证据保留';
+  const inTask = workshopOpen && page==='production';
+  $('#product-select').hidden = !inTask;
+  const productLabel = $('.topcontrols .textmuted');
+  if(productLabel){productLabel.hidden=!inTask;productLabel.textContent='当前生产原料';}
+  document.querySelectorAll('.wb-table table').forEach(table => {
+    const headers=[...table.querySelectorAll('th')].map(x=>x.textContent);
+    table.querySelectorAll('tbody tr').forEach(row=>[...row.children].forEach((cell,i)=>cell.dataset.label=headers[i]));
+  });
   $('.versiontag').textContent = workshopOpen && run && page==='production'
     ? (run.release?.state==='ISOLATED_PUBLISHED'?'开发快照已发布':'生产记录：'+label(run.status))
     : '开发环境';

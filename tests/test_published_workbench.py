@@ -37,7 +37,8 @@ def fixture_catalog(tmp_path):
                          'officialUrl': 'https://example.org/original.pdf'}],
         'pages': [{'originalAnchor': {'sourceId': 'summary', 'page': 1}, 'htmlId': 'page-1', 'text': 'Original'}]})
     return save('catalog.json', {'products': [{'code': '000343', 'title': 'Public fund',
-                                              'publication': publication, 'provenance': provenance}]})
+        'publication': publication, 'provenance': provenance,
+        'provenanceSha256': hashlib.sha256((tmp_path / 'provenance.json').read_bytes()).hexdigest()}]})
 
 
 def test_projection_is_read_only_and_omits_private_records(tmp_path):

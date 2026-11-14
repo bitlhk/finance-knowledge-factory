@@ -48,6 +48,8 @@ def catalog(config_path, code=None):
                 continue
             publication = _load(entry['publication'])
             provenance_path = Path(entry['provenance'])
+            if hashlib.sha256(provenance_path.read_bytes()).hexdigest() != entry['provenanceSha256']:
+                raise ValueError('Provenance snapshot mismatch')
             provenance = _load(provenance_path)
             if provenance['fundShareCode'] != entry['code']:
                 raise ValueError('Product mismatch')
