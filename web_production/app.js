@@ -138,4 +138,4 @@ async function poll() {
   }catch(e){errorText=e.message;render();}
   setTimeout(poll,1500);
 }
-async function init(){try{state=await api('/api/state');const id=localStorage.getItem('production-run');if(id&&state.runs.some(r=>r.id===id)){run=await api('/api/runs/'+id);sourceId=run.sourceId;page='production';workshopOpen=true;restoreResults();}else sourceId=state.sources[0]?.id;render();poll();}catch(e){$('#root').textContent='工作区读取失败：'+e.message;}}
+async function init(){try{state=await api('/api/state');const readOnly=state.accessMode==='PUBLIC_READ_ONLY';if(readOnly)localStorage.removeItem('production-run');const id=readOnly?null:localStorage.getItem('production-run');if(id&&state.runs.some(r=>r.id===id)){run=await api('/api/runs/'+id);sourceId=run.sourceId;page='production';workshopOpen=true;restoreResults();}else sourceId=state.sources[0]?.id;render();poll();}catch(e){$('#root').textContent='工作区读取失败：'+e.message;}}

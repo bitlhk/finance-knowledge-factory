@@ -5,8 +5,9 @@ const previousRender = render;
 const previousSourceView = sourceView;
 const previousConsumeView = consumeView;
 const previousArtifactsView = artifactsView;
+const publicReadOnly = () => state?.accessMode === 'PUBLIC_READ_ONLY';
 const publicationNotice = () => '<p class="boundary">开发环境发布记录，不代表银行销售授权。访问权限与来源有效性在实际查询时重新检查。</p>';
-const publicationRows = (actionLabel = '查看产物') => publishedProducts.map(p => `<tr><td><strong>${E(p.title)}</strong><small>${E(p.code)} · 固定版本 ${E(p.revision)}</small></td><td>${p.sources.length} 份 PDF / ${p.pageCount} 页</td><td><span class="wb-status">质量通过</span><small>${p.caseCount} 道归档评测题 · 非完整业务覆盖</small></td><td>已维护发布<small>${p.productionAuthorized ? '已记录生产授权' : '仅开发环境'}</small></td><td><button class="btn secondary" data-publication="${E(p.code)}">${actionLabel}</button></td></tr>`).join('');
+const publicationRows = (actionLabel = '查看产物') => publishedProducts.map(p => `<tr><td><strong>${E(p.title)}</strong><small>${E(p.code)} · 固定版本 ${E(p.revision)}</small></td><td>${p.sources.length} 份 PDF / ${p.pageCount} 页</td><td><span class="wb-status">质量通过</span><small>${p.caseCount} 道归档评测题 · 非完整业务覆盖</small></td><td>开发环境已发布<small>不代表银行生产授权</small></td><td><button class="btn secondary" data-publication="${E(p.code)}">${actionLabel}</button></td></tr>`).join('');
 function publicationTable() {
   if (!publishedLoaded) return '<p role="status">正在核对发布记录…</p>';
   if (publishedError) return '<p role="alert" class="error-strip">发布记录暂时无法核验，请稍后重试。未将此状态视为未发布。</p>';
@@ -17,26 +18,30 @@ function taskList() {
   return state.runs.length ? `<div class="wb-table"><table><thead><tr><th>生产任务</th><th>运行状态</th><th>创建时间</th><th>操作</th></tr></thead><tbody>${state.runs.map(r => `<tr><td>${E(r.title)}</td><td>${E(label(r.status))}</td><td>${E(new Date(r.createdAt).toLocaleString())}</td><td><button class="btn secondary" data-run="${E(r.id)}">查看任务</button></td></tr>`).join('')}</tbody></table></div>` : '<p class="hint">暂无生产任务。</p>';
 }
 productionHome = function () {
+  if(publicReadOnly())return `${heading('知识生产','知识生产','候选加工、质量验证、审批与发布分别记录。','<button class="btn" disabled title="工作台 SSO 尚未接入">登录后开放</button>')}
+    <ol class="wb-steps"><li>选择原料</li><li>配置配方</li><li>运行生产</li><li>验证候选</li></ol>
+    <section class="wb-section"><h2>暂无可公开的生产任务</h2><p>当前是只读演示。上传、生产、评测、来源生效、审批和发布须在受权维护环境执行。</p><p class="boundary">历史测试任务保留在维护工作区，不会根据浏览器上次选择自动打开。已发布版本请进入“知识产物”查看。</p></section>`;
   return `${heading('知识生产', '知识生产', '固定原料版本，生产候选，验证后再审批与发布。', '<button class="btn" data-do="new-product">新建生产任务</button>')}
     <ol class="wb-steps"><li>选择原料</li><li>配置配方</li><li>运行生产</li><li>验证候选</li></ol>
-    <section class="wb-section"><h2>已发布的基金知识</h2>${publicationTable()}</section>
+    <section class="wb-section"><h2>当前生产任务</h2>${taskList()}</section>
     <details class="wb-legacy" id="workspace-tasks"><summary>工作区生产记录与失败记录（${state.runs.length}）</summary><p class="muted">加工完成不等于质量通过；历史测试与失败记录完整保留。</p>${taskList()}</details>
     <details class="wb-legacy"><summary>工作区已有原料（${state.sources.length}）</summary><div class="wb-materials">${state.sources.map(s => `<article><h3>${E(s.title)}</h3><p>${s.clauses.length} 个原文单元 · ${sourceRuns(s.id).length} 次生产</p><button class="btn secondary" data-product="${E(s.id)}">进入生产</button></article>`).join('') || '<p>请先上传原始资料。</p>'}</div></details>`;
 };
 sourceView = function () {
-  return `${heading('知识原料', '已归档的基金原文', '原始文件、内容摘要和 PDF 页码保持对应。', '<button class="btn" data-do="upload">上传 HTML 原料</button>')}
-    <div class="wb-materials">${publishedProducts.flatMap(p => p.sources.map(s => `<article><small>${E(p.title)} · ${E(p.code)}</small><h3>${s.sourceId.endsWith('summary') ? '基金产品资料概要' : '招募说明书'}</h3><p>${s.pageCount} 页 · 原件摘要已核验</p><div class="actions"><a class="btn secondary" href="${E(s.officialUrl)}" target="_blank" rel="noopener noreferrer">官方原文</a><button class="btn secondary" data-publication="${E(p.code)}">查看页码与加工结果</button></div>${detail('文件校验信息', {file:s.file,sha256:s.sha256})}</article>`)).join('')}</div>
-    <p class="boundary">普通上传入口当前支持 HTML；PDF 使用已登记的受控加工流程，尚非通用 PDF 上传。</p><details class="wb-legacy"><summary>工作区原料与历史测试（${state.sources.length}）</summary>${previousSourceView()}</details>`;
+  return `${heading('知识原料', '已归档的基金原文', '按基金查看资料概要与招募说明书。', publicReadOnly()?'<button class="btn" disabled title="工作台 SSO 尚未接入">上传原料 · 登录后开放</button>':'<button class="btn" data-do="upload">上传 HTML 原料</button>')}
+    ${publishedProducts.map(p=>`<details class="wb-source-group"><summary><strong>${E(p.title)}</strong><span>${E(p.code)} · ${p.sources.length} 份资料 · ${p.pageCount} 页</span></summary><div class="wb-materials">${p.sources.map(s => `<article><h3>${s.sourceId.endsWith('summary') ? '基金产品资料概要' : '招募说明书'}</h3><p>${s.pageCount} 页 · 原件摘要已核验</p><div class="actions"><a class="btn secondary" href="${E(s.officialUrl)}" target="_blank" rel="noopener noreferrer">官方原文</a><button class="btn secondary" data-publication="${E(p.code)}">查看页码与加工结果</button></div>${detail('文件校验信息', {file:s.file,sha256:s.sha256})}</article>`).join('')}</div></details>`).join('')}
+    <p class="boundary">受权维护入口当前支持 HTML；PDF 使用已登记的受控加工流程，尚非通用 PDF 上传。</p>${publicReadOnly()?'':`<details class="wb-legacy"><summary>历史测试记录（${state.sources.length} 份原料）</summary>${previousSourceView()}</details>`}`;
 };
 artifactsView = function () {
   return `${heading('知识产物', '知识产物', '先查看内容与适用范围，再按需展开质量证据和版本。')}${publicationTable()}
-    <details class="wb-legacy"><summary>旧工作区快照与生产来源</summary>${previousArtifactsView()}</details>`;
+    ${publicReadOnly()?'':`<details class="wb-legacy"><summary>旧工作区快照与生产来源</summary>${previousArtifactsView()}</details>`}`;
 };
 consumeView = function () {
   return `${heading('知识消费', '知识消费', '已发布知识通过受授权的财富助手查询。')}
-    <section class="wb-section"><h2>可核验的知识版本</h2>${publicationTable()}</section>
-    <section class="wb-section"><h2>财富助手接入</h2><p>在 DSH 的灵感财富助手中登录灵感后查询产品知识。服务逐次核对身份、产品版本与授权范围。</p><a class="btn secondary" href="https://registry.linggan.top/" target="_blank" rel="noopener noreferrer">打开插件仓库</a><p class="boundary">本页不展示员工私人会话。Agent 使用名单及实时查询统计尚未接入，不能据发布记录推断消费成功。</p></section>
-    <details class="wb-legacy"><summary>旧工作区查询与保存回执</summary>${previousConsumeView()}</details>`;
+    <section class="wb-section"><h2>财富助手 · 授权查询</h2><p>在 DSH 的灵感财富助手中登录灵感后查询产品知识。服务逐次核对身份、产品版本与授权范围。</p><a class="btn secondary" href="https://registry.linggan.top/" target="_blank" rel="noopener noreferrer">打开插件仓库</a></section>
+    <section class="wb-section"><h2>网页验证查询</h2><p>工作台身份接入尚未完成，暂不开放匿名查询。原文与 PDF 页码仍可在“知识产物”查看。</p><button class="btn secondary" disabled>登录后开放</button></section>
+    <section class="wb-section"><h2>装配与调用记录</h2><p class="boundary">Agent 装配清单和实时调用统计尚未接入。员工私人会话与查询回执不对匿名用户公开；不会以发布记录代替消费成功证据。</p></section>
+    ${publicReadOnly()?'':`<details class="wb-legacy"><summary>旧工作区查询与保存回执</summary>${previousConsumeView()}</details>`}`;
 };
 workView = function () {
   if (!workshopOpen) return productionHome();
@@ -53,7 +58,7 @@ render = function () {
   previousRender();
   if (!state) return;
   $('.brand-sub').textContent = 'KNOWLEDGE FACTORY';
-  $('.sidebottom').textContent = '开发工作区 · 固定版本与原始证据保留';
+  $('.sidebottom').textContent = publicReadOnly()?'公开只读演示 · 写操作未开放':'开发工作区 · 固定版本与原始证据保留';
   const inTask = workshopOpen && page==='production';
   $('#product-select').hidden = !inTask;
   const productLabel = $('.topcontrols .textmuted');
@@ -64,7 +69,7 @@ render = function () {
   });
   $('.versiontag').textContent = workshopOpen && run && page==='production'
     ? (run.release?.state==='ISOLATED_PUBLISHED'?'开发快照已发布':'生产记录：'+label(run.status))
-    : '开发环境';
+    : publicReadOnly()?'公开只读':'开发环境';
   document.querySelectorAll('[data-publication]').forEach(b => b.onclick = () => action(async () => {
     const p = await api('/api/published-products/' + encodeURIComponent(b.dataset.publication));
     dialog(p.title, `<p>${E(p.code)} · 固定版本 ${E(p.revision)} · ${p.pageCount} 页原文</p>${publicationNotice()}

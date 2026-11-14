@@ -14,7 +14,10 @@ from web_production.engine import Production, ROOT, SAMPLE
 from web_production.published import catalog
 
 
-def handler(service):
+def handler(service, *, read_only=None):
+    # Deployment policy, never a request/header or browser role. Fail closed.
+    if read_only is None:
+        read_only = os.environ.get('KF_WORKBENCH_ACCESS') != 'isolated-write'
     original = checked(ROOT / 'web_preview/baseline/v1.5.html', BASELINE_SHA).decode()
     css = original.split('<style>', 1)[1].split('</style>', 1)[0].encode()
     files = {'/': ('text/html; charset=utf-8', (ROOT / 'web_production/index.html').read_bytes()),
@@ -66,9 +69,16 @@ def handler(service):
                     return self.respond(200, catalog(os.environ.get('KF_WORKBENCH_CATALOG'),
                         path.removeprefix('/api/published-products/')))
                 if path == '/api/state':
-                    return self.respond(200, {**service.snapshot(), 'commit': version, 'dirty': dirty,
+                    snapshot = ({'m2': bool(getattr(service, 'm2', False)),
+                                 'sources': [], 'runs': [], 'isolatedReleases': [],
+                                 'modelReady': False}
+                                if read_only else service.snapshot())
+                    return self.respond(200, {**snapshot, 'commit': version, 'dirty': dirty,
+                        'accessMode': 'PUBLIC_READ_ONLY' if read_only else 'ISOLATED_WRITE',
                         'prototypeSha256': BASELINE_SHA, 'version': 'M2 Isolated Documents' if getattr(service,'m2',False) else 'Web Preview V0.2'})
                 if path.startswith('/api/runs/'):
+                    if read_only:
+                        return self.respond(403, {'error': 'WORKBENCH_AUTHENTICATION_REQUIRED'})
                     return self.respond(200, service.get(path.removeprefix('/api/runs/')))
                 return self.respond(404, {'error': 'NOT_FOUND'})
             except Rejected as exc:
@@ -77,6 +87,11 @@ def handler(service):
         do_HEAD = do_GET
 
         def do_POST(self):
+            if read_only:
+                # Includes search/rule-test: those can consume resources and append receipts.
+                # Reject before parsing input, creating Core objects or contacting providers.
+                self.close_connection = True
+                return self.respond(403, {'error': 'PUBLIC_WORKBENCH_READ_ONLY'})
             host = self.headers.get('Host')
             if not self.trusted_host() or self.headers.get('Origin') != 'http://' + host:
                 return self.respond(403, {'error': 'SAME_ORIGIN_REQUIRED'})
