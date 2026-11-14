@@ -20,13 +20,13 @@ productionHome = function () {
   return `${heading('知识生产', '知识生产', '固定原料版本，生产候选，验证后再审批与发布。', '<button class="btn" data-do="new-product">新建生产任务</button>')}
     <ol class="wb-steps"><li>选择原料</li><li>配置配方</li><li>运行生产</li><li>验证候选</li></ol>
     <section class="wb-section"><h2>已发布的基金知识</h2>${publicationTable()}</section>
-    <section class="wb-section"><h2>生产记录与待处理事项</h2><p class="muted">加工完成不等于质量通过；失败记录保留，可进入任务核对原因。</p>${taskList()}</section>
-    <section class="wb-section"><h2>可用原料</h2><div class="wb-materials">${state.sources.map(s => `<article><h3>${E(s.title)}</h3><p>${s.clauses.length} 个原文单元 · ${sourceRuns(s.id).length} 次生产</p><button class="btn secondary" data-product="${E(s.id)}">进入生产</button></article>`).join('') || '<p>请先上传原始资料。</p>'}</div></section>`;
+    <details class="wb-legacy" id="workspace-tasks"><summary>工作区生产记录与失败记录（${state.runs.length}）</summary><p class="muted">加工完成不等于质量通过；历史测试与失败记录完整保留。</p>${taskList()}</details>
+    <details class="wb-legacy"><summary>工作区已有原料（${state.sources.length}）</summary><div class="wb-materials">${state.sources.map(s => `<article><h3>${E(s.title)}</h3><p>${s.clauses.length} 个原文单元 · ${sourceRuns(s.id).length} 次生产</p><button class="btn secondary" data-product="${E(s.id)}">进入生产</button></article>`).join('') || '<p>请先上传原始资料。</p>'}</div></details>`;
 };
 sourceView = function () {
-  return `${heading('知识原料', '已归档的基金原文', '原始文件、内容摘要和 PDF 页码保持对应。')}
+  return `${heading('知识原料', '已归档的基金原文', '原始文件、内容摘要和 PDF 页码保持对应。', '<button class="btn" data-do="upload">上传 HTML 原料</button>')}
     <div class="wb-materials">${publishedProducts.flatMap(p => p.sources.map(s => `<article><small>${E(p.title)} · ${E(p.code)}</small><h3>${s.sourceId.endsWith('summary') ? '基金产品资料概要' : '招募说明书'}</h3><p>${s.pageCount} 页 · 原件摘要已核验</p><div class="actions"><a class="btn secondary" href="${E(s.officialUrl)}" target="_blank" rel="noopener noreferrer">官方原文</a><button class="btn secondary" data-publication="${E(p.code)}">查看页码与加工结果</button></div>${detail('文件校验信息', {file:s.file,sha256:s.sha256})}</article>`)).join('')}</div>
-    <section class="wb-section wb-legacy"><h2>工作区原料与上传</h2><p class="boundary">普通上传入口当前支持 HTML；PDF 使用已登记的受控加工流程，尚非通用 PDF 上传。</p>${previousSourceView()}</section>`;
+    <p class="boundary">普通上传入口当前支持 HTML；PDF 使用已登记的受控加工流程，尚非通用 PDF 上传。</p><details class="wb-legacy"><summary>工作区原料与历史测试（${state.sources.length}）</summary>${previousSourceView()}</details>`;
 };
 artifactsView = function () {
   return `${heading('知识产物', '知识产物', '先查看内容与适用范围，再按需展开质量证据和版本。')}${publicationTable()}
