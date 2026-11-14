@@ -42,8 +42,8 @@ workView = function () {
   if (!workshopOpen) return productionHome();
   const s = src();
   const nodes = [['source','原始资料'],['parse','条款解析'],['anchors','来源定位'],['documents','条款知识'],['retrieval','检索验证'],['validation','候选验证']];
-  return `${heading('知识生产 / 当前任务', s?.title || '新生产任务', '加工、质量验证、审批和发布分别记录。', '<button class="btn secondary" data-do="catalog">返回列表</button>')}
-    <div class="wb-toolbar"><button class="btn secondary" data-do="choose">选择原料</button><button class="btn secondary" data-do="recipe" ${!s?'disabled':''}>配置配方</button><button class="btn secondary" data-do="tests" ${!s?'disabled':''}>测试集</button><button class="btn" data-do="start" ${!s||!recipe||busy||activeRun()?'disabled':''}>开始生产</button></div>
+  return `${heading('知识生产 / 当前任务', s?.title || '新生产任务', '加工、质量验证、审批和发布分别记录。', `<button class="btn secondary" data-do="catalog">返回列表</button><button class="btn" data-do="start" ${!s||!recipe||busy||activeRun()?'disabled':''}>开始生产</button>`)}
+    <div class="wb-toolbar"><button class="btn secondary" data-do="choose">选择原料</button><button class="btn secondary" data-do="recipe" ${!s?'disabled':''}>配置配方</button><button class="btn secondary" data-do="tests" ${!s?'disabled':''}>测试集</button></div>
     <div class="progressline"><span>${recipeSummary()}</span>${badge(run?label(run.status):'尚未运行')}<select id="run-select" class="selector" aria-label="生产记录"><option value="">新生产任务</option>${sourceRuns(sourceId).map(r=>`<option value="${E(r.id)}" ${r.id===run?.id?'selected':''}>${E(label(r.status))} · ${E(new Date(r.createdAt).toLocaleString())}</option>`).join('')}</select></div>
     <section class="wb-section"><h2>生产过程</h2><div class="wb-flow">${nodes.map(([id,title]) => `<button data-step="${id}" class="${selection===id?'selected':''}"><strong>${title}</strong><small>${id==='source'?(s?'已登记':'未选择'):stage(id)?E(label(stage(id).status)):'查看记录'}</small></button>`).join('')}</div></section>
     ${inspector()}${productionChecks()}${run?.error?`<div role="alert" class="error-strip">${E(errors[run.error]||run.error)}</div>`:''}
