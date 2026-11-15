@@ -20,7 +20,8 @@ const assert=require('node:assert/strict');
       page.on('pageerror',error=>errors.push(error.message));
       await page.addInitScript(()=>localStorage.setItem('production-run','historical-xss-task'));
       await page.goto(url);
-      await page.getByText('暂无可公开的生产任务').waitFor();
+      await page.getByText('已发布版本 · 生产归档').waitFor();
+      await page.locator('[data-replay]').first().waitFor({state:'attached'});
       assert.equal(await page.evaluate(()=>localStorage.getItem('production-run')),null);
       assert.equal(await page.locator('[data-run]').count(),0);
       for(const section of ['production','sources','artifacts','consume']){
@@ -29,11 +30,20 @@ const assert=require('node:assert/strict');
         assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
         await page.screenshot({path:`browser-evidence/${width}-${section}.png`,fullPage:true});
       }
+      await page.locator('[data-page="production"]').click();
+      await page.locator('.wb-source-group > summary').first().click();
+      await page.locator('[data-replay]').first().click();
+      await page.locator('.wb-replay').waitFor();
+      assert.equal(await page.locator('.wb-replay > li').count(),5);
+      await page.screenshot({path:`browser-evidence/${width}-replay.png`,fullPage:true});
+      await page.locator('#replay-original').click();
+      await page.getByText('Original',{exact:true}).waitFor();
+      await page.getByRole('button',{name:'关闭',exact:true}).click();
       await page.locator('[data-page="sources"]').click();
       assert.equal(await page.locator('[data-do="upload"]').count(),0);
       await page.locator('.wb-source-group > summary').click();
       await page.locator('[data-publication]').first().click();
-      await page.locator('#published-text').waitFor();
+      await page.getByText('Original',{exact:true}).waitFor();
       assert.equal(await page.locator('#published-text').innerText(),'Original');
       await page.screenshot({path:`browser-evidence/${width}-original.png`,fullPage:true});
       for(const path of ['/api/sources','/api/runs','/api/document-evaluate','/api/document-source-activate','/api/document-approve','/api/document-publish','/api/search']){

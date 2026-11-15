@@ -6,12 +6,13 @@ import os
 import subprocess
 import threading
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-from urllib.parse import urlsplit
+from urllib.parse import parse_qs, urlsplit
+import re
 
 from knowledge_core.contracts import Rejected
 from web_production.assets import checked, BASELINE_SHA
 from web_production.engine import Production, ROOT, SAMPLE
-from web_production.published import catalog
+from web_production.public_reader import PublicReader
 
 
 def handler(service, *, read_only=None):
@@ -35,6 +36,7 @@ def handler(service, *, read_only=None):
     version = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     dirty = bool(subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True))
     test_lock = threading.Lock()
+    public_reader = PublicReader(os.environ.get('KF_WORKBENCH_CATALOG'))
 
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, *args):
@@ -46,6 +48,8 @@ def handler(service, *, read_only=None):
             self.send_header('Content-Type', mime)
             self.send_header('Content-Length', str(len(body)))
             self.send_header('Cache-Control', 'no-store')
+            if status == 429:
+                self.send_header('Retry-After', '60')
             self.send_header('X-Content-Type-Options', 'nosniff')
             self.send_header('Content-Security-Policy', "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'")
             self.end_headers()
@@ -59,15 +63,29 @@ def handler(service, *, read_only=None):
             if not self.trusted_host():
                 return self.respond(403, {'error': 'LOOPBACK_HOST_REQUIRED'})
             path = urlsplit(self.path).path
+            if path.startswith('/api/') and read_only and not public_reader.admit():
+                return self.respond(429, {'error': 'PUBLIC_READ_RATE_LIMIT'})
             try:
                 if path in files:
                     mime, body = files[path]
                     return self.respond(200, body, mime)
                 if path == '/api/published-products':
-                    return self.respond(200, catalog(os.environ.get('KF_WORKBENCH_CATALOG')))
+                    return self.respond(200, public_reader.summary())
                 if path.startswith('/api/published-products/'):
-                    return self.respond(200, catalog(os.environ.get('KF_WORKBENCH_CATALOG'),
-                        path.removeprefix('/api/published-products/')))
+                    match = re.fullmatch(r'/api/published-products/(\d{6})(?:/(pages|replay))?', path)
+                    if not match:
+                        return self.respond(404, {'error': 'PUBLICATION_NOT_FOUND'})
+                    code, operation = match.groups()
+                    if operation == 'pages':
+                        params = parse_qs(urlsplit(self.path).query, keep_blank_values=True)
+                        values = params.get('page', [])
+                        if (set(params) != {'page'} or len(values) != 1
+                                or not re.fullmatch(r'[1-9][0-9]{0,5}', values[0])):
+                            return self.respond(400, {'error': 'PUBLICATION_PAGE_REQUIRED'})
+                        return self.respond(200, public_reader.page(code, int(values[0])))
+                    if operation == 'replay':
+                        return self.respond(200, public_reader.replay(code))
+                    return self.respond(200, public_reader.summary(code))
                 if path == '/api/state':
                     snapshot = ({'m2': bool(getattr(service, 'm2', False)),
                                  'sources': [], 'runs': [], 'isolatedReleases': [],

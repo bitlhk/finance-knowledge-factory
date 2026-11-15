@@ -20,7 +20,9 @@ function taskList() {
 productionHome = function () {
   if(publicReadOnly())return `${heading('知识生产','知识生产','候选加工、质量验证、审批与发布分别记录。','<button class="btn" disabled title="工作台 SSO 尚未接入">登录后开放</button>')}
     <ol class="wb-steps"><li>选择原料</li><li>配置配方</li><li>运行生产</li><li>验证候选</li></ol>
-    <section class="wb-section"><h2>暂无可公开的生产任务</h2><p>当前是只读演示。上传、生产、评测、来源生效、审批和发布须在受权维护环境执行。</p><p class="boundary">历史测试任务保留在维护工作区，不会根据浏览器上次选择自动打开。已发布版本请进入“知识产物”查看。</p></section>`;
+    <section class="wb-section"><h2>已发布版本 · 生产归档</h2><p class="boundary">只读回顾原料、页码映射、质量和发布依据，不创建任务或调用模型。未归档的工序、耗时和实时进度不作推断。</p>
+    ${publishedProducts.map(p=>`<details class="wb-source-group"><summary><strong>${E(p.title)}</strong><span>${E(p.code)} · ${p.sources.length} 份原文 · ${p.caseCount} 道归档题</span></summary><button class="btn secondary" data-replay="${E(p.code)}">查看生产归档</button></details>`).join('') || '<p>暂无可公开的生产归档。</p>'}</section>
+    <section class="wb-section"><h2>新建生产任务</h2><p>上传、生产、评测、来源生效、审批和发布须在受权维护环境执行。当前页面只读，历史测试任务不公开。</p></section>`;
   return `${heading('知识生产', '知识生产', '固定原料版本，生产候选，验证后再审批与发布。', '<button class="btn" data-do="new-product">新建生产任务</button>')}
     <ol class="wb-steps"><li>选择原料</li><li>配置配方</li><li>运行生产</li><li>验证候选</li></ol>
     <section class="wb-section"><h2>当前生产任务</h2>${taskList()}</section>
@@ -70,15 +72,39 @@ render = function () {
   $('.versiontag').textContent = workshopOpen && run && page==='production'
     ? (run.release?.state==='ISOLATED_PUBLISHED'?'开发快照已发布':'生产记录：'+label(run.status))
     : publicReadOnly()?'公开只读':'开发环境';
+  document.querySelectorAll('[data-replay]').forEach(b => b.onclick = () => action(async () => {
+    const record = await api('/api/published-products/' + encodeURIComponent(b.dataset.replay) + '/replay');
+    dialog(record.title + ' · 生产归档', `<p class="boundary">固定发布证据，不是可执行流水线，也不是完整运行轨迹。仅证明下列记录已归档，不代表当前业务可售或模型每次回答正确。</p>
+      <ol class="wb-replay">${record.stages.map(s=>`<li><h3>${E(s.title)}</h3><p>${E(({VERIFIED:'原件摘要已核验',ARCHIVED:'已有归档依据',PASS:'该版本准入通过'})[s.status] || '待核验')}</p>${detail('查看归档依据',s.evidence)}</li>`).join('')}</ol>
+      <button class="btn secondary" id="replay-original">查看原文与页码</button>`);
+    $('#replay-original').onclick = () => action(() => showPublication(record.code));
+  }));
   document.querySelectorAll('[data-publication]').forEach(b => b.onclick = () => action(async () => {
-    const p = await api('/api/published-products/' + encodeURIComponent(b.dataset.publication));
-    dialog(p.title, `<p>${E(p.code)} · 固定版本 ${E(p.revision)} · ${p.pageCount} 页原文</p>${publicationNotice()}
-      <div class="wb-facts"><div><b>质量验证</b><p>${p.caseCount} 道归档题通过</p></div><div><b>审批方式</b><p>${p.approvalMode==='MAINTENANCE'?'受权本机维护审批':'SSO 审批'}</p></div><div><b>发布范围</b><p>${p.productionAuthorized?'记录已包含生产授权':'开发环境，不是银行生产授权'}</p></div></div>
-      <h3>原文与页码映射</h3><select id="published-page" aria-label="原文页码">${p.pages.map((x,i) => `<option value="${i}">${E(x.sourceId)} · PDF 第 ${x.page} 页</option>`).join('')}</select><p id="published-location" class="muted"></p><pre id="published-text" class="wb-original"></pre>
-      ${detail('适用范围与内容边界',p.applicability)}${detail('质量检查明细',p.checks)}${detail('技术证据：Candidate、质量、审批与 Manifest', {candidateDigest:p.candidateDigest,qualityAdmissionDigest:p.qualityAdmissionDigest,approvalDigest:p.approvalDigest,manifestDigest:p.manifestDigest,metricsBps:p.metricsBps})}`);
-    const select = $('#published-page');
-    const show = () => {const x=p.pages[Number(select.value)];$('#published-text').textContent=x.text;$('#published-location').textContent=`PDF 第 ${x.page} 页 · HTML 位置 ${x.htmlId}（内部定位，不是原文条款编号）`;};
-    select.onchange=show;show();
+    await showPublication(b.dataset.publication);
   }));
 };
+async function showPublication(code) {
+    const p = await api('/api/published-products/' + encodeURIComponent(code));
+    dialog(p.title, `<p>${E(p.code)} · 固定版本 ${E(p.revision)} · ${p.pageCount} 页原文</p>${publicationNotice()}
+      <div class="wb-facts"><div><b>质量验证</b><p>${p.caseCount} 道归档题通过</p></div><div><b>审批方式</b><p>${p.approvalMode==='MAINTENANCE'?'受权本机维护审批':'SSO 审批'}</p></div><div><b>发布范围</b><p>${p.productionAuthorized?'记录已包含生产授权':'开发环境，不是银行生产授权'}</p></div></div>
+      <h3>原文与页码映射</h3><select id="published-page" aria-label="原文页码">${p.pageIndex.map((x,i) => `<option value="${i+1}">${E(x.sourceId)} · PDF 第 ${x.page} 页</option>`).join('')}</select><p id="published-location" class="muted"></p><pre id="published-text" class="wb-original" aria-live="polite"></pre>
+      ${detail('适用范围与内容边界',p.applicability)}${detail('质量检查明细',p.checks)}${detail('技术证据：Candidate、质量、审批与 Manifest', {candidateDigest:p.candidateDigest,qualityAdmissionDigest:p.qualityAdmissionDigest,approvalDigest:p.approvalDigest,manifestDigest:p.manifestDigest,metricsBps:p.metricsBps})}`);
+    const select = $('#published-page');
+    const text = $('#published-text'), location = $('#published-location');
+    let request = 0;
+    const show = async () => {
+      const current = ++request;
+      text.textContent='正在读取原文…';location.textContent='';
+      try {
+        const result=await api('/api/published-products/'+encodeURIComponent(code)+'/pages?page='+select.value);
+        if(current!==request || !text.isConnected)return;
+        if(result.manifestDigest!==p.manifestDigest)throw new Error('版本已变化，请重新打开');
+        const x=result.page;
+        text.textContent=x.text;location.textContent=`PDF 第 ${x.page} 页 · HTML 位置 ${x.htmlId}（内部定位，不是原文条款编号）`;
+      } catch (_) {
+        if(current===request && text.isConnected)text.textContent='本页暂时无法核验，请重新选择页码或稍后重试。';
+      }
+    };
+    select.onchange=show;await show();
+}
 api('/api/published-products').then(result => {publishedProducts=result.products;}).catch(() => {publishedError=true;}).finally(() => {publishedLoaded=true;render();});
