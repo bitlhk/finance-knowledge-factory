@@ -63,7 +63,8 @@ def handler(service, *, read_only=None):
             if not self.trusted_host():
                 return self.respond(403, {'error': 'LOOPBACK_HOST_REQUIRED'})
             path = urlsplit(self.path).path
-            if path.startswith('/api/') and read_only and not public_reader.admit():
+            archive_read = path == '/api/published-products' or path.startswith('/api/published-products/')
+            if archive_read and read_only and not public_reader.admit():
                 return self.respond(429, {'error': 'PUBLIC_READ_RATE_LIMIT'})
             try:
                 if path in files:

@@ -2,6 +2,7 @@
 from collections import OrderedDict
 from copy import deepcopy
 import json
+import logging
 import threading
 import time
 
@@ -16,6 +17,8 @@ class PublicReader:
         self.lock = threading.Lock()
         self.cache = OrderedDict()
         self.window, self.requests = clock(), 0
+        self.rejected_total = 0
+        self.rejected_window = 0
 
     def admit(self):
         # Aggregate budget also bounds reverse-proxy traffic. Never trust client XFF.
@@ -23,8 +26,18 @@ class PublicReader:
             now = self.clock()
             if now - self.window >= 60:
                 self.window, self.requests = now, 0
+                self.rejected_window = 0
             self.requests += 1
-            return self.requests <= self.limit
+            if self.requests <= self.limit:
+                return True
+            self.rejected_total += 1
+            self.rejected_window += 1
+            # Count every denial; sample logs to avoid log amplification. No request data.
+            if self.rejected_window == 1 or self.rejected_window % 100 == 0:
+                logging.getLogger(__name__).warning(
+                    'public_read_rate_limited rejected_total=%d rejected_window=%d',
+                    self.rejected_total, self.rejected_window)
+            return False
 
     def _read(self, code):
         with self.lock:
@@ -57,7 +70,7 @@ class PublicReader:
         if not 1 <= number <= len(pages):
             raise Rejected('PUBLICATION_PAGE_NOT_FOUND')
         return {'code': code, 'manifestDigest': result['manifestDigest'],
-                'pageNumber': number, 'totalPages': len(pages), 'page': pages[number - 1]}
+                'pageNumber': number, 'archivedPageCount': len(pages), 'page': pages[number - 1]}
 
     def replay(self, code):
         result = self.summary(code)
@@ -67,7 +80,7 @@ class PublicReader:
                 'stages': [
                     {'title': '原料校验', 'status': 'VERIFIED', 'evidence': result['sources']},
                     {'title': '原文页码映射', 'status': 'ARCHIVED',
-                     'evidence': {'pageCount': len(result['pageIndex'])}},
+                     'evidence': {'archivedPageCount': len(result['pageIndex'])}},
                     {'title': '候选版本', 'status': 'ARCHIVED',
                      'evidence': {'candidateDigest': result['candidateDigest']}},
                     {'title': '质量准入', 'status': result['qualityDecision'],
