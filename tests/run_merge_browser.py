@@ -38,7 +38,7 @@ def main():
     (args.output/'provenance.json').write_text(json.dumps(provenance, indent=2))
     with tempfile.TemporaryDirectory(prefix='kf-browser-regression-') as state:
         service = DocumentProduction(state, client)
-        http = ThreadingHTTPServer(('127.0.0.1', 0), handler(service))
+        http = ThreadingHTTPServer(('127.0.0.1', 0), handler(service, read_only=False))
         thread = threading.Thread(target=http.serve_forever, daemon=True)
         thread.start()
         try:

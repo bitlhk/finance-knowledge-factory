@@ -302,7 +302,7 @@ def test_release_http_same_origin_and_no_privilege_parameters(tmp_path):
     import threading
     from web_production.server import handler
     service,_,data=make(tmp_path)
-    http=ThreadingHTTPServer(('127.0.0.1',0),handler(service))
+    http=ThreadingHTTPServer(('127.0.0.1',0),handler(service, read_only=False))
     thread=threading.Thread(target=http.serve_forever,daemon=True);thread.start()
     base=f'http://127.0.0.1:{http.server_port}'
     def post(body,origin):

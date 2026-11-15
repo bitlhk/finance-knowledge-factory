@@ -105,7 +105,7 @@ def test_restart_interrupted_not_retried(tmp_path):
 
 def test_http_origin_host_methods_and_script_text(tmp_path):
     p=Production(tmp_path)
-    http=ThreadingHTTPServer(('127.0.0.1',0),handler(p))
+    http=ThreadingHTTPServer(('127.0.0.1',0),handler(p, read_only=False))
     t=threading.Thread(target=http.serve_forever,daemon=True);t.start()
     base=f'http://127.0.0.1:{http.server_port}'
     try:

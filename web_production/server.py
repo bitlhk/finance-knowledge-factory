@@ -11,19 +11,27 @@ from urllib.parse import urlsplit
 from knowledge_core.contracts import Rejected
 from web_production.assets import checked, BASELINE_SHA
 from web_production.engine import Production, ROOT, SAMPLE
+from web_production.published import catalog
 
 
-def handler(service):
+def handler(service, *, read_only=None):
+    # Deployment policy, never a request/header or browser role. Fail closed.
+    if read_only is None:
+        read_only = os.environ.get('KF_WORKBENCH_ACCESS') != 'isolated-write'
     original = checked(ROOT / 'web_preview/baseline/v1.5.html', BASELINE_SHA).decode()
     css = original.split('<style>', 1)[1].split('</style>', 1)[0].encode()
     files = {'/': ('text/html; charset=utf-8', (ROOT / 'web_production/index.html').read_bytes()),
              '/app.js': ('text/javascript; charset=utf-8', (ROOT / 'web_production/app.js').read_bytes()),
              '/workshop.js': ('text/javascript; charset=utf-8', (ROOT / 'web_production/workshop.js').read_bytes()),
              '/style.css': ('text/css; charset=utf-8', css + (ROOT / 'web_production/style.css').read_bytes())}
+    files['/workbench.js'] = ('text/javascript; charset=utf-8', (ROOT / 'web_production/workbench.js').read_bytes())
+    files['/workbench.css'] = ('text/css; charset=utf-8', (ROOT / 'web_production/workbench.css').read_bytes())
+    files['/'] = (files['/'][0], files['/'][1].replace(b'</head>', b'<link rel="stylesheet" href="/workbench.css"></head>'))
     if getattr(service, 'm2', False):
         files['/'] = (files['/'][0], files['/'][1].replace(b'</body>', b'<script src="/m2.js"></script></body>'))
         files['/workshop.js'] = (files['/workshop.js'][0], files['/workshop.js'][1].removesuffix(b'init();\n'))
         files['/m2.js'] = ('text/javascript; charset=utf-8', (ROOT / 'm2/web.js').read_bytes())
+    files['/'] = (files['/'][0], files['/'][1].replace(b'</body>', b'<script src="/workbench.js"></script></body>'))
     version = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
     dirty = bool(subprocess.check_output(['git', 'status', '--porcelain'], cwd=ROOT, text=True))
     test_lock = threading.Lock()
@@ -55,10 +63,22 @@ def handler(service):
                 if path in files:
                     mime, body = files[path]
                     return self.respond(200, body, mime)
+                if path == '/api/published-products':
+                    return self.respond(200, catalog(os.environ.get('KF_WORKBENCH_CATALOG')))
+                if path.startswith('/api/published-products/'):
+                    return self.respond(200, catalog(os.environ.get('KF_WORKBENCH_CATALOG'),
+                        path.removeprefix('/api/published-products/')))
                 if path == '/api/state':
-                    return self.respond(200, {**service.snapshot(), 'commit': version, 'dirty': dirty,
+                    snapshot = ({'m2': bool(getattr(service, 'm2', False)),
+                                 'sources': [], 'runs': [], 'isolatedReleases': [],
+                                 'modelReady': False}
+                                if read_only else service.snapshot())
+                    return self.respond(200, {**snapshot, 'commit': version, 'dirty': dirty,
+                        'accessMode': 'PUBLIC_READ_ONLY' if read_only else 'ISOLATED_WRITE',
                         'prototypeSha256': BASELINE_SHA, 'version': 'M2 Isolated Documents' if getattr(service,'m2',False) else 'Web Preview V0.2'})
                 if path.startswith('/api/runs/'):
+                    if read_only:
+                        return self.respond(403, {'error': 'WORKBENCH_AUTHENTICATION_REQUIRED'})
                     return self.respond(200, service.get(path.removeprefix('/api/runs/')))
                 return self.respond(404, {'error': 'NOT_FOUND'})
             except Rejected as exc:
@@ -67,6 +87,11 @@ def handler(service):
         do_HEAD = do_GET
 
         def do_POST(self):
+            if read_only:
+                # Includes search/rule-test: those can consume resources and append receipts.
+                # Reject before parsing input, creating Core objects or contacting providers.
+                self.close_connection = True
+                return self.respond(403, {'error': 'PUBLIC_WORKBENCH_READ_ONLY'})
             host = self.headers.get('Host')
             if not self.trusted_host() or self.headers.get('Origin') != 'http://' + host:
                 return self.respond(403, {'error': 'SAME_ORIGIN_REQUIRED'})
